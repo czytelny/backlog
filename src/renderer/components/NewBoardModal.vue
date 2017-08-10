@@ -26,9 +26,11 @@
     methods: {
       submitNewBoard () {
         this.$emit('submitNewBoard', this.newBoardName)
+        this.newBoardName = ''
       },
       closeNewBoardModal () {
         this.$emit('closeNewBoardModal')
+        this.newBoardName = ''
       }
     }
   }

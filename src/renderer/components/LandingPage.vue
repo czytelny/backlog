@@ -2,7 +2,7 @@
   <div id="wrapper">
     <Row>
       <Col span="24">
-      <Tabs :value="selectedTab" type="card" closable>
+      <Tabs :value="selectedTab" type="card" closable @on-tab-remove="handleBoardRemove">
         <Tab-pane v-for="board in boards"
                   :label="board.label"
                   :name="board.id"
@@ -84,6 +84,11 @@
         }
         this.boards = storage.get('boards')
         console.log(storage.getAll())
+      },
+      handleBoardRemove (name) {
+        const boardIndex = this.boards.findIndex(board => board.id === name)
+        this.boards.splice(boardIndex, 1)
+        storage.set(`boards`, this.boards)
       }
     },
     created () {
