@@ -1,14 +1,14 @@
 <template>
   <Modal :value="newBoardModal"
          title="Add new board"
-         @on-ok="submitNewTab"
+         @on-ok="submitNewBoard"
          @on-cancel="closeNewBoardModal"
          okText="Add"
          cancelText="Cancel">
     <Input v-model="newBoardName"
            ref="newBoardNameInput"
            placeholder="New board name"
-           @on-keyup.enter="submitNewTab"
+           @on-keyup.enter="submitNewBoard"
            v-focus
     />
   </Modal>
@@ -24,8 +24,8 @@
       }
     },
     methods: {
-      submitNewTab () {
-        this.$emit('submitNewTab', this.newBoardName)
+      submitNewBoard () {
+        this.$emit('submitNewBoard', this.newBoardName)
       },
       closeNewBoardModal () {
         this.$emit('closeNewBoardModal')

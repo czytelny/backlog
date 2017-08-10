@@ -14,7 +14,7 @@
           </Input>
         </Form-item>
         </Col>
-        <Col span="5" >
+        <Col span="6" >
         <Form-item style="width:100%;">
           <Checkbox v-model="prepend">Add to beginning</Checkbox>
         </Form-item>

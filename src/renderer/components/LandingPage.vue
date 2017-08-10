@@ -24,7 +24,7 @@
       </Col>
     </Row>
     <new-board-modal :newBoardModal="newBoardModal"
-                     @submitNewTab="submitNewTab"
+                     @submitNewBoard="submitNewBoard"
                      @closeNewBoardModal="closeNewBoardModal">
     </new-board-modal>
   </div>
@@ -36,6 +36,7 @@
   import NewBoardModal from './NewBoardModal.vue'
 
   const shortid = require('electron').remote.require('shortid')
+  const storage = require('electron').remote.require('electron-settings')
 
   export default {
     components: {
@@ -46,31 +47,27 @@
     data () {
       return {
         newItem: null,
-        boards: [{id: 'default', label: 'Default board'}],
-        boardItems: [
-          {id: 1, text: 'zrobic 1 rzecz', isDone: false},
-          {id: 2, text: 'zrobic 2 rzecz', isDone: false},
-          {id: 3, text: 'zrobic 3 rzecz', isDone: false}
-        ],
+        boards: [],
+        boardItems: [],
         selectedTab: 'default',
         newBoardModal: false
       }
     },
     methods: {
       closeNewBoardModal () {
-        console.log('dup')
         this.newBoardModal = false
       },
       showNewBoardModal () {
         this.newBoardModal = true
       },
-      submitNewTab (boardName) {
+      submitNewBoard (boardName) {
         const newTabId = shortid.generate()
-        this.boards.push({id: newTabId, label: boardName})
+        this.boards.push({id: newTabId, label: boardName, items: []})
+        storage.set(`boards`, this.boards)
         this.selectedTab = newTabId
         this.newBoardModal = false
         this.newBoardName = ''
-        this.$Message.success('board added')
+        this.$Message.success('Board added')
       },
       submitNewItem (itemVal, boardId, prepend) {
         if (!prepend) {
@@ -78,7 +75,19 @@
         } else {
           this.boardItems.unshift({id: shortid.generate(), text: itemVal, isDone: false})
         }
+      },
+      fetchBoards () {
+//        storage.deleteAll()
+        const boards = storage.get('boards')
+        if (!boards) {
+          storage.set('boards', [{id: 'default', label: 'Default board', items: []}])
+        }
+        this.boards = storage.get('boards')
+        console.log(storage.getAll())
       }
+    },
+    created () {
+      this.fetchBoards()
     }
   }
 </script>
