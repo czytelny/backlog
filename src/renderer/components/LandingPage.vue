@@ -11,7 +11,7 @@
         </Tab-pane>
 
         <Button type="ghost"
-                @click="newBoardModal=true"
+                @click="showNewBoardModal"
                 size="small"
                 slot="extra"
                 :disabled="boards.length > 4">
@@ -27,9 +27,11 @@
         okText="Add"
         cancelText="Cancel">
       <Input v-model="newBoardName"
+             ref="newBoardNameInput"
              placeholder="New board name"
              @on-keyup.enter="submitNewTab"
-             autofocus/>
+             v-focus
+      />
     </Modal>
   </div>
 </template>
@@ -57,6 +59,9 @@
       }
     },
     methods: {
+      showNewBoardModal () {
+        this.newBoardModal = true
+      },
       submitNewTab () {
         const newTabId = shortid.generate()
         this.boards.push({id: newTabId, label: this.newBoardName})
@@ -70,5 +75,7 @@
 </script>
 
 <style>
-
+ .ivu-tabs-bar{
+   -webkit-user-select: none;
+ }
 </style>

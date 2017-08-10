@@ -9,6 +9,12 @@ Vue.config.productionTip = false
 
 Vue.use(iView)
 
+Vue.directive('focus', {
+  update: function (el) {
+    el.getElementsByTagName('input')[0].focus()
+  }
+})
+
 /* eslint-disable no-new */
 new Vue({
   components: {App},
