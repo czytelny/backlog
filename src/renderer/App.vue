@@ -26,5 +26,7 @@
 
   body {
     font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Droid Sans, Helvetica Neue, sans-serif;
+    height: 100vh;
+    background-color: #fafafa;
   }
 </style>

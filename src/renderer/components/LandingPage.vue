@@ -7,7 +7,10 @@
                   :label="board.label"
                   :name="board.id"
                   :key="board.id">
-          <board :id="board.id"></board>
+          <board :boardId="board.id"
+                 :items="boardItems"
+                 @submitNewItem="submitNewItem">
+          </board>
         </Tab-pane>
 
         <Button type="ghost"
@@ -20,32 +23,23 @@
       </Tabs>
       </Col>
     </Row>
-    <Modal
-        v-model="newBoardModal"
-        title="Add new board"
-        @on-ok="submitNewTab"
-        okText="Add"
-        cancelText="Cancel">
-      <Input v-model="newBoardName"
-             ref="newBoardNameInput"
-             placeholder="New board name"
-             @on-keyup.enter="submitNewTab"
-             v-focus
-      />
-    </Modal>
+    <new-board-modal :newBoardModal="newBoardModal"
+                     @submitNewTab="submitNewTab"
+                     @closeNewBoardModal="closeNewBoardModal">
+    </new-board-modal>
   </div>
 </template>
 
 <script>
 
   import Board from './Board.vue'
-  import AddNewTab from './AddNewTab.vue'
+  import NewBoardModal from './NewBoardModal.vue'
 
   const shortid = require('electron').remote.require('shortid')
 
   export default {
     components: {
-      AddNewTab,
+      NewBoardModal,
       Board
     },
     name: 'landing-page',
@@ -53,29 +47,44 @@
       return {
         newItem: null,
         boards: [{id: 'default', label: 'Default board'}],
+        boardItems: [
+          {id: 1, text: 'zrobic 1 rzecz', isDone: false},
+          {id: 2, text: 'zrobic 2 rzecz', isDone: false},
+          {id: 3, text: 'zrobic 3 rzecz', isDone: false}
+        ],
         selectedTab: 'default',
-        newBoardName: '',
         newBoardModal: false
       }
     },
     methods: {
+      closeNewBoardModal () {
+        console.log('dup')
+        this.newBoardModal = false
+      },
       showNewBoardModal () {
         this.newBoardModal = true
       },
-      submitNewTab () {
+      submitNewTab (boardName) {
         const newTabId = shortid.generate()
-        this.boards.push({id: newTabId, label: this.newBoardName})
+        this.boards.push({id: newTabId, label: boardName})
         this.selectedTab = newTabId
         this.newBoardModal = false
         this.newBoardName = ''
         this.$Message.success('board added')
+      },
+      submitNewItem (itemVal, boardId, prepend) {
+        if (!prepend) {
+          this.boardItems.push({id: shortid.generate(), text: itemVal, isDone: false})
+        } else {
+          this.boardItems.unshift({id: shortid.generate(), text: itemVal, isDone: false})
+        }
       }
     }
   }
 </script>
 
 <style>
- .ivu-tabs-bar{
-   -webkit-user-select: none;
- }
+  .ivu-tabs-bar {
+    -webkit-user-select: none;
+  }
 </style>
