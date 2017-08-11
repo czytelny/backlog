@@ -14,8 +14,7 @@
         >
           <board :boardId="board.id"
                  :selectedTab="selectedTab"
-                 :items="boardItems"
-                 @submitNewItem="submitNewItem">
+                 >
           </board>
         </Tab-pane>
 
@@ -43,7 +42,6 @@
 
   import XXH from 'xxhashjs'
 
-  const shortid = require('electron').remote.require('shortid')
   const storage = require('electron').remote.require('electron-settings')
 
   export default {
@@ -56,7 +54,6 @@
       return {
         newItem: '',
         boards: [],
-        boardItems: [],
         selectedTab: 'default',
         newBoardModal: false
       }
@@ -77,13 +74,6 @@
         this.saveActiveBoard(newBoardId)
         this.$Message.success('Board added')
         this.$nextTick(() => this.$bus.$emit('boardAdded', newBoardId))
-      },
-      submitNewItem (itemVal, boardId, prepend) {
-        if (!prepend) {
-          this.boardItems.push({id: shortid.generate(), text: itemVal, isDone: false})
-        } else {
-          this.boardItems.unshift({id: shortid.generate(), text: itemVal, isDone: false})
-        }
       },
       fetchBoards () {
 //        storage.deleteAll()

@@ -22,12 +22,12 @@
       </Row>
     </Form>
 
-    <draggable :list="items">
+    <draggable :list="boardItems">
       <transition-group name="flip-list">
-        <div v-for="item in items "
+        <div v-for="item in boardItems"
              :key="item.id"
              class="item">
-          <Checkbox v-model="item.isDone">{{item.text}}</Checkbox>
+          <Checkbox v-model="item.isDone" @on-change="changedIsDone">{{item.text}}</Checkbox>
         </div>
       </transition-group>
     </draggable>
@@ -36,13 +36,17 @@
 
 <script>
   import draggable from 'vuedraggable'
+  import XXH from 'xxhashjs'
+
+  const storage = require('electron').remote.require('electron-settings')
 
   export default {
     name: 'board',
-    props: ['boardId', 'items', 'selectedTab'],
+    props: ['boardId', 'selectedTab'],
     components: {draggable},
     data () {
       return {
+        boardItems: [],
         newTodoItem: '',
         prepend: false
       }
@@ -53,9 +57,30 @@
       }
     },
     methods: {
+      changedIsDone () {
+        this.saveBoardItems()
+      },
       submitNewItem () {
-        this.$emit('submitNewItem', this.newTodoItem, this.boardId, this.prepend)
+        const newBoardItem = {
+          id: XXH.h32(this.newTodoItem, 0xABCD).toString(16),
+          text: this.newTodoItem,
+          isDone: false
+        }
+        if (this.prepend) {
+          this.boardItems.unshift(newBoardItem)
+        } else {
+          this.boardItems.push(newBoardItem)
+        }
         this.newTodoItem = ''
+        this.saveBoardItems()
+      },
+      saveBoardItems () {
+        storage.set(`board-item-${this.boardId}`, this.boardItems)
+      },
+      fetchBoardItems () {
+        if (storage.has(`board-item-${this.boardId}`)) {
+          this.boardItems = storage.get(`board-item-${this.boardId}`)
+        }
       }
     },
     watch: {
@@ -76,6 +101,7 @@
           }, 250)
         }
       })
+      this.fetchBoardItems()
     }
   }
 </script>
