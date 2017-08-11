@@ -4,8 +4,7 @@
       <Row>
         <Col span="18">
         <Form-item style="width: 95%;">
-          <Input v-if="isActive"
-                 :autofocus="true"
+          <Input :autofocus="true"
                  ref="mainInput"
                  v-model="newTodoItem"
                  placeholder="Type and hit Enter"
@@ -60,13 +59,23 @@
       }
     },
     watch: {
-      isActive () {
+      selectedTab () {
         if (this.isActive) {
           setTimeout(() => {
             this.$refs['mainInput'].focus()
           }, 250)
         }
       }
+    },
+    created () {
+      const vm = this
+      this.$bus.$on('boardAdded', function (boardId) {
+        if (vm.boardId === boardId) {
+          setTimeout(() => {
+            vm.$refs['mainInput'].focus()
+          }, 250)
+        }
+      })
     }
   }
 </script>

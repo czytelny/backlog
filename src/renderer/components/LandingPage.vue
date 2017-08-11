@@ -6,7 +6,7 @@
             type="card"
             closable
             @on-tab-remove="handleBoardRemove"
-      >
+            @on-click="saveActiveBoard">
         <Tab-pane v-for="board in boards"
                   :label="board.label"
                   :name="board.id"
@@ -40,6 +40,7 @@
 
   import Board from './Board.vue'
   import NewBoardModal from './NewBoardModal.vue'
+
   import XXH from 'xxhashjs'
 
   const shortid = require('electron').remote.require('shortid')
@@ -68,15 +69,14 @@
         this.newBoardModal = true
       },
       submitNewBoard (boardName) {
-        const newTabId = XXH.h32(boardName, 0xABCD).toString(16)
-        console.log(newTabId)
-
-        this.boards.push({id: newTabId, label: boardName, items: []})
+        const newBoardId = XXH.h32(boardName, 0xABCD).toString(16)
+        this.boards.push({id: newBoardId, label: boardName, items: []})
         storage.set(`boards`, this.boards)
-        this.selectedTab = newTabId
+        this.selectedTab = newBoardId
         this.newBoardModal = false
-        this.newBoardName = ''
+        this.saveActiveBoard(newBoardId)
         this.$Message.success('Board added')
+        this.$nextTick(() => this.$bus.$emit('boardAdded', newBoardId))
       },
       submitNewItem (itemVal, boardId, prepend) {
         if (!prepend) {
@@ -98,10 +98,17 @@
         const boardIndex = this.boards.findIndex(board => board.id === name)
         this.boards.splice(boardIndex, 1)
         storage.set(`boards`, this.boards)
+        this.saveActiveBoard(this.selectedTab)
+      },
+      saveActiveBoard (boardId) {
+        storage.set(`activeBoard`, boardId)
       }
     },
     created () {
       this.fetchBoards()
+      if (storage.has('activeBoard')) {
+        this.selectedTab = storage.get('activeBoard')
+      }
     }
   }
 </script>
