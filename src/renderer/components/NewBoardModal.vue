@@ -6,7 +6,6 @@
          okText="Add"
          cancelText="Cancel">
     <Input v-model="newBoardName"
-           ref="newBoardNameInput"
            placeholder="New board name"
            @on-keyup.enter="submitNewBoard"
            v-focus

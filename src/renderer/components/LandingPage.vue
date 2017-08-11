@@ -2,12 +2,18 @@
   <div id="wrapper">
     <Row>
       <Col span="24">
-      <Tabs :value="selectedTab" type="card" closable @on-tab-remove="handleBoardRemove">
+      <Tabs v-model="selectedTab"
+            type="card"
+            closable
+            @on-tab-remove="handleBoardRemove"
+      >
         <Tab-pane v-for="board in boards"
                   :label="board.label"
                   :name="board.id"
-                  :key="board.id">
+                  :key="board.id"
+        >
           <board :boardId="board.id"
+                 :selectedTab="selectedTab"
                  :items="boardItems"
                  @submitNewItem="submitNewItem">
           </board>
@@ -34,6 +40,7 @@
 
   import Board from './Board.vue'
   import NewBoardModal from './NewBoardModal.vue'
+  import XXH from 'xxhashjs'
 
   const shortid = require('electron').remote.require('shortid')
   const storage = require('electron').remote.require('electron-settings')
@@ -46,7 +53,7 @@
     name: 'landing-page',
     data () {
       return {
-        newItem: null,
+        newItem: '',
         boards: [],
         boardItems: [],
         selectedTab: 'default',
@@ -61,7 +68,9 @@
         this.newBoardModal = true
       },
       submitNewBoard (boardName) {
-        const newTabId = shortid.generate()
+        const newTabId = XXH.h32(boardName, 0xABCD).toString(16)
+        console.log(newTabId)
+
         this.boards.push({id: newTabId, label: boardName, items: []})
         storage.set(`boards`, this.boards)
         this.selectedTab = newTabId

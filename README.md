@@ -1,8 +1,29 @@
 # backlog
 
-> An electron-vue based project for storing todo's
+> Simple desktop app for quickly writing down "TODO" or "tasks" or ideas. 
+> You can organize them with boards. No dependencies, no internet connection required, 
+> no external accounts. Sleek flow.
+
+### Why ?
+While programming I often had glimpse of an ideas with some improvements to implement
+in the future. Or thoughts about cool new project which I should start. One sentence, couple words to get
+back to it in the future. 
+
+I know, there are hundreds of "todo list managers" or other "notes manager",
+but this one will eventually fulfill my needs perfectly. 
+I write my thoughts on some sticky notes, I tried Evernote, Simplenote... 
+They are fine, but all of them was either bloated with unnecessary features or lack of desired "flow" - 
+when I open program I want type down thoughts, hit enter, and get back to my actual work.  
+No dependencies, no internet connection required, no external accounts, no long descriptions.
+
+### Demo
+It's not ready yet, when 1.0 release will be ready I'll put link here with some screenshots 
+
+### How ?
+It's builded with `Electron` and `Vue.js`. Component framework is `iView`
 
 #### Build Setup
+You can build it yourself instead of downloading executable:
 
 ``` bash
 # install dependencies

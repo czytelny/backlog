@@ -4,17 +4,18 @@
       <Row>
         <Col span="18">
         <Form-item style="width: 95%;">
-          <Input v-focus
-                 autofocus
-                 type="text"
+          <Input v-if="isActive"
+                 :autofocus="true"
+                 ref="mainInput"
                  v-model="newTodoItem"
-                 placeholder="Todo..."
+                 placeholder="Type and hit Enter"
+                 size="large"
                  @on-keyup.enter="submitNewItem"
                  icon="plus">
           </Input>
         </Form-item>
         </Col>
-        <Col span="6" >
+        <Col span="6">
         <Form-item style="width:100%;">
           <Checkbox v-model="prepend">Add to beginning</Checkbox>
         </Form-item>
@@ -39,7 +40,7 @@
 
   export default {
     name: 'board',
-    props: ['boardId', 'items'],
+    props: ['boardId', 'items', 'selectedTab'],
     components: {draggable},
     data () {
       return {
@@ -47,10 +48,24 @@
         prepend: false
       }
     },
+    computed: {
+      isActive () {
+        return this.boardId === this.selectedTab
+      }
+    },
     methods: {
       submitNewItem () {
         this.$emit('submitNewItem', this.newTodoItem, this.boardId, this.prepend)
         this.newTodoItem = ''
+      }
+    },
+    watch: {
+      isActive () {
+        if (this.isActive) {
+          setTimeout(() => {
+            this.$refs['mainInput'].focus()
+          }, 250)
+        }
       }
     }
   }

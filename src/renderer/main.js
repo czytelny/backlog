@@ -10,7 +10,7 @@ Vue.config.productionTip = false
 Vue.use(iView)
 
 Vue.directive('focus', {
-  update: function (el) {
+  componentUpdated: function (el) {
     el.getElementsByTagName('input')[0].focus()
   }
 })

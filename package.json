@@ -28,7 +28,8 @@
     "shortid": "^2.2.8",
     "vue": "^2.3.3",
     "vue-electron": "^1.0.6",
-    "vuedraggable": "^2.14.1"
+    "vuedraggable": "^2.14.1",
+    "xxhashjs": "^0.2.1"
   },
   "devDependencies": {
     "babel-core": "^6.22.1",
