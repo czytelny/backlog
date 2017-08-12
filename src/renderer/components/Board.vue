@@ -122,6 +122,7 @@
         if (indexToRemove !== -1) {
           this.boardItems.splice(indexToRemove, 1)
           this.saveBoardItems()
+          this.focusOnInput()
         }
       },
       focusOnInput () {
@@ -172,11 +173,11 @@
   }
 
   .list-complete-move {
-    transition: transform .75s;
+    transition: transform .5s;
   }
 
   .list-complete-item {
-    transition: all .75s;
+    transition: all .5s;
     margin-right: 10px;
   }
 

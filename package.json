@@ -1,9 +1,9 @@
 {
   "name": "backlog",
-  "productName": "backlog",
+  "productName": "Backlog",
   "version": "0.0.0",
   "author": "Michal Chwedczuk <czytelny@gmail.com>",
-  "description": "An electron-vue based project for storing todo's",
+  "description": "An electron-vue based project for storing todo's lists",
   "license": null,
   "main": "./dist/electron/main.js",
   "scripts": {
