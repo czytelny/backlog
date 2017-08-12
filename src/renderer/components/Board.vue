@@ -18,20 +18,29 @@
         </Col>
         <Col span="6">
         <Form-item style="width:100%;">
-          <Checkbox v-model="prepend">Add to beginning</Checkbox>
+          <Checkbox v-model="prepend"
+                    @on-change="focusOnInput">
+            <span v-if="!prepend">Adding to tail</span><span v-if="prepend">Adding to head</span>
+          </Checkbox>
         </Form-item>
         </Col>
       </Row>
     </Form>
 
     <draggable :list="boardItems">
-      <transition-group name="flip-list">
+      <transition-group name="list-complete">
         <div v-for="item in boardItems"
              :key="item.id"
-             class="item"
+             class="item list-complete-item"
              :class="{'doneItem': item.isDone}">
           <Checkbox :key="item.id" v-model="item.isDone" @on-change="changedIsDone">{{item.text}}</Checkbox>
-          <pre>{{item.isDone}}</pre>
+          <span class="removeItem">
+            <Button icon="ios-trash-outline"
+                    shape="circle"
+                    size="small"
+                    type="dashed"
+                    @click="removeItem(item)"></Button>
+          </span>
         </div>
       </transition-group>
     </draggable>
@@ -86,6 +95,16 @@
           this.isSubmittingNewItem = false
         })
       },
+      removeItem (item) {
+        const indexToRemove = this.boardItems.findIndex(el => el.id === item.id)
+        if (indexToRemove !== -1) {
+          this.boardItems.splice(indexToRemove, 1)
+          this.saveBoardItems()
+        }
+      },
+      focusOnInput () {
+        this.$refs['mainInput'].focus()
+      },
       saveBoardItems () {
         storage.set(`board-item-${this.boardId}`, this.boardItems)
       },
@@ -125,14 +144,27 @@
     flex-direction: column;
     background-color: #ffffff;
   }
-
+  
   .item {
     border-bottom: 1px solid #cecece;
     cursor: pointer;
+    position: relative;
   }
 
-  .doneItem label {
-    text-decoration: line-through;
+  .item.doneItem {
+    opacity: .25;
+  }
+
+  .removeItem {
+    position: absolute;
+    right: 5px;
+    top: 35%;
+    opacity: 0.35;
+    cursor: pointer;
+  }
+
+  .removeItem:hover {
+    opacity: 1;
   }
 
   .item label {
@@ -140,7 +172,20 @@
     font-size: 1.3em;
   }
 
-  .flip-list-move {
-    transition: transform 1s;
+
+  .list-complete-move {
+    transition: transform .75s;
+  }
+
+  .list-complete-item {
+    transition: all .75s;
+    margin-right: 10px;
+  }
+  .list-complete-enter, .list-complete-leave-to
+    /* .list-complete-leave-active below version 2.1.8 */ {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  .list-complete-leave-active {
   }
 </style>
