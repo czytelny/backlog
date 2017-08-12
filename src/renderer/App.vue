@@ -17,6 +17,7 @@
 
 <style>
   @import url('https://fonts.googleapis.com/css?family=Roboto');
+  @import url('~animate.css');
 
   * {
     box-sizing: border-box;

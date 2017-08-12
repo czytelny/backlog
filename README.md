@@ -7,7 +7,7 @@
 ### Why ?
 While programming I often had glimpse of an ideas with some improvements to implement
 in the future. Or thoughts about cool new project which I should start. One sentence, couple words to get
-back to it in the future. 
+back to it in the future. It serve me as a backlog for my side projects - hence project name. 
 
 I know, there are hundreds of "todo list managers" or other "notes manager",
 but this one will eventually fulfill my needs perfectly. 

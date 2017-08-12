@@ -10,7 +10,9 @@
                  placeholder="Type and hit Enter"
                  size="large"
                  @on-keyup.enter="submitNewItem"
-                 icon="plus">
+                 icon="plus"
+                 class="animated"
+                 :class="{'fadeOutDown': isSubmittingNewItem, 'fadeIn': !isSubmittingNewItem}">
           </Input>
         </Form-item>
         </Col>
@@ -50,7 +52,8 @@
       return {
         boardItems: [],
         newTodoItem: '',
-        prepend: false
+        prepend: false,
+        isSubmittingNewItem: false
       }
     },
     computed: {
@@ -66,6 +69,7 @@
         if (this.newTodoItem.length === 0) {
           return
         }
+        this.isSubmittingNewItem = true
         const newBoardItem = {
           id: XXH.h32(this.newTodoItem, 0xABCD).toString(16),
           text: this.newTodoItem,
@@ -78,6 +82,9 @@
         }
         this.newTodoItem = ''
         this.saveBoardItems()
+        this.$nextTick(() => {
+          this.isSubmittingNewItem = false
+        })
       },
       saveBoardItems () {
         storage.set(`board-item-${this.boardId}`, this.boardItems)
