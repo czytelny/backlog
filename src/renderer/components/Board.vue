@@ -26,22 +26,30 @@
         </Col>
       </Row>
     </Form>
-
+    <div class="showDoneLink">
+      <Button v-if="!showDone"
+              type="dashed"
+              shape="circle"
+              @click="showDone=!showDone">Show done
+      </Button>
+      <Button v-if="showDone"
+              type="dashed"
+              shape="circle"
+              @click="showDone=!showDone">
+        Hide done
+      </Button>
+    </div>
     <draggable :list="boardItems">
       <transition-group name="list-complete">
-        <div v-for="item in boardItems"
-             :key="item.id"
-             class="item list-complete-item"
-             :class="{'doneItem': item.isDone}">
-          <Checkbox :key="item.id" v-model="item.isDone" @on-change="changedIsDone">{{item.text}}</Checkbox>
-          <span class="removeItem">
-            <Button icon="ios-trash-outline"
-                    shape="circle"
-                    size="small"
-                    type="dashed"
-                    @click="removeItem(item)"></Button>
-          </span>
-        </div>
+        <board-item v-for="item in boardItems"
+                    :key="item.id"
+                    :itemId="item.id"
+                    :isDone="item.isDone"
+                    :text="item.text"
+                    v-if="shouldBeDisplayed(item)"
+                    @changeIsDone="changeIsDone"
+                    @removeItem="removeItem">
+        </board-item>
       </transition-group>
     </draggable>
   </div>
@@ -50,19 +58,24 @@
 <script>
   import draggable from 'vuedraggable'
   import XXH from 'xxhashjs'
+  import BoardItem from './BoardItem.vue'
 
   const storage = require('electron').remote.require('electron-settings')
 
   export default {
     name: 'board',
     props: ['boardId', 'selectedTab'],
-    components: {draggable},
+    components: {
+      BoardItem,
+      draggable
+    },
     data () {
       return {
         boardItems: [],
         newTodoItem: '',
         prepend: false,
-        isSubmittingNewItem: false
+        isSubmittingNewItem: false,
+        showDone: true
       }
     },
     computed: {
@@ -71,8 +84,17 @@
       }
     },
     methods: {
-      changedIsDone () {
+      changeIsDone (itemId, newVal) {
+        console.log(itemId, newVal)
+        this.boardItems.find(item => item.id === itemId).isDone = newVal
+        this.boardItems = this.boardItems.slice(0)
         this.saveBoardItems()
+      },
+      shouldBeDisplayed (item) {
+        if (!item.isDone) {
+          return true
+        }
+        return this.showDone
       },
       submitNewItem () {
         if (this.newTodoItem.length === 0) {
@@ -95,8 +117,8 @@
           this.isSubmittingNewItem = false
         })
       },
-      removeItem (item) {
-        const indexToRemove = this.boardItems.findIndex(el => el.id === item.id)
+      removeItem (itemId) {
+        const indexToRemove = this.boardItems.findIndex(el => el.id === itemId)
         if (indexToRemove !== -1) {
           this.boardItems.splice(indexToRemove, 1)
           this.saveBoardItems()
@@ -138,40 +160,16 @@
 </script>
 
 <style>
+  .showDoneLink {
+    text-align: center;
+  }
+
   .tab-content {
     padding: 0 20px;
     display: flex;
     flex-direction: column;
     background-color: #ffffff;
   }
-  
-  .item {
-    border-bottom: 1px solid #cecece;
-    cursor: pointer;
-    position: relative;
-  }
-
-  .item.doneItem {
-    opacity: .25;
-  }
-
-  .removeItem {
-    position: absolute;
-    right: 5px;
-    top: 35%;
-    opacity: 0.35;
-    cursor: pointer;
-  }
-
-  .removeItem:hover {
-    opacity: 1;
-  }
-
-  .item label {
-    padding: 10px;
-    font-size: 1.3em;
-  }
-
 
   .list-complete-move {
     transition: transform .75s;
@@ -181,11 +179,14 @@
     transition: all .75s;
     margin-right: 10px;
   }
+
   .list-complete-enter, .list-complete-leave-to
-    /* .list-complete-leave-active below version 2.1.8 */ {
+    /* .list-complete-leave-active below version 2.1.8 */
+  {
     opacity: 0;
     transform: translateY(30px);
   }
+
   .list-complete-leave-active {
   }
 </style>
