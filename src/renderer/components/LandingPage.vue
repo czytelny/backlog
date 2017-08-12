@@ -14,16 +14,19 @@
         >
           <board :boardId="board.id"
                  :selectedTab="selectedTab"
-                 >
+          >
           </board>
         </Tab-pane>
 
-        <Button type="ghost"
+        <Button type="dashed"
                 @click="showNewBoardModal"
                 size="small"
                 slot="extra"
-                :disabled="boards.length > 4">
-          New Board
+                icon="plus"
+                shape="circle"
+                :disabled="boards.length > 4"
+                style="margin-right: 5px;">
+          Add
         </Button>
       </Tabs>
       </Col>

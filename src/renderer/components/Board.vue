@@ -26,8 +26,10 @@
       <transition-group name="flip-list">
         <div v-for="item in boardItems"
              :key="item.id"
-             class="item">
-          <Checkbox v-model="item.isDone" @on-change="changedIsDone">{{item.text}}</Checkbox>
+             class="item"
+             :class="{'doneItem': item.isDone}">
+          <Checkbox :key="item.id" v-model="item.isDone" @on-change="changedIsDone">{{item.text}}</Checkbox>
+          <pre>{{item.isDone}}</pre>
         </div>
       </transition-group>
     </draggable>
@@ -61,6 +63,9 @@
         this.saveBoardItems()
       },
       submitNewItem () {
+        if (this.newTodoItem.length === 0) {
+          return
+        }
         const newBoardItem = {
           id: XXH.h32(this.newTodoItem, 0xABCD).toString(16),
           text: this.newTodoItem,
@@ -116,8 +121,11 @@
 
   .item {
     border-bottom: 1px solid #cecece;
-
     cursor: pointer;
+  }
+
+  .doneItem label {
+    text-decoration: line-through;
   }
 
   .item label {
