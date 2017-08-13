@@ -18,10 +18,12 @@
         </Col>
         <Col span="6">
         <Form-item style="width:100%;">
-          <Checkbox v-model="prepend"
-                    @on-change="focusOnInput">
-            <span v-if="!prepend">Adding to tail</span><span v-if="prepend">Adding to head</span>
-          </Checkbox>
+          <i-switch v-model="prepend"
+                    @on-change="focusOnInput"
+                    size="large">
+            <span slot="open">Head</span>
+            <span slot="close">Tail</span>
+          </i-switch>
         </Form-item>
         </Col>
       </Row>
