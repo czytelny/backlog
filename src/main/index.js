@@ -1,6 +1,6 @@
 'use strict'
 
-import { app, BrowserWindow } from 'electron'
+import { app, BrowserWindow, Menu } from 'electron'
 
 const settings = require('electron-settings')
 
@@ -39,7 +39,11 @@ function createWindow () {
   mainWindow = new BrowserWindow(windowConfig)
 
   mainWindow.loadURL(winURL)
-  mainWindow.setMenu(null)
+  if (process.platform === 'darwin') {
+    mainWindow.setMenu(createMenuOnMac())
+  } else {
+    mainWindow.setMenu(null)
+  }
 
   mainWindow.on('ready-to-show', () => {
     mainWindow.show()
@@ -72,4 +76,23 @@ function saveWindowState (mainWindow) {
   const currState = settings.get('windowState')
   const bounds = mainWindow.getBounds()
   settings.set('windowState', Object.assign({}, currState, bounds))
+}
+
+function createMenuOnMac () {
+  return Menu.buildFromTemplate([
+    {
+      label: 'Edit',
+      submenu: [
+        {role: 'undo'},
+        {role: 'redo'},
+        {type: 'separator'},
+        {role: 'cut'},
+        {role: 'copy'},
+        {role: 'paste'},
+        {role: 'pasteandmatchstyle'},
+        {role: 'delete'},
+        {role: 'selectall'}
+      ]
+    }
+  ])
 }

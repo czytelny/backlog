@@ -35,6 +35,11 @@
                      @submitNewBoard="submitNewBoard"
                      @closeNewBoardModal="closeNewBoardModal">
     </new-board-modal>
+    <footer @click="open('https://github.com/czytelny')">
+      Crafted with
+      <Icon type="ios-heart"></Icon>
+      by Michal Chwedczuk
+    </footer>
   </div>
 </template>
 
@@ -62,6 +67,9 @@
       }
     },
     methods: {
+      open (link) {
+        this.$electron.shell.openExternal(link)
+      },
       closeNewBoardModal () {
         this.newBoardModal = false
       },
@@ -107,6 +115,17 @@
 </script>
 
 <style>
+  footer {
+    position: absolute;
+    bottom: 0;
+    background-color: #5a6376;
+    color: white;
+    text-align: center;
+    width: 100%;
+    cursor: pointer;
+    opacity: .4;
+  }
+
   .ivu-tabs-bar {
     -webkit-user-select: none;
   }
