@@ -2,6 +2,7 @@
 
 import { app, BrowserWindow, Menu } from 'electron'
 
+const path = require('path')
 const settings = require('electron-settings')
 
 /**
@@ -33,6 +34,8 @@ function createWindow () {
       y: undefined
     })
   }
+
+  windowConfig.icon = path.join(__dirname, '/assets/256x256.png')
   /**
    * Initial window options
    */
