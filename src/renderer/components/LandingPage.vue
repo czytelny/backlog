@@ -14,6 +14,8 @@
         >
           <board :boardId="board.id"
                  :selectedTab="selectedTab"
+                 :showDone="board.showDone"
+                 @showDoneSwitched="showDoneSwitched"
           >
           </board>
         </Tab-pane>
@@ -67,6 +69,11 @@
       }
     },
     methods: {
+      showDoneSwitched (value, boardId) {
+        this.boards.find(board => board.id === boardId).showDone = value
+        this.boards = this.boards.splice(0)
+        storage.set(`boards`, this.boards)
+      },
       open (link) {
         this.$electron.shell.openExternal(link)
       },
@@ -78,7 +85,7 @@
       },
       submitNewBoard (boardName) {
         const newBoardId = XXH.h32(boardName, 0xABCD).toString(16)
-        this.boards.push({id: newBoardId, label: boardName, items: []})
+        this.boards.push({id: newBoardId, label: boardName, showDone: false})
         storage.set(`boards`, this.boards)
         this.selectedTab = newBoardId
         this.newBoardModal = false
@@ -90,15 +97,16 @@
 //        storage.deleteAll()
         const boards = storage.get('boards')
         if (!boards) {
-          storage.set('boards', [{id: 'default', label: 'Default board', items: []}])
+          storage.set('boards', [{id: 'default', label: 'Default board'}])
         }
         this.boards = storage.get('boards')
         console.log(storage.getAll())
       },
-      handleBoardRemove (name) {
-        const boardIndex = this.boards.findIndex(board => board.id === name)
+      handleBoardRemove (boardId) {
+        const boardIndex = this.boards.findIndex(board => board.id === boardId)
         this.boards.splice(boardIndex, 1)
         storage.set(`boards`, this.boards)
+        storage.delete(`board-item-${boardId}`)
         this.saveActiveBoard(this.selectedTab)
       },
       saveActiveBoard (boardId) {

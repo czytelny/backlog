@@ -32,12 +32,12 @@
       <Button v-if="!showDone"
               type="dashed"
               shape="circle"
-              @click="showDone=!showDone">Show done
+              @click="switchShowDone">Show done
       </Button>
       <Button v-if="showDone"
               type="dashed"
               shape="circle"
-              @click="showDone=!showDone">
+              @click="switchShowDone">
         Hide done
       </Button>
     </div>
@@ -66,7 +66,7 @@
 
   export default {
     name: 'board',
-    props: ['boardId', 'selectedTab'],
+    props: ['boardId', 'selectedTab', 'showDone'],
     components: {
       BoardItem,
       draggable
@@ -76,8 +76,7 @@
         boardItems: [],
         newTodoItem: '',
         prepend: false,
-        isSubmittingNewItem: false,
-        showDone: true
+        isSubmittingNewItem: false
       }
     },
     computed: {
@@ -86,6 +85,9 @@
       }
     },
     methods: {
+      switchShowDone () {
+        this.$emit('showDoneSwitched', !this.showDone, this.boardId)
+      },
       changeIsDone (itemId, newVal) {
         console.log(itemId, newVal)
         this.boardItems.find(item => item.id === itemId).isDone = newVal
@@ -187,7 +189,7 @@
     /* .list-complete-leave-active below version 2.1.8 */
   {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(10px);
   }
 
   .list-complete-leave-active {
