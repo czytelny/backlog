@@ -15,7 +15,9 @@
           <board :boardId="board.id"
                  :selectedTab="selectedTab"
                  :showDone="board.showDone"
+                 :prependNewItem="board.prependNewItem"
                  @showDoneSwitched="showDoneSwitched"
+                 @prependNewItemChange="prependNewItemChange"
           >
           </board>
         </Tab-pane>
@@ -69,10 +71,16 @@
       }
     },
     methods: {
+      prependNewItemChange (value, boardId) {
+        console.log(value, boardId)
+        this.boards.find(board => board.id === boardId).prependNewItem = value
+        this.boards = this.boards.splice(0)
+        this.saveBoards()
+      },
       showDoneSwitched (value, boardId) {
         this.boards.find(board => board.id === boardId).showDone = value
         this.boards = this.boards.splice(0)
-        storage.set(`boards`, this.boards)
+        this.saveBoards()
       },
       open (link) {
         this.$electron.shell.openExternal(link)
@@ -86,7 +94,7 @@
       submitNewBoard (boardName) {
         const newBoardId = XXH.h32(boardName, 0xABCD).toString(16)
         this.boards.push({id: newBoardId, label: boardName, showDone: false})
-        storage.set(`boards`, this.boards)
+        this.saveBoards()
         this.selectedTab = newBoardId
         this.newBoardModal = false
         this.saveActiveBoard(newBoardId)
@@ -97,7 +105,12 @@
 //        storage.deleteAll()
         const boards = storage.get('boards')
         if (!boards) {
-          storage.set('boards', [{id: 'default', label: 'Default board'}])
+          storage.set('boards', [{
+            id: 'default',
+            label: 'Default board',
+            showDone: false,
+            prependNewItem: false
+          }])
         }
         this.boards = storage.get('boards')
         console.log(storage.getAll())
@@ -111,6 +124,9 @@
       },
       saveActiveBoard (boardId) {
         storage.set(`activeBoard`, boardId)
+      },
+      saveBoards () {
+        storage.set(`boards`, this.boards)
       }
     },
     created () {

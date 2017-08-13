@@ -18,8 +18,8 @@
         </Col>
         <Col span="6">
         <Form-item style="width:100%;">
-          <i-switch v-model="prepend"
-                    @on-change="focusOnInput"
+          <i-switch :value="prependNewItem"
+                    @on-change=" prependNewItemChange(); focusOnInput();"
                     size="large">
             <span slot="open">Head</span>
             <span slot="close">Tail</span>
@@ -66,7 +66,7 @@
 
   export default {
     name: 'board',
-    props: ['boardId', 'selectedTab', 'showDone'],
+    props: ['boardId', 'selectedTab', 'showDone', 'prependNewItem'],
     components: {
       BoardItem,
       draggable
@@ -75,7 +75,6 @@
       return {
         boardItems: [],
         newTodoItem: '',
-        prepend: false,
         isSubmittingNewItem: false
       }
     },
@@ -85,11 +84,13 @@
       }
     },
     methods: {
+      prependNewItemChange () {
+        this.$emit('prependNewItemChange', !this.prependNewItem, this.boardId)
+      },
       switchShowDone () {
         this.$emit('showDoneSwitched', !this.showDone, this.boardId)
       },
       changeIsDone (itemId, newVal) {
-        console.log(itemId, newVal)
         this.boardItems.find(item => item.id === itemId).isDone = newVal
         this.boardItems = this.boardItems.slice(0)
         this.saveBoardItems()
@@ -110,7 +111,7 @@
           text: this.newTodoItem,
           isDone: false
         }
-        if (this.prepend) {
+        if (this.prependNewItem) {
           this.boardItems.unshift(newBoardItem)
         } else {
           this.boardItems.push(newBoardItem)
@@ -155,7 +156,9 @@
       this.$bus.$on('boardAdded', function (boardId) {
         if (vm.boardId === boardId) {
           setTimeout(() => {
-            vm.$refs['mainInput'].focus()
+            if (vm.$refs['mainInput']) {
+              vm.$refs['mainInput'].focus()
+            }
           }, 250)
         }
       })
