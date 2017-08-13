@@ -1,15 +1,15 @@
 # backlog
 
-> Simple desktop app for quickly writing down "TODO" or "tasks" or ideas. 
+> Simple desktop app for storing TODOs, ideas or backlog items. 
 > You can organize them with boards. No dependencies, no internet connection required, 
 > no external accounts. Sleek flow.
 
 ### Why ?
-While programming I often had glimpse of an ideas with some improvements to implement
-in the future. Or thoughts about cool new project which I should start. One sentence, couple words to get
-back to it in the future. It serve me as a backlog for my side projects - hence project name. 
+While programming I often have number of ideas with some improvements to implement
+in the future. Or thoughts about cool new project which I should start. Most often it's one sentence, 
+couple words, to get back to it in the future. 
 
-I know, there are hundreds of "todo list managers" or other "notes manager",
+I know, there are hundreds of *todo list managers* or other *notes manager*,
 but this one will eventually fulfill my needs perfectly. 
 I write my thoughts on some sticky notes, I tried Evernote, Simplenote... 
 They are fine, but all of them was either bloated with unnecessary features or lack of desired "flow" - 
@@ -17,7 +17,11 @@ when I open program I want type down thoughts, hit enter, and get back to my act
 No dependencies, no internet connection required, no external accounts, no long descriptions.
 
 ### Demo
-It's not ready yet, when 1.0 release will be ready I'll put link here with some screenshots 
+Just take a look on that wonderful app preview:
+
+![image](screenshot.png)
+
+Downloadable links - later on.
 
 ### How ?
 It's builded with `Electron` and `Vue.js`. Component framework is `iView`

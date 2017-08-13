@@ -43,7 +43,7 @@ function createWindow () {
 
   mainWindow.loadURL(winURL)
   if (process.platform === 'darwin') {
-    mainWindow.setMenu(createMenuOnMac())
+    Menu.setApplicationMenu(createMenuOnMac())
   } else {
     mainWindow.setMenu(null)
   }
@@ -84,7 +84,7 @@ function saveWindowState (mainWindow) {
 function createMenuOnMac () {
   return Menu.buildFromTemplate([
     {
-      label: 'Edit',
+      label: app.getName(),
       submenu: [
         {role: 'undo'},
         {role: 'redo'},
@@ -94,7 +94,11 @@ function createMenuOnMac () {
         {role: 'paste'},
         {role: 'pasteandmatchstyle'},
         {role: 'delete'},
-        {role: 'selectall'}
+        {role: 'selectall'},
+        {role: 'quit'},
+        {role: 'hide'},
+        {role: 'hideothers'},
+        {role: 'unhide'}
       ]
     }
   ])
