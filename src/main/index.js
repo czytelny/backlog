@@ -2,6 +2,8 @@
 
 import { app, BrowserWindow } from 'electron'
 
+const settings = require('electron-settings')
+
 /**
  * Set `__static` path to static files in production
  * https://simulatedgreg.gitbooks.io/electron-vue/content/en/using-static-assets.html
@@ -16,21 +18,40 @@ const winURL = process.env.NODE_ENV === 'development'
   : `file://${__dirname}/index.html`
 
 function createWindow () {
+  let windowConfig = {}
+
+  if (settings.has('windowState')) {
+    windowConfig = Object.assign({}, windowConfig, settings.get('windowState'))
+  } else {
+    settings.set('windowState', {
+      height: 800,
+      useContentSize: true,
+      width: 600,
+      show: false,
+      minWidth: 300,
+      x: undefined,
+      y: undefined
+    })
+  }
   /**
    * Initial window options
    */
-  mainWindow = new BrowserWindow({
-    height: 800,
-    useContentSize: true,
-    width: 600
-  })
+  mainWindow = new BrowserWindow(windowConfig)
 
   mainWindow.loadURL(winURL)
   mainWindow.setMenu(null)
 
+  mainWindow.on('ready-to-show', () => {
+    mainWindow.show()
+    mainWindow.focus()
+  })
+
   mainWindow.on('closed', () => {
     mainWindow = null
   })
+  mainWindow.on('resize', () => saveWindowState(mainWindow))
+  mainWindow.on('move', () => saveWindowState(mainWindow))
+  mainWindow.on('close', () => saveWindowState(mainWindow))
 }
 
 app.on('ready', createWindow)
@@ -46,3 +67,9 @@ app.on('activate', () => {
     createWindow()
   }
 })
+
+function saveWindowState (mainWindow) {
+  const currState = settings.get('windowState')
+  const bounds = mainWindow.getBounds()
+  settings.set('windowState', Object.assign({}, currState, bounds))
+}
