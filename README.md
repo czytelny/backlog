@@ -4,24 +4,30 @@
 > You can organize them with boards. No dependencies, no internet connection required, 
 > no external accounts. Sleek flow.
 
+<p align="center">
+<img src="https://github.com/czytelny/backlog/raw/master/logo.png">
+</p>
+
 ### Why ?
-While programming I often have number of ideas with some improvements to implement
-in the future. Or thoughts about cool new project which I should start. Most often it's one sentence, 
-couple words, to get back to it in the future. 
+While programming I often have number of ideas related to possible improvements to implement
+in the future. Or thoughts about cool new project which I should start. Most often it's one sentence or 
+couple of words - just a draft of idea to expand in the future. 
 
 I know, there are hundreds of *todo list managers* or other *notes manager*,
 but this one will eventually fulfill my needs perfectly. 
 I write my thoughts on some sticky notes, I tried Evernote, Simplenote... 
 They are fine, but all of them was either bloated with unnecessary features or lack of desired "flow" - 
 when I open program I want type down thoughts, hit enter, and get back to my actual work.  
-No dependencies, no internet connection required, no external accounts, no long descriptions.
+No dependencies, no internet connection required, no external accounts etc.
 
-### Demo
-Just take a look on that wonderful app preview:
+# Preview
 
 ![image](screenshot.png)
 
-Downloadable links - later on.
+# Download for different OS
+- [Windows](http://czytelny.com/download/Backlog-win32-x64.zip)
+- [MacOs](http://czytelny.com/download/Backlog-darwin-x64.zip) 
+- [Linux](http://czytelny.com/download/Backlog-linux-x64.tar.gz)
 
 ### How ?
 It's builded with `Electron` and `Vue.js`. Component framework is `iView`
