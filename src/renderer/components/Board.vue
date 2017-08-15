@@ -107,7 +107,7 @@
         }
         this.isSubmittingNewItem = true
         const newBoardItem = {
-          id: XXH.h32(this.newTodoItem, 0xABCD).toString(16),
+          id: XXH.h32(this.newTodoItem, new Date().getTime()).toString(16),
           text: this.newTodoItem,
           isDone: false
         }

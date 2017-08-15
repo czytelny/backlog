@@ -72,7 +72,6 @@
     },
     methods: {
       prependNewItemChange (value, boardId) {
-        console.log(value, boardId)
         this.boards.find(board => board.id === boardId).prependNewItem = value
         this.boards = this.boards.splice(0)
         this.saveBoards()
@@ -92,7 +91,7 @@
         this.newBoardModal = true
       },
       submitNewBoard (boardName) {
-        const newBoardId = XXH.h32(boardName, 0xABCD).toString(16)
+        const newBoardId = XXH.h32(boardName, new Date().getTime()).toString(16)
         this.boards.push({id: newBoardId, label: boardName, showDone: false})
         this.saveBoards()
         this.selectedTab = newBoardId
