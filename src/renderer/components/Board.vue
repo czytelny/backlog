@@ -50,7 +50,8 @@
                     :text="item.text"
                     v-if="shouldBeDisplayed(item)"
                     @changeIsDone="changeIsDone"
-                    @removeItem="removeItem">
+                    @removeItem="removeItem"
+                    @changeItemVal="changeItemVal">
         </board-item>
       </transition-group>
     </draggable>
@@ -129,6 +130,15 @@
           this.saveBoardItems()
           this.focusOnInput()
         }
+      },
+      changeItemVal (itemId, itemVal) {
+        const item = this.boardItems.find(el => el.id === itemId)
+        if (item) {
+          item.text = itemVal
+          this.boardItems = this.boardItems.slice(0)
+          this.saveBoardItems()
+        }
+        this.focusOnInput()
       },
       focusOnInput () {
         this.$refs['mainInput'].focus()

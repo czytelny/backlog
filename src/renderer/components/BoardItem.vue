@@ -1,16 +1,32 @@
 <template>
-  <div :class="{'doneItem': isDone}"
+  <div :class="{'doneItem': isDone, 'isEditing': isEditing}"
        class="item list-complete-item">
     <Checkbox :value="isDone"
+              v-if="!isEditing"
               @on-change="changeIsDone">
-      {{text}}
+
+      <span v-if="!isEditing"
+      > {{text}}</span>
     </Checkbox>
-    <span class="removeItem">
-            <Button icon="ios-trash-outline"
+    <input v-if="isEditing"
+           type="text"
+           v-model="draftText"
+           ref="editableItem"
+           @keyup.enter="saveItem"
+           v-on:blur="saveItem"
+           class="draftText animated fadeIn">
+    <span class="actionBtns" v-if="!isEditing">
+            <Button icon="edit"
                     shape="circle"
                     size="small"
                     type="dashed"
-                    @click="removeItem"></Button>
+                    @click="editItem">
+            </Button>
+      <Button icon="ios-trash-outline"
+              shape="circle"
+              size="small"
+              type="dashed"
+              @click="removeItem"></Button>
           </span>
   </div>
 </template>
@@ -20,9 +36,22 @@
     name: 'board-item',
     props: ['itemId', 'isDone', 'text'],
     data () {
-      return {}
+      return {
+        isEditing: false,
+        draftText: this.text
+      }
     },
     methods: {
+      saveItem () {
+        this.isEditing = false
+        this.$emit('changeItemVal', this.itemId, this.draftText)
+      },
+      editItem () {
+        this.isEditing = !this.isEditing
+        this.$nextTick(function () {
+          this.$refs.editableItem.focus()
+        })
+      },
       changeIsDone (newVal) {
         this.$emit('changeIsDone', this.itemId, newVal)
       },
@@ -34,41 +63,60 @@
 </script>
 
 <style>
-
   .item {
-    border-bottom: 1px solid #e3e3e3;
+    border-bottom: 1px solid #f0f0f0;
     cursor: move;
     position: relative;
+    height: 40px;
   }
 
   .item.doneItem {
     opacity: .25;
   }
 
-  .removeItem {
+  .actionBtns {
     position: absolute;
     right: 5px;
     top: 35%;
-    opacity: 0.35;
+    opacity: 0.45;
     cursor: pointer;
   }
 
-  .removeItem:hover {
+  .actionBtns:hover {
     opacity: 1;
   }
 
   .item label {
-    padding: 10px;
+    margin-top: 15px;
+    padding-left: 5px;
     font-size: 1.3em;
     transition: all .7s;
-    border-top: 1px solid transparent;
-    border-bottom: 1px solid transparent;
+    border-left: 2px solid transparent;
     cursor: pointer;
+    line-height: 14px;
   }
 
   .item label:hover {
-    border-top: 1px solid #47B784;
-    border-bottom: 1px solid #47B784;
+    border-left: 2px solid #47B784;
+  }
+
+  .isEditing {
+    border-bottom: 1px dashed #2D8CF0;
+  }
+
+  .draftText {
+    border: 0;
+    line-height: 14px;
+    margin-top: 12px;
+    margin-left: 20px;
+    padding-left: 5px;
+    font-size: 1.3em;
+    transition: all .7s;
+    width: 90%;
+  }
+
+  .draftText:focus {
+    outline: none;
   }
 
 </style>
