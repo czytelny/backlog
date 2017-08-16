@@ -73,19 +73,22 @@
     border-bottom: 1px solid #f0f0f0;
     cursor: move;
     position: relative;
-    height: 40px;
+    min-height: 40px;
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 5px;
   }
+
 
   .item.doneItem {
     opacity: .25;
   }
 
   .actionBtns {
-    position: absolute;
-    right: 5px;
-    top: 35%;
     opacity: 0.45;
     cursor: pointer;
+    flex-shrink: 0;
+    align-self: center;
   }
 
   .actionBtns:hover {
@@ -93,13 +96,14 @@
   }
 
   .item label {
-    margin-top: 15px;
+    margin-top: 12px;
     padding-left: 5px;
     font-size: 1.3em;
     transition: all .7s;
     border-left: 2px solid transparent;
     cursor: pointer;
     line-height: 14px;
+    align-self: flex-start;
   }
 
   .item label:hover {
