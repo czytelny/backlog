@@ -41,7 +41,7 @@
         Hide done
       </Button>
     </div>
-    <draggable :list="boardItems">
+    <draggable :list="boardItems" @change="boardItemsRearanged">
       <transition-group name="list-complete">
         <board-item v-for="item in boardItems"
                     :key="item.id"
@@ -51,7 +51,8 @@
                     v-if="shouldBeDisplayed(item)"
                     @changeIsDone="changeIsDone"
                     @removeItem="removeItem"
-                    @changeItemVal="changeItemVal">
+                    @changeItemVal="changeItemVal"
+                    >
         </board-item>
       </transition-group>
     </draggable>
@@ -76,7 +77,8 @@
       return {
         boardItems: [],
         newTodoItem: '',
-        isSubmittingNewItem: false
+        isSubmittingNewItem: false,
+        isEditingItem: false
       }
     },
     computed: {
@@ -85,6 +87,9 @@
       }
     },
     methods: {
+      boardItemsRearanged () {
+        this.saveBoardItems()
+      },
       prependNewItemChange () {
         this.$emit('prependNewItemChange', !this.prependNewItem, this.boardId)
       },

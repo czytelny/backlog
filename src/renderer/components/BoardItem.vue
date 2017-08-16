@@ -4,7 +4,6 @@
     <Checkbox :value="isDone"
               v-if="!isEditing"
               @on-change="changeIsDone">
-
       <span v-if="!isEditing"
       > {{text}}</span>
     </Checkbox>
@@ -17,6 +16,7 @@
            class="draftText animated fadeIn">
     <span class="actionBtns" v-if="!isEditing">
             <Button icon="edit"
+                    v-if="!isDone"
                     shape="circle"
                     size="small"
                     type="dashed"
@@ -43,14 +43,20 @@
     },
     methods: {
       saveItem () {
-        this.isEditing = false
+        this.turnOffEditing()
         this.$emit('changeItemVal', this.itemId, this.draftText)
       },
       editItem () {
-        this.isEditing = !this.isEditing
+        this.turnOnEditing()
         this.$nextTick(function () {
           this.$refs.editableItem.focus()
         })
+      },
+      turnOnEditing () {
+        this.isEditing = true
+      },
+      turnOffEditing () {
+        this.isEditing = false
       },
       changeIsDone (newVal) {
         this.$emit('changeIsDone', this.itemId, newVal)
