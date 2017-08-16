@@ -32,14 +32,23 @@
       <Button v-if="!showDone"
               type="dashed"
               shape="circle"
+              :disabled="isBoardItemsEmpty"
               @click="switchShowDone">Show done
       </Button>
       <Button v-if="showDone"
               type="dashed"
               shape="circle"
+              :disabled="isBoardItemsEmpty"
               @click="switchShowDone">
         Hide done
       </Button>
+    </div>
+    <div v-if="isBoardItemsEmpty" class="info">
+      <h1>No items on this board, yet</h1>
+    </div>
+
+    <div v-if="isAllItemsDone" class="info">
+      <h1>Great, all items are done!</h1>
     </div>
     <draggable :list="boardItems" @change="boardItemsRearanged">
       <transition-group name="list-complete">
@@ -52,7 +61,7 @@
                     @changeIsDone="changeIsDone"
                     @removeItem="removeItem"
                     @changeItemVal="changeItemVal"
-                    >
+        >
         </board-item>
       </transition-group>
     </draggable>
@@ -84,6 +93,12 @@
     computed: {
       isActive () {
         return this.boardId === this.selectedTab
+      },
+      isBoardItemsEmpty () {
+        return !this.boardItems.length
+      },
+      isAllItemsDone () {
+        return this.boardItems.length && !this.boardItems.find(item => !item.isDone)
       }
     },
     methods: {
@@ -183,6 +198,13 @@
 </script>
 
 <style>
+  .info {
+    text-align: center;
+    font-size: 1.5em;
+    opacity: .25;
+    padding: 20px 0;
+  }
+
   .showDoneLink {
     text-align: center;
   }

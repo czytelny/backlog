@@ -139,7 +139,7 @@
 
 <style>
   footer {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     background-color: #5a6376;
     color: white;
