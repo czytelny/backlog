@@ -1,7 +1,7 @@
 {
   "name": "Backlog",
   "productName": "Backlog",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "author": "Michal Chwedczuk <czytelny@gmail.com>",
   "description": "Simple desktop app for quickly storing lists of items",
   "license": null,

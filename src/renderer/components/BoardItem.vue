@@ -136,7 +136,7 @@
   .draftText {
     border: 0;
     line-height: 14px;
-    margin-top: 2px;
+    margin-top: 3px;
     margin-left: 18px;
     padding-left: 5px;
     font-size: 1.3em;
