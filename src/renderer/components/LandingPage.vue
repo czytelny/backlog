@@ -21,23 +21,27 @@
           >
           </board>
         </Tab-pane>
-        <Button type="dashed"
-                @click="showNewBoardModal"
-                size="small"
-                slot="extra"
-                icon="plus"
-                shape="circle"
-                :disabled="boards.length > 4"
-                style="margin-right: 5px;">
-        </Button>
-        <Button type="dashed"
-                @click="showSettingsModal"
-                size="small"
-                slot="extra"
-                icon="gear-a"
-                shape="circle"
-                style="margin-right: 5px;">
-        </Button>
+        <div slot="extra">
+          <Tooltip content="Add new board" placement="left-start" :transfer="true" :delay="500">
+            <Button type="dashed"
+                    @click="showNewBoardModal"
+                    size="small"
+                    icon="plus"
+                    shape="circle"
+                    :disabled="boards.length > 4"
+                    style="margin-right: 5px;">
+            </Button>
+          </Tooltip>
+          <Tooltip content="Settings" placement="left-start" :transfer="true" :delay="500">
+            <Button type="dashed"
+                    @click="showSettingsModal"
+                    size="small"
+                    icon="gear-a"
+                    shape="circle"
+                    style="margin-right: 5px;">
+            </Button>
+          </Tooltip>
+        </div>
       </Tabs>
       </Col>
     </Row>

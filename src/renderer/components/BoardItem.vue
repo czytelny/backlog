@@ -1,8 +1,11 @@
 <template>
   <div :class="{'doneItem': isDone, 'isEditing': isEditing}"
        class="item list-complete-item">
-    <div>
-      <Icon type="minus-round" class="movable-icon"></Icon>
+    <div v-if="!isEditing">
+      <Icon type="minus-round"
+            class="movable-icon"
+            v-if="!isEditing"
+      ></Icon>
       <Checkbox :value="isDone"
                 v-if="!isEditing"
                 @on-change="changeIsDone">
@@ -18,6 +21,7 @@
            v-on:blur="saveItem"
            class="draftText animated fadeIn">
     <span class="actionBtns" v-if="!isEditing">
+          <Tooltip content="Edit" :delay="1000">
             <Button icon="edit"
                     v-if="!isDone"
                     shape="circle"
@@ -25,11 +29,14 @@
                     type="dashed"
                     @click="editItem">
             </Button>
-      <Button icon="ios-trash-outline"
+          </Tooltip>
+          <Tooltip content="Remove" :delay="1000">
+           <Button icon="ios-trash-outline"
               shape="circle"
               size="small"
               type="dashed"
               @click="removeItem"></Button>
+          </Tooltip>
           </span>
   </div>
 </template>
@@ -89,7 +96,7 @@
   .movable-icon {
     position: absolute;
     left: -15px;
-    top:8px;
+    top: 8px;
     transform: rotate(90deg);
     font-size: 2em;
     opacity: .0;
@@ -123,14 +130,14 @@
   }
 
   .isEditing {
-    border-bottom: 1px dashed #2D8CF0;
+    border-bottom: 1px dashed #41B883;
   }
 
   .draftText {
     border: 0;
     line-height: 14px;
-    margin-top: 12px;
-    margin-left: 20px;
+    margin-top: 2px;
+    margin-left: 18px;
     padding-left: 5px;
     font-size: 1.3em;
     transition: all .7s;
