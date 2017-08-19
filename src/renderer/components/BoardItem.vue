@@ -1,12 +1,15 @@
 <template>
   <div :class="{'doneItem': isDone, 'isEditing': isEditing}"
        class="item list-complete-item">
-    <Checkbox :value="isDone"
-              v-if="!isEditing"
-              @on-change="changeIsDone">
+    <div>
+      <Icon type="minus-round" class="movable-icon"></Icon>
+      <Checkbox :value="isDone"
+                v-if="!isEditing"
+                @on-change="changeIsDone">
       <span v-if="!isEditing"
       > {{text}}</span>
-    </Checkbox>
+      </Checkbox>
+    </div>
     <input v-if="isEditing"
            type="text"
            v-model="draftText"
@@ -65,7 +68,7 @@
         this.$emit('removeItem', this.itemId)
       }
     }
-}
+  }
 </script>
 
 <style>
@@ -79,6 +82,19 @@
     padding-bottom: 5px;
   }
 
+  .item:hover .movable-icon {
+    opacity: .25;
+  }
+
+  .movable-icon {
+    position: absolute;
+    left: -15px;
+    top:8px;
+    transform: rotate(90deg);
+    font-size: 2em;
+    opacity: .0;
+    transition: all .25s;
+  }
 
   .item.doneItem {
     opacity: .25;
@@ -100,14 +116,9 @@
     padding-left: 5px;
     font-size: 1.3em;
     transition: all .7s;
-    border-left: 2px solid transparent;
     cursor: pointer;
     line-height: 14px;
     align-self: flex-start;
-  }
-
-  .item label:hover {
-    border-left: 2px solid #47B784;
   }
 
   .isEditing {

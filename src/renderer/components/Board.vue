@@ -218,8 +218,7 @@
   }
 
   .list-complete-item {
-    transition: all .5s;
-    margin-right: 10px;
+    transition: all .3s;
   }
 
   .list-complete-enter, .list-complete-leave-to
