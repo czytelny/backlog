@@ -51,7 +51,7 @@
     <div v-if="isAllItemsDone" class="info">
       <h1>Great, all items are done!</h1>
     </div>
-    <draggable :list="boardItems" @change="boardItemsRearanged">
+    <draggable :list="boardItems" @change="boardItemsRearanged" :options="{ghostClass: 'sortable-ghost'}">
       <transition-group name="list-complete">
         <board-item v-for="item in boardItems"
                     :key="item.id"
