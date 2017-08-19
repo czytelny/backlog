@@ -94,6 +94,7 @@
     font-size: 2em;
     opacity: .0;
     transition: all .25s;
+    color: #41B883;
   }
 
   .item.doneItem {

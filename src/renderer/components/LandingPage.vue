@@ -21,7 +21,6 @@
           >
           </board>
         </Tab-pane>
-
         <Button type="dashed"
                 @click="showNewBoardModal"
                 size="small"
@@ -30,20 +29,35 @@
                 shape="circle"
                 :disabled="boards.length > 4"
                 style="margin-right: 5px;">
-          Add
+        </Button>
+        <Button type="dashed"
+                @click="showSettingsModal"
+                size="small"
+                slot="extra"
+                icon="gear-a"
+                shape="circle"
+                style="margin-right: 5px;">
         </Button>
       </Tabs>
       </Col>
     </Row>
-    <new-board-modal :newBoardModal="newBoardModal"
-                     @submitNewBoard="submitNewBoard"
-                     @closeNewBoardModal="closeNewBoardModal">
-    </new-board-modal>
     <footer @click="open('https://github.com/czytelny')">
       Crafted with
       <Icon type="ios-heart"></Icon>
       by Michal Chwedczuk
     </footer>
+
+    <new-board-modal :newBoardModal="newBoardModal"
+                     @submitNewBoard="submitNewBoard"
+                     @closeNewBoardModal="closeNewBoardModal">
+    </new-board-modal>
+    <settings-modal :isVisible="settingsModal"
+                    :boards="boards"
+                    @closeSettingsModal="closeSettingsModal"
+                    @saveBoards="saveBoards"
+                    @forceReload="forceReload"
+    >
+    </settings-modal>
   </div>
 </template>
 
@@ -53,11 +67,14 @@
   import NewBoardModal from './NewBoardModal.vue'
 
   import XXH from 'xxhashjs'
+  import SettingsModal from './SettingsModal.vue'
 
   const storage = require('electron').remote.require('electron-settings')
+  const remote = require('electron').remote
 
   export default {
     components: {
+      SettingsModal,
       NewBoardModal,
       Board
     },
@@ -67,7 +84,8 @@
         newItem: '',
         boards: [],
         selectedTab: 'default',
-        newBoardModal: false
+        newBoardModal: false,
+        settingsModal: false
       }
     },
     methods: {
@@ -89,6 +107,12 @@
       },
       showNewBoardModal () {
         this.newBoardModal = true
+      },
+      showSettingsModal () {
+        this.settingsModal = true
+      },
+      closeSettingsModal () {
+        this.settingsModal = false
       },
       submitNewBoard (boardName) {
         const newBoardId = XXH.h32(boardName, new Date().getTime()).toString(16)
@@ -126,6 +150,9 @@
       },
       saveBoards () {
         storage.set(`boards`, this.boards)
+      },
+      forceReload () {
+        remote.getCurrentWindow().reload()
       }
     },
     created () {
