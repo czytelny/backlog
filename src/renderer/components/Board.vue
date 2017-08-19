@@ -19,7 +19,8 @@
         <Col span="6">
         <Form-item style="width:100%;">
           <i-switch :value="prependNewItem"
-                    @on-change=" prependNewItemChange(); focusOnInput();"
+                    @on-change="prependNewItemChange(); 
+                                focusOnInput();"
                     size="large">
             <span slot="open">Head</span>
             <span slot="close">Tail</span>
@@ -216,10 +217,6 @@
     background-color: #ffffff;
   }
 
-  .list-complete-move {
-    transition: transform .5s;
-  }
-
   .list-complete-item {
     transition: all .5s;
     margin-right: 10px;
@@ -229,9 +226,10 @@
     /* .list-complete-leave-active below version 2.1.8 */
   {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateX(-100%);
   }
 
   .list-complete-leave-active {
+
   }
 </style>

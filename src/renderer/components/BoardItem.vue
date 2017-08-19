@@ -65,7 +65,7 @@
         this.$emit('removeItem', this.itemId)
       }
     }
-  }
+}
 </script>
 
 <style>
