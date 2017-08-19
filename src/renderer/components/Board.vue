@@ -199,6 +199,10 @@
 </script>
 
 <style>
+  .sortable-ghost {
+    opacity: 0;
+  }
+
   .info {
     text-align: center;
     font-size: 1.5em;
