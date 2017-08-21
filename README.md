@@ -1,12 +1,23 @@
 # backlog
 
-> Simple desktop app for storing TODOs, ideas or backlog items. 
+> Simple multiplatform desktop app for storing TODOs, ideas or backlog items. 
 > You can organize them with boards. No dependencies, no internet connection required, 
 > no external accounts. Sleek flow.
 
 <p align="center">
 <img src="https://github.com/czytelny/backlog/raw/master/logo.png">
 </p>
+
+
+# Download
+- [Windows version](http://czytelny.com/download/Backlog-win32-x64.zip)
+- [MacOs version](http://czytelny.com/download/Backlog-darwin-x64.zip) 
+- [Linux version](http://czytelny.com/download/Backlog-linux-x64.tar.gz)
+
+or previev latest [release notes](https://github.com/czytelny/backlog/releases/latest)
+
+## Screenshot
+![image](screenshot.png)
 
 ### Why ?
 While programming I often have number of ideas related to possible improvements to implement
@@ -20,14 +31,6 @@ They are fine, but all of them was either bloated with unnecessary features or l
 when I open program I want type down thoughts, hit enter, and get back to my actual work.  
 No dependencies, no internet connection required, no external accounts etc.
 
-# Preview
-
-![image](screenshot.png)
-
-# Download for different OS
-- [Windows](http://czytelny.com/download/Backlog-win32-x64.zip)
-- [MacOs](http://czytelny.com/download/Backlog-darwin-x64.zip) 
-- [Linux](http://czytelny.com/download/Backlog-linux-x64.tar.gz)
 
 ### How ?
 It's builded with `Electron` and `Vue.js`. Component framework is `iView`
