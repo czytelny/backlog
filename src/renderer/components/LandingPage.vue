@@ -22,7 +22,7 @@
           </board>
         </Tab-pane>
         <div slot="extra">
-          <Tooltip content="Add new board" placement="left-start" :transfer="true" :delay="500">
+          <Tooltip content="Add new board" placement="bottom-end" :transfer="true" :delay="500">
             <Button type="dashed"
                     @click="showNewBoardModal"
                     size="small"
@@ -32,7 +32,7 @@
                     style="margin-right: 5px;">
             </Button>
           </Tooltip>
-          <Tooltip content="Settings" placement="left-start" :transfer="true" :delay="500">
+          <Tooltip content="Settings" placement="bottom-end" :transfer="true" :delay="500">
             <Button type="dashed"
                     @click="showSettingsModal"
                     size="small"

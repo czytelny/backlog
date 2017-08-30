@@ -21,7 +21,7 @@
            v-on:blur="saveItem"
            class="draftText animated fadeIn">
     <span class="actionBtns" v-if="!isEditing">
-          <Tooltip content="Edit" :delay="1000">
+          <Tooltip content="Edit" :delay="1000" placement="top-end" :transfer="true">
             <Button icon="edit"
                     v-if="!isDone"
                     shape="circle"
@@ -30,7 +30,7 @@
                     @click="editItem">
             </Button>
           </Tooltip>
-          <Tooltip content="Remove" :delay="1000">
+          <Tooltip content="Remove" :delay="1000" placement="top-end" :transfer="true">
            <Button icon="ios-trash-outline"
               shape="circle"
               size="small"
@@ -108,11 +108,17 @@
     opacity: .25;
   }
 
+  .item:hover .actionBtns {
+    opacity: .8;
+  }
+
   .actionBtns {
-    opacity: 0.45;
+    opacity: 0;
     cursor: pointer;
     flex-shrink: 0;
     align-self: center;
+    transition: all .3s;
+    padding-top: 5px;
   }
 
   .actionBtns:hover {
