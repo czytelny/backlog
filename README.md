@@ -1,4 +1,4 @@
-# backlog
+# Backlog
 
 > Simple multiplatform desktop app for storing TODOs, ideas or backlog items. 
 > You can organize them with boards. No dependencies, no internet connection required, 
@@ -10,16 +10,20 @@
 
 
 # Download
+No installation required. Just unzip archive and run executable
 - [Windows version](http://czytelny.com/download/Backlog-win32-x64.zip)
 - [MacOs version](http://czytelny.com/download/Backlog-darwin-x64.zip) 
 - [Linux version](http://czytelny.com/download/Backlog-linux-x64.tar.gz)
 
-or previev latest [release notes](https://github.com/czytelny/backlog/releases/latest)
+See also [latest release notes](https://github.com/czytelny/backlog/releases/latest)
 
 ## Screenshot
 ![image](screenshot.png)
 
-### Why ?
+## Update
+When new version is available just download it, unzip and enjoy. No additional action is required. All your boards and items will be available.
+
+## Why I write it ?
 When programming I often have a number of ideas related to possible improvements for the future or a cool new project. Most often, it's just one sentence or a couple of words - just a draft of an idea to expand in the future. 
 
 I know that, there are hundreds of *todo list managers* or other *notes manager*,
@@ -27,9 +31,12 @@ but this one will finally perfectly fulfill my needs. So far I wrote my thoughts
 They are fine, but all of them were either bloated with unnecessary features or lacked the desired "flow" - 
 when I open a program I want type down thoughts, hit enter, and get back to my actual work. That's how I write Backlog. No dependencies, no internet connection required, no external accounts etc.
 
+## License
+It's free and opensource application under **MIT** license. You can do whatever you want as long as you include the original copyright and license notice in any copy of the software/source
 
-### How ?
-It's builded with `Electron` and `Vue.js`. Component framework is `iView`
+# Technical
+#### How ?
+This application is builded with [Electron](https://electron.atom.io) and web technologies (javascript, css, html) more specifically: [Vue.js](https://vuejs.org). UI toolkit is [iView](iviewui.com)
 
 #### Build Setup
 You can build it yourself instead of downloading executable:
