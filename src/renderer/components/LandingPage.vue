@@ -5,7 +5,9 @@
       <Tabs v-model="selectedTab"
             type="card"
             @on-click="saveActiveBoard"
+            @dblclick.native="handleDblClick"
       >
+
         <Tab-pane v-for="board in boards"
                   :label="boardTabLabel(board.label, board.id)"
                   :name="board.id"
@@ -111,6 +113,11 @@
       }
     },
     methods: {
+      handleDblClick (event) {
+        if (event.target.className === 'ivu-tabs-nav-scroll') {
+          this.showNewBoardModal()
+        }
+      },
       prependNewItemChange (value, boardId) {
         this.boards.find(board => board.id === boardId).prependNewItem = value
         this.boards = this.boards.splice(0)
