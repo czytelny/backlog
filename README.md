@@ -23,6 +23,14 @@ See also [latest release notes](https://github.com/czytelny/backlog/releases/lat
 ## Update
 When new version is available just download it, unzip and enjoy. No additional action is required. All your boards and items will be available.
 
+## Versions
+### 1.3.0
+- added confirmation dialog before removing board
+- double click on board bar trigger adding new board modal window
+- item's action buttons visible on mouse hover 
+- tooltip placement improved
+- minor ui readability improvements
+
 ## Why I write it ?
 When programming I often have a number of ideas related to possible improvements for the future or a cool new project. Most often, it's just one sentence or a couple of words - just a draft of an idea to expand in the future. 
 
