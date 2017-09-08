@@ -131,7 +131,7 @@
     font-size: 1.3em;
     transition: all .7s;
     cursor: pointer;
-    line-height: 14px;
+    line-height: 16px;
     align-self: flex-start;
   }
 
