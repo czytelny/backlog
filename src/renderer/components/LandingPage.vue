@@ -4,11 +4,10 @@
       <Col span="24">
       <Tabs v-model="selectedTab"
             type="card"
-            closable
-            @on-tab-remove="handleBoardRemove"
-            @on-click="saveActiveBoard">
+            @on-click="saveActiveBoard"
+      >
         <Tab-pane v-for="board in boards"
-                  :label="board.label"
+                  :label="boardTabLabel(board.label, board.id)"
                   :name="board.id"
                   :key="board.id"
         >
@@ -89,7 +88,26 @@
         boards: [],
         selectedTab: 'default',
         newBoardModal: false,
-        settingsModal: false
+        settingsModal: false,
+        boardTabLabel: (boardLabel, boardId) => (h) => {
+          return h('div', [
+            h('span', boardLabel),
+            h('Icon', {
+              'class': {
+                'close-icon': true
+              },
+              props: {
+                type: 'ios-close-empty'
+              },
+              nativeOn: {
+                click: (event) => {
+                  event.stopPropagation()
+                  this.handleBoardRemove(boardLabel, boardId)
+                }
+              }
+            })
+          ])
+        }
       }
     },
     methods: {
@@ -142,12 +160,22 @@
         this.boards = storage.get('boards')
         console.log(storage.getAll())
       },
-      handleBoardRemove (boardId) {
-        const boardIndex = this.boards.findIndex(board => board.id === boardId)
-        this.boards.splice(boardIndex, 1)
-        storage.set(`boards`, this.boards)
-        storage.delete(`board-item-${boardId}`)
-        this.saveActiveBoard(this.selectedTab)
+      handleBoardRemove (boardLabel, boardId) {
+        this.$Modal.confirm({
+          title: `Remove board '${boardLabel}' ?`,
+          okText: 'OK, remove it',
+          cancelText: 'Cancel',
+          content: `<p>You are going to remove board <strong>"${boardLabel}"</strong></p>
+                    <p>All items will be deleted, are you sure ?</p>`,
+          onOk: () => {
+            const boardIndex = this.boards.findIndex(board => board.id === boardId)
+            this.boards.splice(boardIndex, 1)
+            storage.set(`boards`, this.boards)
+            storage.delete(`board-item-${boardId}`)
+            this.saveActiveBoard(this.selectedTab)
+            this.$Message.info('Board removed')
+          }
+        })
       },
       saveActiveBoard (boardId) {
         storage.set(`activeBoard`, boardId)
@@ -169,6 +197,22 @@
 </script>
 
 <style>
+  .ivu-tabs-tab-active .close-icon {
+    opacity: 1;
+  }
+
+  .ivu-tabs-tab:hover .close-icon {
+    display: inline-block;
+    opacity: 1;
+  }
+
+  .close-icon {
+    opacity: 0;
+    transition: opacity .3s;
+    position: absolute;
+    padding-left: 3px;
+  }
+
   footer {
     position: fixed;
     bottom: 0;
