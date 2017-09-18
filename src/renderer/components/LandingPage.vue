@@ -29,7 +29,6 @@
                     size="small"
                     icon="plus"
                     shape="circle"
-                    :disabled="boards.length > 4"
                     style="margin-right: 5px;">
             </Button>
           </Tooltip>
