@@ -58,6 +58,7 @@
                     :itemId="item.id"
                     :isDone="item.isDone"
                     :text="item.text"
+                    :created="item.created"
                     v-if="shouldBeDisplayed(item)"
                     @changeIsDone="changeIsDone"
                     @removeItem="removeItem"
@@ -131,7 +132,8 @@
         const newBoardItem = {
           id: XXH.h32(this.newTodoItem, new Date().getTime()).toString(16),
           text: this.newTodoItem,
-          isDone: false
+          isDone: false,
+          created: new Date()
         }
         if (this.prependNewItem) {
           this.boardItems.unshift(newBoardItem)

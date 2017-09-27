@@ -12,6 +12,7 @@
       <span v-if="!isEditing"
       > {{text}}</span>
       </Checkbox>
+      <span class="creationDate">{{created | simpleDate}}</span>
     </div>
     <input v-if="isEditing"
            type="text"
@@ -32,10 +33,10 @@
           </Tooltip>
           <Tooltip content="Remove" :delay="1000" placement="top-end" :transfer="true">
            <Button icon="ios-trash-outline"
-              shape="circle"
-              size="small"
-              type="dashed"
-              @click="removeItem"></Button>
+                   shape="circle"
+                   size="small"
+                   type="dashed"
+                   @click="removeItem"></Button>
           </Tooltip>
           </span>
   </div>
@@ -44,7 +45,7 @@
 <script>
   export default {
     name: 'board-item',
-    props: ['itemId', 'isDone', 'text'],
+    props: ['itemId', 'isDone', 'text', 'created'],
     data () {
       return {
         isEditing: false,
@@ -74,7 +75,18 @@
       removeItem () {
         this.$emit('removeItem', this.itemId)
       }
+    },
+    filters: {
+      simpleDate (dateString) {
+        if (!dateString) {
+          return
+        }
+        const date = new Date(dateString)
+        return `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}
+                ${date.getHours()}:${(date.getMinutes() < 10 ? '0' : '')}${date.getMinutes()}`
+      }
     }
+
   }
 </script>
 
@@ -87,6 +99,14 @@
     display: flex;
     justify-content: space-between;
     padding-bottom: 5px;
+  }
+
+  .creationDate {
+    position: absolute;
+    font-size: .7em;
+    right: 0;
+    bottom: 0;
+    opacity: .6;
   }
 
   .item:hover .movable-icon {
