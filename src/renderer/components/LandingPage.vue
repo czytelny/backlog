@@ -57,9 +57,11 @@
     </new-board-modal>
     <settings-modal :isVisible="settingsModal"
                     :boards="boards"
+                    :itemCreationDate="settings.itemCreationDate"
                     @closeSettingsModal="closeSettingsModal"
                     @saveBoards="saveBoards"
                     @forceReload="forceReload"
+                    @saveSettings="saveSettings"
     >
     </settings-modal>
   </div>
@@ -90,6 +92,7 @@
         selectedTab: 'default',
         newBoardModal: false,
         settingsModal: false,
+        settings: {},
         boardTabLabel: (boardLabel, boardId) => (h) => {
           return h('div', [
             h('span', boardLabel),
@@ -189,12 +192,22 @@
       saveBoards () {
         storage.set(`boards`, this.boards)
       },
+      saveSettings (data) {
+        storage.set(`settings`, data)
+      },
+      fetchSettings () {
+        const persistedSettings = storage.get(`settings`)
+        if (persistedSettings) {
+          this.settings = persistedSettings
+        }
+      },
       forceReload () {
         remote.getCurrentWindow().reload()
       }
     },
     created () {
       this.fetchBoards()
+      this.fetchSettings()
       if (storage.has('activeBoard')) {
         this.selectedTab = storage.get('activeBoard')
       }

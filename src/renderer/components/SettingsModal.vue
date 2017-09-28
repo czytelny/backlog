@@ -6,18 +6,21 @@
          okText="Add"
          :scrollable="true"
   >
-
-    <h4>Setup board names and order</h4>
-    <draggable :list="boards" @change="saveBoards">
-      <div v-for="board in boards" class="board" :key="board.id">
-        <Icon type="minus-round" class="movable-icon" ></Icon>
-        <Input v-model="board.label" style="width: 300px" @on-blur="saveBoards"/>
+    <Checkbox v-model="creationDate" @on-change="saveSettings">
+      Show creation date for each item
+    </Checkbox>
+    
+    <div class="separator"></div>
+      <h4>Setup board names and order</h4>
+      <draggable :list="boards" @change="saveBoards">
+        <div v-for="board in boards" class="board" :key="board.id">
+          <Icon type="minus-round" class="movable-icon"></Icon>
+          <Input v-model="board.label" style="width: 300px" @on-blur="saveBoards"/>
+        </div>
+      </draggable>
+      <div slot="footer">
+        <Button size="large" @click="closeSettingsModal">Close</Button>
       </div>
-    </draggable>
-
-    <div slot="footer">
-      <Button size="large" @click="closeSettingsModal">Close</Button>
-    </div>
   </Modal>
 </template>
 
@@ -26,16 +29,19 @@
 
   export default {
     name: 'settings-modal',
-    props: ['isVisible', 'boards'],
+    props: ['isVisible', 'boards', 'itemCreationDate'],
     components: {
       draggable
     },
     data () {
       return {
-        filePath: ''
+        creationDate: this.itemCreationDate
       }
     },
     methods: {
+      saveSettings () {
+        this.$emit('saveSettings', {itemCreationDate: this.creationDate})
+      },
       saveBoards () {
         this.$emit('saveBoards')
       },
@@ -62,5 +68,10 @@
 
   .board:hover .movable-icon {
     opacity: .55;
+  }
+
+  .separator {
+    border-bottom: 1px solid #f5f5f5;
+    margin: 15px 0
   }
 </style>
