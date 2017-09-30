@@ -190,8 +190,12 @@
       saveActiveBoard (boardId) {
         storage.set(`activeBoard`, boardId)
       },
-      saveBoards () {
-        storage.set(`boards`, this.boards)
+      saveBoards (newBoards) {
+        if (!newBoards) {
+          storage.set(`boards`, this.boards)
+        } else {
+          storage.set(`boards`, newBoards)
+        }
       },
       saveSettings (data) {
         storage.set(`settings`, data)

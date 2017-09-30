@@ -6,14 +6,14 @@
          okText="Add"
          :scrollable="true"
   >
-    <Checkbox v-model="creationDate" @on-change="saveSettings">
+    <Checkbox v-model="itemCreationDateLocal" @on-change="saveSettings">
       Show creation date for each item
     </Checkbox>
     
     <div class="separator"></div>
       <h4>Setup board names and order</h4>
-      <draggable :list="boards" @change="saveBoards">
-        <div v-for="board in boards" class="board" :key="board.id">
+      <draggable :list="boardsLocal" @change="saveBoards">
+        <div v-for="board in boardsLocal" class="board" :key="board.id">
           <Icon type="minus-round" class="movable-icon"></Icon>
           <Input v-model="board.label" style="width: 300px" @on-blur="saveBoards"/>
         </div>
@@ -35,15 +35,16 @@
     },
     data () {
       return {
-        creationDate: this.itemCreationDate
+        boardsLocal: this.boards,
+        itemCreationDateLocal: this.itemCreationDate
       }
     },
     methods: {
       saveSettings () {
-        this.$emit('saveSettings', {itemCreationDate: this.creationDate})
+        this.$emit('saveSettings', {itemCreationDate: this.itemCreationDateLocal})
       },
       saveBoards () {
-        this.$emit('saveBoards')
+        this.$emit('saveBoards', this.boardsLocal)
       },
       closeSettingsModal () {
         this.$emit('closeSettingsModal')
