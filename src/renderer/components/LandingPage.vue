@@ -17,6 +17,7 @@
                  :selectedTab="selectedTab"
                  :showDone="board.showDone"
                  :prependNewItem="board.prependNewItem"
+                 :showDate="settings.itemCreationDate"
                  @showDoneSwitched="showDoneSwitched"
                  @prependNewItemChange="prependNewItemChange"
           >

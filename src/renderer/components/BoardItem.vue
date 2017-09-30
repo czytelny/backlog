@@ -12,7 +12,7 @@
       <span v-if="!isEditing"
       > {{text}}</span>
       </Checkbox>
-      <span class="creationDate">{{created | simpleDate}}</span>
+      <span v-if="showDate" class="creationDate">{{created | simpleDate}}</span>
     </div>
     <input v-if="isEditing"
            type="text"
@@ -45,7 +45,7 @@
 <script>
   export default {
     name: 'board-item',
-    props: ['itemId', 'isDone', 'text', 'created'],
+    props: ['itemId', 'isDone', 'text', 'created', 'showDate'],
     data () {
       return {
         isEditing: false,
