@@ -11,9 +11,13 @@
 
 # Download
 No installation required. Just unzip archive and run executable
-- [Windows version](http://czytelny.com/download/Backlog-win32-x64.zip)
-- [MacOs version](http://czytelny.com/download/Backlog-darwin-x64.zip) 
-- [Linux version](http://czytelny.com/download/Backlog-linux-x64.tar.gz)
+- [Windows version](https://github.com/czytelny/backlog/releases/download/v1.4.0/Backlog-win32-x64.zip)
+- [MacOs version](https://github.com/czytelny/backlog/releases/download/v1.4.0/Backlog-darwin-x64.zip) 
+- [Linux version](https://github.com/czytelny/backlog/releases/download/v1.4.0/Backlog-linux-x64.tar.gz)
+
+#### 32bit versions
+- [Windows x32 version](https://github.com/czytelny/backlog/releases/download/v1.4.0/Backlog-win32-ia32.zip)
+- [Linux x32 version](https://github.com/czytelny/backlog/releases/download/v1.4.0/Backlog-linux-ia32.tar.gz)
 
 See also [latest release notes](https://github.com/czytelny/backlog/releases/latest)
 
@@ -24,6 +28,11 @@ See also [latest release notes](https://github.com/czytelny/backlog/releases/lat
 When new version is available just download it, unzip and enjoy. No additional action is required. All your boards and items will be available.
 
 ## Versions
+### 1.4.0
+- Added item creation date - it's turned off by default (you can turn in on in settings). Old entries won't have date, though - only new one.
+- Limit of 4 boards removed
+- x32 build versions added for linux and windows
+
 ### 1.3.0
 - added confirmation dialog before removing board
 - double click on board bar trigger adding new board modal window
