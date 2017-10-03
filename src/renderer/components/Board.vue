@@ -1,9 +1,8 @@
 <template>
   <div class="tab-content">
-    <Form inline action="#">
+    <form action="#" v-on:submit.prevent="submitNewItem">
       <Row>
         <Col span="18">
-          <Form-item style="width: 95%;">
             <Input ref="mainInput"
                    :autofocus="true"
                    v-model="newTodoItem"
@@ -12,23 +11,22 @@
                    @on-enter="submitNewItem"
                    icon="plus"
                    class="animated"
-                   :class="{'fadeOutDown': isSubmittingNewItem, 'fadeIn': !isSubmittingNewItem}">
+                   :class="{'fadeOutDown': isSubmittingNewItem, 'fadeIn': !isSubmittingNewItem}"
+                   style="width: 95%;">
             </Input>
-          </Form-item>
         </Col>
         <Col span="6">
-        <Form-item style="width:100%;">
           <i-switch :value="prependNewItem"
                     @on-change="prependNewItemChange(); 
                                 focusOnInput();"
-                    size="large">
+                    size="large"
+                   >
             <span slot="open">Head</span>
             <span slot="close">Tail</span>
           </i-switch>
-        </Form-item>
-        </Col>
+        </Col>         
       </Row>
-    </Form>
+    </form>
     <div class="showDoneLink">
       <Button v-if="!showDone"
               type="dashed"
