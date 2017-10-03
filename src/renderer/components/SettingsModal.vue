@@ -11,16 +11,16 @@
     </Checkbox>
     
     <div class="separator"></div>
-      <h4>Setup board names and order</h4>
-      <draggable :list="boardsLocal" @change="saveBoards">
-        <div v-for="board in boardsLocal" class="board" :key="board.id">
-          <Icon type="minus-round" class="movable-icon"></Icon>
-          <Input v-model="board.label" style="width: 300px" @on-blur="saveBoards"/>
-        </div>
-      </draggable>
-      <div slot="footer">
-        <Button size="large" @click="closeSettingsModal">Close</Button>
+    <h4>Setup board names and order</h4>
+    <draggable :list="boardsLocal" @change="saveBoards">
+      <div v-for="board in boardsLocal" class="board" :key="board.id">
+        <Icon type="minus-round" class="movable-icon"></Icon>
+        <Input v-model="board.label" style="width: 300px" @on-blur="saveBoards"/>
       </div>
+    </draggable>
+    <div slot="footer">
+      <Button size="large" @click="closeSettingsModal">Close</Button>
+    </div>
   </Modal>
 </template>
 

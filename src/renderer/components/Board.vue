@@ -1,20 +1,20 @@
 <template>
   <div class="tab-content">
-    <Form inline>
+    <Form inline action="#">
       <Row>
         <Col span="18">
-        <Form-item style="width: 95%;">
-          <Input :autofocus="true"
-                 ref="mainInput"
-                 v-model="newTodoItem"
-                 placeholder="Type and hit Enter"
-                 size="large"
-                 @on-keyup.enter="submitNewItem"
-                 icon="plus"
-                 class="animated"
-                 :class="{'fadeOutDown': isSubmittingNewItem, 'fadeIn': !isSubmittingNewItem}">
-          </Input>
-        </Form-item>
+          <Form-item style="width: 95%;">
+            <Input ref="mainInput"
+                   :autofocus="true"
+                   v-model="newTodoItem"
+                   placeholder="Type and hit Enter"
+                   size="large"
+                   @on-enter="submitNewItem"
+                   icon="plus"
+                   class="animated"
+                   :class="{'fadeOutDown': isSubmittingNewItem, 'fadeIn': !isSubmittingNewItem}">
+            </Input>
+          </Form-item>
         </Col>
         <Col span="6">
         <Form-item style="width:100%;">
