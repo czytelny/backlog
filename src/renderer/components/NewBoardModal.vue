@@ -24,6 +24,10 @@
     },
     methods: {
       submitNewBoard () {
+        if (this.newBoardName.trim() === '') {
+          this.newBoardName = ''
+          return
+        }
         this.$emit('submitNewBoard', this.newBoardName)
         this.newBoardName = ''
       },
