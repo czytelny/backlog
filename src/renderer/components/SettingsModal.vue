@@ -12,7 +12,7 @@
     
     <div class="separator"></div>
     <h4>Setup board names and order</h4>
-    <draggable :list="boardsLocal" @change="saveBoards">
+    <draggable :list="boardsLocal">
       <div v-for="board in boardsLocal" class="board" :key="board.id">
         <Icon type="minus-round" class="movable-icon"></Icon>
         <Input v-model="board.label" style="width: 300px" @on-blur="saveBoards"/>
@@ -33,9 +33,12 @@
     components: {
       draggable
     },
+    created () {
+      this.boardsLocal = JSON.parse(JSON.stringify(this.boards))
+    },
     data () {
       return {
-        boardsLocal: this.boards,
+        boardsLocal: null,
         itemCreationDateLocal: this.itemCreationDate
       }
     },
@@ -47,6 +50,7 @@
         this.$emit('saveBoards', this.boardsLocal)
       },
       closeSettingsModal () {
+        this.saveBoards()
         this.$emit('closeSettingsModal')
         this.$emit('forceReload')
       }
