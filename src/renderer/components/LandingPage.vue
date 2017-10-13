@@ -249,6 +249,6 @@
   }
 
   .ivu-tabs-bar {
-    -webkit-user-select: none;
+    user-select: none;
   }
 </style>

@@ -233,8 +233,4 @@
     opacity: 0;
     transform: translateX(-100%);
   }
-
-  .list-complete-leave-active {
-
-  }
 </style>
