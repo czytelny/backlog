@@ -54,6 +54,10 @@
     },
     methods: {
       saveItem () {
+        if (this.draftText.trim() === '') {
+          this.draftText = ''
+          return
+        }
         this.turnOffEditing()
         this.$emit('changeItemVal', this.itemId, this.draftText)
       },
