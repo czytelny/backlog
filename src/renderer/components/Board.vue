@@ -213,6 +213,7 @@
 
   .showDoneLink {
     text-align: center;
+    padding: 20px 0;
   }
 
   .tab-content {
