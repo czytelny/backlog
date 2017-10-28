@@ -125,6 +125,7 @@
       },
       submitNewItem () {
         if (this.newTodoItem.trim().length === 0) {
+          this.newTodoItem = ''
           return
         }
         this.isSubmittingNewItem = true
@@ -141,6 +142,7 @@
         }
         this.newTodoItem = ''
         this.saveBoardItems()
+        this.$Message.success('Item added')
         this.$nextTick(() => {
           this.isSubmittingNewItem = false
         })
@@ -151,6 +153,7 @@
           this.boardItems.splice(indexToRemove, 1)
           this.saveBoardItems()
           this.focusOnInput()
+          this.$Message.success('Item removed')
         }
       },
       changeItemVal (itemId, itemVal) {
