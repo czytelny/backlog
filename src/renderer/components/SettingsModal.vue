@@ -3,6 +3,7 @@
          title="Settings"
          @on-ok="closeSettingsModal"
          :closable="false"
+         :mask-closable="false"
          okText="Add"
          :scrollable="true"
   >
