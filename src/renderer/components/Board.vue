@@ -124,7 +124,7 @@
         return this.showDone
       },
       submitNewItem () {
-        if (this.newTodoItem.length === 0) {
+        if (this.newTodoItem.trim().length === 0) {
           return
         }
         this.isSubmittingNewItem = true

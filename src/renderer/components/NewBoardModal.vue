@@ -1,15 +1,19 @@
 <template>
   <Modal :value="newBoardModal"
          title="Add new board"
-         @on-ok="submitNewBoard"
-         @on-cancel="closeNewBoardModal"
          okText="Add"
+         :closable="false"
+         :mask-closable="false"
          cancelText="Cancel">
     <Input v-model="newBoardName"
            placeholder="New board name"
            @on-keyup.enter="submitNewBoard"
            v-focus
     />
+    <div slot="footer">
+      <Button type="text" size="large" @click="closeNewBoardModal">Cancel</Button>
+      <Button type="primary" size="large" @click="submitNewBoard">Add new board</Button>
+    </div>
   </Modal>
 </template>
 
@@ -26,7 +30,7 @@
       submitNewBoard () {
         if (this.newBoardName.trim() === '') {
           this.newBoardName = ''
-          return
+          return false
         }
         this.$emit('submitNewBoard', this.newBoardName)
         this.newBoardName = ''
