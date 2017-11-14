@@ -11,13 +11,13 @@
 
 # Download
 No installation required. Just unzip archive and run executable
-- [Windows version](https://github.com/czytelny/backlog/releases/download/v1.4.1/Backlog-win32-x64.zip)
-- [MacOs version](https://github.com/czytelny/backlog/releases/download/v1.4.1/Backlog-darwin-x64.zip) 
-- [Linux version](https://github.com/czytelny/backlog/releases/download/v1.4.1/Backlog-linux-x64.tar.gz)
+- [Windows version](https://github.com/czytelny/backlog/releases/download/v1.4.2/Backlog-win32-x64.zip)
+- [MacOs version](https://github.com/czytelny/backlog/releases/download/v1.4.2/Backlog-darwin-x64.zip) 
+- [Linux version](https://github.com/czytelny/backlog/releases/download/v1.4.2/Backlog-linux-x64.tar.gz)
 
 #### 32bit versions
-- [Windows x32 version](https://github.com/czytelny/backlog/releases/download/v1.4.1/Backlog-win32-ia32.zip)
-- [Linux x32 version](https://github.com/czytelny/backlog/releases/download/v1.4.1/Backlog-linux-ia32.tar.gz)
+- [Windows x32 version](https://github.com/czytelny/backlog/releases/download/v1.4.2/Backlog-win32-ia32.zip)
+- [Linux x32 version](https://github.com/czytelny/backlog/releases/download/v1.4.2/Backlog-linux-ia32.tar.gz)
 
 ## Screenshot
 ![image](screenshot.png)
