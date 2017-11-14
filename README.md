@@ -26,6 +26,9 @@ No installation required. Just unzip archive and run executable
 When new version is available just download it, unzip and enjoy. No additional action is required. All your boards and items will be available.
 
 ## Versions
+### 1.4.2
+- fixed bug - when after opening settings modal user lost newly created boards
+ 
 ### 1.4.1
 Fixed bugs:
 - Prevent creating empty task
