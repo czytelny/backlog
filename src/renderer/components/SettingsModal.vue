@@ -35,12 +35,17 @@
       draggable
     },
     created () {
-      this.boardsLocal = JSON.parse(JSON.stringify(this.boards))
+      this.updateLocalBoards()
     },
     data () {
       return {
         boardsLocal: null,
         itemCreationDateLocal: this.itemCreationDate
+      }
+    },
+    watch: {
+      boards: function (newBoards) {
+        this.updateLocalBoards()
       }
     },
     methods: {
@@ -54,6 +59,9 @@
         this.saveBoards()
         this.$emit('closeSettingsModal')
         this.$emit('forceReload')
+      },
+      updateLocalBoards () {
+        this.boardsLocal = JSON.parse(JSON.stringify(this.boards))
       }
     }
   }
