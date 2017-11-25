@@ -157,7 +157,6 @@
         this.$nextTick(() => this.$bus.$emit('boardAdded', newBoardId))
       },
       fetchBoards () {
-//        storage.deleteAll()
         const boards = storage.get('boards')
         if (!boards) {
           storage.set('boards', [{
@@ -214,7 +213,9 @@
       this.fetchBoards()
       this.fetchSettings()
       if (storage.has('activeBoard')) {
-        this.selectedTab = storage.get('activeBoard')
+        const activeBoardId = storage.get('activeBoard')
+        this.selectedTab = activeBoardId
+        this.$nextTick(() => this.$bus.$emit('appInit', activeBoardId))
       }
     }
   }

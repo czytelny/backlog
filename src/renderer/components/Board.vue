@@ -166,7 +166,12 @@
         this.focusOnInput()
       },
       focusOnInput () {
-        this.$refs['mainInput'].focus()
+        const vm = this
+        setTimeout(() => {
+          if (vm.$refs['mainInput']) {
+            vm.$refs['mainInput'].focus()
+          }
+        }, 250)
       },
       saveBoardItems () {
         storage.set(`board-item-${this.boardId}`, this.boardItems)
@@ -180,23 +185,19 @@
     watch: {
       selectedTab () {
         if (this.isActive) {
-          setTimeout(() => {
-            this.$refs['mainInput'].focus()
-          }, 250)
+          this.focusOnInput()
         }
       }
     },
     created () {
       const vm = this
-      this.$bus.$on('boardAdded', function (boardId) {
+      const boardEnterFn = function (boardId) {
         if (vm.boardId === boardId) {
-          setTimeout(() => {
-            if (vm.$refs['mainInput']) {
-              vm.$refs['mainInput'].focus()
-            }
-          }, 250)
+          vm.focusOnInput()
         }
-      })
+      }
+      this.$bus.$on('boardAdded', boardEnterFn)
+      this.$bus.$on('appInit', boardEnterFn)
       this.fetchBoardItems()
     }
   }
