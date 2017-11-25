@@ -9,6 +9,7 @@
                    placeholder="Type and hit Enter"
                    size="large"
                    @on-enter="submitNewItem"
+                   @on-click="submitNewItem"
                    icon="plus"
                    class="animated"
                    :class="{'fadeOutDown': isSubmittingNewItem, 'fadeIn': !isSubmittingNewItem}"
