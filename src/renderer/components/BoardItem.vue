@@ -10,7 +10,9 @@
                 v-if="!isEditing"
                 @on-change="changeIsDone">
       <span v-if="!isEditing"
-      > {{text}}</span>
+            v-html="textWithLink"
+            @click="handleLinkClick"
+      > </span>
       </Checkbox>
       <span v-if="showDate" class="creationDate">{{created | simpleDate}}</span>
     </div>
@@ -78,6 +80,24 @@
       },
       removeItem () {
         this.$emit('removeItem', this.itemId)
+      },
+      open (link) {
+        this.$electron.shell.openExternal(link)
+      },
+      handleLinkClick (event) {
+        if (event.target.className === 'link') {
+          event.preventDefault()
+          this.open(event.target.title)
+        }
+      }
+    },
+    computed: {
+      textWithLink () {
+        return this.text.autoLink({
+          callback: function (url) {
+            return `<span class='link' title="${url}">${url.split('/')[2]}</span>`
+          }
+        })
       }
     },
     filters: {
@@ -176,6 +196,11 @@
 
   .draftText:focus {
     outline: none;
+  }
+
+  .link {
+    color: #41B883;
+    font-style: italic;
   }
 
 </style>

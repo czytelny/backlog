@@ -13,8 +13,7 @@
                    icon="plus"
                    class="animated"
                    :class="{'fadeOutDown': isSubmittingNewItem, 'fadeIn': !isSubmittingNewItem}"
-                   style="width: 95%;">
-            </Input>
+                   style="width: 95%;"/>
         </Col>
         <Col span="6">
           <i-switch :value="prependNewItem"
