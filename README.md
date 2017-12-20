@@ -11,13 +11,13 @@
 
 # Download
 No installation required. Just unzip archive and run executable
-- [Windows version](https://github.com/czytelny/backlog/releases/download/v1.4.2/Backlog-win32-x64.zip)
-- [MacOs version](https://github.com/czytelny/backlog/releases/download/v1.4.2/Backlog-darwin-x64.zip) 
-- [Linux version](https://github.com/czytelny/backlog/releases/download/v1.4.2/Backlog-linux-x64.tar.gz)
+- [Windows version](https://github.com/czytelny/backlog/releases/download/v1.5.0/Backlog-win32-x64.zip)
+- [MacOs version](https://github.com/czytelny/backlog/releases/download/v1.5.0/Backlog-darwin-x64.zip) 
+- [Linux version](https://github.com/czytelny/backlog/releases/download/v1.5.0/Backlog-linux-x64.tar.gz)
 
 #### 32bit versions
-- [Windows x32 version](https://github.com/czytelny/backlog/releases/download/v1.4.2/Backlog-win32-ia32.zip)
-- [Linux x32 version](https://github.com/czytelny/backlog/releases/download/v1.4.2/Backlog-linux-ia32.tar.gz)
+- [Windows x32 version](https://github.com/czytelny/backlog/releases/download/v1.5.0/Backlog-win32-ia32.zip)
+- [Linux x32 version](https://github.com/czytelny/backlog/releases/download/v1.5.0/Backlog-linux-ia32.tar.gz)
 
 ## Screenshot
 ![image](screenshot.png)
@@ -28,7 +28,7 @@ When new version is available just download it, unzip and enjoy. No additional a
 ## Versions
 ### 1.5.0
 Features: 
-- When entering http link in an item, app will show it as a hyperlink and make it clickable
+- When entering http link in an item, app will show it as a hyperlink and make it clickable. Hover it to see full URL
 - User can embed html tags like `<b>, <i>` etc
 
 Fixed bugs: 
