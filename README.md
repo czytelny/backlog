@@ -26,6 +26,15 @@ No installation required. Just unzip archive and run executable
 When new version is available just download it, unzip and enjoy. No additional action is required. All your boards and items will be available.
 
 ## Versions
+### 1.5.0
+Features: 
+- When entering http link in an item, app will show it as a hyperlink and make it clickable
+- User can embed html tags like `<b>, <i>` etc
+
+Fixed bugs: 
+- Fix issue which caused that in some cases after opening application current board input was not focused
+- Clicking on "+" icon in input will cause adding new item (just as pressing Enter)
+
 ### 1.4.2
 - fixed bug - when after opening settings modal user lost newly created boards
  
@@ -50,7 +59,7 @@ Fixed bugs:
 - tooltip placement improved
 - minor ui readability improvements
 
-## Why I write it ?
+## Why I've wrote it ?
 When programming I often have a number of ideas related to possible improvements for the future or a cool new project. Most often, it's just one sentence or a couple of words - just a draft of an idea to expand in the future. 
 
 I know that, there are hundreds of *todo list managers* or other *notes manager*,
