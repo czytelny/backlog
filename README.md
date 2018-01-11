@@ -5,7 +5,7 @@
 > no external accounts. Sleek flow.
 
 <p align="center">
-<img src="https://github.com/czytelny/backlog/raw/master/logo.png">
+<img src="https://github.com/czytelny/backlog/raw/master/logo.png" width="100px" height="100px">
 </p>
 
 
@@ -20,7 +20,9 @@ No installation required. Just unzip archive and run executable
 - [Linux x32 version](https://github.com/czytelny/backlog/releases/download/v1.5.0/Backlog-linux-ia32.tar.gz)
 
 ## Screenshot
-![image](screenshot.png)
+<p align="center">
+<img src="https://github.com/czytelny/backlog/raw/master/screenshot.png" width="400px">
+</p>
 
 ## Update
 When new version is available just download it, unzip and enjoy. No additional action is required. All your boards and items will be available.
