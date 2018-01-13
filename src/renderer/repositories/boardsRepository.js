@@ -5,19 +5,36 @@ import lodashId from 'lodash-id'
 db._.mixin(lodashId)
 
 db.defaults({
-  activeBoard: null,
-  boards: []
+  activeBoard: 'default',
+  boards: [{
+    id: 'default',
+    label: 'Default board',
+    showDone: false,
+    prependNewItem: false
+  }]
 }).write()
 
 export default {
   get () {
     console.log(`${JSON.stringify(db.getState())}`)
   },
-  saveNewBoard (newBoard) {
-    db
+  saveNewBoard (boardName) {
+    return db
       .get('boards')
-      .insert(newBoard)
+      .insert({
+        label: boardName,
+        showDone: false,
+        prependNewItem: false
+      })
       .write()
+  },
+  setActiveBoard (boardId) {
+    db.set('activeBoard', boardId)
+      .write()
+  },
+  getActiveBoard () {
+    return db.get('activeBoard')
+      .value()
   },
   getBoard (boardId) {
     return db

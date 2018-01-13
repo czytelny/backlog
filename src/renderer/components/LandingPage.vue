@@ -72,9 +72,8 @@
 
   import Board from './Board.vue'
   import NewBoardModal from './NewBoardModal.vue'
-
-  import XXH from 'xxhashjs'
   import SettingsModal from './SettingsModal.vue'
+  import boardsRepository from '@/repositories/boardsRepository'
 
   const storage = require('electron').remote.require('electron-settings')
   const remote = require('electron').remote
@@ -147,27 +146,12 @@
         this.settingsModal = false
       },
       submitNewBoard (boardName) {
-        const newBoardId = XXH.h32(boardName, new Date().getTime()).toString(16)
-        this.boards.push({id: newBoardId, label: boardName, showDone: false})
-        this.saveBoards()
-        this.selectedTab = newBoardId
-        this.newBoardModal = false
-        this.saveActiveBoard(newBoardId)
+        const savedBoard = boardsRepository.saveNewBoard(boardName)
+        this.selectedTab = savedBoard.id
+        this.saveActiveBoard(savedBoard.id)
+        this.$nextTick(() => this.$bus.$emit('boardAdded', savedBoard.id))
+        this.closeNewBoardModal()
         this.$Message.success('Board added')
-        this.$nextTick(() => this.$bus.$emit('boardAdded', newBoardId))
-      },
-      fetchBoards () {
-        const boards = storage.get('boards')
-        if (!boards) {
-          storage.set('boards', [{
-            id: 'default',
-            label: 'Default board',
-            showDone: false,
-            prependNewItem: false
-          }])
-        }
-        this.boards = storage.get('boards')
-        console.log(storage.getAll())
       },
       handleBoardRemove (boardLabel, boardId) {
         this.$Modal.confirm({
@@ -187,7 +171,7 @@
         })
       },
       saveActiveBoard (boardId) {
-        storage.set(`activeBoard`, boardId)
+        boardsRepository.setActiveBoard(boardId)
       },
       saveBoards (newBoards) {
         if (!newBoards) {
@@ -210,13 +194,11 @@
       }
     },
     created () {
-      this.fetchBoards()
+      this.boards = boardsRepository.getList()
       this.fetchSettings()
-      if (storage.has('activeBoard')) {
-        const activeBoardId = storage.get('activeBoard')
-        this.selectedTab = activeBoardId
-        this.$nextTick(() => this.$bus.$emit('appInit', activeBoardId))
-      }
+      const activeBoardId = boardsRepository.getActiveBoard()
+      this.selectedTab = activeBoardId
+      this.$nextTick(() => this.$bus.$emit('appInit', activeBoardId))
     }
   }
 </script>
