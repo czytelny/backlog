@@ -1,4 +1,4 @@
-import db from '@/persistence'
+import db from './../persistence'
 
 import lodashId from 'lodash-id'
 
