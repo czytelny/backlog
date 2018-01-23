@@ -75,7 +75,6 @@
   import SettingsModal from './SettingsModal.vue'
   import boardsRepository from '@/../repositories/boardsRepository'
 
-  const storage = require('electron').remote.require('electron-settings')
   const remote = require('electron').remote
 
   export default {
@@ -151,6 +150,7 @@
         this.saveActiveBoard(savedBoard.id)
         this.$nextTick(() => this.$bus.$emit('boardAdded', savedBoard.id))
         this.closeNewBoardModal()
+        this.loadBoards()
         this.$Message.success('Board added')
       },
       handleBoardRemove (boardLabel, boardId) {
@@ -161,11 +161,8 @@
           content: `<p>You are going to remove board <strong>"${boardLabel}"</strong></p>
                     <p>All items will be deleted, are you sure ?</p>`,
           onOk: () => {
-            const boardIndex = this.boards.findIndex(board => board.id === boardId)
-            this.boards.splice(boardIndex, 1)
-            storage.set(`boards`, this.boards)
-            storage.delete(`board-item-${boardId}`)
-            this.saveActiveBoard(this.selectedTab)
+            boardsRepository.removeBoard(boardId)
+            this.loadBoards()
             this.$Message.info('Board removed')
           }
         })
@@ -174,31 +171,34 @@
         boardsRepository.setActiveBoard(boardId)
       },
       saveBoards (newBoards) {
-        if (!newBoards) {
-          storage.set(`boards`, this.boards)
-        } else {
-          storage.set(`boards`, newBoards)
-        }
+        // if (!newBoards) {
+        //   storage.set(`boards`, this.boards)
+        // } else {
+        //   storage.set(`boards`, newBoards)
+        // }
       },
       saveSettings (data) {
-        storage.set(`settings`, data)
+        // storage.set(`settings`, data)
       },
       fetchSettings () {
-        const persistedSettings = storage.get(`settings`)
-        if (persistedSettings) {
-          this.settings = persistedSettings
-        }
+        // const persistedSettings = storage.get(`settings`)
+        // if (persistedSettings) {
+        //   this.settings = persistedSettings
+        // }
+      },
+      loadBoards () {
+        this.boards = boardsRepository.getList().slice()
+        console.log(JSON.stringify(this.boards))
       },
       forceReload () {
         remote.getCurrentWindow().reload()
       }
     },
     created () {
-      this.boards = boardsRepository.getList()
+      this.loadBoards()
       this.fetchSettings()
-      const activeBoardId = boardsRepository.getActiveBoard()
-      this.selectedTab = activeBoardId
-      this.$nextTick(() => this.$bus.$emit('appInit', activeBoardId))
+      this.selectedTab = boardsRepository.getActiveBoard()
+      this.$nextTick(() => this.$bus.$emit('appInit', this.selectedTab))
     }
   }
 </script>

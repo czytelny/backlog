@@ -10,7 +10,8 @@ db.defaults({
     id: 'default',
     label: 'Default board',
     showDone: false,
-    prependNewItem: false
+    prependNewItem: false,
+    items: []
   }]
 }).write()
 
@@ -26,6 +27,11 @@ export default {
         showDone: false,
         prependNewItem: false
       })
+      .write()
+  },
+  removeBoard (boardId) {
+    db.get('boards')
+      .remove({id: boardId})
       .write()
   },
   setActiveBoard (boardId) {
@@ -46,5 +52,13 @@ export default {
     return db
       .get('boards')
       .value()
+  },
+  addItem (boardId, item) {
+    return db
+      .get('boards')
+      .getById(boardId)
+      .get('items')
+      .push(item)
+      .write()
   }
 }
