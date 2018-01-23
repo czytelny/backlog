@@ -27,6 +27,21 @@ export default {
       .updateById(boardId, {prependNewItem: value})
       .write()
   },
+  switchShowDone (boardId, value) {
+    return db
+      .get('boards')
+      .updateById(boardId, {showDone: value})
+      .write()
+  },
+  switchIsDone (boardId, itemId, value) {
+    return db
+      .get('boards')
+      .find({id: boardId})
+      .get('items')
+      .find({id: itemId})
+      .assign({isDone: value})
+      .write()
+  },
   saveNewBoard (boardName) {
     return db
       .get('boards')
@@ -62,21 +77,29 @@ export default {
       .get('boards')
       .value()
   },
-  addItemToEnd (boardId, item) {
+  addItemToEnd (boardId, text) {
     return db
       .get('boards')
       .getById(boardId)
       .get('items')
-      .insert(item)
+      .insert({
+        isDone: false,
+        created: new Date(),
+        text
+      })
       .write()
   },
-  addItemToBegin (boardId, item) {
-    item.id = shortid.generate()
+  addItemToBegin (boardId, text) {
     return db
       .get('boards')
       .getById(boardId)
       .get('items')
-      .unshift(item)
+      .unshift({
+        id: shortid.generate(),
+        isDone: false,
+        created: new Date(),
+        text
+      })
       .write()
   },
   getItems (boardId) {
@@ -84,6 +107,7 @@ export default {
       .get('boards')
       .getById(boardId)
       .get('items')
+      .cloneDeep()
       .value()
   }
 }

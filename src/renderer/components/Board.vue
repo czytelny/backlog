@@ -108,12 +108,11 @@
         boardsRepository.switchPrependNewItem(this.boardId, !this.prependNewItem)
       },
       switchShowDone () {
-        this.$emit('showDoneSwitched', !this.showDone, this.boardId)
+        boardsRepository.switchShowDone(this.boardId, !this.showDone)
       },
       changeIsDone (itemId, newVal) {
-        this.boardItems.find(item => item.id === itemId).isDone = newVal
-        this.boardItems = this.boardItems.slice(0)
-        this.saveBoardItems()
+        boardsRepository.switchIsDone(this.boardId, itemId, newVal)
+        this.fetchBoardItems()
       },
       shouldBeDisplayed (item) {
         if (!item.isDone) {
@@ -127,15 +126,10 @@
           return
         }
         this.isSubmittingNewItem = true
-        const newBoardItem = {
-          text: this.newTodoItem,
-          isDone: false,
-          created: new Date()
-        }
         if (this.prependNewItem) {
-          boardsRepository.addItemToBegin(this.boardId, newBoardItem)
+          boardsRepository.addItemToBegin(this.boardId, this.newTodoItem)
         } else {
-          boardsRepository.addItemToEnd(this.boardId, newBoardItem)
+          boardsRepository.addItemToEnd(this.boardId, this.newTodoItem)
         }
         this.newTodoItem = ''
         this.$Message.success('Item added')

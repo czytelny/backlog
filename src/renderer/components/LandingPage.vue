@@ -18,7 +18,6 @@
                  :showDone="board.showDone"
                  :prependNewItem="board.prependNewItem"
                  :showDate="settings.itemCreationDate"
-                 @showDoneSwitched="showDoneSwitched"
           >
           </board>
         </Tab-pane>
@@ -117,11 +116,6 @@
         if (event.target.className === 'ivu-tabs-nav-scroll') {
           this.showNewBoardModal()
         }
-      },
-      showDoneSwitched (value, boardId) {
-        // this.boards.find(board => board.id === boardId).showDone = value
-        // this.boards = this.boards.splice(0)
-        // this.saveBoards()
       },
       open (link) {
         this.$electron.shell.openExternal(link)
