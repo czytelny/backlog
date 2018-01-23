@@ -103,7 +103,7 @@
     },
     methods: {
       boardItemsRearanged () {
-        this.saveBoardItems()
+        boardsRepository.saveItemsArray(this.boardId, this.boardItems)
       },
       prependNewItemChange () {
         itemsRepository.switchPrependNewItem(this.boardId, !this.prependNewItem)
@@ -164,9 +164,6 @@
             vm.$refs['mainInput'].focus()
           }
         }, 250)
-      },
-      saveBoardItems () {
-        // storage.set(`board-item-${this.boardId}`, this.boardItems)
       },
       fetchBoardItems () {
         this.boardItems = boardsRepository.getItems(this.boardId)

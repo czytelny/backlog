@@ -32,6 +32,13 @@ export default {
       })
       .write()
   },
+  saveItemsArray (boardId, items) {
+    return db
+      .get('boards')
+      .getById(boardId)
+      .set('items', items)
+      .write()
+  },
   removeBoard (boardId) {
     db.get('boards')
       .remove({id: boardId})
@@ -43,12 +50,6 @@ export default {
   },
   getActiveBoard () {
     return db.get('activeBoard')
-      .value()
-  },
-  getBoard (boardId) {
-    return db
-      .get('boards')
-      .getById(boardId)
       .value()
   },
   getList () {
