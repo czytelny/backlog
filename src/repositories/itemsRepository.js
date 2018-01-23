@@ -19,5 +19,13 @@ export default {
       .find({id: itemId})
       .assign({isDone: value})
       .write()
+  },
+  removeItem (boardId, itemId) {
+    return db
+      .get('boards')
+      .find({id: boardId})
+      .get('items')
+      .remove({id: itemId})
+      .write()
   }
 }

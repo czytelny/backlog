@@ -140,13 +140,10 @@
         })
       },
       removeItem (itemId) {
-        const indexToRemove = this.boardItems.findIndex(el => el.id === itemId)
-        if (indexToRemove !== -1) {
-          this.boardItems.splice(indexToRemove, 1)
-          this.saveBoardItems()
-          this.focusOnInput()
-          this.$Message.success('Item removed')
-        }
+        itemsRepository.removeItem(this.boardId, itemId)
+        this.focusOnInput()
+        this.fetchBoardItems()
+        this.$Message.success('Item removed')
       },
       changeItemVal (itemId, itemVal) {
         const item = this.boardItems.find(el => el.id === itemId)

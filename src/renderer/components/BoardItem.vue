@@ -24,7 +24,6 @@
            v-on:blur="saveItem"
            class="draftText animated fadeIn">
     <span class="actionBtns" v-if="!isEditing">
-          <Tooltip content="Edit" :delay="1000" placement="top-end" :transfer="true">
             <Button icon="edit"
                     v-if="!isDone"
                     shape="circle"
@@ -32,14 +31,11 @@
                     type="dashed"
                     @click="editItem">
             </Button>
-          </Tooltip>
-          <Tooltip content="Remove" :delay="1000" placement="top-end" :transfer="true">
            <Button icon="ios-trash-outline"
                    shape="circle"
                    size="small"
                    type="dashed"
                    @click="removeItem"></Button>
-          </Tooltip>
           </span>
   </div>
 </template>
