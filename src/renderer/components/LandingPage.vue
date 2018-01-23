@@ -18,6 +18,7 @@
                  :showDone="board.showDone"
                  :prependNewItem="board.prependNewItem"
                  :showDate="settings.itemCreationDate"
+                 @switchShowDone="switchShowDone"
           >
           </board>
         </Tab-pane>
@@ -131,6 +132,10 @@
       },
       closeSettingsModal () {
         this.settingsModal = false
+      },
+      switchShowDone ({boardId, newValue}) {
+        boardsRepository.switchShowDone(boardId, newValue)
+        this.loadBoards()
       },
       submitNewBoard (boardName) {
         const savedBoard = boardsRepository.saveNewBoard(boardName)

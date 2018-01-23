@@ -109,7 +109,7 @@
         itemsRepository.switchPrependNewItem(this.boardId, !this.prependNewItem)
       },
       switchShowDone () {
-        boardsRepository.switchShowDone(this.boardId, !this.showDone)
+        this.$emit('switchShowDone', {boardId: this.boardId, newValue: !this.showDone})
       },
       changeIsDone (itemId, newVal) {
         itemsRepository.switchIsDone(this.boardId, itemId, newVal)
