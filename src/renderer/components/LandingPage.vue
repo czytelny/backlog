@@ -19,7 +19,6 @@
                  :prependNewItem="board.prependNewItem"
                  :showDate="settings.itemCreationDate"
                  @showDoneSwitched="showDoneSwitched"
-                 @prependNewItemChange="prependNewItemChange"
           >
           </board>
         </Tab-pane>
@@ -119,15 +118,10 @@
           this.showNewBoardModal()
         }
       },
-      prependNewItemChange (value, boardId) {
-        this.boards.find(board => board.id === boardId).prependNewItem = value
-        this.boards = this.boards.splice(0)
-        this.saveBoards()
-      },
       showDoneSwitched (value, boardId) {
-        this.boards.find(board => board.id === boardId).showDone = value
-        this.boards = this.boards.splice(0)
-        this.saveBoards()
+        // this.boards.find(board => board.id === boardId).showDone = value
+        // this.boards = this.boards.splice(0)
+        // this.saveBoards()
       },
       open (link) {
         this.$electron.shell.openExternal(link)
@@ -187,8 +181,7 @@
         // }
       },
       loadBoards () {
-        this.boards = boardsRepository.getList().slice()
-        console.log(JSON.stringify(this.boards))
+        this.boards = boardsRepository.getList()
       },
       forceReload () {
         remote.getCurrentWindow().reload()

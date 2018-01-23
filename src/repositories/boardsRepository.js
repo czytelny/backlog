@@ -2,6 +2,8 @@ import db from './../persistence'
 
 import lodashId from 'lodash-id'
 
+const shortid = require('shortid')
+
 db._.mixin(lodashId)
 
 db.defaults({
@@ -19,13 +21,20 @@ export default {
   get () {
     console.log(`${JSON.stringify(db.getState())}`)
   },
+  switchPrependNewItem (boardId, value) {
+    return db
+      .get('boards')
+      .updateById(boardId, {prependNewItem: value})
+      .write()
+  },
   saveNewBoard (boardName) {
     return db
       .get('boards')
       .insert({
         label: boardName,
         showDone: false,
-        prependNewItem: false
+        prependNewItem: false,
+        items: []
       })
       .write()
   },
@@ -53,12 +62,28 @@ export default {
       .get('boards')
       .value()
   },
-  addItem (boardId, item) {
+  addItemToEnd (boardId, item) {
     return db
       .get('boards')
       .getById(boardId)
       .get('items')
-      .push(item)
+      .insert(item)
       .write()
+  },
+  addItemToBegin (boardId, item) {
+    item.id = shortid.generate()
+    return db
+      .get('boards')
+      .getById(boardId)
+      .get('items')
+      .unshift(item)
+      .write()
+  },
+  getItems (boardId) {
+    return db
+      .get('boards')
+      .getById(boardId)
+      .get('items')
+      .value()
   }
 }
