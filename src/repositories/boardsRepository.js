@@ -21,27 +21,6 @@ export default {
   get () {
     console.log(`${JSON.stringify(db.getState())}`)
   },
-  switchPrependNewItem (boardId, value) {
-    return db
-      .get('boards')
-      .updateById(boardId, {prependNewItem: value})
-      .write()
-  },
-  switchShowDone (boardId, value) {
-    return db
-      .get('boards')
-      .updateById(boardId, {showDone: value})
-      .write()
-  },
-  switchIsDone (boardId, itemId, value) {
-    return db
-      .get('boards')
-      .find({id: boardId})
-      .get('items')
-      .find({id: itemId})
-      .assign({isDone: value})
-      .write()
-  },
   saveNewBoard (boardName) {
     return db
       .get('boards')
@@ -109,5 +88,11 @@ export default {
       .get('items')
       .cloneDeep()
       .value()
+  },
+  switchShowDone (boardId, value) {
+    return db
+      .get('boards')
+      .updateById(boardId, {showDone: value})
+      .write()
   }
 }

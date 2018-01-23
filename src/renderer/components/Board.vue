@@ -73,6 +73,7 @@
   import draggable from 'vuedraggable'
   import BoardItem from './BoardItem.vue'
   import boardsRepository from '@/../repositories/boardsRepository'
+  import itemsRepository from '../../repositories/itemsRepository'
 
   export default {
     name: 'board',
@@ -105,13 +106,13 @@
         this.saveBoardItems()
       },
       prependNewItemChange () {
-        boardsRepository.switchPrependNewItem(this.boardId, !this.prependNewItem)
+        itemsRepository.switchPrependNewItem(this.boardId, !this.prependNewItem)
       },
       switchShowDone () {
         boardsRepository.switchShowDone(this.boardId, !this.showDone)
       },
       changeIsDone (itemId, newVal) {
-        boardsRepository.switchIsDone(this.boardId, itemId, newVal)
+        itemsRepository.switchIsDone(this.boardId, itemId, newVal)
         this.fetchBoardItems()
       },
       shouldBeDisplayed (item) {
