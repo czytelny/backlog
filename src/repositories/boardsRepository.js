@@ -44,6 +44,11 @@ export default {
       .remove({id: boardId})
       .write()
   },
+  getFirstBoard () {
+    return db.get('boards')
+      .first()
+      .value()
+  },
   setActiveBoard (boardId) {
     db.set('activeBoard', boardId)
       .write()
@@ -55,6 +60,7 @@ export default {
   getList () {
     return db
       .get('boards')
+      .cloneDeep()
       .value()
   },
   addItemToEnd (boardId, text) {

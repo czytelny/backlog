@@ -146,12 +146,8 @@
         this.$Message.success('Item removed')
       },
       changeItemVal (itemId, itemVal) {
-        const item = this.boardItems.find(el => el.id === itemId)
-        if (item) {
-          item.text = itemVal
-          this.boardItems = this.boardItems.slice(0)
-          this.saveBoardItems()
-        }
+        itemsRepository.changeItemValue(this.boardId, itemId, itemVal)
+        this.fetchBoardItems()
         this.focusOnInput()
       },
       focusOnInput () {

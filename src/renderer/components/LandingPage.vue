@@ -150,6 +150,9 @@
                     <p>All items will be deleted, are you sure ?</p>`,
           onOk: () => {
             boardsRepository.removeBoard(boardId)
+            const firstBoardId = boardsRepository.getFirstBoard().id
+            boardsRepository.setActiveBoard(firstBoardId)
+            this.selectedTab = firstBoardId
             this.loadBoards()
             this.$Message.info('Board removed')
           }

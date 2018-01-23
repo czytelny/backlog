@@ -27,5 +27,14 @@ export default {
       .get('items')
       .remove({id: itemId})
       .write()
+  },
+  changeItemValue (boardId, itemId, itemVal) {
+    return db
+      .get('boards')
+      .find({id: boardId})
+      .get('items')
+      .find({id: itemId})
+      .assign({text: itemVal})
+      .write()
   }
 }
