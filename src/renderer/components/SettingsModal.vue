@@ -27,6 +27,7 @@
 
 <script>
   import draggable from 'vuedraggable'
+  import settingsRepository from '../../repositories/settingsRepository'
 
   export default {
     name: 'settings-modal',
@@ -50,10 +51,10 @@
     },
     methods: {
       saveSettings () {
-        this.$emit('saveSettings', {itemCreationDate: this.itemCreationDateLocal})
+        settingsRepository.updateAppSettings({itemCreationDate: this.itemCreationDateLocal})
       },
       saveBoards () {
-        this.$emit('saveBoards', this.boardsLocal)
+        // this.$emit('saveBoards', this.boardsLocal)
       },
       closeSettingsModal () {
         this.saveBoards()

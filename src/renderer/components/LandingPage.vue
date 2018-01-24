@@ -61,7 +61,6 @@
                     @closeSettingsModal="closeSettingsModal"
                     @saveBoards="saveBoards"
                     @forceReload="forceReload"
-                    @saveSettings="saveSettings"
     >
     </settings-modal>
   </div>
@@ -73,6 +72,7 @@
   import NewBoardModal from './NewBoardModal.vue'
   import SettingsModal from './SettingsModal.vue'
   import boardsRepository from '@/../repositories/boardsRepository'
+  import settingsRepository from '../../repositories/settingsRepository'
 
   const remote = require('electron').remote
 
@@ -173,14 +173,8 @@
         //   storage.set(`boards`, newBoards)
         // }
       },
-      saveSettings (data) {
-        // storage.set(`settings`, data)
-      },
       fetchSettings () {
-        // const persistedSettings = storage.get(`settings`)
-        // if (persistedSettings) {
-        //   this.settings = persistedSettings
-        // }
+        this.settings = settingsRepository.getAppSettings()
       },
       loadBoards () {
         this.boards = boardsRepository.getList()

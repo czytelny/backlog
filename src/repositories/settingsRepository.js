@@ -9,6 +9,9 @@ db.defaults({
     minWidth: 300,
     x: undefined,
     y: undefined
+  },
+  appSettings: {
+    itemCreationDate: false
   }
 }).write()
 
@@ -19,6 +22,16 @@ export default {
   },
   updateWindowState (updateProp) {
     return db.get('windowState')
+      .assign(updateProp)
+      .write()
+  },
+  getAppSettings () {
+    return db.get('appSettings')
+      .cloneDeep()
+      .value()
+  },
+  updateAppSettings (updateProp) {
+    return db.get('appSettings')
       .assign(updateProp)
       .write()
   }
