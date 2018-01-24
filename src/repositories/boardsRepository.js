@@ -32,6 +32,11 @@ export default {
       })
       .write()
   },
+  saveBoardsArray (boardsArray) {
+    return db
+      .set('boards', boardsArray)
+      .write()
+  },
   saveItemsArray (boardId, items) {
     return db
       .get('boards')
