@@ -3,28 +3,28 @@
     <form action="#" v-on:submit.prevent="submitNewItem">
       <Row>
         <Col span="18">
-            <Input ref="mainInput"
-                   :autofocus="true"
-                   v-model="newTodoItem"
-                   placeholder="Type and hit Enter"
-                   size="large"
-                   @on-enter="submitNewItem"
-                   @on-click="submitNewItem"
-                   icon="plus"
-                   class="animated"
-                   :class="{'fadeOutDown': isSubmittingNewItem, 'fadeIn': !isSubmittingNewItem}"
-                   style="width: 95%;"/>
+        <Input ref="mainInput"
+               :autofocus="true"
+               v-model="newTodoItem"
+               placeholder="Type and hit Enter"
+               size="large"
+               @on-enter="submitNewItem"
+               @on-click="submitNewItem"
+               icon="plus"
+               class="animated"
+               :class="{'fadeOutDown': isSubmittingNewItem, 'fadeIn': !isSubmittingNewItem}"
+               style="width: 95%;"/>
         </Col>
         <Col span="6">
-          <i-switch :value="prependNewItem"
-                    @on-change="prependNewItemChange(); 
-                                focusOnInput();"
-                    size="large"
-                   >
-            <span slot="open">Head</span>
-            <span slot="close">Tail</span>
-          </i-switch>
-        </Col>         
+        <i-switch :value="prependNewItem"
+                  @on-change="prependNewItemChange();
+                              focusOnInput();"
+                  size="large"
+        >
+          <span slot="open">Head</span>
+          <span slot="close">Tail</span>
+        </i-switch>
+        </Col>
       </Row>
     </form>
     <div class="showDoneLink">
@@ -71,10 +71,9 @@
 
 <script>
   import draggable from 'vuedraggable'
-  import XXH from 'xxhashjs'
   import BoardItem from './BoardItem.vue'
-
-  const storage = require('electron').remote.require('electron-settings')
+  import boardsRepository from '@/../repositories/boardsRepository'
+  import itemsRepository from '../../repositories/itemsRepository'
 
   export default {
     name: 'board',
@@ -104,18 +103,17 @@
     },
     methods: {
       boardItemsRearanged () {
-        this.saveBoardItems()
+        boardsRepository.saveItemsArray(this.boardId, this.boardItems)
       },
       prependNewItemChange () {
-        this.$emit('prependNewItemChange', !this.prependNewItem, this.boardId)
+        itemsRepository.switchPrependNewItem(this.boardId, !this.prependNewItem)
       },
       switchShowDone () {
-        this.$emit('showDoneSwitched', !this.showDone, this.boardId)
+        this.$emit('switchShowDone', {boardId: this.boardId, newValue: !this.showDone})
       },
       changeIsDone (itemId, newVal) {
-        this.boardItems.find(item => item.id === itemId).isDone = newVal
-        this.boardItems = this.boardItems.slice(0)
-        this.saveBoardItems()
+        itemsRepository.switchIsDone(this.boardId, itemId, newVal)
+        this.fetchBoardItems()
       },
       shouldBeDisplayed (item) {
         if (!item.isDone) {
@@ -129,40 +127,27 @@
           return
         }
         this.isSubmittingNewItem = true
-        const newBoardItem = {
-          id: XXH.h32(this.newTodoItem, new Date().getTime()).toString(16),
-          text: this.newTodoItem,
-          isDone: false,
-          created: new Date()
-        }
         if (this.prependNewItem) {
-          this.boardItems.unshift(newBoardItem)
+          boardsRepository.addItemToBegin(this.boardId, this.newTodoItem)
         } else {
-          this.boardItems.push(newBoardItem)
+          boardsRepository.addItemToEnd(this.boardId, this.newTodoItem)
         }
         this.newTodoItem = ''
-        this.saveBoardItems()
         this.$Message.success('Item added')
+        this.fetchBoardItems()
         this.$nextTick(() => {
           this.isSubmittingNewItem = false
         })
       },
       removeItem (itemId) {
-        const indexToRemove = this.boardItems.findIndex(el => el.id === itemId)
-        if (indexToRemove !== -1) {
-          this.boardItems.splice(indexToRemove, 1)
-          this.saveBoardItems()
-          this.focusOnInput()
-          this.$Message.success('Item removed')
-        }
+        itemsRepository.removeItem(this.boardId, itemId)
+        this.focusOnInput()
+        this.fetchBoardItems()
+        this.$Message.success('Item removed')
       },
       changeItemVal (itemId, itemVal) {
-        const item = this.boardItems.find(el => el.id === itemId)
-        if (item) {
-          item.text = itemVal
-          this.boardItems = this.boardItems.slice(0)
-          this.saveBoardItems()
-        }
+        itemsRepository.changeItemValue(this.boardId, itemId, itemVal)
+        this.fetchBoardItems()
         this.focusOnInput()
       },
       focusOnInput () {
@@ -173,13 +158,8 @@
           }
         }, 250)
       },
-      saveBoardItems () {
-        storage.set(`board-item-${this.boardId}`, this.boardItems)
-      },
       fetchBoardItems () {
-        if (storage.has(`board-item-${this.boardId}`)) {
-          this.boardItems = storage.get(`board-item-${this.boardId}`)
-        }
+        this.boardItems = boardsRepository.getItems(this.boardId)
       }
     },
     watch: {

@@ -10,7 +10,7 @@
     <Checkbox v-model="itemCreationDateLocal" @on-change="saveSettings">
       Show creation date for each item
     </Checkbox>
-    
+
     <div class="separator"></div>
     <h4>Setup board names and order</h4>
     <draggable :list="boardsLocal">
@@ -27,6 +27,8 @@
 
 <script>
   import draggable from 'vuedraggable'
+  import settingsRepository from '../../repositories/settingsRepository'
+  import boardsRepository from '../../repositories/boardsRepository'
 
   export default {
     name: 'settings-modal',
@@ -50,10 +52,10 @@
     },
     methods: {
       saveSettings () {
-        this.$emit('saveSettings', {itemCreationDate: this.itemCreationDateLocal})
+        settingsRepository.updateAppSettings({itemCreationDate: this.itemCreationDateLocal})
       },
       saveBoards () {
-        this.$emit('saveBoards', this.boardsLocal)
+        boardsRepository.saveBoardsArray(this.boardsLocal)
       },
       closeSettingsModal () {
         this.saveBoards()

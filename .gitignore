@@ -9,3 +9,5 @@ npm-debug.log.*
 thumbs.db
 !.gitkeep
 .idea
+db.json
+backlog.json

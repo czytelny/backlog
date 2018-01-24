@@ -18,8 +18,7 @@
                  :showDone="board.showDone"
                  :prependNewItem="board.prependNewItem"
                  :showDate="settings.itemCreationDate"
-                 @showDoneSwitched="showDoneSwitched"
-                 @prependNewItemChange="prependNewItemChange"
+                 @switchShowDone="switchShowDone"
           >
           </board>
         </Tab-pane>
@@ -62,7 +61,6 @@
                     @closeSettingsModal="closeSettingsModal"
                     @saveBoards="saveBoards"
                     @forceReload="forceReload"
-                    @saveSettings="saveSettings"
     >
     </settings-modal>
   </div>
@@ -72,11 +70,10 @@
 
   import Board from './Board.vue'
   import NewBoardModal from './NewBoardModal.vue'
-
-  import XXH from 'xxhashjs'
   import SettingsModal from './SettingsModal.vue'
+  import boardsRepository from '@/../repositories/boardsRepository'
+  import settingsRepository from '../../repositories/settingsRepository'
 
-  const storage = require('electron').remote.require('electron-settings')
   const remote = require('electron').remote
 
   export default {
@@ -121,16 +118,6 @@
           this.showNewBoardModal()
         }
       },
-      prependNewItemChange (value, boardId) {
-        this.boards.find(board => board.id === boardId).prependNewItem = value
-        this.boards = this.boards.splice(0)
-        this.saveBoards()
-      },
-      showDoneSwitched (value, boardId) {
-        this.boards.find(board => board.id === boardId).showDone = value
-        this.boards = this.boards.splice(0)
-        this.saveBoards()
-      },
       open (link) {
         this.$electron.shell.openExternal(link)
       },
@@ -146,28 +133,18 @@
       closeSettingsModal () {
         this.settingsModal = false
       },
-      submitNewBoard (boardName) {
-        const newBoardId = XXH.h32(boardName, new Date().getTime()).toString(16)
-        this.boards.push({id: newBoardId, label: boardName, showDone: false})
-        this.saveBoards()
-        this.selectedTab = newBoardId
-        this.newBoardModal = false
-        this.saveActiveBoard(newBoardId)
-        this.$Message.success('Board added')
-        this.$nextTick(() => this.$bus.$emit('boardAdded', newBoardId))
+      switchShowDone ({boardId, newValue}) {
+        boardsRepository.switchShowDone(boardId, newValue)
+        this.loadBoards()
       },
-      fetchBoards () {
-        const boards = storage.get('boards')
-        if (!boards) {
-          storage.set('boards', [{
-            id: 'default',
-            label: 'Default board',
-            showDone: false,
-            prependNewItem: false
-          }])
-        }
-        this.boards = storage.get('boards')
-        console.log(storage.getAll())
+      submitNewBoard (boardName) {
+        const savedBoard = boardsRepository.saveNewBoard(boardName)
+        this.selectedTab = savedBoard.id
+        this.saveActiveBoard(savedBoard.id)
+        this.$nextTick(() => this.$bus.$emit('boardAdded', savedBoard.id))
+        this.closeNewBoardModal()
+        this.loadBoards()
+        this.$Message.success('Board added')
       },
       handleBoardRemove (boardLabel, boardId) {
         this.$Modal.confirm({
@@ -177,46 +154,40 @@
           content: `<p>You are going to remove board <strong>"${boardLabel}"</strong></p>
                     <p>All items will be deleted, are you sure ?</p>`,
           onOk: () => {
-            const boardIndex = this.boards.findIndex(board => board.id === boardId)
-            this.boards.splice(boardIndex, 1)
-            storage.set(`boards`, this.boards)
-            storage.delete(`board-item-${boardId}`)
-            this.saveActiveBoard(this.selectedTab)
+            boardsRepository.removeBoard(boardId)
+            const firstBoardId = boardsRepository.getFirstBoard().id
+            boardsRepository.setActiveBoard(firstBoardId)
+            this.selectedTab = firstBoardId
+            this.loadBoards()
             this.$Message.info('Board removed')
           }
         })
       },
       saveActiveBoard (boardId) {
-        storage.set(`activeBoard`, boardId)
+        boardsRepository.setActiveBoard(boardId)
       },
       saveBoards (newBoards) {
-        if (!newBoards) {
-          storage.set(`boards`, this.boards)
-        } else {
-          storage.set(`boards`, newBoards)
-        }
-      },
-      saveSettings (data) {
-        storage.set(`settings`, data)
+        // if (!newBoards) {
+        //   storage.set(`boards`, this.boards)
+        // } else {
+        //   storage.set(`boards`, newBoards)
+        // }
       },
       fetchSettings () {
-        const persistedSettings = storage.get(`settings`)
-        if (persistedSettings) {
-          this.settings = persistedSettings
-        }
+        this.settings = settingsRepository.getAppSettings()
+      },
+      loadBoards () {
+        this.boards = boardsRepository.getList()
       },
       forceReload () {
         remote.getCurrentWindow().reload()
       }
     },
     created () {
-      this.fetchBoards()
+      this.loadBoards()
       this.fetchSettings()
-      if (storage.has('activeBoard')) {
-        const activeBoardId = storage.get('activeBoard')
-        this.selectedTab = activeBoardId
-        this.$nextTick(() => this.$bus.$emit('appInit', activeBoardId))
-      }
+      this.selectedTab = boardsRepository.getActiveBoard()
+      this.$nextTick(() => this.$bus.$emit('appInit', this.selectedTab))
     }
   }
 </script>
