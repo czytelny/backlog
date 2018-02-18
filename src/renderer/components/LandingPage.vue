@@ -59,7 +59,6 @@
                     :boards="boards"
                     :itemCreationDate="settings.itemCreationDate"
                     @closeSettingsModal="closeSettingsModal"
-                    @saveBoards="saveBoards"
                     @forceReload="forceReload"
     >
     </settings-modal>
@@ -165,13 +164,6 @@
       },
       saveActiveBoard (boardId) {
         boardsRepository.setActiveBoard(boardId)
-      },
-      saveBoards (newBoards) {
-        // if (!newBoards) {
-        //   storage.set(`boards`, this.boards)
-        // } else {
-        //   storage.set(`boards`, newBoards)
-        // }
       },
       fetchSettings () {
         this.settings = settingsRepository.getAppSettings()

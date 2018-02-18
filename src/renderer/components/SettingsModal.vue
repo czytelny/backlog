@@ -7,6 +7,20 @@
          okText="Add"
          :scrollable="true"
   >
+    <div class="row title">
+      <h1>Backlog</h1>
+      <h6>v{{currentVersion}}</h6>
+    </div>
+
+    <div class="row">
+      <Button :loading="loadingUpdates" @click="loadUpdates" v-if="!newVersionAvailable">
+        <span v-if="!loadingUpdates">Check updates</span>
+        <span v-else>Checking...</span>
+      </Button>
+      <Button type="success" v-if="newVersionAvailable"
+          @click="open('https://github.com/czytelny/backlog/releases')">New version available</Button>
+    </div>
+
     <Checkbox v-model="itemCreationDateLocal" @on-change="saveSettings">
       Show creation date for each item
     </Checkbox>
@@ -29,6 +43,8 @@
   import draggable from 'vuedraggable'
   import settingsRepository from '../../repositories/settingsRepository'
   import boardsRepository from '../../repositories/boardsRepository'
+  import { version } from './../../../package.json'
+  import axios from 'axios'
 
   export default {
     name: 'settings-modal',
@@ -41,6 +57,9 @@
     },
     data () {
       return {
+        newVersionAvailable: false,
+        currentVersion: version,
+        loadingUpdates: false,
         boardsLocal: null,
         itemCreationDateLocal: this.itemCreationDate
       }
@@ -51,6 +70,24 @@
       }
     },
     methods: {
+      open (link) {
+        this.$electron.shell.openExternal(link)
+      },
+      loadUpdates () {
+        this.loadingUpdates = true
+        console.log(`${version}`)
+        axios.get('https://api.github.com/repos/czytelny/backlog/releases/latest')
+          .then(({data}) => {
+            if (`v${version}` === data.tag_name) {
+              this.$Message.info('You have the latest version of Backlog')
+            } else {
+              this.newVersionAvailable = true
+            }
+          })
+          .finally(() => {
+            this.loadingUpdates = false
+          })
+      },
       saveSettings () {
         settingsRepository.updateAppSettings({itemCreationDate: this.itemCreationDateLocal})
       },
@@ -70,8 +107,20 @@
 </script>
 
 <style scoped>
+  .row.title {
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f3f3f3;
+  }
+
   h4 {
     margin: 5px 0;
+  }
+
+  .row {
+    margin: 8px 0;
   }
 
   .board {
