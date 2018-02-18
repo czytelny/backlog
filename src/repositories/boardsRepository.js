@@ -21,13 +21,13 @@ export default {
   get () {
     console.log(`${JSON.stringify(db.getState())}`)
   },
-  saveNewBoard (boardName) {
+  saveNewBoard (boardName, defaults) {
     return db
       .get('boards')
       .insert({
         label: boardName,
         showDone: false,
-        prependNewItem: false,
+        prependNewItem: defaults.prependNewItems,
         items: []
       })
       .write()

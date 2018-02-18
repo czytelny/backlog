@@ -12,19 +12,36 @@
       <h6>v{{currentVersion}}</h6>
     </div>
 
-    <div class="row">
+    <div class="row" style="margin-bottom: 20px;">
       <Button :loading="loadingUpdates" @click="loadUpdates" v-if="!newVersionAvailable">
         <span v-if="!loadingUpdates">Check updates</span>
         <span v-else>Checking...</span>
       </Button>
       <Button type="success" v-if="newVersionAvailable"
-          @click="open('https://github.com/czytelny/backlog/releases')">New version available</Button>
+              @click="open('https://github.com/czytelny/backlog/releases')">New version available
+      </Button>
     </div>
-
-    <Checkbox v-model="itemCreationDateLocal" @on-change="saveSettings">
-      Show creation date for each item
-    </Checkbox>
-
+    <h4>General settings</h4>
+    <div class="row">
+      <i-switch v-model="settings.prependNewItems"
+                @on-change="savePrependNewItems()"
+                >
+      </i-switch>
+      Default placement of new item:
+      <transition name="fade" mode="out-in">
+        <span v-if="settings.prependNewItems" key="head">
+          Head
+        </span>
+        <span v-if="!settings.prependNewItems" key="tail">
+          Tail
+        </span>
+      </transition>
+    </div>
+    <div class="row">
+      <Checkbox v-model="settings.itemCreationDateLocal" @on-change="saveItemCreationDate">
+        Show creation date for each item
+      </Checkbox>
+    </div>
     <div class="separator"></div>
     <h4>Setup board names and order</h4>
     <draggable :list="boardsLocal">
@@ -48,20 +65,21 @@
 
   export default {
     name: 'settings-modal',
-    props: ['isVisible', 'boards', 'itemCreationDate'],
+    props: ['isVisible', 'boards'],
     components: {
       draggable
     },
     created () {
       this.updateLocalBoards()
+      this.settings = settingsRepository.getAppSettings()
     },
     data () {
       return {
+        settings: null,
         newVersionAvailable: false,
         currentVersion: version,
         loadingUpdates: false,
-        boardsLocal: null,
-        itemCreationDateLocal: this.itemCreationDate
+        boardsLocal: null
       }
     },
     watch: {
@@ -88,8 +106,11 @@
             this.loadingUpdates = false
           })
       },
-      saveSettings () {
-        settingsRepository.updateAppSettings({itemCreationDate: this.itemCreationDateLocal})
+      savePrependNewItems () {
+        settingsRepository.updateAppSettings({prependNewItems: this.settings.prependNewItems})
+      },
+      saveItemCreationDate () {
+        settingsRepository.updateAppSettings({itemCreationDate: this.settings.itemCreationDateLocal})
       },
       saveBoards () {
         boardsRepository.saveBoardsArray(this.boardsLocal)
@@ -120,7 +141,7 @@
   }
 
   .row {
-    margin: 8px 0;
+    margin: 5px 0;
   }
 
   .board {

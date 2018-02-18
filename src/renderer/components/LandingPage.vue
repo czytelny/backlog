@@ -57,7 +57,6 @@
     </new-board-modal>
     <settings-modal :isVisible="settingsModal"
                     :boards="boards"
-                    :itemCreationDate="settings.itemCreationDate"
                     @closeSettingsModal="closeSettingsModal"
                     @forceReload="forceReload"
     >
@@ -137,7 +136,7 @@
         this.loadBoards()
       },
       submitNewBoard (boardName) {
-        const savedBoard = boardsRepository.saveNewBoard(boardName)
+        const savedBoard = boardsRepository.saveNewBoard(boardName, this.settings)
         this.selectedTab = savedBoard.id
         this.saveActiveBoard(savedBoard.id)
         this.$nextTick(() => this.$bus.$emit('boardAdded', savedBoard.id))
