@@ -1,21 +1,6 @@
 <template>
   <div :class="{'doneItem': isDone, 'isEditing': isEditing}"
        class="item list-complete-item">
-    <div v-if="!isEditing">
-      <Icon type="minus-round"
-            class="movable-icon"
-            v-if="!isEditing"
-      ></Icon>
-      <Checkbox :value="isDone"
-                v-if="!isEditing"
-                @on-change="changeIsDone">
-      <span v-if="!isEditing"
-            v-html="textWithLink"
-            @click="handleLinkClick"
-      > </span>
-      </Checkbox>
-      <span v-if="showDate" class="creationDate">{{created | simpleDate}}</span>
-    </div>
     <input v-if="isEditing"
            type="text"
            v-model="draftText"
@@ -23,20 +8,32 @@
            @keyup.enter="saveItem"
            v-on:blur="saveItem"
            class="draftText animated fadeIn">
+    <div v-else>
+      <Icon type="minus-round"
+            class="movable-icon"
+      ></Icon>
+      <Checkbox :value="isDone"
+                @on-change="changeIsDone">
+      <span v-html="textWithLink"
+            @click="handleLinkClick"
+      > </span>
+      </Checkbox>
+      <span v-if="showDate" class="creationDate">{{created | simpleDate}}</span>
+    </div>
     <span class="actionBtns" v-if="!isEditing">
-            <Button icon="edit"
-                    v-if="!isDone"
-                    shape="circle"
-                    size="small"
-                    type="dashed"
-                    @click="editItem">
-            </Button>
-           <Button icon="ios-trash-outline"
-                   shape="circle"
-                   size="small"
-                   type="dashed"
-                   @click="removeItem"></Button>
-          </span>
+      <Button icon="edit"
+              v-if="!isDone"
+              shape="circle"
+              size="small"
+              type="dashed"
+              @click="editItem"
+      />
+      <Button icon="ios-trash-outline"
+              shape="circle"
+              size="small"
+              type="dashed"
+              @click="removeItem"/>
+    </span>
   </div>
 </template>
 
