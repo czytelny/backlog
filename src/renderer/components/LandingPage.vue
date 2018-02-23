@@ -90,24 +90,26 @@
         settingsModal: false,
         settings: {},
         boardTabLabel: (boardLabel, boardId) => (h) => {
+          const closer = this.isLastboard ? '' : h('Icon', {
+            'class': { 'close-icon': true },
+            props: { type: 'ios-close-empty' },
+            nativeOn: {
+              click: (event) => {
+                event.stopPropagation()
+                this.handleBoardRemove(boardLabel, boardId)
+              }
+            }
+          })
           return h('div', [
             h('span', boardLabel),
-            h('Icon', {
-              'class': {
-                'close-icon': true
-              },
-              props: {
-                type: 'ios-close-empty'
-              },
-              nativeOn: {
-                click: (event) => {
-                  event.stopPropagation()
-                  this.handleBoardRemove(boardLabel, boardId)
-                }
-              }
-            })
+            closer
           ])
         }
+      }
+    },
+    computed: {
+      isLastboard () {
+        return this.boards.length === 1
       }
     },
     methods: {
