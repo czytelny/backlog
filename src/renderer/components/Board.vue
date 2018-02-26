@@ -1,8 +1,8 @@
 <template>
   <div class="tab-content">
     <form action="#" v-on:submit.prevent="submitNewItem">
-      <Row>
-        <Col span="18">
+      <Row class="input-row">
+        <Col class="input-form">
         <Input ref="mainInput"
                :autofocus="true"
                v-model="newTodoItem"
@@ -13,9 +13,9 @@
                icon="plus"
                class="animated"
                :class="{'fadeOutDown': isSubmittingNewItem, 'fadeIn': !isSubmittingNewItem}"
-               style="width: 95%;"/>
+               style="width: calc(100% - 10px);"/>
         </Col>
-        <Col span="6">
+        <Col class="input-switch">
         <i-switch :value="prependNewItem"
                   @on-change="prependNewItemChange();
                               focusOnInput();"
@@ -216,5 +216,18 @@
   {
     opacity: 0;
     transform: translateX(-100%);
+  }
+
+  .input-row {
+    display: flex;
+    align-items: center;
+  }
+
+  .input-form {
+    flex: 1
+  }
+
+  .input-switch {
+    flex: 0;
   }
 </style>
