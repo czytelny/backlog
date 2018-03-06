@@ -17,8 +17,7 @@
         </Col>
         <Col class="input-switch">
         <i-switch :value="prependNewItem"
-                  @on-change="prependNewItemChange();
-                              focusOnInput();"
+                  @on-change="prependNewItemChange"
                   size="large"
         >
           <span slot="open">Head</span>
@@ -105,8 +104,9 @@
       boardItemsRearanged () {
         boardsRepository.saveItemsArray(this.boardId, this.boardItems)
       },
-      prependNewItemChange () {
-        itemsRepository.switchPrependNewItem(this.boardId, !this.prependNewItem)
+      prependNewItemChange (val) {
+        itemsRepository.switchPrependNewItem(this.boardId, val)
+        this.focusOnInput()
       },
       switchShowDone () {
         this.$emit('switchShowDone', {boardId: this.boardId, newValue: !this.showDone})
