@@ -38,7 +38,7 @@
       </transition>
     </div>
     <div class="row">
-      <Checkbox v-model="settings.itemCreationDateLocal" @on-change="saveItemCreationDate">
+      <Checkbox v-model="settings.itemCreationDate" @on-change="saveItemCreationDate">
         Show creation date for each item
       </Checkbox>
     </div>
@@ -110,7 +110,7 @@
         settingsRepository.updateAppSettings({prependNewItems: this.settings.prependNewItems})
       },
       saveItemCreationDate () {
-        settingsRepository.updateAppSettings({itemCreationDate: this.settings.itemCreationDateLocal})
+        settingsRepository.updateAppSettings({itemCreationDate: this.settings.itemCreationDate})
       },
       saveBoards () {
         boardsRepository.saveBoardsArray(this.boardsLocal)
