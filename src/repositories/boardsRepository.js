@@ -1,4 +1,4 @@
-import db from './../persistence'
+import {db} from './../persistence'
 
 import lodashId from 'lodash-id'
 
@@ -52,6 +52,7 @@ export default {
   getFirstBoard () {
     return db.get('boards')
       .first()
+      .cloneDeep()
       .value()
   },
   setActiveBoard (boardId) {
@@ -60,6 +61,7 @@ export default {
   },
   getActiveBoard () {
     return db.get('activeBoard')
+      .cloneDeep()
       .value()
   },
   getList () {
@@ -71,7 +73,7 @@ export default {
   addItemToEnd (boardId, text) {
     return db
       .get('boards')
-      .getById(boardId)
+      .find({id: boardId})
       .get('items')
       .insert({
         isDone: false,
@@ -82,8 +84,7 @@ export default {
   },
   addItemToBegin (boardId, text) {
     return db
-      .get('boards')
-      .getById(boardId)
+      .find('boards', {id: boardId})
       .get('items')
       .unshift({
         id: shortid.generate(),

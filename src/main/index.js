@@ -1,7 +1,7 @@
 'use strict'
 
 import { app, BrowserWindow, Menu } from 'electron'
-import settingsRepository from '../repositories/settingsRepository'
+import windowSettings from '../repositories/windowRepository'
 
 const path = require('path')
 
@@ -19,7 +19,7 @@ const winURL = process.env.NODE_ENV === 'development'
   : `file://${__dirname}/index.html`
 
 function createWindow () {
-  const windowConfig = settingsRepository.getWindowState()
+  const windowConfig = windowSettings.getWindowState()
   windowConfig.icon = path.join(__dirname, '/assets/256x256.png')
   /**
    * Initial window options
@@ -61,7 +61,7 @@ app.on('activate', () => {
 })
 
 function saveWindowState (mainWindow) {
-  settingsRepository.updateWindowState(mainWindow.getBounds())
+  windowSettings.updateWindowState(mainWindow.getBounds())
 }
 
 function createMenuOnMac () {

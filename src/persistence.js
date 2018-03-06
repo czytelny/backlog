@@ -1,6 +1,10 @@
 const low = require('lowdb')
 const FileSync = require('lowdb/adapters/FileSync')
 
-const adapter = new FileSync('backlog.json')
+const dataAdapter = new FileSync('backlog.json')
+const windowAdapter = new FileSync('window.json')
 
-export default low(adapter)
+module.exports = {
+  db: low(dataAdapter),
+  windowSettings: low(windowAdapter)
+}
