@@ -58,8 +58,8 @@
 
 <script>
   import draggable from 'vuedraggable'
-  import settingsRepository from '../../repositories/settingsRepository'
-  import boardsRepository from '../../repositories/boardsRepository'
+  import settingsRepository from '@/repositories/settingsRepository'
+  import boardsRepository from '@/repositories/boardsRepository'
   import { version } from './../../../package.json'
   import axios from 'axios'
 

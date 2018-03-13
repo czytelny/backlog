@@ -1,10 +1,12 @@
 'use strict'
 
 import { app, BrowserWindow, Menu } from 'electron'
-import windowSettings from '../repositories/windowRepository'
+import windowRepository from './windowRepository'
 
 const path = require('path')
 
+const windowSettings = windowRepository(path.join(app.getPath('userData'), 'window.json'))
+global.userDataPath = path.join(app.getPath('userData'), 'backlog.json')
 /**
  * Set `__static` path to static files in production
  * https://simulatedgreg.gitbooks.io/electron-vue/content/en/using-static-assets.html

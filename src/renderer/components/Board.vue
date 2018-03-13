@@ -71,8 +71,8 @@
 <script>
   import draggable from 'vuedraggable'
   import BoardItem from './BoardItem.vue'
-  import boardsRepository from '@/../repositories/boardsRepository'
-  import itemsRepository from '../../repositories/itemsRepository'
+  import boardsRepository from '@/repositories/boardsRepository'
+  import itemsRepository from '@/repositories/itemsRepository'
 
   export default {
     name: 'board',

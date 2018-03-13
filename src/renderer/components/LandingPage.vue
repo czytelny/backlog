@@ -70,8 +70,8 @@
   import Board from './Board.vue'
   import NewBoardModal from './NewBoardModal.vue'
   import SettingsModal from './SettingsModal.vue'
-  import boardsRepository from '@/../repositories/boardsRepository'
-  import settingsRepository from '../../repositories/settingsRepository'
+  import boardsRepository from '@/repositories/boardsRepository'
+  import settingsRepository from '@/repositories/settingsRepository'
 
   const remote = require('electron').remote
 
