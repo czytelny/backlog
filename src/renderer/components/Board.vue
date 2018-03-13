@@ -107,6 +107,7 @@
       prependNewItemChange (val) {
         itemsRepository.switchPrependNewItem(this.boardId, val)
         this.focusOnInput()
+        this.$emit('switchPrependNewItems')
       },
       switchShowDone () {
         this.$emit('switchShowDone', {boardId: this.boardId, newValue: !this.showDone})

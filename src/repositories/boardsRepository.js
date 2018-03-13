@@ -85,7 +85,8 @@ export default {
   },
   addItemToBegin (boardId, text) {
     return db
-      .find('boards', {id: boardId})
+      .get('boards')
+      .find({id: boardId})
       .get('items')
       .unshift({
         id: shortid.generate(),

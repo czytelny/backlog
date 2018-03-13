@@ -19,6 +19,7 @@
                  :prependNewItem="board.prependNewItem"
                  :showDate="settings.itemCreationDate"
                  @switchShowDone="switchShowDone"
+                 @switchPrependNewItems="loadBoards"
           >
           </board>
         </Tab-pane>
