@@ -2,7 +2,6 @@ const low = require('lowdb')
 const FileSync = require('lowdb/adapters/FileSync')
 
 export default function (userAppPath) {
-  console.log(`${userAppPath}`)
   const windowAdapter = new FileSync(userAppPath)
   const windowSettings = low(windowAdapter)
   windowSettings.defaults({
