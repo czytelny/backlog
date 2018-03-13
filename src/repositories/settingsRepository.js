@@ -2,6 +2,7 @@ import { db } from './../persistence'
 
 db.defaults({
   appSettings: {
+    'wasImported': false,
     'itemCreationDate': true,
     'prependNewItems': true
   }

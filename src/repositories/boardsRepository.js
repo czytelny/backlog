@@ -1,8 +1,9 @@
-import {db} from './../persistence'
+import { db } from './../persistence'
 
 import lodashId from 'lodash-id'
 
 const shortid = require('shortid')
+const storage = require('electron').remote.require('electron-settings')
 
 db._.mixin(lodashId)
 
@@ -70,14 +71,14 @@ export default {
       .cloneDeep()
       .value()
   },
-  addItemToEnd (boardId, text) {
+  addItemToEnd (boardId, text, created, isDone) {
     return db
       .get('boards')
       .find({id: boardId})
       .get('items')
       .insert({
-        isDone: false,
-        created: new Date(),
+        isDone: isDone || false,
+        created: created || new Date(),
         text
       })
       .write()
@@ -107,5 +108,15 @@ export default {
       .get('boards')
       .updateById(boardId, {showDone: value})
       .write()
+  },
+  importOldEntries () {
+    if (storage.has('boards')) {
+      storage.get('boards').forEach((board) => {
+        const newBoard = this.saveNewBoard(board.label, {prependNewItem: false})
+        storage.get(`board-item-${board.id}`).forEach((boardItem) => {
+          this.addItemToEnd(newBoard.id, boardItem.text, boardItem.created, boardItem.isDone)
+        })
+      })
+    }
   }
 }

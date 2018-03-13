@@ -33,7 +33,7 @@
     "autolink-js": "^1.0.2",
     "axios": "^0.17.1",
     "electron-settings": "^3.1.1",
-    "iview": "^2.6.0",
+    "iview": "^2.10.1",
     "lodash-id": "^0.14.0",
     "lowdb": "^1.0.0",
     "shortid": "^2.2.8",

@@ -172,9 +172,11 @@
     created () {
       const vm = this
       const boardEnterFn = function (boardId) {
-        if (vm.boardId === boardId) {
-          vm.focusOnInput()
-        }
+        setTimeout(() => {
+          if (vm.boardId === boardId) {
+            vm.focusOnInput()
+          }
+        }, 250)
       }
       this.$bus.$on('boardAdded', boardEnterFn)
       this.$bus.$on('appInit', boardEnterFn)

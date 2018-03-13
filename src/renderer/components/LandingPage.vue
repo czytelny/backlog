@@ -91,8 +91,8 @@
         settings: {},
         boardTabLabel: (boardLabel, boardId) => (h) => {
           const closer = this.isLastboard ? '' : h('Icon', {
-            'class': { 'close-icon': true },
-            props: { type: 'ios-close-empty' },
+            'class': {'close-icon': true},
+            props: {type: 'ios-close-empty'},
             nativeOn: {
               click: (event) => {
                 event.stopPropagation()
@@ -174,13 +174,20 @@
       },
       forceReload () {
         remote.getCurrentWindow().reload()
+      },
+      importOldEntries () {
+        if (!this.settings.wasImported) {
+          boardsRepository.importOldEntries()
+          settingsRepository.updateAppSettings({'wasImported': true})
+        }
       }
     },
     created () {
-      this.loadBoards()
       this.fetchSettings()
+      this.importOldEntries()
+      this.loadBoards()
       this.selectedTab = boardsRepository.getActiveBoard()
-      this.$nextTick(() => this.$bus.$emit('appInit', this.selectedTab))
+      this.$nextTick().then(() => this.$bus.$emit('appInit', this.selectedTab))
     }
   }
 </script>
