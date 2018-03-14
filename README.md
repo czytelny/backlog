@@ -11,13 +11,13 @@
 
 # Download
 No installation required. Just unzip archive and run executable
-- [Windows version](https://github.com/czytelny/backlog/releases/download/v1.6.0/Backlog-win32-x64.zip)
-- [MacOs version](https://github.com/czytelny/backlog/releases/download/v1.6.0/Backlog-darwin-x64.zip) 
-- [Linux version](https://github.com/czytelny/backlog/releases/download/v1.6.0/Backlog-linux-x64.tar.gz)
+- [Windows version](https://github.com/czytelny/backlog/releases/download/v1.6.1/Backlog-win32-x64.zip)
+- [MacOs version](https://github.com/czytelny/backlog/releases/download/v1.6.1/Backlog-darwin-x64.zip) 
+- [Linux version](https://github.com/czytelny/backlog/releases/download/v1.6.1/Backlog-linux-x64.tar.gz)
 
 #### 32bit versions
-- [Windows x32 version](https://github.com/czytelny/backlog/releases/download/v1.6.0/Backlog-win32-ia32.zip)
-- [Linux x32 version](https://github.com/czytelny/backlog/releases/download/v1.6.0/Backlog-linux-ia32.tar.gz)
+- [Windows x32 version](https://github.com/czytelny/backlog/releases/download/v1.6.1/Backlog-win32-ia32.zip)
+- [Linux x32 version](https://github.com/czytelny/backlog/releases/download/v1.6.1/Backlog-linux-ia32.tar.gz)
 
 ## Screenshot
 <p align="center">
@@ -28,6 +28,9 @@ No installation required. Just unzip archive and run executable
 When new version is available just download it, unzip and enjoy. No additional action is required. All your boards and items will be available.
 
 ## Versions
+### 1.6.1
+- fixed bug with importing empty boards
+
 ### 1.6.0
 Improvements:
 - Method of storing boards and items has changed. Migration script should be triggered on first run so all of your items should be in-place
@@ -60,10 +63,6 @@ Fixed bugs:
 - Fix issue with lack of scrooling option when have more boards that windows width allows
 - Added notifications when adding/removing item from board
 
-### 1.4.0
-- Added item creation date - it's turned off by default (you can turn in on in settings). Old entries won't have date, though - only new one.
-- Limit of 4 boards removed
-- x32 build versions added for linux and windows
 
 ## Why I've wrote it ?
 When programming I often have a number of ideas related to possible improvements for the future or a cool new project. Most often, it's just one sentence or a couple of words - just a draft of an idea to expand in the future. 
