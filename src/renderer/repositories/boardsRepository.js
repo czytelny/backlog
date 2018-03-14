@@ -114,9 +114,11 @@ export default {
     if (storage.has('boards')) {
       storage.get('boards').forEach((board) => {
         const newBoard = this.saveNewBoard(board.label, {prependNewItem: false})
-        storage.get(`board-item-${board.id}`).forEach((boardItem) => {
-          this.addItemToEnd(newBoard.id, boardItem.text, boardItem.created, boardItem.isDone)
-        })
+        if (storage.has(`board-item-${board.id}`)) {
+          storage.get(`board-item-${board.id}`).forEach((boardItem) => {
+            this.addItemToEnd(newBoard.id, boardItem.text, boardItem.created, boardItem.isDone)
+          })
+        }
       })
     }
   }
