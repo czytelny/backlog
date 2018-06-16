@@ -13,7 +13,7 @@
            @keyup.enter="saveItem"
            v-on:blur="saveItem"
            class="draftText animated fadeIn">
-    <div v-else>
+    <div v-else @click.right="showItemMenu">
       <Checkbox :value="isDone"
                 @on-change="changeIsDone">
       <span v-html="textWithLink"
@@ -36,6 +36,21 @@
               type="dashed"
               @click="removeItem"/>
     </span>
+    <transition name="fade" mode="out-in">
+      <ul class="item-menu"
+          tabindex="-1"
+          v-if="viewItemMenu"
+          @mouseleave="closeItemMenu" >
+        <li>
+          <Icon type="arrow-return-right"></Icon>
+          Move to the board...</li>
+        <li>
+          <Icon type="arrow-up-a"></Icon>
+          Move to the top</li>
+        <li><Icon type="arrow-down-a"></Icon>
+          Move to the bottom</li>
+      </ul>
+    </transition>
   </div>
 </template>
 
@@ -46,10 +61,17 @@
     data () {
       return {
         isEditing: false,
-        draftText: this.text
+        draftText: this.text,
+        viewItemMenu: false
       }
     },
     methods: {
+      showItemMenu () {
+        this.viewItemMenu = true
+      },
+      closeItemMenu () {
+        this.viewItemMenu = false
+      },
       saveItem () {
         if (this.draftText.trim() === '') {
           this.draftText = ''
@@ -110,7 +132,35 @@
 </script>
 
 <style>
+  .item-menu{
+    background: #FAFAFA;
+    border: 1px solid #BDBDBD;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+    display: block;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    width: 250px;
+    z-index: 999999;
+  }
 
+  .item-menu li {
+    border-bottom: 1px solid #E0E0E0;
+    margin: 0;
+    padding: 5px 15px;
+    cursor: pointer;
+  }
+
+  .item-menu li:last-child {
+    border-bottom: none;
+  }
+
+  .item-menu li:hover {
+    background: #41B883;
+    color: #FAFAFA;
+  }
+  
   .draggable {
     position: absolute;
     width: 25px;
