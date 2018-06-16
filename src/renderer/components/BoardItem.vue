@@ -16,10 +16,11 @@
     <div v-else @click.right="showItemMenu">
       <Checkbox :value="isDone"
                 @on-change="changeIsDone">
-      <span v-html="textWithLink"
+      </Checkbox>
+      <span class="item-text"
+            v-html="textWithLink"
             @click="handleLinkClick"
       > </span>
-      </Checkbox>
       <span v-if="showDate" class="creationDate">{{created | simpleDate}}</span>
     </div>
     <span class="actionBtns" v-if="!isEditing">
@@ -132,6 +133,10 @@
 </script>
 
 <style>
+
+  .item-text {
+    font-size: 1.2em;
+  }
   .item-menu{
     background: #FAFAFA;
     border: 1px solid #BDBDBD;
@@ -255,6 +260,7 @@
   .link {
     color: #41B883;
     font-style: italic;
+    cursor: pointer;
   }
 
 </style>
