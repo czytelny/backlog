@@ -1,6 +1,11 @@
 <template>
   <div :class="{'doneItem': isDone, 'isEditing': isEditing}"
        class="item list-complete-item">
+    <div class="draggable">
+      <Icon type="more"
+            class="movable-icon"
+      ></Icon>
+    </div>
     <input v-if="isEditing"
            type="text"
            v-model="draftText"
@@ -9,9 +14,6 @@
            v-on:blur="saveItem"
            class="draftText animated fadeIn">
     <div v-else>
-      <Icon type="minus-round"
-            class="movable-icon"
-      ></Icon>
       <Checkbox :value="isDone"
                 @on-change="changeIsDone">
       <span v-html="textWithLink"
@@ -108,9 +110,19 @@
 </script>
 
 <style>
+
+  .draggable {
+    position: absolute;
+    width: 25px;
+    height: 100%;
+    left: -19px;
+    cursor: move;
+    box-sizing: content-box;
+    z-index: 100;
+  }
+
   .item {
     border-bottom: 1px solid #f0f0f0;
-    cursor: move;
     position: relative;
     min-height: 40px;
     display: flex;
@@ -126,17 +138,16 @@
     opacity: .6;
   }
 
-  .item:hover .movable-icon {
-    opacity: .25;
+  .draggable:hover .movable-icon {
+    opacity: .8;
   }
 
   .movable-icon {
     position: absolute;
-    left: -15px;
-    top: 8px;
+    top: 9px;
     transform: rotate(90deg);
     font-size: 2em;
-    opacity: .0;
+    opacity: .1;
     transition: all .25s;
     color: #41B883;
   }

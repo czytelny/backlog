@@ -37,7 +37,8 @@
     "lodash-id": "^0.14.0",
     "lowdb": "^1.0.0",
     "shortid": "^2.2.8",
-    "vue": "^2.5.15",     
+    "vue": "^2.5.15",
+    "vue-context-menu": "^2.0.6",
     "vue-electron": "^1.0.6",
     "vuedraggable": "^2.14.1"
   },
