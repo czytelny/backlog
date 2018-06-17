@@ -41,15 +41,19 @@
       <ul class="item-menu"
           tabindex="-1"
           v-if="viewItemMenu"
-          @mouseleave="closeItemMenu" >
+          @mouseleave="closeItemMenu">
         <li>
           <Icon type="arrow-return-right"></Icon>
-          Move to the board...</li>
+          Move to the board...
+        </li>
         <li>
           <Icon type="arrow-up-a"></Icon>
-          Move to the top</li>
-        <li><Icon type="arrow-down-a"></Icon>
-          Move to the bottom</li>
+          Move to the top
+        </li>
+        <li>
+          <Icon type="arrow-down-a"></Icon>
+          Move to the bottom
+        </li>
       </ul>
     </transition>
   </div>
@@ -137,15 +141,16 @@
   .item-text {
     font-size: 1.2em;
   }
-  .item-menu{
+
+  .item-menu {
     background: #FAFAFA;
     border: 1px solid #BDBDBD;
-    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
     display: block;
     list-style: none;
     margin: 0;
     padding: 0;
-    position: absolute;
+    position: fixed;
     width: 250px;
     z-index: 999999;
   }
@@ -165,7 +170,7 @@
     background: #41B883;
     color: #FAFAFA;
   }
-  
+
   .draggable {
     position: absolute;
     width: 25px;

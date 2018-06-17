@@ -32,6 +32,7 @@
     "animate.css": "^3.5.2",
     "autolink-js": "^1.0.2",
     "axios": "^0.18.0",
+    "electron-context-menu": "^0.9.1",
     "electron-settings": "^3.1.1",
     "iview": "^2.14.2",
     "lodash-id": "^0.14.0",
