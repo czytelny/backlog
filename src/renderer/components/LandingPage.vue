@@ -194,6 +194,10 @@
 </script>
 
 <style>
+  #wrapper {
+    height: 100vh;
+  }
+  
   .ivu-tabs-tab-active .close-icon {
     opacity: 1;
   }

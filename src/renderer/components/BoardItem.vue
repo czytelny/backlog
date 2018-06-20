@@ -13,7 +13,7 @@
            @keyup.enter="saveItem"
            v-on:blur="saveItem"
            class="draftText animated fadeIn">
-    <div v-else @click.right="showItemMenu">
+    <div v-else>
       <Checkbox :value="isDone"
                 @on-change="changeIsDone">
       </Checkbox>
@@ -31,37 +31,16 @@
               type="dashed"
               @click="editItem"
       />
-      <Button icon="ios-trash-outline"
-              shape="circle"
-              size="small"
-              type="dashed"
-              @click="removeItem"/>
+      <ActionButtons></ActionButtons>
     </span>
-    <transition name="fade" mode="out-in">
-      <ul class="item-menu"
-          tabindex="-1"
-          v-if="viewItemMenu"
-          @mouseleave="closeItemMenu">
-        <li>
-          <Icon type="arrow-return-right"></Icon>
-          Move to the board...
-        </li>
-        <li>
-          <Icon type="arrow-up-a"></Icon>
-          Move to the top
-        </li>
-        <li>
-          <Icon type="arrow-down-a"></Icon>
-          Move to the bottom
-        </li>
-      </ul>
-    </transition>
   </div>
 </template>
 
 <script>
+  import ActionButtons from './ActionButtons'
   export default {
     name: 'board-item',
+    components: {ActionButtons},
     props: ['itemId', 'isDone', 'text', 'created', 'showDate'],
     data () {
       return {
@@ -142,35 +121,6 @@
     font-size: 1.2em;
   }
 
-  .item-menu {
-    background: #FAFAFA;
-    border: 1px solid #BDBDBD;
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
-    display: block;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    position: fixed;
-    width: 250px;
-    z-index: 999999;
-  }
-
-  .item-menu li {
-    border-bottom: 1px solid #E0E0E0;
-    margin: 0;
-    padding: 5px 15px;
-    cursor: pointer;
-  }
-
-  .item-menu li:last-child {
-    border-bottom: none;
-  }
-
-  .item-menu li:hover {
-    background: #41B883;
-    color: #FAFAFA;
-  }
-
   .draggable {
     position: absolute;
     width: 25px;
@@ -178,7 +128,7 @@
     left: -19px;
     cursor: move;
     box-sizing: content-box;
-    z-index: 100;
+    z-index: 2;
   }
 
   .item {
@@ -195,7 +145,7 @@
     font-size: .7em;
     right: 0;
     bottom: 0;
-    opacity: .6;
+    opacity: .8;
   }
 
   .draggable:hover .movable-icon {
@@ -213,11 +163,11 @@
   }
 
   .item.doneItem {
-    opacity: .25;
+    opacity: .35;
   }
 
   .item:hover .actionBtns {
-    opacity: .8;
+    opacity: 1;
   }
 
   .actionBtns {
@@ -226,7 +176,6 @@
     flex-shrink: 0;
     align-self: center;
     transition: all .3s;
-    padding-top: 5px;
   }
 
   .actionBtns:hover {

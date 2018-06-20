@@ -209,6 +209,7 @@
     display: flex;
     flex-direction: column;
     background-color: #ffffff;
+    height: 100%;
   }
 
   .list-complete-item {
