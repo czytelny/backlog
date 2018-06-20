@@ -31,13 +31,15 @@
               type="dashed"
               @click="editItem"
       />
-      <ActionButtons></ActionButtons>
+      <ActionButtons @remove="removeItem">
+      </ActionButtons>
     </span>
   </div>
 </template>
 
 <script>
   import ActionButtons from './ActionButtons'
+
   export default {
     name: 'board-item',
     components: {ActionButtons},
@@ -45,17 +47,10 @@
     data () {
       return {
         isEditing: false,
-        draftText: this.text,
-        viewItemMenu: false
+        draftText: this.text
       }
     },
     methods: {
-      showItemMenu () {
-        this.viewItemMenu = true
-      },
-      closeItemMenu () {
-        this.viewItemMenu = false
-      },
       saveItem () {
         if (this.draftText.trim() === '') {
           this.draftText = ''
