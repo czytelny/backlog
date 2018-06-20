@@ -62,9 +62,7 @@ app.on('activate', () => {
   }
 })
 
-require('electron-context-menu')({
-  shouldShowMenu: (event, params) => params.isEditable
-})
+require('electron-context-menu')()
 
 function saveWindowState (mainWindow) {
   windowSettings.updateWindowState(mainWindow.getBounds())

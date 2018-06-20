@@ -6,7 +6,6 @@
             type="card"
             @on-click="saveActiveBoard"
             @dblclick.native="handleDblClick"
-            style="height: 100%;"
       >
 
         <Tab-pane v-for="board in boards"
