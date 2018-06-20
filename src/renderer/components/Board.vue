@@ -62,6 +62,7 @@
                     @changeIsDone="changeIsDone"
                     @removeItem="removeItem"
                     @changeItemVal="changeItemVal"
+                    @moveItemToTop="moveItemToTop"
         >
         </board-item>
       </transition-group>
@@ -149,6 +150,11 @@
       },
       changeItemVal (itemId, itemVal) {
         itemsRepository.changeItemValue(this.boardId, itemId, itemVal)
+        this.fetchBoardItems()
+        this.focusOnInput()
+      },
+      moveItemToTop (itemId) {
+        boardsRepository.moveItemToTop(this.boardId, itemId)
         this.fetchBoardItems()
         this.focusOnInput()
       },

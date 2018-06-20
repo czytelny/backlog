@@ -31,7 +31,8 @@
               type="dashed"
               @click="editItem"
       />
-      <ActionButtons @remove="removeItem">
+      <ActionButtons @remove="removeItem"
+                     @moveToTop="moveItemToTop">
       </ActionButtons>
     </span>
   </div>
@@ -76,6 +77,9 @@
       },
       removeItem () {
         this.$emit('removeItem', this.itemId)
+      },
+      moveItemToTop () {
+        this.$emit('moveItemToTop', this.itemId)
       },
       open (link) {
         this.$electron.shell.openExternal(link)
