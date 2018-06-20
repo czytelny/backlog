@@ -1,11 +1,12 @@
 <template>
   <div id="wrapper">
-    <Row>
-      <Col span="24">
+    <Row style="height: 100%;">
+      <Col span="24" style="height: 100%;">
       <Tabs v-model="selectedTab"
             type="card"
             @on-click="saveActiveBoard"
             @dblclick.native="handleDblClick"
+            style="height: 100%;"
       >
 
         <Tab-pane v-for="board in boards"
