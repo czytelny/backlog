@@ -1,7 +1,20 @@
 <template>
-  <Dropdown class="actions-dropdown"
-            @on-click="handleClick"
-  >
+  <span>
+    <Modal
+        v-model="boardChooseModal"
+        title="Select board"
+    >
+
+      <div class="board-item">Board1</div>
+      <div class="board-item">Baord2</div>
+      <div class="board-item">Board3</div>
+
+      <div slot="footer">
+            <Button @click="cancelBoardChoose">Cancel</Button>
+      </div>
+    </Modal>
+
+    <Dropdown @on-click="handleClick" :transfer="true">
     <Button icon="android-more-vertical"
             shape="circle"
             size="small"
@@ -25,13 +38,21 @@
         Delete
       </DropdownItem>
     </DropdownMenu>
-  </Dropdown>
+  </Dropdown></span>
 </template>
 
 <script>
   export default {
     name: 'ActionButtons',
+    data () {
+      return {
+        boardChooseModal: false
+      }
+    },
     methods: {
+      cancelBoardChoose () {
+        this.boardChooseModal = false
+      },
       handleClick (val) {
         switch (val) {
           case 'remove':
@@ -58,6 +79,7 @@
         this.$emit('moveToBottom')
       },
       moveTo () {
+        this.boardChooseModal = true
         this.$emit('moveTo')
       }
     }
@@ -65,6 +87,22 @@
 </script>
 
 <style scoped>
+  .board-item {
+    padding: 10px;
+    border-bottom: 1px dashed #f3f3f3;
+    cursor: pointer;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+    opacity: .8;
+  }
+
+  .board-item:hover {
+    padding: 10px;
+    border-bottom: 1px dashed #cecece;
+    cursor: pointer;
+    background-color: rgba(72, 203, 145, 0.06)
+  }
+
   .dropdown-menu {
     z-index: 100;
   }

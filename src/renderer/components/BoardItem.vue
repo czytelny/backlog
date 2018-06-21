@@ -31,6 +31,7 @@
               type="dashed"
               @click="editItem"
       />
+      
       <ActionButtons @remove="removeItem"
                      @moveToTop="moveItemToTop"
                      @moveToBottom="moveItemToBottom">
