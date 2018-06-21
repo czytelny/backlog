@@ -18,7 +18,7 @@
       </DropdownItem>
       <DropdownItem name="moveTo">
         <Icon type="arrow-return-right"></Icon>
-        Move to...
+        Move to board...
       </DropdownItem>
       <DropdownItem divided class="delete-btn" name="remove">
         <Icon type="trash-b"></Icon>

@@ -32,7 +32,8 @@
               @click="editItem"
       />
       <ActionButtons @remove="removeItem"
-                     @moveToTop="moveItemToTop">
+                     @moveToTop="moveItemToTop"
+                     @moveToBottom="moveItemToBottom">
       </ActionButtons>
     </span>
   </div>
@@ -80,6 +81,9 @@
       },
       moveItemToTop () {
         this.$emit('moveItemToTop', this.itemId)
+      },
+      moveItemToBottom () {
+        this.$emit('moveItemToBottom', this.itemId)
       },
       open (link) {
         this.$electron.shell.openExternal(link)

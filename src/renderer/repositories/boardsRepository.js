@@ -109,6 +109,19 @@ export default {
 
     this.saveItemsArray(boardId, items)
   },
+  moveItemToBottom (boardId, itemId) {
+    const items = db
+      .get('boards')
+      .find({id: boardId})
+      .get('items')
+      .value()
+
+    const index = items.findIndex((item) => item.id === itemId)
+    const item = items.splice(index, 1)[0]
+    items.push(item)
+
+    this.saveItemsArray(boardId, items)
+  },
   getItems (boardId) {
     return db
       .get('boards')
