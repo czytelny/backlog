@@ -1,11 +1,13 @@
 <template>
-  <div id="wrapper">
+  <div id="wrapper"
+       :class="{'fixedTabs' : settings.stickBoardsOnTop}">
     <Row style="height: 100%;">
       <Col span="24" style="height: 100%;">
       <Tabs v-model="selectedTab"
             type="card"
             @on-click="saveActiveBoard"
             @dblclick.native="handleDblClick"
+            :class="{'fixedTabs' : settings.stickBoardsOnTop}"
       >
 
         <Tab-pane v-for="board in boards"
@@ -195,6 +197,18 @@
 <style>
   #wrapper {
     height: 100vh;
+  }
+
+  #wrapper.fixedTabs {
+    margin-top: 30px;
+  }
+
+  div.fixedTabs .ivu-tabs-bar{
+    position: fixed;
+    top: 0;
+    z-index: 100;
+    background-color: #fff;
+    width: 95vw;
   }
   
   .ivu-tabs-tab-active .close-icon {

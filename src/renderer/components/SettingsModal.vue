@@ -21,9 +21,10 @@
               @click="open('https://github.com/czytelny/backlog/releases')">New version available
       </Button>
     </div>
-    <h4>General settings</h4>
+    <h3>General settings</h3>
     <div class="row">
       <i-switch v-model="settings.prependNewItems"
+                size="small"
                 @on-change="savePrependNewItems()"
                 >
       </i-switch>
@@ -42,8 +43,13 @@
         Show creation date for each item
       </Checkbox>
     </div>
+    <div class="row">
+      <Checkbox v-model="settings.stickBoardsOnTop" @on-change="saveStickBoardsOnTop">
+        Stick boards list to the top of screen
+      </Checkbox>
+    </div>
     <div class="separator"></div>
-    <h4>Setup board names and order</h4>
+    <h3>Setup board names and order</h3>
     <draggable :list="boardsLocal">
       <div v-for="board in boardsLocal" class="board" :key="board.id">
         <Icon type="minus-round" class="movable-icon"></Icon>
@@ -112,6 +118,9 @@
       saveItemCreationDate () {
         settingsRepository.updateAppSettings({itemCreationDate: this.settings.itemCreationDate})
       },
+      saveStickBoardsOnTop () {
+        settingsRepository.updateAppSettings({stickBoardsOnTop: this.settings.stickBoardsOnTop})
+      },
       saveBoards () {
         boardsRepository.saveBoardsArray(this.boardsLocal)
       },
@@ -141,7 +150,7 @@
   }
 
   .row {
-    margin: 5px 0;
+    margin: 7px 0;
   }
 
   .board {
