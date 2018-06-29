@@ -66,7 +66,6 @@
 </template>
 
 <script>
-
   import Board from './Board.vue'
   import NewBoardModal from './NewBoardModal.vue'
   import SettingsModal from './SettingsModal.vue'

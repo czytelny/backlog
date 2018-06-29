@@ -8,8 +8,9 @@ const webpack = require('webpack')
 
 const BabiliWebpackPlugin = require('babili-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const { VueLoaderPlugin } = require('vue-loader')
 
 /**
  * List of node_modules to include in webpack bundle
@@ -43,10 +44,7 @@ let rendererConfig = {
       },
       {
         test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: 'css-loader'
-        })
+        use: ['vue-style-loader', 'css-loader']
       },
       {
         test: /\.html$/,
@@ -101,7 +99,8 @@ let rendererConfig = {
     __filename: process.env.NODE_ENV !== 'production'
   },
   plugins: [
-    new ExtractTextPlugin('styles.css'),
+    new VueLoaderPlugin(),
+    new MiniCssExtractPlugin({filename: 'styles.css'}),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: path.resolve(__dirname, '../src/index.ejs'),
