@@ -2,12 +2,13 @@
   <span>
     <Modal
         v-model="boardChooseModal"
-        title="Select board"
+        title="Choose the board"
     >
-
-      <div class="board-item">Board1</div>
-      <div class="board-item">Baord2</div>
-      <div class="board-item">Board3</div>
+      <div class="board-item"
+           v-for="board in boards"
+           @click="moveToBoard(board.id)">
+        {{board.label}}
+      </div>
 
       <div slot="footer">
             <Button @click="cancelBoardChoose">Cancel</Button>
@@ -42,11 +43,18 @@
 </template>
 
 <script>
+  import boardsRepository from '@/repositories/boardsRepository'
+
   export default {
     name: 'ActionButtons',
     data () {
       return {
         boardChooseModal: false
+      }
+    },
+    computed: {
+      boards () {
+        return boardsRepository.getList()
       }
     },
     methods: {
@@ -80,7 +88,10 @@
       },
       moveTo () {
         this.boardChooseModal = true
-        this.$emit('moveTo')
+      },
+      moveToBoard (boardId) {
+        this.boardChooseModal = false
+        this.$emit('moveTo', boardId)
       }
     }
   }

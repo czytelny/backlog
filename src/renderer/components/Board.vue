@@ -64,6 +64,7 @@
                     @changeItemVal="changeItemVal"
                     @moveItemToTop="moveItemToTop"
                     @moveItemToBottom="moveItemToBottom"
+                    @moveItemToBoard="moveItemToBoard"
         >
         </board-item>
       </transition-group>
@@ -164,6 +165,11 @@
         this.fetchBoardItems()
         this.focusOnInput()
       },
+      moveItemToBoard (dstBoardId, itemId) {
+        boardsRepository.moveItemToBoard(this.boardId, dstBoardId, itemId)
+        this.fetchBoardItems()
+        this.focusOnInput()
+      },
       focusOnInput () {
         const vm = this
         setTimeout(() => {
@@ -172,14 +178,16 @@
           }
         }, 250)
       },
-      fetchBoardItems () {
-        this.boardItems = boardsRepository.getItems(this.boardId)
+      fetchBoardItems (boardId = this.boardId) {
+        console.log(`${boardId}`)
+        this.boardItems = boardsRepository.getItems(boardId)
       }
     },
     watch: {
       selectedTab () {
         if (this.isActive) {
           this.focusOnInput()
+          this.fetchBoardItems(this.boardId)
         }
       }
     },

@@ -122,6 +122,26 @@ export default {
 
     this.saveItemsArray(boardId, items)
   },
+  moveItemToBoard (srcBoardId, dstBoardId, itemId) {
+    const items = db
+      .get('boards')
+      .find({id: srcBoardId})
+      .get('items')
+      .value()
+
+    const dstItems = db
+      .get('boards')
+      .find({id: dstBoardId})
+      .get('items')
+      .value()
+
+    const index = items.findIndex((item) => item.id === itemId)
+    const item = items.splice(index, 1)[0]
+    dstItems.push(item)
+
+    this.saveItemsArray(srcBoardId, items)
+    this.saveItemsArray(dstBoardId, dstItems)
+  },
   getItems (boardId) {
     return db
       .get('boards')
