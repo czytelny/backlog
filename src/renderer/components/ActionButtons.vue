@@ -6,7 +6,9 @@
     >
       <div class="board-item"
            v-for="board in boards"
-           @click="moveToBoard(board.id)">
+           @click="moveToBoard(board.id)"
+           :class="{'board-disabled': boardId === board.id}"
+      >
         {{board.label}}
       </div>
 
@@ -47,6 +49,7 @@
 
   export default {
     name: 'ActionButtons',
+    props: ['boardId'],
     data () {
       return {
         boardChooseModal: false
@@ -90,6 +93,9 @@
         this.boardChooseModal = true
       },
       moveToBoard (boardId) {
+        if (boardId === this.boardId) {
+          return
+        }
         this.boardChooseModal = false
         this.$emit('moveTo', boardId)
       }
@@ -106,7 +112,7 @@
     transition: all .3s;
     opacity: .8;
   }
-
+  
   .board-item:hover {
     padding: 10px;
     border-bottom: 1px dashed #cecece;
@@ -122,6 +128,18 @@
     font-size: .9em;
     line-height: .7em;
     opacity: .75;
+  }
+
+  .board-item.board-disabled {
+    background-color: inherit;
+    cursor: not-allowed;
+    opacity: .5;
+  }
+
+  .board-item.board-disabled:hover {
+    background-color: inherit;
+    cursor: not-allowed;
+    opacity: .5;
   }
 
 </style>

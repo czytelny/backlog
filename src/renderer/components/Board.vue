@@ -58,6 +58,7 @@
                     :text="item.text"
                     :created="item.created"
                     :showDate="showDate"
+                    :boardId="boardId"
                     v-if="shouldBeDisplayed(item)"
                     @changeIsDone="changeIsDone"
                     @removeItem="removeItem"
@@ -179,7 +180,6 @@
         }, 250)
       },
       fetchBoardItems (boardId = this.boardId) {
-        console.log(`${boardId}`)
         this.boardItems = boardsRepository.getItems(boardId)
       }
     },

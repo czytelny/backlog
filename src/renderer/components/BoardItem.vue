@@ -35,7 +35,9 @@
       <ActionButtons @remove="removeItem"
                      @moveToTop="moveItemToTop"
                      @moveToBottom="moveItemToBottom"
-                     @moveTo="moveItemToBoard">
+                     @moveTo="moveItemToBoard"
+                     :boardId="boardId"
+                     >
       </ActionButtons>
     </span>
   </div>
@@ -47,7 +49,7 @@
   export default {
     name: 'board-item',
     components: {ActionButtons},
-    props: ['itemId', 'isDone', 'text', 'created', 'showDate'],
+    props: ['boardId', 'itemId', 'isDone', 'text', 'created', 'showDate'],
     data () {
       return {
         isEditing: false,
