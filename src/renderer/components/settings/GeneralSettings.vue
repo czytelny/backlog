@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h3>General settings</h3>
     <div class="row">
+      <h3>General settings</h3>
       <i-switch v-model="settings.prependNewItems"
                 size="small"
                 @on-change="savePrependNewItems()"

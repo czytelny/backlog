@@ -14,6 +14,8 @@
 
     <updates-check-settings/>
 
+    <database-location :settings="settings"/>
+
     <general-settings :settings="settings"/>
 
     <div class="separator"></div>
@@ -49,6 +51,7 @@
   import boardsRepository from '@/repositories/boardsRepository'
   import GeneralSettings from './GeneralSettings'
   import UpdatesCheckSettings from './UpdatesCheckSettings'
+  import DatabaseLocation from './DatabaseLocation'
 
   const {dialog} = require('electron').remote
   const version = require('electron').remote.app.getVersion()
@@ -57,6 +60,7 @@
     name: 'settings-modal',
     props: ['isVisible', 'boards'],
     components: {
+      DatabaseLocation,
       UpdatesCheckSettings,
       GeneralSettings,
       draggable
