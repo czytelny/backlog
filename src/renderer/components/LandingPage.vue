@@ -200,15 +200,16 @@
   }
 
   #wrapper.fixedTabs {
-    margin-top: 30px;
+    margin-top: 35px;
   }
 
   div.fixedTabs .ivu-tabs-bar{
     position: fixed;
-    top: 0;
+    top: 5px;
     z-index: 100;
     background-color: #fff;
-    width: 95vw;
+    width: 96vw;
+    box-shadow: 0 0 0 6px #ffffff;
   }
   
   .ivu-tabs-tab-active .close-icon {
