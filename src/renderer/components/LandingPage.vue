@@ -20,6 +20,7 @@
                  :showDone="board.showDone"
                  :prependNewItem="board.prependNewItem"
                  :showDate="settings.itemCreationDate"
+                 :markdownMode="settings.markdownMode"
                  @switchShowDone="switchShowDone"
                  @switchPrependNewItems="loadBoards"
           >

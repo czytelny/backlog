@@ -59,6 +59,7 @@
                     :created="item.created"
                     :showDate="showDate"
                     :boardId="boardId"
+                    :markdownMode="markdownMode"
                     v-if="shouldBeDisplayed(item)"
                     @changeIsDone="changeIsDone"
                     @removeItem="removeItem"
@@ -81,7 +82,7 @@
 
   export default {
     name: 'board',
-    props: ['boardId', 'selectedTab', 'showDone', 'prependNewItem', 'showDate'],
+    props: ['boardId', 'selectedTab', 'showDone', 'prependNewItem', 'showDate', 'markdownMode'],
     components: {
       BoardItem,
       draggable

@@ -48,6 +48,22 @@
         Stick boards list to the top of screen
       </Checkbox>
     </div>
+    <div class="row">
+      <i-switch v-model="settings.markdownMode"
+                size="small"
+                @on-change="saveMarkdownMode()"
+      >
+      </i-switch>
+      Edit item mode support:
+      <transition name="fade" mode="out-in">
+        <span v-if="!settings.markdownMode" key="html">
+          HTML
+        </span>
+        <span v-if="settings.markdownMode" key="markdown">
+          Markdown
+        </span>
+      </transition>
+    </div>
     <div class="separator"></div>
     <h3>Setup board names and order</h3>
     <draggable :list="boardsLocal"
@@ -137,6 +153,10 @@
       },
       saveStickBoardsOnTop () {
         settingsRepository.updateAppSettings({stickBoardsOnTop: this.settings.stickBoardsOnTop})
+        this.showSuccessNotification()
+      },
+      saveMarkdownMode () {
+        settingsRepository.updateAppSettings({markdownMode: this.settings.markdownMode})
         this.showSuccessNotification()
       },
       showSuccessNotification () {

@@ -46,12 +46,13 @@
 <script>
   import ActionButtons from './ActionButtons'
   import MarkdownIt from 'markdown-it'
+
   const md = new MarkdownIt()
 
   export default {
     name: 'board-item',
     components: {ActionButtons},
-    props: ['boardId', 'itemId', 'isDone', 'text', 'created', 'showDate'],
+    props: ['boardId', 'itemId', 'isDone', 'text', 'created', 'showDate', 'markdownMode'],
     data () {
       return {
         isEditing: false,
@@ -106,7 +107,14 @@
     },
     computed: {
       textWithLink () {
-        return md.render(this.text).autoLink({
+        if (this.markdownMode) {
+          return md.render(this.text).autoLink({
+            callback: function (url) {
+              return `<span class='link' title="${url}">${url.split('/')[2]}</span>`
+            }
+          })
+        }
+        return this.text.autoLink({
           callback: function (url) {
             return `<span class='link' title="${url}">${url.split('/')[2]}</span>`
           }
