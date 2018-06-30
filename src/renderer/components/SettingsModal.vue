@@ -50,9 +50,16 @@
     </div>
     <div class="separator"></div>
     <h3>Setup board names and order</h3>
-    <draggable :list="boardsLocal">
+    <draggable :list="boardsLocal"
+               :options="{handle: '.draggable'}"
+               @change="showSuccessNotification">
+
       <div v-for="board in boardsLocal" class="board" :key="board.id">
-        <Icon type="minus-round" class="movable-icon"></Icon>
+        <div class="draggable">
+          <Icon type="more"
+                class="movable-icon"
+          ></Icon>
+        </div>
         <Input v-model="board.label" style="width: 300px" @on-blur="saveBoards"/>
       </div>
     </draggable>
@@ -114,15 +121,18 @@
       },
       savePrependNewItems () {
         settingsRepository.updateAppSettings({prependNewItems: this.settings.prependNewItems})
-        this.$Message.success('Settings updated')
+        this.showSuccessNotification()
       },
       saveItemCreationDate () {
         settingsRepository.updateAppSettings({itemCreationDate: this.settings.itemCreationDate})
-        this.$Message.success('Settings updated')
+        this.showSuccessNotification()
       },
       saveStickBoardsOnTop () {
         settingsRepository.updateAppSettings({stickBoardsOnTop: this.settings.stickBoardsOnTop})
-        this.$Message.success('Settings updated')
+        this.showSuccessNotification()
+      },
+      showSuccessNotification () {
+        this.$Message.success('Setting updated')
       },
       saveBoards () {
         boardsRepository.saveBoardsArray(this.boardsLocal)
@@ -160,16 +170,26 @@
     position: relative;
     margin: 2px 0;
     padding: 2px;
-    cursor: move;
     transition: all .3s;
-  }
-
-  .board:hover .movable-icon {
-    opacity: .55;
   }
 
   .separator {
     border-bottom: 1px solid #f5f5f5;
     margin: 15px 0
+  }
+
+  .movable-icon {
+    position: absolute;
+    top: 2px;
+    left: 3px;
+    transform: rotate(90deg);
+    font-size: 2em;
+    opacity: .1;
+    transition: all .25s;
+    color: #41B883;
+  }
+
+  .draggable:hover .movable-icon {
+    opacity: .8;
   }
 </style>
