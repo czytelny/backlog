@@ -71,7 +71,7 @@
 <script>
   import Board from './Board.vue'
   import NewBoardModal from './NewBoardModal.vue'
-  import SettingsModal from './SettingsModal.vue'
+  import SettingsModal from './settings/SettingsModal'
   import boardsRepository from '@/repositories/boardsRepository'
   import settingsRepository from '@/repositories/settingsRepository'
 

@@ -21,49 +21,9 @@
               @click="open('https://github.com/czytelny/backlog/releases')">New version available
       </Button>
     </div>
-    <h3>General settings</h3>
-    <div class="row">
-      <i-switch v-model="settings.prependNewItems"
-                size="small"
-                @on-change="savePrependNewItems()"
-      >
-      </i-switch>
-      Default placement of new item:
-      <transition name="fade" mode="out-in">
-        <span v-if="settings.prependNewItems" key="head">
-          Head
-        </span>
-        <span v-if="!settings.prependNewItems" key="tail">
-          Tail
-        </span>
-      </transition>
-    </div>
-    <div class="row">
-      <Checkbox v-model="settings.itemCreationDate" @on-change="saveItemCreationDate">
-        Show creation date for each item
-      </Checkbox>
-    </div>
-    <div class="row">
-      <Checkbox v-model="settings.stickBoardsOnTop" @on-change="saveStickBoardsOnTop">
-        Stick boards list to the top of screen
-      </Checkbox>
-    </div>
-    <div class="row">
-      <i-switch v-model="settings.markdownMode"
-                size="small"
-                @on-change="saveMarkdownMode()"
-      >
-      </i-switch>
-      Edit item mode support:
-      <transition name="fade" mode="out-in">
-        <span v-if="!settings.markdownMode" key="html">
-          HTML
-        </span>
-        <span v-if="settings.markdownMode" key="markdown">
-          Markdown
-        </span>
-      </transition>
-    </div>
+
+    <general-settings :settings="settings"/>
+
     <div class="separator"></div>
     <h3>Setup board names and order</h3>
     <draggable :list="boardsLocal"
@@ -96,6 +56,7 @@
   import settingsRepository from '@/repositories/settingsRepository'
   import boardsRepository from '@/repositories/boardsRepository'
   import axios from 'axios'
+  import GeneralSettings from './GeneralSettings'
 
   const {dialog} = require('electron').remote
   const version = require('electron').remote.app.getVersion()
@@ -104,6 +65,7 @@
     name: 'settings-modal',
     props: ['isVisible', 'boards'],
     components: {
+      GeneralSettings,
       draggable
     },
     created () {
@@ -142,22 +104,6 @@
           .finally(() => {
             this.loadingUpdates = false
           })
-      },
-      savePrependNewItems () {
-        settingsRepository.updateAppSettings({prependNewItems: this.settings.prependNewItems})
-        this.showSuccessNotification()
-      },
-      saveItemCreationDate () {
-        settingsRepository.updateAppSettings({itemCreationDate: this.settings.itemCreationDate})
-        this.showSuccessNotification()
-      },
-      saveStickBoardsOnTop () {
-        settingsRepository.updateAppSettings({stickBoardsOnTop: this.settings.stickBoardsOnTop})
-        this.showSuccessNotification()
-      },
-      saveMarkdownMode () {
-        settingsRepository.updateAppSettings({markdownMode: this.settings.markdownMode})
-        this.showSuccessNotification()
       },
       showSuccessNotification () {
         this.$Message.success('Setting updated')
