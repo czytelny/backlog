@@ -26,7 +26,7 @@
       <i-switch v-model="settings.prependNewItems"
                 size="small"
                 @on-change="savePrependNewItems()"
-                >
+      >
       </i-switch>
       Default placement of new item:
       <transition name="fade" mode="out-in">
@@ -61,6 +61,12 @@
           ></Icon>
         </div>
         <Input v-model="board.label" style="width: 300px" @on-blur="saveBoards"/>
+        <Tooltip content="Save as a JSON"
+                 placement="left"
+                 :transfer="true"
+        >
+          <Icon type="archive" class="download-icon" @click="openSaveDialog(board.id)"></Icon>
+        </Tooltip>
       </div>
     </draggable>
     <div slot="footer">
@@ -76,6 +82,8 @@
   import { version } from './../../../package.json'
   import axios from 'axios'
 
+  const {dialog} = require('electron').remote
+  
   export default {
     name: 'settings-modal',
     props: ['isVisible', 'boards'],
@@ -144,6 +152,23 @@
       },
       updateLocalBoards () {
         this.boardsLocal = JSON.parse(JSON.stringify(this.boards))
+      },
+      openSaveDialog (boardId) {
+        const vm = this
+        dialog.showSaveDialog({
+          filters: [
+            {name: 'JSON', extensions: ['json']}
+          ]
+        }, function (fileName) {
+          boardsRepository
+            .exportBoardToJSON(fileName, boardId)
+            .then(() => {
+              vm.$Message.success('File saved successfully')
+            })
+            .catch((err) => {
+              vm.$Message.error(err.message)
+            })
+        })
       }
     }
   }
@@ -156,6 +181,12 @@
     margin-bottom: 20px;
     padding-bottom: 10px;
     border-bottom: 1px solid #f3f3f3;
+  }
+
+  .download-icon {
+    cursor: pointer;
+    margin-left: 5px;
+    font-size: 1.5em;
   }
 
   h4 {
