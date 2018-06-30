@@ -12,15 +12,7 @@
       <h6>v{{currentVersion}}</h6>
     </div>
 
-    <div class="row" style="margin-bottom: 20px;">
-      <Button :loading="loadingUpdates" @click="loadUpdates" v-if="!newVersionAvailable">
-        <span v-if="!loadingUpdates">Check updates</span>
-        <span v-else>Checking...</span>
-      </Button>
-      <Button type="success" v-if="newVersionAvailable"
-              @click="open('https://github.com/czytelny/backlog/releases')">New version available
-      </Button>
-    </div>
+    <updates-check-settings/>
 
     <general-settings :settings="settings"/>
 
@@ -55,8 +47,8 @@
   import draggable from 'vuedraggable'
   import settingsRepository from '@/repositories/settingsRepository'
   import boardsRepository from '@/repositories/boardsRepository'
-  import axios from 'axios'
   import GeneralSettings from './GeneralSettings'
+  import UpdatesCheckSettings from './UpdatesCheckSettings'
 
   const {dialog} = require('electron').remote
   const version = require('electron').remote.app.getVersion()
@@ -65,6 +57,7 @@
     name: 'settings-modal',
     props: ['isVisible', 'boards'],
     components: {
+      UpdatesCheckSettings,
       GeneralSettings,
       draggable
     },
@@ -75,9 +68,7 @@
     data () {
       return {
         settings: null,
-        newVersionAvailable: false,
         currentVersion: version,
-        loadingUpdates: false,
         boardsLocal: null
       }
     },
@@ -87,24 +78,6 @@
       }
     },
     methods: {
-      open (link) {
-        this.$electron.shell.openExternal(link)
-      },
-      loadUpdates () {
-        this.loadingUpdates = true
-        console.log(`${version}`)
-        axios.get('https://api.github.com/repos/czytelny/backlog/releases/latest')
-          .then(({data}) => {
-            if (`v${version}` === data.tag_name) {
-              this.$Message.info('You have the latest version of Backlog')
-            } else {
-              this.newVersionAvailable = true
-            }
-          })
-          .finally(() => {
-            this.loadingUpdates = false
-          })
-      },
       showSuccessNotification () {
         this.$Message.success('Setting updated')
       },

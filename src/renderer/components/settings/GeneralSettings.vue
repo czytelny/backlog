@@ -77,5 +77,7 @@
 </script>
 
 <style scoped>
-
+  .row {
+    margin: 7px 0;
+  }
 </style>
