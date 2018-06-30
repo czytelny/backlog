@@ -37,7 +37,7 @@
                      @moveToBottom="moveItemToBottom"
                      @moveTo="moveItemToBoard"
                      :boardId="boardId"
-                     >
+      >
       </ActionButtons>
     </span>
   </div>
@@ -45,6 +45,8 @@
 
 <script>
   import ActionButtons from './ActionButtons'
+  import MarkdownIt from 'markdown-it'
+  const md = new MarkdownIt()
 
   export default {
     name: 'board-item',
@@ -104,7 +106,7 @@
     },
     computed: {
       textWithLink () {
-        return this.text.autoLink({
+        return md.render(this.text).autoLink({
           callback: function (url) {
             return `<span class='link' title="${url}">${url.split('/')[2]}</span>`
           }
@@ -129,6 +131,10 @@
 
   .item-text {
     font-size: 1.2em;
+  }
+
+  .item-text p {
+    display: inline;
   }
 
   .draggable {

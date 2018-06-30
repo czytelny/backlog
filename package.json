@@ -37,6 +37,7 @@
     "iview": "^2.14.2",
     "lodash-id": "^0.14.0",
     "lowdb": "^1.0.0",
+    "markdown-it": "^8.4.1",
     "shortid": "^2.2.8",
     "vue": "^2.5.16",
     "vue-electron": "^1.0.6",
