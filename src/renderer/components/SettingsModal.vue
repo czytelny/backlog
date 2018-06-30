@@ -114,12 +114,15 @@
       },
       savePrependNewItems () {
         settingsRepository.updateAppSettings({prependNewItems: this.settings.prependNewItems})
+        this.$Message.success('Settings updated')
       },
       saveItemCreationDate () {
         settingsRepository.updateAppSettings({itemCreationDate: this.settings.itemCreationDate})
+        this.$Message.success('Settings updated')
       },
       saveStickBoardsOnTop () {
         settingsRepository.updateAppSettings({stickBoardsOnTop: this.settings.stickBoardsOnTop})
+        this.$Message.success('Settings updated')
       },
       saveBoards () {
         boardsRepository.saveBoardsArray(this.boardsLocal)
