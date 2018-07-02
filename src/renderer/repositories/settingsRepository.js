@@ -1,4 +1,4 @@
-import { db } from './../persistence'
+const {db} = require('electron').remote.require('./persistence')
 
 db.defaults({
   appSettings: {

@@ -1,8 +1,4 @@
-import {db} from './../persistence'
-
-import lodashId from 'lodash-id'
-
-db._.mixin(lodashId)
+const {db} = require('electron').remote.require('./persistence')
 
 export default {
   switchPrependNewItem (boardId, value) {

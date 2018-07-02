@@ -1,12 +1,8 @@
-import { db } from './../persistence'
-
-import lodashId from 'lodash-id'
+const {db} = require('electron').remote.require('./persistence')
 
 const shortid = require('shortid')
 const storage = require('electron').remote.require('electron-settings')
-const fs = require('fs')
-
-db._.mixin(lodashId)
+const fs = require('electron').remote.require('fs')
 
 db.defaults({
   activeBoard: 'default',

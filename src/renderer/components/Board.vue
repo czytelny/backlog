@@ -3,26 +3,26 @@
     <form action="#" v-on:submit.prevent="submitNewItem">
       <Row class="input-row">
         <Col class="input-form">
-        <Input ref="mainInput"
-               :autofocus="true"
-               v-model="newTodoItem"
-               placeholder="Type and hit Enter"
-               size="large"
-               @on-enter="submitNewItem"
-               @on-click="submitNewItem"
-               icon="plus"
-               class="animated"
-               :class="{'fadeOutDown': isSubmittingNewItem, 'fadeIn': !isSubmittingNewItem}"
-               style="width: calc(100% - 10px);"/>
+          <Input ref="mainInput"
+                 :autofocus="true"
+                 v-model="newTodoItem"
+                 placeholder="Type and hit Enter"
+                 size="large"
+                 @on-enter="submitNewItem"
+                 @on-click="submitNewItem"
+                 icon="plus"
+                 class="animated"
+                 :class="{'fadeOutDown': isSubmittingNewItem, 'fadeIn': !isSubmittingNewItem}"
+                 style="width: calc(100% - 10px);"></Input>
         </Col>
         <Col class="input-switch">
-        <i-switch :value="prependNewItem"
-                  @on-change="prependNewItemChange"
-                  size="large"
-        >
-          <span slot="open">Head</span>
-          <span slot="close">Tail</span>
-        </i-switch>
+          <i-switch :value="prependNewItem"
+                    @on-change="prependNewItemChange"
+                    size="large"
+          >
+            <span slot="open">Head</span>
+            <span slot="close">Tail</span>
+          </i-switch>
         </Col>
       </Row>
     </form>
@@ -181,7 +181,10 @@
         }, 250)
       },
       fetchBoardItems (boardId = this.boardId) {
-        this.boardItems = boardsRepository.getItems(boardId)
+        const items = boardsRepository.getItems(boardId)
+        if (items) {
+          this.boardItems = items
+        }
       }
     },
     watch: {
