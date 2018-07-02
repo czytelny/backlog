@@ -54,11 +54,12 @@
   import DatabaseLocation from './DatabaseLocation'
 
   const {dialog} = require('electron').remote
-  const version = require('electron').remote.app.getVersion()
+  const remote = require('electron').remote
+  const version = remote.app.getVersion()
 
   export default {
     name: 'settings-modal',
-    props: ['isVisible', 'boards'],
+    props: ['isVisible'],
     components: {
       DatabaseLocation,
       UpdatesCheckSettings,
@@ -76,11 +77,6 @@
         boardsLocal: null
       }
     },
-    watch: {
-      boards: function (newBoards) {
-        this.updateLocalBoards()
-      }
-    },
     methods: {
       showSuccessNotification () {
         this.$Message.success('Setting updated')
@@ -89,12 +85,14 @@
         boardsRepository.saveBoardsArray(this.boardsLocal)
       },
       closeSettingsModal () {
+        this.updateLocalBoards()
         this.saveBoards()
         this.$emit('closeSettingsModal')
-        this.$emit('forceReload')
+        remote.app.relaunch()
+        remote.app.quit()
       },
       updateLocalBoards () {
-        this.boardsLocal = JSON.parse(JSON.stringify(this.boards))
+        this.boardsLocal = JSON.parse(JSON.stringify(boardsRepository.getList()))
       },
       openSaveDialog (boardId) {
         const vm = this

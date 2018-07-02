@@ -3,50 +3,50 @@
        :class="{'fixedTabs' : settings.stickBoardsOnTop}">
     <Row style="height: 100%;">
       <Col span="24" style="height: 100%;">
-      <Tabs v-model="selectedTab"
-            type="card"
-            @on-click="saveActiveBoard"
-            @dblclick.native="handleDblClick"
-            :class="{'fixedTabs' : settings.stickBoardsOnTop}"
-      >
-
-        <Tab-pane v-for="board in boards"
-                  :label="boardTabLabel(board.label, board.id)"
-                  :name="board.id"
-                  :key="board.id"
+        <Tabs v-model="selectedTab"
+              type="card"
+              @on-click="saveActiveBoard"
+              @dblclick.native="handleDblClick"
+              :class="{'fixedTabs' : settings.stickBoardsOnTop}"
         >
-          <board :boardId="board.id"
-                 :selectedTab="selectedTab"
-                 :showDone="board.showDone"
-                 :prependNewItem="board.prependNewItem"
-                 :showDate="settings.itemCreationDate"
-                 :markdownMode="settings.markdownMode"
-                 @switchShowDone="switchShowDone"
-                 @switchPrependNewItems="loadBoards"
+
+          <Tab-pane v-for="board in boards"
+                    :label="boardTabLabel(board.label, board.id)"
+                    :name="board.id"
+                    :key="board.id"
           >
-          </board>
-        </Tab-pane>
-        <div slot="extra">
-          <Tooltip content="Add new board" placement="bottom-end" :transfer="true" :delay="500">
-            <Button type="dashed"
-                    @click="showNewBoardModal"
-                    size="small"
-                    icon="plus"
-                    shape="circle"
-                    style="margin-right: 5px;">
-            </Button>
-          </Tooltip>
-          <Tooltip content="Settings" placement="bottom-end" :transfer="true" :delay="500">
-            <Button type="dashed"
-                    @click="showSettingsModal"
-                    size="small"
-                    icon="gear-a"
-                    shape="circle"
-                    style="margin-right: 5px;">
-            </Button>
-          </Tooltip>
-        </div>
-      </Tabs>
+            <board :boardId="board.id"
+                   :selectedTab="selectedTab"
+                   :showDone="board.showDone"
+                   :prependNewItem="board.prependNewItem"
+                   :showDate="settings.itemCreationDate"
+                   :markdownMode="settings.markdownMode"
+                   @switchShowDone="switchShowDone"
+                   @switchPrependNewItems="loadBoards"
+            >
+            </board>
+          </Tab-pane>
+          <div slot="extra">
+            <Tooltip content="Add new board" placement="bottom-end" :transfer="true" :delay="500">
+              <Button type="dashed"
+                      @click="showNewBoardModal"
+                      size="small"
+                      icon="plus"
+                      shape="circle"
+                      style="margin-right: 5px;">
+              </Button>
+            </Tooltip>
+            <Tooltip content="Settings" placement="bottom-end" :transfer="true" :delay="500">
+              <Button type="dashed"
+                      @click="showSettingsModal"
+                      size="small"
+                      icon="gear-a"
+                      shape="circle"
+                      style="margin-right: 5px;">
+              </Button>
+            </Tooltip>
+          </div>
+        </Tabs>
       </Col>
     </Row>
     <footer @click="open('https://github.com/czytelny')">
@@ -60,9 +60,7 @@
                      @closeNewBoardModal="closeNewBoardModal">
     </new-board-modal>
     <settings-modal :isVisible="settingsModal"
-                    :boards="boards"
                     @closeSettingsModal="closeSettingsModal"
-                    @forceReload="forceReload"
     >
     </settings-modal>
   </div>
@@ -74,8 +72,6 @@
   import SettingsModal from './settings/SettingsModal'
   import boardsRepository from '@/repositories/boardsRepository'
   import settingsRepository from '@/repositories/settingsRepository'
-
-  const remote = require('electron').remote
 
   export default {
     components: {
@@ -175,9 +171,6 @@
       loadBoards () {
         this.boards = boardsRepository.getList()
       },
-      forceReload () {
-        remote.getCurrentWindow().reload()
-      },
       importOldEntries () {
         if (!this.settings.wasImported) {
           boardsRepository.importOldEntries()
@@ -204,7 +197,7 @@
     margin-top: 35px;
   }
 
-  div.fixedTabs .ivu-tabs-bar{
+  div.fixedTabs .ivu-tabs-bar {
     position: fixed;
     top: 5px;
     z-index: 100;
@@ -212,7 +205,7 @@
     width: 96vw;
     box-shadow: 0 0 0 6px #ffffff;
   }
-  
+
   .ivu-tabs-tab-active .close-icon {
     opacity: 1;
   }
