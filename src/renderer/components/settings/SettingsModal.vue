@@ -48,8 +48,8 @@
       </transition>
     </div>
     <transition name="fade">
-      <div id="restart-cloak">
-        App restarts within 3 seconds
+      <div id="restart-cloak" v-if="showCloak">
+        <h1>App will restart in {{countDown}}</h1>
       </div>
     </transition>
   </Modal>
@@ -90,7 +90,9 @@
         settings: null,
         currentVersion: version,
         boardsLocal: null,
-        restartRequired: false
+        restartRequired: false,
+        countDown: 3,
+        showCloak: false
       }
     },
     methods: {
@@ -107,10 +109,19 @@
       closeSettingsModal () {
         if (this.restartRequired) {
           this.saveBoards()
-          remote.app.relaunch()
-          remote.app.quit()
+          this.showCloak = true
+          const interval = setInterval(() => {
+            if (this.countDown === 0) {
+              clearInterval(interval)
+              remote.app.relaunch()
+              remote.app.quit()
+            } else {
+              this.countDown--
+            }
+          }, 1000)
+        } else {
+          this.$emit('closeSettingsModal')
         }
-        this.$emit('closeSettingsModal')
       },
       updateLocalBoards () {
         this.boardsLocal = JSON.parse(JSON.stringify(boardsRepository.getList()))
@@ -137,7 +148,18 @@
 </script>
 
 <style scoped>
-
+  #restart-cloak {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    left: 0;
+    top: 0;
+    color: white;
+    font-size: 3em;
+    text-align: center;
+    padding-top: 15%;
+  }
 
   .restart-required {
     font-size: .75em;
