@@ -62,6 +62,7 @@
     <settings-modal :isVisible="settingsModal"
                     @closeSettingsModal="closeSettingsModal"
                     @boardsUpdated="loadBoards"
+                    @settingsUpdated="fetchSettings"
     >
     </settings-modal>
   </div>

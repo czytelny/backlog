@@ -16,7 +16,8 @@
 
     <database-location :settings="settings"/>
 
-    <general-settings :settings="settings"/>
+    <general-settings :settings="settings"
+                      @settingsUpdated="fetchSettings"/>
 
     <div class="separator"></div>
     <h3>Setup board names and order</h3>
@@ -125,6 +126,10 @@
       },
       updateLocalBoards () {
         this.boardsLocal = JSON.parse(JSON.stringify(boardsRepository.getList()))
+      },
+      fetchSettings () {
+        this.settings = settingsRepository.getAppSettings()
+        this.$emit('settingsUpdated')
       },
       openSaveDialog (boardId) {
         const vm = this

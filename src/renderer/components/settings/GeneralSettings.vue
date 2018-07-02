@@ -2,9 +2,9 @@
   <div>
     <div class="row">
       <h3>General settings</h3>
-      <i-switch v-model="settings.prependNewItems"
+      <i-switch :value="settings.prependNewItems"
                 size="small"
-                @on-change="savePrependNewItems()"
+                @on-change="savePrependNewItems"
       >
       </i-switch>
       Default placement of new item:
@@ -18,19 +18,9 @@
       </transition>
     </div>
     <div class="row">
-      <Checkbox v-model="settings.itemCreationDate" @on-change="saveItemCreationDate">
-        Show creation date for each item
-      </Checkbox>
-    </div>
-    <div class="row">
-      <Checkbox v-model="settings.stickBoardsOnTop" @on-change="saveStickBoardsOnTop">
-        Stick boards list to the top of screen
-      </Checkbox>
-    </div>
-    <div class="row">
-      <i-switch v-model="settings.markdownMode"
+      <i-switch :value="settings.markdownMode"
+                @on-change="saveMarkdownMode"
                 size="small"
-                @on-change="saveMarkdownMode()"
       >
       </i-switch>
       Edit item mode support:
@@ -43,6 +33,18 @@
         </span>
       </transition>
     </div>
+    <div class="row">
+      <Checkbox :value="settings.itemCreationDate"
+                @on-change="saveItemCreationDate">
+        Show creation date for each item
+      </Checkbox>
+    </div>
+    <div class="row">
+      <Checkbox :value="settings.stickBoardsOnTop"
+                @on-change="saveStickBoardsOnTop">
+        Stick boards list to the top of screen
+      </Checkbox>
+    </div>
   </div>
 </template>
 
@@ -53,24 +55,25 @@
     name: 'GeneralSettings',
     props: ['settings'],
     methods: {
-      savePrependNewItems () {
-        settingsRepository.updateAppSettings({prependNewItems: this.settings.prependNewItems})
+      savePrependNewItems (newValue) {
+        settingsRepository.updateAppSettings({prependNewItems: newValue})
         this.showSuccessNotification()
       },
-      saveItemCreationDate () {
-        settingsRepository.updateAppSettings({itemCreationDate: this.settings.itemCreationDate})
+      saveItemCreationDate (newValue) {
+        settingsRepository.updateAppSettings({itemCreationDate: newValue})
         this.showSuccessNotification()
       },
-      saveStickBoardsOnTop () {
-        settingsRepository.updateAppSettings({stickBoardsOnTop: this.settings.stickBoardsOnTop})
+      saveStickBoardsOnTop (newValue) {
+        settingsRepository.updateAppSettings({stickBoardsOnTop: newValue})
         this.showSuccessNotification()
       },
-      saveMarkdownMode () {
-        settingsRepository.updateAppSettings({markdownMode: this.settings.markdownMode})
+      saveMarkdownMode (newValue) {
+        settingsRepository.updateAppSettings({markdownMode: newValue})
         this.showSuccessNotification()
       },
       showSuccessNotification () {
         this.$Message.success('Setting updated')
+        this.$emit('settingsUpdated')
       }
     }
   }
