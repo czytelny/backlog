@@ -20,7 +20,15 @@
       <span class="item-text"
             v-html="textWithLink"
             @click="handleLinkClick"
-      > </span>
+            v-if="markdownMode"
+      >
+      </span>
+      <span class="item-text"
+            @click="handleLinkClick"
+            v-if="!markdownMode"
+      >
+        {{textWithLink}}
+      </span>
       <span v-if="showDate" class="creationDate">{{created | simpleDate}}</span>
     </div>
     <span class="actionBtns" v-if="!isEditing">
@@ -114,11 +122,7 @@
             }
           })
         }
-        return this.text.autoLink({
-          callback: function (url) {
-            return `<span class='link' title="${url}">${url.split('/')[2]}</span>`
-          }
-        })
+        return this.text
       }
     },
     filters: {

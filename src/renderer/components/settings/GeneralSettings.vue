@@ -25,8 +25,8 @@
       </i-switch>
       Edit item mode support:
       <transition name="fade" mode="out-in">
-        <span v-if="!settings.markdownMode" key="html">
-          HTML
+        <span v-if="!settings.markdownMode" key="plaintext">
+          Plaintext
         </span>
         <span v-if="settings.markdownMode" key="markdown">
           Markdown
