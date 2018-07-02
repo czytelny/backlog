@@ -22,7 +22,7 @@
     <h3>Setup board names and order</h3>
     <draggable :list="boardsLocal"
                :options="{handle: '.draggable'}"
-               @change="showSuccessNotification">
+               @change="boardOrderChanged">
 
       <div v-for="board in boardsLocal" class="board" :key="board.id">
         <div class="draggable">
@@ -41,7 +41,17 @@
     </draggable>
     <div slot="footer">
       <Button size="large" @click="closeSettingsModal">Close</Button>
+      <transition name="fade">
+        <div class="restart-required" v-if="restartRequired">
+          Restart required
+        </div>
+      </transition>
     </div>
+    <transition name="fade">
+      <div id="restart-cloak">
+        App restarts within 3 seconds
+      </div>
+    </transition>
   </Modal>
 </template>
 
@@ -70,26 +80,37 @@
       this.updateLocalBoards()
       this.settings = settingsRepository.getAppSettings()
     },
+    watch: {
+      isVisible () {
+        this.updateLocalBoards()
+      }
+    },
     data () {
       return {
         settings: null,
         currentVersion: version,
-        boardsLocal: null
+        boardsLocal: null,
+        restartRequired: false
       }
     },
     methods: {
+      boardOrderChanged () {
+        this.restartRequired = true
+      },
       showSuccessNotification () {
         this.$Message.success('Setting updated')
       },
       saveBoards () {
         boardsRepository.saveBoardsArray(this.boardsLocal)
+        this.$emit('boardsUpdated')
       },
       closeSettingsModal () {
-        this.updateLocalBoards()
-        this.saveBoards()
+        if (this.restartRequired) {
+          this.saveBoards()
+          remote.app.relaunch()
+          remote.app.quit()
+        }
         this.$emit('closeSettingsModal')
-        remote.app.relaunch()
-        remote.app.quit()
       },
       updateLocalBoards () {
         this.boardsLocal = JSON.parse(JSON.stringify(boardsRepository.getList()))
@@ -116,6 +137,13 @@
 </script>
 
 <style scoped>
+
+
+  .restart-required {
+    font-size: .75em;
+    color: #ff9900;
+  }
+
   .row.title {
     text-align: center;
     font-size: 2em;
