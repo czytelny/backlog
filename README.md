@@ -51,8 +51,6 @@ When new version is available just download it, unzip and enjoy. No additional a
 - fix bug related to freezing ui when adding first item (on some systems)
 
 ## Why I've wrote it ?
-
-## Why I've wrote it ?
 When programming I often have a number of ideas related to possible improvements for the future or a cool new project. Most often, it's just one sentence or a couple of words - just a draft of an idea to expand in the future. 
 
 I know that, there are hundreds of *todo list managers* or other *notes manager*,
