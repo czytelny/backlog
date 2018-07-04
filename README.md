@@ -11,13 +11,13 @@
 
 # Download
 No installation required. Just unzip archive and run executable
-- [Windows version](https://github.com/czytelny/backlog/releases/download/v1.6.1/Backlog-win32-x64.zip)
-- [MacOs version](https://github.com/czytelny/backlog/releases/download/v1.6.1/Backlog-darwin-x64.zip) 
-- [Linux version](https://github.com/czytelny/backlog/releases/download/v1.6.1/Backlog-linux-x64.tar.gz)
+- [Windows version](https://github.com/czytelny/backlog/releases/download/v1.7.0/Backlog-win32-x64.zip)
+- [MacOs version](https://github.com/czytelny/backlog/releases/download/v1.7.0/Backlog-darwin-x64.zip) 
+- [Linux version](https://github.com/czytelny/backlog/releases/download/v1.7.0/Backlog-linux-x64.tar.gz)
 
 #### 32bit versions
-- [Windows x32 version](https://github.com/czytelny/backlog/releases/download/v1.6.1/Backlog-win32-ia32.zip)
-- [Linux x32 version](https://github.com/czytelny/backlog/releases/download/v1.6.1/Backlog-linux-ia32.tar.gz)
+- [Windows x32 version](https://github.com/czytelny/backlog/releases/download/v1.7.0/Backlog-win32-ia32.zip)
+- [Linux x32 version](https://github.com/czytelny/backlog/releases/download/v1.7.0/Backlog-linux-ia32.tar.gz)
 
 ## Screenshot
 <p align="center">
@@ -28,41 +28,29 @@ No installation required. Just unzip archive and run executable
 When new version is available just download it, unzip and enjoy. No additional action is required. All your boards and items will be available.
 
 ## Versions
-### 1.6.1
-- fixed bug with importing empty boards
+### 1.7.0
+> A lot of significant changes and improvements this time. Most of them according to your comments. Thank you and enjoy! 👍
 
-### 1.6.0
-Improvements:
-- Method of storing boards and items has changed. Migration script should be triggered on first run so all of your items should be in-place
-- Electron version bumped
-- Added "check for updates" button in setting modal window (it compares your local version with latest release on github)
-- Removing all tabs is not possible now - remove button is hidden for last one
-- UI improvements in adding new items area
+# Changes/Improvements
+- **feature request**: changed items drag&drop behaviour (to move items user has dedicated handler on the left)
+- **feature request**: after clicking in text item is not marked as done now (user has to use checkbox directly)
+- **feature request**: context menu for copy/cut/paste
+- **feature request**: action button with: move to top/bottom of the board, and "move to another boad"
+- **feature request**: setting added: board list fixed on the top of the screen
+- **feature request**: saving board items as a JSON file (in settings modal)
+- **feature request**: added Markdown mode (to turn on in settings modal)
+- removed support for HTML tags (it wasn't the best idea to add it). now user has plaintext/markdown mode
+- added information about database location in settings modal
+- changed reordering tabs feature - now it requires full app restart + added dedicated handler for drag&drop on the left
+- dependency bump of electron (v2.0.2), iview, vue and others
 
-Bugs:
-- Fixed issue with setting active board to early
 
-### 1.5.0
-Features: 
-- When entering http link in an item, app will show it as a hyperlink and make it clickable. Hover it to see full URL
-- User can embed html tags like `<b>, <i>` etc
 
-Fixed bugs: 
-- Fix issue which caused that in some cases after opening application current board input was not focused
-- Clicking on "+" icon in input will cause adding new item (just as pressing Enter)
+# Bug fixes
+- fix bug which causes data lost in some cases - related to settings modal
+- fix bug related to freezing ui when adding first item (on some systems)
 
-### 1.4.2
-- fixed bug - when after opening settings modal user lost newly created boards
- 
-### 1.4.1
-Fixed bugs:
-- Prevent creating empty task
-- ShowDone button placement corrected
-- Prevent create empty board with empty name
-- Fix issue with re-opening modal (settings, add new board) after closing it by clicking outside of the modal
-- Fix issue with lack of scrooling option when have more boards that windows width allows
-- Added notifications when adding/removing item from board
-
+## Why I've wrote it ?
 
 ## Why I've wrote it ?
 When programming I often have a number of ideas related to possible improvements for the future or a cool new project. Most often, it's just one sentence or a couple of words - just a draft of an idea to expand in the future. 
