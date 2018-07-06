@@ -3,14 +3,14 @@ const Application = require('spectron').Application
 
 module.exports = {
   afterEach () {
-    this.timeout(10000)
+    this.timeout(5000)
 
     if (this.app && this.app.isRunning()) {
       return this.app.stop()
     }
   },
   beforeEach () {
-    this.timeout(10000)
+    this.timeout(5000)
     this.app = new Application({
       path: electron,
       args: ['dist/electron/main.js'],

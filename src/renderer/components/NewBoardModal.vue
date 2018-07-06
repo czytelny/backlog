@@ -1,5 +1,6 @@
 <template>
-  <Modal :value="newBoardModal"
+  <Modal id="new-board-modal"
+         :value="newBoardModal"
          title="Add new board"
          okText="Add"
          :closable="false"

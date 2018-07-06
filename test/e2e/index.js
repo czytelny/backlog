@@ -9,10 +9,11 @@ require('babel-register')({
 })
 
 // Attach Chai APIs to global scope
-const { expect, should, assert } = require('chai')
-global.expect = expect
-global.should = should
-global.assert = assert
+const chai = require('chai')
+const chaiAsPromised = require('chai-as-promised')
+chai.use(chaiAsPromised)
+
+global.expect = chai.expect
 
 // Require all JS files in `./specs` for Mocha to consume
 require('require-dir')('./specs')

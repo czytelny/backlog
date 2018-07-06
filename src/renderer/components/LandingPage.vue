@@ -29,6 +29,7 @@
           <div slot="extra">
             <Tooltip content="Add new board" placement="bottom-end" :transfer="true" :delay="500">
               <Button type="dashed"
+                      id="add-new-board-btn"
                       @click="showNewBoardModal"
                       size="small"
                       icon="plus"

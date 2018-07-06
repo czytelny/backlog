@@ -6,14 +6,16 @@ module.exports = {
   },
   env: {
     browser: true,
-    node: true
+    node: true,
+    mocha: true
   },
   extends: 'standard',
   globals: {
-    __static: true
+    __static: true,
+    expect: true
   },
   plugins: [
-    'html'
+    'html', 'mocha'
   ],
   'rules': {
     // allow paren-less arrow functions
@@ -21,6 +23,7 @@ module.exports = {
     // allow async-await
     'generator-star-spacing': 0,
     // allow debugger during development
-    'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0
+    'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
+    'mocha/no-exclusive-tests': 'error'
   }
 }
