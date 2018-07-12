@@ -40,12 +40,14 @@
     "lowdb": "^1.0.0",
     "markdown-it": "^8.4.1",
     "shortid": "^2.2.8",
+    "sillyname": "^0.1.0",
     "vue": "^2.5.16",
     "vue-electron": "^1.0.6",
     "vuedraggable": "^2.16.0"
   },
   "devDependencies": {
     "@types/mocha": "^5.2.4",
+    "mocha": "^5.2.0",
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.3",
     "babel-loader": "^7.1.4",

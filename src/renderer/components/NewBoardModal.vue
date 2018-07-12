@@ -7,13 +7,17 @@
          :mask-closable="false"
          cancelText="Cancel">
     <Input v-model="newBoardName"
+           element-id="newBoardNameInput"
            placeholder="New board name"
            @on-keyup.enter="submitNewBoard"
            v-focus
     />
     <div slot="footer">
       <Button type="text" size="large" @click="closeNewBoardModal">Cancel</Button>
-      <Button type="primary" size="large" @click="submitNewBoard">Add new board</Button>
+      <Button id="saveNewBoardBtn"
+              type="primary"
+              size="large"
+              @click="submitNewBoard">Add new board</Button>
     </div>
   </Modal>
 </template>

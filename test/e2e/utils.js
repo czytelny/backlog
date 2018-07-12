@@ -1,5 +1,6 @@
 const electron = require('electron')
 const Application = require('spectron').Application
+const path = require('path')
 
 module.exports = {
   afterEach () {
