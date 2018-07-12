@@ -20,7 +20,7 @@ describe('Board', function () {
         return this.app.client.click('#saveNewBoardBtn')
       })
       .then(() => {
-        return expect(this.app.client.isVisible('span=' + newBoardName)).to.eventually.be.true
+        return expect(this.app.client.isVisible(`//span[contains(text(), "${newBoardName}")]`)).to.eventually.be.true
       })
   })
 
