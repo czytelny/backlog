@@ -1,7 +1,7 @@
 # Backlog
 
-> Simple multiplatform desktop app for storing TODOs, ideas or backlog items. 
-> You can organize them with boards. No dependencies, no internet connection required, 
+> Simple multiplatform desktop app for storing TODOs, ideas or backlog items.
+> You can organize them with boards as a plaintext or markdown. No dependencies, no internet connection required,
 > no external accounts. Sleek flow.
 
 <p align="center">
@@ -12,7 +12,7 @@
 # Download
 No installation required. Just unzip archive and run executable
 - [Windows version](https://github.com/czytelny/backlog/releases/download/v1.7.0/Backlog-win32-x64.zip)
-- [MacOs version](https://github.com/czytelny/backlog/releases/download/v1.7.0/Backlog-darwin-x64.zip) 
+- [MacOs version](https://github.com/czytelny/backlog/releases/download/v1.7.0/Backlog-darwin-x64.zip)
 - [Linux version](https://github.com/czytelny/backlog/releases/download/v1.7.0/Backlog-linux-x64.tar.gz)
 
 #### 32bit versions
@@ -51,11 +51,11 @@ When new version is available just download it, unzip and enjoy. No additional a
 - fix bug related to freezing ui when adding first item (on some systems)
 
 ## Why I've wrote it ?
-When programming I often have a number of ideas related to possible improvements for the future or a cool new project. Most often, it's just one sentence or a couple of words - just a draft of an idea to expand in the future. 
+When programming I often have a number of ideas related to possible improvements for the future or a cool new project. Most often, it's just one sentence or a couple of words - just a draft of an idea to expand in the future.
 
 I know that, there are hundreds of *todo list managers* or other *notes manager*,
-but this one will finally perfectly fulfill my needs. So far I wrote my thoughts on sticky notes, I tried Evernote, Simplenote... 
-They are fine, but all of them were either bloated with unnecessary features or lacked the desired "flow" - 
+but this one will finally perfectly fulfill my needs. So far I wrote my thoughts on sticky notes, I tried Evernote, Simplenote...
+They are fine, but all of them were either bloated with unnecessary features or lacked the desired "flow" -
 when I open a program I want type down thoughts, hit enter, and get back to my actual work. That's how I write Backlog. No dependencies, no internet connection required, no external accounts etc.
 
 ## License
