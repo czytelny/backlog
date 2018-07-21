@@ -1,77 +1,83 @@
 <template>
-  <div class="tab-content">
-    <form action="#" v-on:submit.prevent="submitNewItem">
-      <Row class="input-row">
-        <Col class="input-form">
-          <Input ref="mainInput"
-                 :autofocus="true"
-                 v-model="newTodoItem"
-                 placeholder="Type and hit Enter"
-                 size="large"
-                 @on-enter="submitNewItem"
-                 @on-click="submitNewItem"
-                 icon="plus"
-                 class="animated"
-                 :class="{'fadeOutDown': isSubmittingNewItem, 'fadeIn': !isSubmittingNewItem}"
-                 style="width: calc(100% - 10px);"></Input>
-        </Col>
-        <Col class="input-switch">
-          <i-switch :value="prependNewItem"
-                    @on-change="prependNewItemChange"
-                    size="large"
-          >
-            <span slot="open">Head</span>
-            <span slot="close">Tail</span>
-          </i-switch>
-        </Col>
-      </Row>
-    </form>
-    <div class="showDoneLink">
-      <Button v-if="!showDone"
-              type="dashed"
-              shape="circle"
-              :disabled="isBoardItemsEmpty"
-              @click="switchShowDone">Show done
-      </Button>
-      <Button v-if="showDone"
-              type="dashed"
-              shape="circle"
-              :disabled="isBoardItemsEmpty"
-              @click="switchShowDone">
-        Hide done
-      </Button>
-    </div>
-    <div v-if="isBoardItemsEmpty" class="info">
-      <h1>No items on this board, yet</h1>
-    </div>
+    <div class="tab-content">
+        <form action="#" v-on:submit.prevent="submitNewItem">
+            <Row class="input-row">
+                <Col class="input-form">
+                    <Input ref="mainInput"
+                           :autofocus="true"
+                           v-model="newTodoItem"
+                           placeholder="Type and hit Enter"
+                           size="large"
+                           @on-enter="submitNewItem"
+                           @on-click="submitNewItem"
+                           icon="plus"
+                           class="animated"
+                           :class="{'fadeOutDown': isSubmittingNewItem, 'fadeIn': !isSubmittingNewItem}"
+                           style="width: calc(100% - 10px);"></Input>
+                </Col>
+                <Col class="input-switch">
+                    <i-switch :value="prependNewItem"
+                              @on-change="prependNewItemChange"
+                              size="large"
+                    >
+                        <span slot="open">Head</span>
+                        <span slot="close">Tail</span>
+                    </i-switch>
+                </Col>
+            </Row>
+        </form>
+        <div class="showDoneLink">
+            <Button v-if="!showDone"
+                    type="dashed"
+                    shape="circle"
+                    :disabled="isBoardItemsEmpty"
+                    @click="switchShowDone">Show done
+            </Button>
+            <Button v-if="showDone"
+                    type="dashed"
+                    shape="circle"
+                    :disabled="isBoardItemsEmpty"
+                    @click="switchShowDone">
+                Hide done
+            </Button>
+        </div>
+        <div v-if="isBoardItemsEmpty" class="info">
+            <h1>No items on this board, yet</h1>
+        </div>
 
-    <div v-if="isAllItemsDone" class="info">
-      <h1>Great, all items are done!</h1>
+        <div v-if="isAllItemsDone" class="info">
+            <h1>Great, all items are done!</h1>
+        </div>
+        <draggable :list="boardItems" @change="boardItemsRearanged" :options="{ghostClass: 'sortable-ghost',
+                                                                       handle: '.draggable'}">
+            <transition-group name="list-complete">
+                <board-item v-for="item in boardItems"
+                            :key="item.id"
+                            :itemId="item.id"
+                            :isDone="item.isDone"
+                            :text="item.text"
+                            :created="item.created"
+                            :showDate="showDate"
+                            :boardId="boardId"
+                            :markdownMode="markdownMode"
+                            v-if="shouldBeDisplayed(item)"
+                            @changeIsDone="changeIsDone"
+                            @removeItem="removeItem"
+                            @changeItemVal="changeItemVal"
+                            @moveItemToTop="moveItemToTop"
+                            @moveItemToBottom="moveItemToBottom"
+                            @showMoveToBoardModal="showMoveToBoardModal"
+                >
+                </board-item>
+            </transition-group>
+        </draggable>
+        <ChooseBoardModal :boardId="boardId"
+                          :boardChooseModal="moveToBoardModal"
+                          :movingItemId="movingItemId"
+                          @moveTo="moveItemToBoard"
+                          @closeChooseBoardModal="closeChooseBoardModal">
+        </ChooseBoardModal>
     </div>
-    <draggable :list="boardItems" @change="boardItemsRearanged" :options="{ghostClass: 'sortable-ghost',
-                                                                           handle: '.draggable'}">
-      <transition-group name="list-complete">
-        <board-item v-for="item in boardItems"
-                    :key="item.id"
-                    :itemId="item.id"
-                    :isDone="item.isDone"
-                    :text="item.text"
-                    :created="item.created"
-                    :showDate="showDate"
-                    :boardId="boardId"
-                    :markdownMode="markdownMode"
-                    v-if="shouldBeDisplayed(item)"
-                    @changeIsDone="changeIsDone"
-                    @removeItem="removeItem"
-                    @changeItemVal="changeItemVal"
-                    @moveItemToTop="moveItemToTop"
-                    @moveItemToBottom="moveItemToBottom"
-                    @moveItemToBoard="moveItemToBoard"
-        >
-        </board-item>
-      </transition-group>
-    </draggable>
-  </div>
 </template>
 
 <script>
@@ -79,11 +85,13 @@
   import BoardItem from './BoardItem.vue'
   import boardsRepository from '@/repositories/boardsRepository'
   import itemsRepository from '@/repositories/itemsRepository'
+  import ChooseBoardModal from './ChooseBoardModal'
 
   export default {
     name: 'board',
     props: ['boardId', 'selectedTab', 'showDone', 'prependNewItem', 'showDate', 'markdownMode'],
     components: {
+      ChooseBoardModal,
       BoardItem,
       draggable
     },
@@ -92,7 +100,9 @@
         boardItems: [],
         newTodoItem: '',
         isSubmittingNewItem: false,
-        isEditingItem: false
+        isEditingItem: false,
+        moveToBoardModal: false,
+        movingItemId: null
       }
     },
     computed: {
@@ -107,6 +117,9 @@
       }
     },
     methods: {
+      closeChooseBoardModal () {
+        this.moveToBoardModal = false
+      },
       boardItemsRearanged () {
         boardsRepository.saveItemsArray(this.boardId, this.boardItems)
       },
@@ -167,10 +180,14 @@
         this.fetchBoardItems()
         this.focusOnInput()
       },
-      moveItemToBoard (dstBoardId, itemId) {
-        boardsRepository.moveItemToBoard(this.boardId, dstBoardId, itemId)
+      moveItemToBoard (dstBoardId) {
+        boardsRepository.moveItemToBoard(this.boardId, dstBoardId, this.movingItemId)
         this.fetchBoardItems()
         this.focusOnInput()
+      },
+      showMoveToBoardModal (itemId) {
+        this.movingItemId = itemId
+        this.moveToBoardModal = true
       },
       focusOnInput () {
         const vm = this
@@ -212,51 +229,51 @@
 </script>
 
 <style>
-  .sortable-ghost {
-    opacity: 0;
-  }
+    .sortable-ghost {
+        opacity: 0;
+    }
 
-  .info {
-    text-align: center;
-    font-size: 1.5em;
-    opacity: .25;
-    padding: 20px 0;
-  }
+    .info {
+        text-align: center;
+        font-size: 1.5em;
+        opacity: .25;
+        padding: 20px 0;
+    }
 
-  .showDoneLink {
-    text-align: center;
-    padding: 20px 0;
-  }
+    .showDoneLink {
+        text-align: center;
+        padding: 20px 0;
+    }
 
-  .tab-content {
-    padding: 0 20px;
-    display: flex;
-    flex-direction: column;
-    background-color: #ffffff;
-    height: 100%;
-  }
+    .tab-content {
+        padding: 0 20px;
+        display: flex;
+        flex-direction: column;
+        background-color: #ffffff;
+        height: 100%;
+    }
 
-  .list-complete-item {
-    transition: all .3s;
-  }
+    .list-complete-item {
+        transition: all .3s;
+    }
 
-  .list-complete-enter, .list-complete-leave-to
-    /* .list-complete-leave-active below version 2.1.8 */
-  {
-    opacity: 0;
-    transform: translateX(-100%);
-  }
+    .list-complete-enter, .list-complete-leave-to
+        /* .list-complete-leave-active below version 2.1.8 */
+    {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
 
-  .input-row {
-    display: flex;
-    align-items: center;
-  }
+    .input-row {
+        display: flex;
+        align-items: center;
+    }
 
-  .input-form {
-    flex: 1
-  }
+    .input-form {
+        flex: 1
+    }
 
-  .input-switch {
-    flex: 0;
-  }
+    .input-switch {
+        flex: 0;
+    }
 </style>

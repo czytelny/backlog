@@ -39,11 +39,11 @@
               type="dashed"
               @click="editItem"
       />
-      
+
       <ActionButtons @remove="removeItem"
                      @moveToTop="moveItemToTop"
                      @moveToBottom="moveItemToBottom"
-                     @moveTo="moveItemToBoard"
+                     @showMoveToBoardModal="showMoveToBoardModal"
                      :boardId="boardId"
       >
       </ActionButtons>
@@ -100,8 +100,8 @@
       moveItemToBottom () {
         this.$emit('moveItemToBottom', this.itemId)
       },
-      moveItemToBoard (boardId) {
-        this.$emit('moveItemToBoard', boardId, this.itemId)
+      showMoveToBoardModal () {
+        this.$emit('showMoveToBoardModal', this.itemId)
       },
       open (link) {
         this.$electron.shell.openExternal(link)
