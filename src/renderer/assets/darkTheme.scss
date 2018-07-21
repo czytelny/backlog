@@ -1,0 +1,75 @@
+$main-background-color: #272822;
+$modal-background-color: #262721;
+$input-background-color: #323232;
+$input-disabled-background-color: #494949;
+$borders-color: #3a3c31;
+$text-color: #bbbbbb;
+
+
+body.darkTheme {
+    background-color: $main-background-color;
+
+    .ivu-tabs.ivu-tabs-card{
+        color: $text-color;
+    }
+
+    .ivu-tabs.ivu-tabs-card > .ivu-tabs-bar .ivu-tabs-tab {
+        background-color: $main-background-color;
+        border-color: $borders-color;
+    }
+
+    .ivu-tabs-bar {
+        border-bottom-color: $borders-color;
+    }
+    input {
+        background-color: $input-background-color;
+        color: $text-color;
+        border: $borders-color;
+    }
+    input[disabled] {
+        background-color: $input-disabled-background-color;
+        color: $text-color;
+    }
+    .tab-content {
+        background-color: $main-background-color;
+    }
+
+    .item {
+        border-bottom-color: $borders-color;
+    }
+
+    button {
+        color: $text-color;
+        background-color: transparent;
+    }
+
+    .ivu-switch{
+        background-color: transparent;
+    }
+
+    .ivu-switch.ivu-switch-checked{
+        background-color: rgba(45, 140, 240, 0.53);
+    }
+
+    .ivu-modal-content{
+        background-color: $modal-background-color;
+        .ivu-modal-header{
+            border-bottom-color: $borders-color;
+            .ivu-modal-header-inner{
+                color: $text-color;
+            }
+        }
+        .title{
+            border-bottom-color: $borders-color;
+        }
+    }
+
+}
+
+
+
+
+
+
+
+

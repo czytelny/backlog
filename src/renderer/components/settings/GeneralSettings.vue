@@ -34,6 +34,12 @@
       </transition>
     </div>
     <div class="row">
+      <Checkbox :value="settings.darkTheme"
+                @on-change="saveDarkTheme">
+        Dark theme
+      </Checkbox>
+    </div>
+    <div class="row">
       <Checkbox :value="settings.itemCreationDate"
                 @on-change="saveItemCreationDate">
         Show creation date for each item
@@ -69,6 +75,10 @@
       },
       saveMarkdownMode (newValue) {
         settingsRepository.updateAppSettings({markdownMode: newValue})
+        this.showSuccessNotification()
+      },
+      saveDarkTheme (newValue) {
+        settingsRepository.updateAppSettings({darkTheme: newValue})
         this.showSuccessNotification()
       },
       showSuccessNotification () {

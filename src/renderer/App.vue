@@ -6,18 +6,31 @@
 
 <script>
   import LandingPage from '@/components/LandingPage'
+  import settingsRepository from '@/repositories/settingsRepository'
 
   export default {
     name: 'backlog',
     components: {
       LandingPage
+    },
+    data () {
+      return {
+        settings: null
+      }
+    },
+    created () {
+      this.settings = settingsRepository.getAppSettings()
+      if (this.settings.darkTheme) {
+        document.querySelector('body').classList.add('darkTheme')
+      }
     }
   }
 </script>
 
-<style>
+<style lang="scss">
   @import url('https://fonts.googleapis.com/css?family=Roboto');
   @import url('~animate.css');
+  @import 'assets/darkTheme.scss';
 
   * {
     box-sizing: border-box;
