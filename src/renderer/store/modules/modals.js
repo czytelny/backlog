@@ -9,8 +9,13 @@ const mutations = {
   },
   HIDE_NEW_BOARD (state) {
     state.newBoard = false
+  },
+  SHOW_SETTINGS (state) {
+    state.settings = true
+  },
+  HIDE_SETTINGS (state) {
+    state.settings = false
   }
-
 }
 
 const actions = {
@@ -19,6 +24,12 @@ const actions = {
   },
   hideNewBoardModal ({commit}) {
     commit('HIDE_NEW_BOARD')
+  },
+  showSettingsModal ({commit}) {
+    commit('SHOW_SETTINGS')
+  },
+  hideSettingsModal ({commit}) {
+    commit('HIDE_SETTINGS')
   }
 }
 

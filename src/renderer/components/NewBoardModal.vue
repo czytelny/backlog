@@ -1,9 +1,8 @@
 <template>
   <Modal id="new-board-modal"
-         :value="newBoardModal"
+         :value="isVisible"
          title="Add new board"
          okText="Add"
-         :closable="false"
          @on-visible-change="visibleChange"
          cancelText="Cancel">
     <Input v-model="newBoardName"
@@ -11,7 +10,7 @@
            placeholder="New board name"
            @on-keyup.enter="submitNewBoard"
            v-focus
-    />
+    ></Input>
     <div slot="footer">
       <Button type="text" size="large" @click="closeModal">Cancel</Button>
       <Button id="saveNewBoardBtn"
@@ -26,7 +25,7 @@
 <script>
   export default {
     name: 'new-board-modal',
-    props: ['newBoardModal'],
+    props: ['isVisible'],
     data () {
       return {
         newBoardName: ''

@@ -56,13 +56,12 @@
       by Michal Chwedczuk
     </footer>
 
-    <new-board-modal :newBoardModal="newBoardModal"
+    <new-board-modal :isVisible="newBoardModal"
                      @submitNewBoard="submitNewBoard"
-                     >
+    >
     </new-board-modal>
 
     <settings-modal :isVisible="settingsModal"
-                    @closeSettingsModal="closeSettingsModal"
                     @boardsUpdated="loadBoards"
                     @settingsUpdated="fetchSettings"
     >
@@ -88,7 +87,6 @@
     data () {
       return {
         newItem: '',
-        settingsModal: false,
         settings: {},
         boardTabLabel: (boardLabel, boardId) => (h) => {
           const closer = this.isLastboard ? '' : h('Icon', {
@@ -125,10 +123,18 @@
       },
       newBoardModal () {
         return this.$store.state.modals.newBoard
+      },
+      settingsModal () {
+        return this.$store.state.modals.settings
       }
     },
     methods: {
-      ...mapActions(['showNewBoardModal', 'hideNewBoardModal']),
+      ...mapActions([
+        'showNewBoardModal',
+        'hideNewBoardModal',
+        'showSettingsModal',
+        'hideSettingsModal'
+      ]),
       handleDblClick (event) {
         if (event.target.className === 'ivu-tabs-nav-scroll') {
           this.showNewBoardModal()
@@ -136,12 +142,6 @@
       },
       open (link) {
         this.$electron.shell.openExternal(link)
-      },
-      showSettingsModal () {
-        this.settingsModal = true
-      },
-      closeSettingsModal () {
-        this.settingsModal = false
       },
       switchShowDone ({boardId, newValue}) {
         boardsRepository.switchShowDone(boardId, newValue)

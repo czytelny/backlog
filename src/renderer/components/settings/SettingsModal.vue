@@ -1,9 +1,8 @@
 <template>
   <Modal :value="isVisible"
          title="Settings"
-         @on-ok="closeSettingsModal"
-         :closable="false"
-         :mask-closable="false"
+         @on-ok="closeModal"
+         @on-visible-change="visibleChange"
          okText="Add"
          :scrollable="true"
   >
@@ -41,7 +40,7 @@
       </div>
     </draggable>
     <div slot="footer">
-      <Button size="large" @click="closeSettingsModal">Close</Button>
+      <Button size="large" @click="closeModal">Close</Button>
       <transition name="fade">
         <div class="restart-required" v-if="restartRequired">
           Restart required
@@ -97,6 +96,11 @@
       }
     },
     methods: {
+      visibleChange (isVisible) {
+        if (!isVisible) {
+          this.closeModal()
+        }
+      },
       boardOrderChanged () {
         this.restartRequired = true
       },
@@ -107,7 +111,7 @@
         boardsRepository.saveBoardsArray(this.boardsLocal)
         this.$emit('boardsUpdated')
       },
-      closeSettingsModal () {
+      closeModal () {
         if (this.restartRequired) {
           this.saveBoards()
           this.showCloak = true
@@ -121,7 +125,7 @@
             }
           }, 1000)
         } else {
-          this.$emit('closeSettingsModal')
+          this.$store.dispatch('hideSettingsModal')
         }
       },
       updateLocalBoards () {
