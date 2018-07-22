@@ -15,15 +15,20 @@ const mutations = {
 }
 
 const actions = {
-  FETCH_BOARDS ({commit}) {
+  fetchBoards ({commit}) {
     commit('SET_BOARDS', boardsRepository.getList())
   },
-  FETCH_ACTIVE_BOARD ({commit}) {
+  fetchActiveBoard ({commit}) {
     commit('SET_ACTIVE_BOARD', boardsRepository.getActiveBoard())
   },
-  SET_ACTIVE_BOARD ({commit}, boardId) {
+  setActiveBoard ({commit}, boardId) {
     boardsRepository.setActiveBoard(boardId)
     commit('SET_ACTIVE_BOARD', boardId)
+  },
+  saveNewBoard ({commit, rootState}, boardName) {
+    const savedBoard = boardsRepository.saveNewBoard(boardName, rootState.settings)
+    commit('SET_ACTIVE_BOARD', savedBoard.id)
+    return savedBoard.id
   }
 }
 

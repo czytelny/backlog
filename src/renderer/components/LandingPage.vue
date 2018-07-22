@@ -57,8 +57,7 @@
     </footer>
 
     <new-board-modal :isVisible="newBoardModal"
-                     @submitNewBoard="submitNewBoard"
-    >
+                     @newBoardSubmitted="loadBoards">
     </new-board-modal>
 
     <settings-modal :isVisible="settingsModal"
@@ -115,7 +114,7 @@
       },
       activeBoard: {
         set (value) {
-          this.$store.dispatch('SET_ACTIVE_BOARD', value)
+          this.$store.dispatch('setActiveBoard', value)
         },
         get () {
           return this.$store.state.boards.activeBoard
@@ -132,8 +131,7 @@
       ...mapActions([
         'showNewBoardModal',
         'hideNewBoardModal',
-        'showSettingsModal',
-        'hideSettingsModal'
+        'showSettingsModal'
       ]),
       handleDblClick (event) {
         if (event.target.className === 'ivu-tabs-nav-scroll') {
@@ -146,14 +144,6 @@
       switchShowDone ({boardId, newValue}) {
         boardsRepository.switchShowDone(boardId, newValue)
         this.loadBoards()
-      },
-      submitNewBoard (boardName) {
-        const savedBoard = boardsRepository.saveNewBoard(boardName, this.settings)
-        this.activeBoard = savedBoard.id
-        this.$nextTick(() => this.$bus.$emit('boardAdded', savedBoard.id))
-        this.hideNewBoardModal()
-        this.loadBoards()
-        this.$Message.success('Board added')
       },
       handleBoardRemove (boardLabel, boardId) {
         this.$Modal.confirm({
@@ -175,9 +165,10 @@
       },
       fetchSettings () {
         this.settings = settingsRepository.getAppSettings()
+        this.$store.dispatch('fetchSettings')
       },
       loadBoards () {
-        this.$store.dispatch('FETCH_BOARDS')
+        this.$store.dispatch('fetchBoards')
       },
       importOldEntries () {
         if (!this.settings.wasImported) {
@@ -190,8 +181,8 @@
       this.fetchSettings()
       this.importOldEntries()
       this.loadBoards()
-      this.$store.dispatch('FETCH_ACTIVE_BOARD')
-      // this.$nextTick().then(() => this.$bus.$emit('appInit', this.selectedTab))
+      this.$store.dispatch('fetchActiveBoard')
+      this.$nextTick().then(() => this.$bus.$emit('appInit', this.selectedTab))
     }
   }
 </script>

@@ -32,6 +32,9 @@
       }
     },
     methods: {
+      resetInput () {
+        this.newBoardName = ''
+      },
       visibleChange (isVisible) {
         if (!isVisible) {
           this.closeModal()
@@ -39,15 +42,21 @@
       },
       submitNewBoard () {
         if (this.newBoardName.trim() === '') {
-          this.newBoardName = ''
+          this.resetInput()
           return false
         }
-        this.$emit('submitNewBoard', this.newBoardName)
-        this.newBoardName = ''
+        this.$store
+          .dispatch('saveNewBoard', this.newBoardName)
+          .then((savedBoardId) => {
+            this.$nextTick(() => this.$bus.$emit('boardAdded', savedBoardId))
+            this.closeModal()
+            this.$Message.success('Board added')
+            this.$emit('newBoardSubmitted')
+          })
       },
       closeModal () {
         this.$store.dispatch('hideNewBoardModal')
-        this.newBoardName = ''
+        this.resetInput()
       }
     }
   }
