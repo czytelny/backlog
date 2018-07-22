@@ -86,7 +86,6 @@
     data () {
       return {
         newItem: '',
-        boards: [],
         selectedTab: 'default',
         newBoardModal: false,
         settingsModal: false,
@@ -112,6 +111,9 @@
     computed: {
       isLastboard () {
         return this.boards.length === 1
+      },
+      boards () {
+        return this.$store.state.boards.boardsList
       }
     },
     methods: {
@@ -172,7 +174,7 @@
         this.settings = settingsRepository.getAppSettings()
       },
       loadBoards () {
-        this.boards = boardsRepository.getList()
+        this.$store.dispatch('FETCH_BOARDS')
       },
       importOldEntries () {
         if (!this.settings.wasImported) {

@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import store from './store'
 import iView from 'iview'
 import 'iview/dist/styles/iview.css'
 import App from './App'
@@ -29,5 +30,6 @@ Vue.directive('focus', {
 /* eslint-disable no-new */
 new Vue({
   components: {App},
-  template: '<App/>'
+  template: '<App/>',
+  store
 }).$mount('#app')
