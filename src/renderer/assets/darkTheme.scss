@@ -1,15 +1,23 @@
 $main-background-color: #272822;
-$modal-background-color: #262721;
 $input-background-color: #323232;
 $input-disabled-background-color: #494949;
 $borders-color: #3a3c31;
-$text-color: #bbbbbb;
+$text-color: #a5a5a5;
+$button-text-color: #c4c4c4;
+$placeholder-color: rgba(187, 187, 187, 0.29);
 
+$button-color-gradient-top: #6e6e6e;
+$button-color-gradient-bottom: #5c5c5c;
+
+$button-focus-color-gradient-top: #364861;
+$button-focus-color-gradient-bottom: #29374B;
+
+$main-color: rgba(45, 140, 240, 0.53);
 
 body.darkTheme {
     background-color: $main-background-color;
 
-    .ivu-tabs.ivu-tabs-card{
+    .ivu-tabs.ivu-tabs-card {
         color: $text-color;
     }
 
@@ -21,10 +29,20 @@ body.darkTheme {
     .ivu-tabs-bar {
         border-bottom-color: $borders-color;
     }
+
+    .ivu-checkbox-inner {
+        background-image: linear-gradient(to bottom, $button-color-gradient-top, $button-color-gradient-bottom);
+        border-color: #3B3E40;
+    }
+
     input {
         background-color: $input-background-color;
         color: $text-color;
         border: $borders-color;
+    }
+
+    input::placeholder {
+        color: $placeholder-color;
     }
     input[disabled] {
         background-color: $input-disabled-background-color;
@@ -39,29 +57,48 @@ body.darkTheme {
     }
 
     button {
+        color: $button-text-color;
+        background-image: linear-gradient(to bottom, $button-color-gradient-top, $button-color-gradient-bottom);
+        border: $borders-color;
+        transition: all .3s;
+    }
+
+    button.ivu-btn-icon-only{
+        background: transparent;
+    }
+
+    button:focus {
         color: $text-color;
+        background-image: linear-gradient(to bottom, $button-focus-color-gradient-top, $button-focus-color-gradient-bottom);
+    }
+
+    .ivu-switch {
         background-color: transparent;
     }
 
-    .ivu-switch{
-        background-color: transparent;
-    }
-
-    .ivu-switch.ivu-switch-checked{
+    .ivu-switch.ivu-switch-checked {
         background-color: rgba(45, 140, 240, 0.53);
     }
 
-    .ivu-modal-content{
-        background-color: $modal-background-color;
-        .ivu-modal-header{
+    .ivu-modal-content {
+        background-color: $main-background-color;
+        color: $text-color;
+        .ivu-modal-header {
             border-bottom-color: $borders-color;
-            .ivu-modal-header-inner{
+            .ivu-modal-header-inner {
                 color: $text-color;
             }
         }
-        .title{
+        .title {
             border-bottom-color: $borders-color;
         }
+    }
+
+    .movable-icon {
+        color: $main-color;
+        opacity: .5;
+
+
     }
 
 }
