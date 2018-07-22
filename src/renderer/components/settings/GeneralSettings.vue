@@ -2,52 +2,49 @@
   <div>
     <div class="row">
       <h3>General settings</h3>
-      <i-switch :value="settings.prependNewItems"
-                size="small"
-                @on-change="savePrependNewItems"
-      >
+      <i-switch v-model="prependNewItems"
+                size="small">
       </i-switch>
       Default placement of new item:
       <transition name="fade" mode="out-in">
-        <span v-if="settings.prependNewItems" key="head">
+        <span v-if="prependNewItems" key="head">
           Head
         </span>
-        <span v-if="!settings.prependNewItems" key="tail">
+        <span v-if="!prependNewItems" key="tail">
           Tail
         </span>
       </transition>
     </div>
+
     <div class="row">
-      <i-switch :value="settings.markdownMode"
-                @on-change="saveMarkdownMode"
+      <i-switch v-model="markdownMode"
                 size="small"
       >
       </i-switch>
       Edit item mode support:
       <transition name="fade" mode="out-in">
-        <span v-if="!settings.markdownMode" key="plaintext">
+        <span v-if="!markdownMode" key="plaintext">
           Plaintext
         </span>
-        <span v-if="settings.markdownMode" key="markdown">
+        <span v-if="markdownMode" key="markdown">
           Markdown
         </span>
       </transition>
     </div>
+
     <div class="row">
-      <Checkbox :value="settings.darkTheme"
-                @on-change="saveDarkTheme">
+      <Checkbox v-model="darkTheme">
         Dark theme
       </Checkbox>
     </div>
+
     <div class="row">
-      <Checkbox :value="settings.itemCreationDate"
-                @on-change="saveItemCreationDate">
+      <Checkbox v-model="itemCreationDate">
         Show creation date for each item
       </Checkbox>
     </div>
     <div class="row">
-      <Checkbox :value="settings.stickBoardsOnTop"
-                @on-change="saveStickBoardsOnTop">
+      <Checkbox v-model="stickBoardsOnTop">
         Stick boards list to the top of screen
       </Checkbox>
     </div>
@@ -55,32 +52,56 @@
 </template>
 
 <script>
-  import settingsRepository from '@/repositories/settingsRepository'
-
   export default {
     name: 'GeneralSettings',
-    props: ['settings'],
+    computed: {
+      prependNewItems: {
+        get () {
+          return this.$store.state.settings.prependNewItems
+        },
+        set (val) {
+          this.$store.dispatch('setPrependNewItem', val)
+          this.showSuccessNotification()
+        }
+      },
+      markdownMode: {
+        get () {
+          return this.$store.state.settings.markdownMode
+        },
+        set (val) {
+          this.$store.dispatch('setMarkdownMode', val)
+          this.showSuccessNotification()
+        }
+      },
+      darkTheme: {
+        get () {
+          return this.$store.state.settings.darkTheme
+        },
+        set (val) {
+          this.$store.dispatch('setDarkTheme', val)
+          this.showSuccessNotification()
+        }
+      },
+      itemCreationDate: {
+        get () {
+          return this.$store.state.settings.itemCreationDate
+        },
+        set (val) {
+          this.$store.dispatch('setItemCreationDate', val)
+          this.showSuccessNotification()
+        }
+      },
+      stickBoardsOnTop: {
+        get () {
+          return this.$store.state.settings.stickBoardsOnTop
+        },
+        set (val) {
+          this.$store.dispatch('setStickBoardsOnTop', val)
+          this.showSuccessNotification()
+        }
+      }
+    },
     methods: {
-      savePrependNewItems (newValue) {
-        settingsRepository.updateAppSettings({prependNewItems: newValue})
-        this.showSuccessNotification()
-      },
-      saveItemCreationDate (newValue) {
-        settingsRepository.updateAppSettings({itemCreationDate: newValue})
-        this.showSuccessNotification()
-      },
-      saveStickBoardsOnTop (newValue) {
-        settingsRepository.updateAppSettings({stickBoardsOnTop: newValue})
-        this.showSuccessNotification()
-      },
-      saveMarkdownMode (newValue) {
-        settingsRepository.updateAppSettings({markdownMode: newValue})
-        this.showSuccessNotification()
-      },
-      saveDarkTheme (newValue) {
-        settingsRepository.updateAppSettings({darkTheme: newValue})
-        this.showSuccessNotification()
-      },
       showSuccessNotification () {
         this.$Message.success('Setting updated')
         this.$emit('settingsUpdated')

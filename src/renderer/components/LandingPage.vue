@@ -61,9 +61,7 @@
     </new-board-modal>
 
     <settings-modal :isVisible="settingsModal"
-                    @boardsUpdated="loadBoards"
-                    @settingsUpdated="fetchSettings"
-    >
+                    @boardsUpdated="loadBoards">
     </settings-modal>
   </div>
 </template>
@@ -86,7 +84,6 @@
     data () {
       return {
         newItem: '',
-        settings: {},
         boardTabLabel: (boardLabel, boardId) => (h) => {
           const closer = this.isLastboard ? '' : h('Icon', {
             'class': {'close-icon': true},
@@ -125,6 +122,9 @@
       },
       settingsModal () {
         return this.$store.state.modals.settings
+      },
+      settings () {
+        return this.$store.state.settings
       }
     },
     methods: {
@@ -164,7 +164,6 @@
         this.activeBoard = boardId
       },
       fetchSettings () {
-        this.settings = settingsRepository.getAppSettings()
         this.$store.dispatch('fetchSettings')
       },
       loadBoards () {

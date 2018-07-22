@@ -12,11 +12,8 @@
     </div>
 
     <updates-check-settings/>
-
-    <database-location :settings="settings"/>
-
-    <general-settings :settings="settings"
-                      @settingsUpdated="fetchSettings"/>
+    <database-location/>
+    <general-settings/>
 
     <div class="separator"></div>
     <h3>Setup board names and order</h3>
@@ -57,7 +54,6 @@
 
 <script>
   import draggable from 'vuedraggable'
-  import settingsRepository from '@/repositories/settingsRepository'
   import boardsRepository from '@/repositories/boardsRepository'
   import GeneralSettings from './GeneralSettings'
   import UpdatesCheckSettings from './UpdatesCheckSettings'
@@ -78,7 +74,6 @@
     },
     created () {
       this.updateLocalBoards()
-      this.settings = settingsRepository.getAppSettings()
     },
     watch: {
       isVisible () {
@@ -87,7 +82,6 @@
     },
     data () {
       return {
-        settings: null,
         currentVersion: version,
         boardsLocal: null,
         restartRequired: false,
@@ -130,10 +124,6 @@
       },
       updateLocalBoards () {
         this.boardsLocal = JSON.parse(JSON.stringify(boardsRepository.getList()))
-      },
-      fetchSettings () {
-        this.settings = settingsRepository.getAppSettings()
-        this.$emit('settingsUpdated')
       },
       openSaveDialog (boardId) {
         const vm = this
