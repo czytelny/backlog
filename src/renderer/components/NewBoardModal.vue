@@ -4,7 +4,7 @@
          title="Add new board"
          okText="Add"
          :closable="false"
-         :mask-closable="false"
+         @on-visible-change="visibleChange"
          cancelText="Cancel">
     <Input v-model="newBoardName"
            element-id="newBoardNameInput"
@@ -13,11 +13,12 @@
            v-focus
     />
     <div slot="footer">
-      <Button type="text" size="large" @click="closeNewBoardModal">Cancel</Button>
+      <Button type="text" size="large" @click="closeModal">Cancel</Button>
       <Button id="saveNewBoardBtn"
               type="primary"
               size="large"
-              @click="submitNewBoard">Add new board</Button>
+              @click="submitNewBoard">Add new board
+      </Button>
     </div>
   </Modal>
 </template>
@@ -32,6 +33,11 @@
       }
     },
     methods: {
+      visibleChange (isVisible) {
+        if (!isVisible) {
+          this.closeModal()
+        }
+      },
       submitNewBoard () {
         if (this.newBoardName.trim() === '') {
           this.newBoardName = ''
@@ -40,8 +46,8 @@
         this.$emit('submitNewBoard', this.newBoardName)
         this.newBoardName = ''
       },
-      closeNewBoardModal () {
-        this.$emit('closeNewBoardModal')
+      closeModal () {
+        this.$store.dispatch('hideNewBoardModal')
         this.newBoardName = ''
       }
     }

@@ -58,8 +58,9 @@
 
     <new-board-modal :newBoardModal="newBoardModal"
                      @submitNewBoard="submitNewBoard"
-                     @closeNewBoardModal="closeNewBoardModal">
+                     >
     </new-board-modal>
+
     <settings-modal :isVisible="settingsModal"
                     @closeSettingsModal="closeSettingsModal"
                     @boardsUpdated="loadBoards"
@@ -75,6 +76,7 @@
   import SettingsModal from './settings/SettingsModal'
   import boardsRepository from '@/repositories/boardsRepository'
   import settingsRepository from '@/repositories/settingsRepository'
+  import {mapActions} from 'vuex'
 
   export default {
     components: {
@@ -86,7 +88,6 @@
     data () {
       return {
         newItem: '',
-        newBoardModal: false,
         settingsModal: false,
         settings: {},
         boardTabLabel: (boardLabel, boardId) => (h) => {
@@ -121,9 +122,13 @@
         get () {
           return this.$store.state.boards.activeBoard
         }
+      },
+      newBoardModal () {
+        return this.$store.state.modals.newBoard
       }
     },
     methods: {
+      ...mapActions(['showNewBoardModal', 'hideNewBoardModal']),
       handleDblClick (event) {
         if (event.target.className === 'ivu-tabs-nav-scroll') {
           this.showNewBoardModal()
@@ -131,12 +136,6 @@
       },
       open (link) {
         this.$electron.shell.openExternal(link)
-      },
-      closeNewBoardModal () {
-        this.newBoardModal = false
-      },
-      showNewBoardModal () {
-        this.newBoardModal = true
       },
       showSettingsModal () {
         this.settingsModal = true
@@ -152,7 +151,7 @@
         const savedBoard = boardsRepository.saveNewBoard(boardName, this.settings)
         this.activeBoard = savedBoard.id
         this.$nextTick(() => this.$bus.$emit('boardAdded', savedBoard.id))
-        this.closeNewBoardModal()
+        this.hideNewBoardModal()
         this.loadBoards()
         this.$Message.success('Board added')
       },
