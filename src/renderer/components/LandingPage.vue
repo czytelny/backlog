@@ -3,7 +3,7 @@
        :class="{'fixedTabs' : settings.stickBoardsOnTop}">
     <Row style="height: 100%;">
       <Col span="24" style="height: 100%;">
-        <Tabs v-model="selectedTab"
+        <Tabs v-model="activeBoard"
               type="card"
               @on-click="saveActiveBoard"
               @dblclick.native="handleDblClick"
@@ -16,7 +16,7 @@
                     :key="board.id"
           >
             <board :boardId="board.id"
-                   :selectedTab="selectedTab"
+                   :selectedTab="activeBoard"
                    :showDone="board.showDone"
                    :prependNewItem="board.prependNewItem"
                    :showDate="settings.itemCreationDate"
@@ -86,7 +86,6 @@
     data () {
       return {
         newItem: '',
-        selectedTab: 'default',
         newBoardModal: false,
         settingsModal: false,
         settings: {},
@@ -114,6 +113,14 @@
       },
       boards () {
         return this.$store.state.boards.boardsList
+      },
+      activeBoard: {
+        set (value) {
+          this.$store.dispatch('SET_ACTIVE_BOARD', value)
+        },
+        get () {
+          return this.$store.state.boards.activeBoard
+        }
       }
     },
     methods: {
@@ -143,8 +150,7 @@
       },
       submitNewBoard (boardName) {
         const savedBoard = boardsRepository.saveNewBoard(boardName, this.settings)
-        this.selectedTab = savedBoard.id
-        this.saveActiveBoard(savedBoard.id)
+        this.activeBoard = savedBoard.id
         this.$nextTick(() => this.$bus.$emit('boardAdded', savedBoard.id))
         this.closeNewBoardModal()
         this.loadBoards()
@@ -159,16 +165,14 @@
                     <p>All items will be deleted, are you sure ?</p>`,
           onOk: () => {
             boardsRepository.removeBoard(boardId)
-            const firstBoardId = boardsRepository.getFirstBoard().id
-            boardsRepository.setActiveBoard(firstBoardId)
-            this.selectedTab = firstBoardId
+            this.activeBoard = boardsRepository.getFirstBoard().id
             this.loadBoards()
             this.$Message.info('Board removed')
           }
         })
       },
       saveActiveBoard (boardId) {
-        boardsRepository.setActiveBoard(boardId)
+        this.activeBoard = boardId
       },
       fetchSettings () {
         this.settings = settingsRepository.getAppSettings()
@@ -187,8 +191,8 @@
       this.fetchSettings()
       this.importOldEntries()
       this.loadBoards()
-      this.selectedTab = boardsRepository.getActiveBoard()
-      this.$nextTick().then(() => this.$bus.$emit('appInit', this.selectedTab))
+      this.$store.dispatch('FETCH_ACTIVE_BOARD')
+      // this.$nextTick().then(() => this.$bus.$emit('appInit', this.selectedTab))
     }
   }
 </script>
