@@ -9,7 +9,9 @@ const state = {
     isVisible: false,
     currentVersion: version,
     boardsList: [],
-    restartRequired: false
+    restartRequired: false,
+    restartReqCloak: false,
+    restartCountdown: 3
   }
 }
 
@@ -31,6 +33,12 @@ const mutations = {
   },
   SET_SETTINGS_RESTART_REQUIRED (state, val) {
     state.settings.restartRequired = val
+  },
+  SET_RESTART_REQ_CLOAK (state, val) {
+    state.settings.restartReqCloak = val
+  },
+  DECREASE_RESTART_REQ_CLOAK (state) {
+    state.settings.restartCountdown -= 1
   }
 }
 
@@ -52,6 +60,12 @@ const actions = {
   },
   setRestartRequired ({commit}) {
     commit('SET_SETTINGS_RESTART_REQUIRED', true)
+  },
+  showRestartReqCloak ({commit}) {
+    commit('SET_RESTART_REQ_CLOAK', true)
+  },
+  decreaseRestartCountdown ({commit}) {
+    commit('DECREASE_RESTART_REQ_CLOAK')
   }
 }
 

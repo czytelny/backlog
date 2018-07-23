@@ -1,16 +1,19 @@
 <template>
   <div id="app">
     <landing-page></landing-page>
+    <restart-required-cloak></restart-required-cloak>
   </div>
 </template>
 
 <script>
   import LandingPage from '@/components/LandingPage'
   import settingsRepository from '@/repositories/settingsRepository'
+  import RestartRequiredCloak from './components/RestartRequiredCloak'
 
   export default {
     name: 'backlog',
     components: {
+      RestartRequiredCloak,
       LandingPage
     },
     data () {
