@@ -25,10 +25,14 @@
 <script>
   export default {
     name: 'new-board-modal',
-    props: ['isVisible'],
     data () {
       return {
         newBoardName: ''
+      }
+    },
+    computed: {
+      isVisible () {
+        return this.$store.state.modals.newBoard
       }
     },
     methods: {

@@ -56,12 +56,8 @@
       by Michal Chwedczuk
     </footer>
 
-    <new-board-modal :isVisible="newBoardModal"
-                     @newBoardSubmitted="loadBoards">
-    </new-board-modal>
-
-    <settings-modal :isVisible="isSettingsModalVisible">
-    </settings-modal>
+    <new-board-modal @newBoardSubmitted="loadBoards"></new-board-modal>
+    <settings-modal></settings-modal>
   </div>
 </template>
 
@@ -115,12 +111,6 @@
         get () {
           return this.$store.state.boards.activeBoard
         }
-      },
-      newBoardModal () {
-        return this.$store.state.modals.newBoard
-      },
-      isSettingsModalVisible () {
-        return this.$store.state.modals.settings.isVisible
       },
       settings () {
         return this.$store.state.settings

@@ -58,7 +58,6 @@
 
   export default {
     name: 'settings-modal',
-    props: ['isVisible'],
     components: {
       DatabaseLocation,
       UpdatesCheckSettings,
@@ -69,6 +68,9 @@
       this.fetchSettingsBoardsList()
     },
     computed: {
+      isVisible () {
+        return this.$store.state.modals.settings.isVisible
+      },
       currentVersion () {
         return this.$store.state.modals.settings.currentVersion
       },
