@@ -61,7 +61,6 @@
 
   const {dialog} = require('electron').remote
   const remote = require('electron').remote
-  const version = remote.app.getVersion()
 
   export default {
     name: 'settings-modal',
@@ -73,37 +72,45 @@
       draggable
     },
     created () {
-      this.updateLocalBoards()
+      this.fetchSettingsBoardsList()
     },
-    watch: {
-      isVisible () {
-        this.updateLocalBoards()
+    computed: {
+      currentVersion () {
+        return this.$store.state.modals.settings.currentVersion
+      },
+      restartRequired () {
+        return this.$store.state.modals.settings.restartRequired
       }
     },
     data () {
       return {
-        currentVersion: version,
-        boardsLocal: null,
-        restartRequired: false,
+        boardsLocal: [],
         countDown: 3,
         showCloak: false
       }
     },
     methods: {
+      fetchSettingsBoardsList () {
+        this.$store.dispatch('fetchSettingsBoardsList')
+          .then(() => {
+            this.boardsLocal = JSON.parse(JSON.stringify(this.$store.state.modals.settings.boardsList))
+          })
+      },
       visibleChange (isVisible) {
         if (!isVisible) {
           this.closeModal()
+        } else {
+          this.fetchSettingsBoardsList()
         }
       },
       boardOrderChanged () {
-        this.restartRequired = true
+        this.$store.dispatch('setRestartRequired')
       },
       showSuccessNotification () {
         this.$Message.success('Setting updated')
       },
       saveBoards () {
-        boardsRepository.saveBoardsArray(this.boardsLocal)
-        this.$emit('boardsUpdated')
+        this.$store.dispatch('saveBoardsArray', this.boardsLocal)
       },
       closeModal () {
         if (this.restartRequired) {
@@ -121,9 +128,6 @@
         } else {
           this.$store.dispatch('hideSettingsModal')
         }
-      },
-      updateLocalBoards () {
-        this.boardsLocal = JSON.parse(JSON.stringify(boardsRepository.getList()))
       },
       openSaveDialog (boardId) {
         const vm = this

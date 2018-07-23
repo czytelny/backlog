@@ -60,8 +60,7 @@
                      @newBoardSubmitted="loadBoards">
     </new-board-modal>
 
-    <settings-modal :isVisible="settingsModal"
-                    @boardsUpdated="loadBoards">
+    <settings-modal :isVisible="isSettingsModalVisible">
     </settings-modal>
   </div>
 </template>
@@ -120,8 +119,8 @@
       newBoardModal () {
         return this.$store.state.modals.newBoard
       },
-      settingsModal () {
-        return this.$store.state.modals.settings
+      isSettingsModalVisible () {
+        return this.$store.state.modals.settings.isVisible
       },
       settings () {
         return this.$store.state.settings

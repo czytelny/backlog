@@ -29,6 +29,10 @@ const actions = {
     const savedBoard = boardsRepository.saveNewBoard(boardName, rootState.settings)
     commit('SET_ACTIVE_BOARD', savedBoard.id)
     return savedBoard.id
+  },
+  saveBoardsArray ({commit}, boardsArray) {
+    boardsRepository.saveBoardsArray(boardsArray)
+    commit('SET_BOARDS', boardsRepository.getList())
   }
 }
 

@@ -1,6 +1,16 @@
+import boardsRepository from '@/repositories/boardsRepository'
+
+const remote = require('electron').remote
+const version = remote.app.getVersion()
+
 const state = {
   newBoard: false,
-  settings: false
+  settings: {
+    isVisible: false,
+    currentVersion: version,
+    boardsList: [],
+    restartRequired: false
+  }
 }
 
 const mutations = {
@@ -11,10 +21,16 @@ const mutations = {
     state.newBoard = false
   },
   SHOW_SETTINGS (state) {
-    state.settings = true
+    state.settings.isVisible = true
   },
   HIDE_SETTINGS (state) {
-    state.settings = false
+    state.settings.isVisible = false
+  },
+  SET_SETTINGS_BOARDS_LIST (state, boards) {
+    state.settings.boardsList = boards
+  },
+  SET_SETTINGS_RESTART_REQUIRED (state, val) {
+    state.settings.restartRequired = val
   }
 }
 
@@ -30,6 +46,12 @@ const actions = {
   },
   hideSettingsModal ({commit}) {
     commit('HIDE_SETTINGS')
+  },
+  fetchSettingsBoardsList ({commit}) {
+    commit('SET_SETTINGS_BOARDS_LIST', boardsRepository.getList())
+  },
+  setRestartRequired ({commit}) {
+    commit('SET_SETTINGS_RESTART_REQUIRED', true)
   }
 }
 
