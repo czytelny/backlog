@@ -162,9 +162,6 @@
       saveActiveBoard (boardId) {
         this.activeBoard = boardId
       },
-      fetchSettings () {
-        this.$store.dispatch('fetchSettings')
-      },
       loadBoards () {
         this.$store.dispatch('fetchBoards')
       },
@@ -176,7 +173,7 @@
       }
     },
     created () {
-      this.fetchSettings()
+      this.$store.dispatch('fetchSettings')
       this.importOldEntries()
       this.loadBoards()
       this.$store.dispatch('fetchActiveBoard')

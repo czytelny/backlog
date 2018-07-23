@@ -79,6 +79,7 @@
         },
         set (val) {
           this.$store.dispatch('setDarkTheme', val)
+          this.$store.dispatch('setRestartRequired')
           this.showSuccessNotification()
         }
       },
