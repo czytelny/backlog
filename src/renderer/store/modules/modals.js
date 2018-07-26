@@ -4,7 +4,10 @@ const remote = require('electron').remote
 const version = remote.app.getVersion()
 
 const state = {
-  newBoard: false,
+  newBoard: {
+    isVisible: false,
+    name: ''
+  },
   settings: {
     isVisible: false,
     currentVersion: version,
@@ -22,10 +25,13 @@ const state = {
 
 const mutations = {
   SHOW_NEW_BOARD (state) {
-    state.newBoard = true
+    state.newBoard.isVisible = true
   },
   HIDE_NEW_BOARD (state) {
-    state.newBoard = false
+    state.newBoard.isVisible = false
+  },
+  SET_NEW_BOARD_NAME (state, name) {
+    state.newBoard.name = name
   },
   SHOW_SETTINGS (state) {
     state.settings.isVisible = true
@@ -91,6 +97,12 @@ const actions = {
   },
   decreaseRestartCountdown ({commit}) {
     commit('DECREASE_RESTART_REQ_CLOAK')
+  },
+  setNewBoardName ({commit}, val) {
+    commit('SET_NEW_BOARD_NAME', val)
+  },
+  resetNewBoardName ({commit}) {
+    commit('SET_NEW_BOARD_NAME', '')
   }
 }
 

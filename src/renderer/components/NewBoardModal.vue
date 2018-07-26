@@ -25,19 +25,22 @@
 <script>
   export default {
     name: 'new-board-modal',
-    data () {
-      return {
-        newBoardName: ''
-      }
-    },
     computed: {
       isVisible () {
-        return this.$store.state.modals.newBoard
+        return this.$store.state.modals.newBoard.isVisible
+      },
+      newBoardName: {
+        set (val) {
+          this.$store.dispatch('setNewBoardName', val)
+        },
+        get () {
+          return this.$store.state.modals.newBoard.name
+        }
       }
     },
     methods: {
       resetInput () {
-        this.newBoardName = ''
+        this.$store.dispatch('resetNewBoardName')
       },
       visibleChange (isVisible) {
         if (!isVisible) {
@@ -47,10 +50,11 @@
       submitNewBoard () {
         if (this.newBoardName.trim() === '') {
           this.resetInput()
+          this.$Message.warning('Please provide new board name')
           return false
         }
         this.$store
-          .dispatch('saveNewBoard', this.newBoardName)
+          .dispatch('saveNewBoard', this.newBoardName.trim())
           .then((savedBoardId) => {
             this.$nextTick(() => this.$bus.$emit('boardAdded', savedBoardId))
             this.closeModal()
