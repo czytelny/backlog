@@ -14,7 +14,8 @@ const state = {
     restartCountdown: 3
   },
   moveToBoard: {
-    isVisible: false
+    isVisible: false,
+    movingItemId: null
   }
 }
 
@@ -48,6 +49,9 @@ const mutations = {
   },
   DECREASE_RESTART_REQ_CLOAK (state) {
     state.settings.restartCountdown -= 1
+  },
+  SET_MOVING_ITEM_ID (state, movingItemId) {
+    state.moveToBoard.movingItemId = movingItemId
   }
 }
 
@@ -64,7 +68,8 @@ const actions = {
   hideSettingsModal ({commit}) {
     commit('HIDE_SETTINGS')
   },
-  showMoveToBoard ({commit}) {
+  showMoveToBoard ({commit}, movingItemId) {
+    commit('SET_MOVING_ITEM_ID', movingItemId)
     commit('SHOW_MOVE_TO_BOARD')
   },
   hideMoveToBoardModal ({commit}) {

@@ -58,6 +58,7 @@
 
     <new-board-modal @newBoardSubmitted="loadBoards"></new-board-modal>
     <settings-modal></settings-modal>
+    <move-to-board-modal></move-to-board-modal>
   </div>
 </template>
 
@@ -67,13 +68,16 @@
   import SettingsModal from './settings/SettingsModal'
   import boardsRepository from '@/repositories/boardsRepository'
   import settingsRepository from '@/repositories/settingsRepository'
+  import MoveToBoardModal from './MoveToBoardModal'
+
   import {mapActions} from 'vuex'
 
   export default {
     components: {
       SettingsModal,
       NewBoardModal,
-      Board
+      Board,
+      MoveToBoardModal
     },
     name: 'landing-page',
     data () {

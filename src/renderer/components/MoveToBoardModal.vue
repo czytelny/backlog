@@ -6,7 +6,7 @@
     <div class="board-item"
          v-for="board in boards"
          @click="moveToBoard(board.id)"
-         :class="{'board-disabled': boardId === board.id}"
+         :class="{'board-disabled': activeBoardId === board.id}"
     >
       {{board.label}}
     </div>
@@ -18,17 +18,20 @@
 </template>
 
 <script>
-  import boardsRepository from '@/repositories/boardsRepository'
-
   export default {
     name: 'MoveToBoardModal',
-    props: ['boardId'],
     computed: {
       boards () {
-        return boardsRepository.getList()
+        return this.$store.state.boards.boardsList
       },
       isMoveToBoardModalVisible () {
         return this.$store.state.modals.moveToBoard.isVisible
+      },
+      activeBoardId () {
+        return this.$store.state.boards.activeBoard
+      },
+      movingItemId () {
+        return this.$store.state.modals.moveToBoard.movingItemId
       }
     },
     methods: {
@@ -41,10 +44,16 @@
         this.$store.dispatch('hideMoveToBoardModal')
       },
       moveToBoard (boardId) {
-        if (boardId === this.boardId) {
+        if (boardId === this.activeBoardId) {
           return
         }
-        this.$emit('moveTo', boardId)
+        this.$store.dispatch('moveItemToBoard', {
+          fromBrd: this.activeBoardId,
+          toBrd: boardId,
+          movingItemId: this.movingItemId
+        }).then(() => {
+          this.$bus.$emit('itemMoved', this.activeBoardId)
+        })
         this.$store.dispatch('hideMoveToBoardModal')
       }
     }

@@ -71,12 +71,6 @@
         </board-item>
       </transition-group>
     </draggable>
-
-    <move-to-board-modal :boardId="boardId"
-                         :movingItemId="movingItemId"
-                         @moveTo="moveItemToBoard"
-                         >
-    </move-to-board-modal>
   </div>
 </template>
 
@@ -85,13 +79,11 @@
   import BoardItem from './BoardItem.vue'
   import boardsRepository from '@/repositories/boardsRepository'
   import itemsRepository from '@/repositories/itemsRepository'
-  import MoveToBoardModal from './MoveToBoardModal'
 
   export default {
     name: 'board',
     props: ['boardId', 'selectedTab', 'showDone', 'prependNewItem', 'showDate', 'markdownMode'],
     components: {
-      MoveToBoardModal,
       BoardItem,
       draggable
     },
@@ -100,11 +92,13 @@
         boardItems: [],
         newTodoItem: '',
         isSubmittingNewItem: false,
-        isEditingItem: false,
-        movingItemId: null
+        isEditingItem: false
       }
     },
     computed: {
+      activeBoardId () {
+        return this.$store.state.boards.activeBoard
+      },
       isActive () {
         return this.boardId === this.selectedTab
       },
@@ -176,14 +170,8 @@
         this.fetchBoardItems()
         this.focusOnInput()
       },
-      moveItemToBoard (dstBoardId) {
-        boardsRepository.moveItemToBoard(this.boardId, dstBoardId, this.movingItemId)
-        this.fetchBoardItems()
-        this.focusOnInput()
-      },
       showMoveToBoardModal (itemId) {
-        this.movingItemId = itemId
-        this.$store.dispatch('showMoveToBoard')
+        this.$store.dispatch('showMoveToBoard', itemId)
       },
       focusOnInput () {
         const vm = this
@@ -193,7 +181,7 @@
           }
         }, 250)
       },
-      fetchBoardItems (boardId = this.boardId) {
+      fetchBoardItems (boardId = this.activeBoardId) {
         const items = boardsRepository.getItems(boardId)
         if (items) {
           this.boardItems = items
@@ -219,6 +207,11 @@
       }
       this.$bus.$on('boardAdded', boardEnterFn)
       this.$bus.$on('appInit', boardEnterFn)
+      this.$bus.$on('itemMoved', (boardId) => {
+        if (boardId === this.boardId) {
+          this.fetchBoardItems(boardId)
+        }
+      })
       this.fetchBoardItems()
     }
   }
