@@ -60,7 +60,7 @@
   export default {
     name: 'board-item',
     components: {ActionButtons},
-    props: ['boardId', 'itemId', 'isDone', 'text', 'created', 'showDate', 'markdownMode'],
+    props: ['boardId', 'itemId', 'isDone', 'text', 'created'],
     data () {
       return {
         isEditing: false,
@@ -114,6 +114,12 @@
       }
     },
     computed: {
+      showDate () {
+        return this.$store.state.settings.itemCreationDate
+      },
+      markdownMode () {
+        return this.$store.state.settings.markdownMode
+      },
       textWithLink () {
         if (this.markdownMode) {
           return md.render(this.text).autoLink({

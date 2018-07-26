@@ -16,12 +16,9 @@
                     :key="board.id"
           >
             <board :boardId="board.id"
+                   :board="board"
                    :selectedTab="activeBoard"
-                   :showDone="board.showDone"
-                   :prependNewItem="board.prependNewItem"
-                   :showDate="settings.itemCreationDate"
-                   :markdownMode="settings.markdownMode"
-                   @switchShowDone="switchShowDone"
+                   @switchedShowDone="loadBoards"
                    @switchPrependNewItems="loadBoards"
             >
             </board>
@@ -84,7 +81,7 @@
       return {
         newItem: '',
         boardTabLabel: (boardLabel, boardId) => (h) => {
-          const closer = this.isLastboard ? '' : h('Icon', {
+          const closer = this.isLastBoard ? '' : h('Icon', {
             'class': {'close-icon': true},
             props: {type: 'ios-close-empty'},
             nativeOn: {
@@ -102,7 +99,7 @@
       }
     },
     computed: {
-      isLastboard () {
+      isLastBoard () {
         return this.boards.length === 1
       },
       boards () {
@@ -133,10 +130,6 @@
       },
       open (link) {
         this.$electron.shell.openExternal(link)
-      },
-      switchShowDone ({boardId, newValue}) {
-        boardsRepository.switchShowDone(boardId, newValue)
-        this.loadBoards()
       },
       handleBoardRemove (boardLabel, boardId) {
         this.$Modal.confirm({

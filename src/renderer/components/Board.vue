@@ -57,9 +57,7 @@
                     :isDone="item.isDone"
                     :text="item.text"
                     :created="item.created"
-                    :showDate="showDate"
                     :boardId="boardId"
-                    :markdownMode="markdownMode"
                     v-if="shouldBeDisplayed(item)"
                     @changeIsDone="changeIsDone"
                     @removeItem="removeItem"
@@ -82,7 +80,7 @@
 
   export default {
     name: 'board',
-    props: ['boardId', 'selectedTab', 'showDone', 'prependNewItem', 'showDate', 'markdownMode'],
+    props: ['board', 'selectedTab'],
     components: {
       BoardItem,
       draggable
@@ -96,6 +94,12 @@
       }
     },
     computed: {
+      boardId () {
+        return this.board.id
+      },
+      prependNewItem () {
+        return this.board.prependNewItem
+      },
       activeBoardId () {
         return this.$store.state.boards.activeBoard
       },
@@ -107,6 +111,9 @@
       },
       isAllItemsDone () {
         return this.boardItems.length && !this.boardItems.find(item => !item.isDone)
+      },
+      showDone () {
+        return this.board.showDone
       }
     },
     methods: {
@@ -119,7 +126,8 @@
         this.$emit('switchPrependNewItems')
       },
       switchShowDone () {
-        this.$emit('switchShowDone', {boardId: this.boardId, newValue: !this.showDone})
+        this.$store.dispatch('switchShowDone', {boardId: this.boardId, showDone: !this.showDone})
+        this.$emit('switchedShowDone')
       },
       changeIsDone (itemId, newVal) {
         itemsRepository.switchIsDone(this.boardId, itemId, newVal)

@@ -17,6 +17,10 @@ const mutations = {
   },
   SET_ACTIVE_BOARD (state, boardId) {
     state.activeBoard = boardId
+  },
+  SWITCH_SHOW_DONE (state, {boardId, showDone}) {
+    const board = state.boardsList.find((board) => board.id === boardId)
+    board.showDone = showDone
   }
 }
 
@@ -45,6 +49,10 @@ const actions = {
   },
   moveItemToBoard ({commit}, {fromBrd, toBrd, movingItemId}) {
     boardsRepository.moveItemToBoard(fromBrd, toBrd, movingItemId)
+  },
+  switchShowDone ({commit}, {boardId, showDone}) {
+    boardsRepository.switchShowDone(boardId, showDone)
+    commit('SWITCH_SHOW_DONE', {boardId, showDone})
   }
 }
 
