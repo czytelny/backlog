@@ -15,6 +15,7 @@ const state = {
   },
   moveToBoard: {
     isVisible: false,
+    movingItemText: null,
     movingItemId: null
   }
 }
@@ -52,6 +53,9 @@ const mutations = {
   },
   SET_MOVING_ITEM_ID (state, movingItemId) {
     state.moveToBoard.movingItemId = movingItemId
+  },
+  SET_MOVING_ITEM_TEXT (state, movingItemText) {
+    state.moveToBoard.movingItemText = movingItemText
   }
 }
 
@@ -68,8 +72,9 @@ const actions = {
   hideSettingsModal ({commit}) {
     commit('HIDE_SETTINGS')
   },
-  showMoveToBoard ({commit}, movingItemId) {
-    commit('SET_MOVING_ITEM_ID', movingItemId)
+  showMoveToBoard ({commit}, {itemId, itemText}) {
+    commit('SET_MOVING_ITEM_ID', itemId)
+    commit('SET_MOVING_ITEM_TEXT', itemText)
     commit('SHOW_MOVE_TO_BOARD')
   },
   hideMoveToBoardModal ({commit}) {

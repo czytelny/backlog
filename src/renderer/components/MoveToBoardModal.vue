@@ -1,8 +1,9 @@
 <template>
   <Modal :value="isMoveToBoardModalVisible"
-         title="Choose the board"
+         :title="movingTitle"
          @on-visible-change="switchFlagIfOpened"
   >
+    <h4>Choose the destination board:</h4>
     <div class="board-item"
          v-for="board in boards"
          @click="moveToBoard(board.id)"
@@ -21,6 +22,9 @@
   export default {
     name: 'MoveToBoardModal',
     computed: {
+      movingTitle () {
+        return `Moving: ${this.movingItemText}  `
+      },
       boards () {
         return this.$store.state.boards.boardsList
       },
@@ -32,6 +36,9 @@
       },
       movingItemId () {
         return this.$store.state.modals.moveToBoard.movingItemId
+      },
+      movingItemText () {
+        return this.$store.state.modals.moveToBoard.movingItemText
       }
     },
     methods: {
@@ -63,28 +70,35 @@
 <style scoped>
   .board-item {
     padding: 10px;
-    border-bottom: 1px dashed #f3f3f3;
+    border-bottom: 1px solid #e9eaec;
     cursor: pointer;
     -webkit-transition: all .3s;
     transition: all .3s;
-    opacity: .8;
+    opacity: .9;
+    border-radius: 3px;
+  }
+
+  .moving-item-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .board-item:hover {
     padding: 10px;
-    border-bottom: 1px dashed #cecece;
+    border-bottom: 1px solid #cecece;
     cursor: pointer;
-    background-color: rgba(72, 203, 145, 0.06)
+    background-color: #ebf7ff;
   }
 
   .board-item.board-disabled {
-    background-color: inherit;
+    background-color: #e0dee2;
     cursor: not-allowed;
     opacity: .5;
   }
 
   .board-item.board-disabled:hover {
-    background-color: inherit;
+    background-color: #e0dee2;
     cursor: not-allowed;
     opacity: .5;
   }

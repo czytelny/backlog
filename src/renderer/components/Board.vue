@@ -170,8 +170,8 @@
         this.fetchBoardItems()
         this.focusOnInput()
       },
-      showMoveToBoardModal (itemId) {
-        this.$store.dispatch('showMoveToBoard', itemId)
+      showMoveToBoardModal (itemId, itemText) {
+        this.$store.dispatch('showMoveToBoard', {itemId, itemText})
       },
       focusOnInput () {
         const vm = this

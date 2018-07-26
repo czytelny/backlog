@@ -101,7 +101,7 @@
         this.$emit('moveItemToBottom', this.itemId)
       },
       showMoveToBoardModal () {
-        this.$emit('showMoveToBoardModal', this.itemId)
+        this.$emit('showMoveToBoardModal', this.itemId, this.text)
       },
       open (link) {
         this.$electron.shell.openExternal(link)
