@@ -40,9 +40,9 @@
 
 <script>
   import draggable from 'vuedraggable'
-  import BoardItem from './BoardItem.vue'
+  import BoardItem from '@/components/board/item/BoardItem.vue'
   import boardsRepository from '@/repositories/boardsRepository'
-  import NewItemInput from './NewItemInput'
+  import NewItemInput from '@/components/board/item/NewItemInput'
   import ShowDoneButton from './ShowDoneButton'
 
   export default {

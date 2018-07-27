@@ -56,12 +56,12 @@
 </template>
 
 <script>
-  import Board from './Board.vue'
-  import NewBoardModal from './NewBoardModal.vue'
-  import SettingsModal from './settings/SettingsModal'
   import boardsRepository from '@/repositories/boardsRepository'
   import settingsRepository from '@/repositories/settingsRepository'
-  import MoveToBoardModal from './MoveToBoardModal'
+  import Board from './board/Board'
+  import MoveToBoardModal from './modals/MoveToBoardModal'
+  import NewBoardModal from './modals/NewBoardModal.vue'
+  import SettingsModal from './modals/settings/SettingsModal'
 
   import {mapActions} from 'vuex'
 
