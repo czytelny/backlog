@@ -15,13 +15,9 @@
                     :name="board.id"
                     :key="board.id"
           >
-            <board :boardId="board.id"
-                   :board="board"
-                   :selectedTab="activeBoard"
-                   @switchedShowDone="loadBoards"
-                   @switchPrependNewItems="loadBoards"
-            >
-            </board>
+
+            <board :board="board"/>
+
           </Tab-pane>
           <div slot="extra">
             <Tooltip content="Add new board" placement="bottom-end" :transfer="true" :delay="500">

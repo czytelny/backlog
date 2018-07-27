@@ -1,9 +1,12 @@
 import Vue from 'vue'
 import boardsRepository from '@/repositories/boardsRepository'
+import itemsRepository from '@/repositories/itemsRepository'
 
 const state = {
   activeBoard: 'default',
-  boardsList: []
+  boardsList: [],
+  newItem: '',
+  isSubmittingNewItem: false
 }
 
 const mutations = {
@@ -22,6 +25,16 @@ const mutations = {
   SWITCH_SHOW_DONE (state, {boardId, showDone}) {
     const board = state.boardsList.find((board) => board.id === boardId)
     board.showDone = showDone
+  },
+  SWITCH_PREPEND_NEW_ITEM (state, {boardId, prependNewItem}) {
+    const board = state.boardsList.find((board) => board.id === boardId)
+    board.prependNewItem = prependNewItem
+  },
+  SET_NEW_ITEM (state, val) {
+    state.newItem = val
+  },
+  SET_IS_SUBMITTING_NEW_ITEM (state, val) {
+    state.isSubmittingNewItem = val
   }
 }
 
@@ -54,6 +67,22 @@ const actions = {
   switchShowDone ({commit}, {boardId, showDone}) {
     boardsRepository.switchShowDone(boardId, showDone)
     commit('SWITCH_SHOW_DONE', {boardId, showDone})
+  },
+  switchPrependNewItem ({commit}, {boardId, prependNewItem}) {
+    itemsRepository.switchPrependNewItem(boardId, prependNewItem)
+    commit('SWITCH_PREPEND_NEW_ITEM', {boardId, prependNewItem})
+  },
+  setNewItemVal ({commit}, val) {
+    commit('SET_NEW_ITEM', val)
+  },
+  setIsSubmittingNewItem ({commit}, val) {
+    commit('SET_IS_SUBMITTING_NEW_ITEM', val)
+  },
+  addItemToBegin ({commit}, {boardId, newItem}) {
+    boardsRepository.addItemToBegin(boardId, newItem)
+  },
+  addItemToEnd ({commit}, {boardId, newItem}) {
+    boardsRepository.addItemToEnd(boardId, newItem)
   }
 }
 

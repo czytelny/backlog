@@ -1,46 +1,14 @@
 <template>
   <div class="tab-content">
-    <form action="#" v-on:submit.prevent="submitNewItem">
-      <Row class="input-row">
-        <Col class="input-form">
-          <Input ref="mainInput"
-                 :autofocus="true"
-                 v-model="newTodoItem"
-                 placeholder="Type and hit Enter"
-                 size="large"
-                 @on-enter="submitNewItem"
-                 @on-click="submitNewItem"
-                 icon="plus"
-                 class="animated"
-                 :class="{'fadeOutDown': isSubmittingNewItem, 'fadeIn': !isSubmittingNewItem}"
-                 style="width: calc(100% - 10px);"></Input>
-        </Col>
-        <Col class="input-switch">
-          <i-switch :value="prependNewItem"
-                    @on-change="prependNewItemChange"
-                    size="large"
-          >
-            <span slot="open">Head</span>
-            <span slot="close">Tail</span>
-          </i-switch>
-        </Col>
-      </Row>
-    </form>
-    <div class="showDoneLink">
-      <Button v-if="!showDone"
-              type="dashed"
-              shape="circle"
-              :disabled="isBoardItemsEmpty"
-              @click="switchShowDone">Show done
-      </Button>
-      <Button v-if="showDone"
-              type="dashed"
-              shape="circle"
-              :disabled="isBoardItemsEmpty"
-              @click="switchShowDone">
-        Hide done
-      </Button>
-    </div>
+    <NewItemInput ref="newItemInput"
+                  :boardId="board.id"
+                  :prependNewItem="board.prependNewItem"
+                  @prependNewItemSwitched="focusOnInput"/>
+
+    <ShowDoneButton :boardId="board.id"
+                    :showDone="board.showDone"
+                    :isBoardItemsEmpty="isBoardItemsEmpty"/>
+
     <div v-if="isBoardItemsEmpty" class="info">
       <h1>No items on this board, yet</h1>
     </div>
@@ -48,8 +16,11 @@
     <div v-if="isAllItemsDone" class="info">
       <h1>Great, all items are done!</h1>
     </div>
-    <draggable :list="boardItems" @change="boardItemsRearanged" :options="{ghostClass: 'sortable-ghost',
-                                                                       handle: '.draggable'}">
+
+    <draggable :list="boardItems"
+               @change="boardItemsRearanged"
+               :options="{ghostClass: 'sortable-ghost',
+                          handle: '.draggable'}">
       <transition-group name="list-complete">
         <board-item v-for="item in boardItems"
                     :key="item.id"
@@ -77,57 +48,40 @@
   import BoardItem from './BoardItem.vue'
   import boardsRepository from '@/repositories/boardsRepository'
   import itemsRepository from '@/repositories/itemsRepository'
+  import NewItemInput from './NewItemInput'
+  import ShowDoneButton from './ShowDoneButton'
 
   export default {
     name: 'board',
-    props: ['board', 'selectedTab'],
+    props: ['board'],
     components: {
+      ShowDoneButton,
+      NewItemInput,
       BoardItem,
       draggable
     },
     data () {
       return {
-        boardItems: [],
-        newTodoItem: '',
-        isSubmittingNewItem: false,
-        isEditingItem: false
+        boardItems: []
       }
     },
     computed: {
       boardId () {
         return this.board.id
       },
-      prependNewItem () {
-        return this.board.prependNewItem
-      },
       activeBoardId () {
         return this.$store.state.boards.activeBoard
-      },
-      isActive () {
-        return this.boardId === this.selectedTab
       },
       isBoardItemsEmpty () {
         return !this.boardItems.length
       },
       isAllItemsDone () {
         return this.boardItems.length && !this.boardItems.find(item => !item.isDone)
-      },
-      showDone () {
-        return this.board.showDone
       }
     },
     methods: {
       boardItemsRearanged () {
         boardsRepository.saveItemsArray(this.boardId, this.boardItems)
-      },
-      prependNewItemChange (val) {
-        itemsRepository.switchPrependNewItem(this.boardId, val)
-        this.focusOnInput()
-        this.$emit('switchPrependNewItems')
-      },
-      switchShowDone () {
-        this.$store.dispatch('switchShowDone', {boardId: this.boardId, showDone: !this.showDone})
-        this.$emit('switchedShowDone')
       },
       changeIsDone (itemId, newVal) {
         itemsRepository.switchIsDone(this.boardId, itemId, newVal)
@@ -137,25 +91,7 @@
         if (!item.isDone) {
           return true
         }
-        return this.showDone
-      },
-      submitNewItem () {
-        if (this.newTodoItem.trim().length === 0) {
-          this.newTodoItem = ''
-          return
-        }
-        this.isSubmittingNewItem = true
-        if (this.prependNewItem) {
-          boardsRepository.addItemToBegin(this.boardId, this.newTodoItem)
-        } else {
-          boardsRepository.addItemToEnd(this.boardId, this.newTodoItem)
-        }
-        this.newTodoItem = ''
-        this.$Message.success('Item added')
-        this.fetchBoardItems()
-        this.$nextTick(() => {
-          this.isSubmittingNewItem = false
-        })
+        return this.board.showDone
       },
       removeItem (itemId) {
         itemsRepository.removeItem(this.boardId, itemId)
@@ -181,16 +117,16 @@
       showMoveToBoardModal (itemId, itemText) {
         this.$store.dispatch('showMoveToBoard', {itemId, itemText})
       },
+      fetchBoardItems (boardId = this.activeBoardId) {
+        this.$store.dispatch('fetchBoard', this.board.id)
+      },
       focusOnInput () {
         const vm = this
         setTimeout(() => {
-          if (vm.$refs['mainInput']) {
-            vm.$refs['mainInput'].focus()
+          if (vm.$refs['newItemInput'].$refs['mainInput']) {
+            vm.$refs['newItemInput'].$refs['mainInput'].focus()
           }
         }, 250)
-      },
-      fetchBoardItems (boardId = this.activeBoardId) {
-        this.$store.dispatch('fetchBoard', this.board.id)
       }
     },
     watch: {
@@ -200,8 +136,8 @@
           this.boardItems = items
         }
       },
-      selectedTab () {
-        if (this.isActive) {
+      activeBoardId () {
+        if (this.boardId === this.activeBoardId) {
           this.focusOnInput()
           this.fetchBoardItems(this.boardId)
         }
@@ -237,11 +173,6 @@
     text-align: center;
     font-size: 1.5em;
     opacity: .25;
-    padding: 20px 0;
-  }
-
-  .showDoneLink {
-    text-align: center;
     padding: 20px 0;
   }
 
