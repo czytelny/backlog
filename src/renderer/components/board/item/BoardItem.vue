@@ -43,6 +43,7 @@
       <ActionButtons @remove="removeItem"
                      @moveToTop="moveItemToTop"
                      @moveToBottom="moveItemToBottom"
+                     @showMoveToBoardModal="showMoveToBoardModal"
                      :boardId="boardId"
       >
       </ActionButtons>
