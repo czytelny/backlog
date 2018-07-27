@@ -30,12 +30,7 @@
                     :created="item.created"
                     :boardId="boardId"
                     v-if="shouldBeDisplayed(item)"
-                    @changeIsDone="changeIsDone"
-                    @removeItem="removeItem"
-                    @changeItemVal="changeItemVal"
-                    @moveItemToTop="moveItemToTop"
-                    @moveItemToBottom="moveItemToBottom"
-                    @showMoveToBoardModal="showMoveToBoardModal"
+                    @itemChanged="itemChanged"
         >
         </board-item>
       </transition-group>
@@ -47,7 +42,6 @@
   import draggable from 'vuedraggable'
   import BoardItem from './BoardItem.vue'
   import boardsRepository from '@/repositories/boardsRepository'
-  import itemsRepository from '@/repositories/itemsRepository'
   import NewItemInput from './NewItemInput'
   import ShowDoneButton from './ShowDoneButton'
 
@@ -83,39 +77,15 @@
       boardItemsRearanged () {
         boardsRepository.saveItemsArray(this.boardId, this.boardItems)
       },
-      changeIsDone (itemId, newVal) {
-        itemsRepository.switchIsDone(this.boardId, itemId, newVal)
-        this.fetchBoardItems()
-      },
       shouldBeDisplayed (item) {
         if (!item.isDone) {
           return true
         }
         return this.board.showDone
       },
-      removeItem (itemId) {
-        itemsRepository.removeItem(this.boardId, itemId)
-        this.focusOnInput()
-        this.fetchBoardItems()
-        this.$Message.success('Item removed')
-      },
-      changeItemVal (itemId, itemVal) {
-        itemsRepository.changeItemValue(this.boardId, itemId, itemVal)
+      itemChanged () {
         this.fetchBoardItems()
         this.focusOnInput()
-      },
-      moveItemToTop (itemId) {
-        boardsRepository.moveItemToTop(this.boardId, itemId)
-        this.fetchBoardItems()
-        this.focusOnInput()
-      },
-      moveItemToBottom (itemId) {
-        boardsRepository.moveItemToBottom(this.boardId, itemId)
-        this.fetchBoardItems()
-        this.focusOnInput()
-      },
-      showMoveToBoardModal (itemId, itemText) {
-        this.$store.dispatch('showMoveToBoard', {itemId, itemText})
       },
       fetchBoardItems (boardId = this.activeBoardId) {
         this.$store.dispatch('fetchBoard', this.board.id)

@@ -43,7 +43,6 @@
       <ActionButtons @remove="removeItem"
                      @moveToTop="moveItemToTop"
                      @moveToBottom="moveItemToBottom"
-                     @showMoveToBoardModal="showMoveToBoardModal"
                      :boardId="boardId"
       >
       </ActionButtons>
@@ -74,7 +73,12 @@
           return
         }
         this.turnOffEditing()
-        this.$emit('changeItemVal', this.itemId, this.draftText)
+        this.$store.dispatch('changeItemVal', {
+          boardId: this.boardId,
+          itemId: this.itemId,
+          newVal: this.draftText
+        })
+        this.$emit('itemChanged')
       },
       editItem () {
         this.turnOnEditing()
@@ -89,19 +93,40 @@
         this.isEditing = false
       },
       changeIsDone (newVal) {
-        this.$emit('changeIsDone', this.itemId, newVal)
+        this.$store.dispatch('changeIsDone', {
+          boardId: this.boardId,
+          itemId: this.itemId,
+          newVal
+        })
+        this.$emit('itemChanged')
       },
       removeItem () {
-        this.$emit('removeItem', this.itemId)
+        this.$store.dispatch('removeItem', {
+          boardId: this.boardId,
+          itemId: this.itemId
+        })
+        this.$emit('itemChanged')
+        this.$Message.success('Item removed')
       },
       moveItemToTop () {
-        this.$emit('moveItemToTop', this.itemId)
+        this.$store.dispatch('moveItemToTop', {
+          boardId: this.boardId,
+          itemId: this.itemId
+        })
+        this.$emit('itemChanged')
       },
       moveItemToBottom () {
-        this.$emit('moveItemToBottom', this.itemId)
+        this.$store.dispatch('moveItemToBottom', {
+          boardId: this.boardId,
+          itemId: this.itemId
+        })
+        this.$emit('itemChanged')
       },
       showMoveToBoardModal () {
-        this.$emit('showMoveToBoardModal', this.itemId, this.text)
+        this.$store.dispatch('showMoveToBoard', {
+          itemId: this.itemId,
+          itemText: this.text
+        })
       },
       open (link) {
         this.$electron.shell.openExternal(link)

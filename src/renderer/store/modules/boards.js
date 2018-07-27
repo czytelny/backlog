@@ -83,7 +83,23 @@ const actions = {
   },
   addItemToEnd ({commit}, {boardId, newItem}) {
     boardsRepository.addItemToEnd(boardId, newItem)
+  },
+  moveItemToBottom ({commit}, {boardId, itemId}) {
+    boardsRepository.moveItemToBottom(boardId, itemId)
+  },
+  moveItemToTop ({commit}, {boardId, itemId}) {
+    boardsRepository.moveItemToTop(boardId, itemId)
+  },
+  removeItem ({commit}, {boardId, itemId}) {
+    itemsRepository.removeItem(boardId, itemId)
+  },
+  changeIsDone ({commit}, {boardId, itemId, newVal}) {
+    itemsRepository.switchIsDone(boardId, itemId, newVal)
+  },
+  changeItemVal ({commit}, {boardId, itemId, newVal}) {
+    itemsRepository.changeItemValue(boardId, itemId, newVal)
   }
+
 }
 
 export default {
