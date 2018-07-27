@@ -1,6 +1,6 @@
 'use strict'
 
-import { app, BrowserWindow, Menu } from 'electron'
+import {app, BrowserWindow, Menu} from 'electron'
 import windowRepository from './windowRepository'
 
 const path = require('path')
@@ -22,6 +22,8 @@ const winURL = process.env.NODE_ENV === 'development'
 
 function createWindow () {
   const windowConfig = windowSettings.getWindowState()
+  windowConfig.frame = false
+
   windowConfig.icon = path.join(__dirname, '/assets/256x256.png')
   /**
    * Initial window options

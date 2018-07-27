@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <top-bar></top-bar>
     <landing-page></landing-page>
     <restart-required-cloak></restart-required-cloak>
   </div>
@@ -9,10 +10,12 @@
   import LandingPage from '@/components/LandingPage'
   import settingsRepository from '@/repositories/settingsRepository'
   import RestartRequiredCloak from './components/RestartRequiredCloak'
+  import TopBar from './components/TopBar'
 
   export default {
     name: 'backlog',
     components: {
+      TopBar,
       RestartRequiredCloak,
       LandingPage
     },
@@ -46,5 +49,11 @@
     height: 100vh;
     background-color: #ffffff;
     padding: 10px 0;
+    margin-top: 30px;
+    overflow: hidden;
+
+    #app {
+      overflow: auto;
+    }
   }
 </style>
