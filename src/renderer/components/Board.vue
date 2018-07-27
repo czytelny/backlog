@@ -190,13 +190,16 @@
         }, 250)
       },
       fetchBoardItems (boardId = this.activeBoardId) {
-        const items = boardsRepository.getItems(boardId)
-        if (items) {
-          this.boardItems = items
-        }
+        this.$store.dispatch('fetchBoard', this.board.id)
       }
     },
     watch: {
+      board () {
+        const items = JSON.parse(JSON.stringify(this.board.items))
+        if (items) {
+          this.boardItems = items
+        }
+      },
       selectedTab () {
         if (this.isActive) {
           this.focusOnInput()

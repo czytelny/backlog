@@ -147,6 +147,13 @@ export default {
       .cloneDeep()
       .value()
   },
+  getBoardById (boardId) {
+    return db
+      .get('boards')
+      .getById(boardId)
+      .cloneDeep()
+      .value()
+  },
   switchShowDone (boardId, value) {
     return db
       .get('boards')

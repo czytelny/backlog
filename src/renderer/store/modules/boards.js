@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import boardsRepository from '@/repositories/boardsRepository'
 
 const state = {
@@ -9,10 +10,10 @@ const mutations = {
   SET_BOARDS (state, boardsArray) {
     state.boardsList = boardsArray
   },
-  SET_BOARD_ITEMS (state, boardId, items) {
-    const board = state.boardsList.find((board) => board.id === boardId)
-    if (board) {
-      board.items = items
+  SET_BOARD (state, board) {
+    const boardIndex = state.boardsList.findIndex((b) => b.id === board.id)
+    if (boardIndex >= 0) {
+      Vue.set(state.boardsList, boardIndex, board)
     }
   },
   SET_ACTIVE_BOARD (state, boardId) {
@@ -28,8 +29,8 @@ const actions = {
   fetchBoards ({commit}) {
     commit('SET_BOARDS', boardsRepository.getList())
   },
-  fetchBoardItems ({commit}, boardId) {
-    commit('SET_BOARD_ITEMS', boardId, boardsRepository.getItems(boardId))
+  fetchBoard ({commit}, boardId) {
+    commit('SET_BOARD', boardsRepository.getBoardById(boardId))
   },
   fetchActiveBoard ({commit}) {
     commit('SET_ACTIVE_BOARD', boardsRepository.getActiveBoard())
