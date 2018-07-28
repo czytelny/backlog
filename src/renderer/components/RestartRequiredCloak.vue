@@ -58,5 +58,6 @@
     font-size: 3em;
     text-align: center;
     padding-top: 15%;
+    z-index: 100;
   }
 </style>
