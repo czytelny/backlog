@@ -54,6 +54,7 @@
 
     #app {
       overflow: auto;
+      height: 90vh;
     }
   }
 </style>

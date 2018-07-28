@@ -50,6 +50,7 @@
     user-select: none;
     text-align: center;
     font-size: 1.1em;
+    border-bottom: 1px solid #f9f9f9;
   }
 
   .actionBtn-container {
