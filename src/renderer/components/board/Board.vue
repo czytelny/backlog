@@ -5,9 +5,12 @@
                   :prependNewItem="board.prependNewItem"
                   @prependNewItemSwitched="focusOnInput"/>
 
-    <ShowDoneButton :boardId="board.id"
-                    :showDone="board.showDone"
-                    :isBoardItemsEmpty="isBoardItemsEmpty"/>
+    <div class="board-actions">
+      <ShowDoneButton :boardId="board.id"
+                      :showDone="board.showDone"
+                      :isBoardItemsEmpty="isBoardItemsEmpty"/>
+      <FindItem></FindItem>
+    </div>
 
     <div v-if="isBoardItemsEmpty" class="info">
       <h1>No items on this board, yet</h1>
@@ -17,12 +20,18 @@
       <h1>Great, all items are done!</h1>
     </div>
 
+    <div v-if="!filteredBoardItems.length && !isBoardItemsEmpty" class="info">
+      <h1>No results...</h1>
+    </div>
+
     <draggable :list="boardItems"
+               v-if="filteredBoardItems.length"
                @change="boardItemsRearanged"
+               :class="{'filteredBoard' : isFiltered}"
                :options="{ghostClass: 'sortable-ghost',
                           handle: '.draggable'}">
       <transition-group name="list-complete">
-        <board-item v-for="item in boardItems"
+        <board-item v-for="item in filteredBoardItems"
                     :key="item.id"
                     :itemId="item.id"
                     :isDone="item.isDone"
@@ -44,11 +53,13 @@
   import boardsRepository from '@/repositories/boardsRepository'
   import NewItemInput from '@/components/board/item/NewItemInput'
   import ShowDoneButton from './ShowDoneButton'
+  import FindItem from './FindItem'
 
   export default {
     name: 'board',
     props: ['board'],
     components: {
+      FindItem,
       ShowDoneButton,
       NewItemInput,
       BoardItem,
@@ -71,6 +82,15 @@
       },
       isAllItemsDone () {
         return this.boardItems.length && !this.boardItems.find(item => !item.isDone)
+      },
+      filterString () {
+        return this.$store.state.boards.findItem.itemText
+      },
+      filteredBoardItems () {
+        return this.boardItems.filter((item) => item.text.includes(this.filterString))
+      },
+      isFiltered () {
+        return this.$store.state.boards.findItem.itemText.length > 0
       }
     },
     methods: {
@@ -137,6 +157,18 @@
 <style>
   .sortable-ghost {
     opacity: 0;
+  }
+
+  .filteredBoard{
+    border: 1px dashed #ced6c7;
+    background-color: #f6f6f6;
+    border-radius: 3px;
+  }
+
+  .board-actions {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px 0;
   }
 
   .info {

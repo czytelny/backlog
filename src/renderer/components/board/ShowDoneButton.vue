@@ -3,12 +3,14 @@
     <Button v-if="!showDone"
             type="dashed"
             shape="circle"
+            size="small"
             :disabled="isBoardItemsEmpty"
             @click="switchShowDone">Show done
     </Button>
     <Button v-if="showDone"
             type="dashed"
             shape="circle"
+            size="small"
             :disabled="isBoardItemsEmpty"
             @click="switchShowDone">
       Hide done
@@ -35,6 +37,5 @@
 <style scoped>
   .showDoneButton {
     text-align: center;
-    padding: 20px 0;
   }
 </style>

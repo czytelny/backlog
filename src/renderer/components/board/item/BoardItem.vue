@@ -1,7 +1,7 @@
 <template>
   <div :class="{'doneItem': isDone, 'isEditing': isEditing}"
        class="item list-complete-item">
-    <div class="draggable">
+    <div class="draggable" v-if="!isFiltered">
       <Icon type="more"
             class="movable-icon"
       ></Icon>
@@ -140,6 +140,9 @@
       }
     },
     computed: {
+      isFiltered () {
+        return this.$store.state.boards.findItem.itemText.length > 0
+      },
       showDate () {
         return this.$store.state.settings.itemCreationDate
       },

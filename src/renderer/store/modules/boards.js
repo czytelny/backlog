@@ -6,7 +6,10 @@ const state = {
   activeBoard: 'default',
   boardsList: [],
   newItem: '',
-  isSubmittingNewItem: false
+  isSubmittingNewItem: false,
+  findItem: {
+    itemText: ''
+  }
 }
 
 const mutations = {
@@ -35,6 +38,9 @@ const mutations = {
   },
   SET_IS_SUBMITTING_NEW_ITEM (state, val) {
     state.isSubmittingNewItem = val
+  },
+  SET_FIND_ITEM_TEXT (state, val) {
+    state.findItem.itemText = val
   }
 }
 
@@ -98,6 +104,9 @@ const actions = {
   },
   changeItemVal ({commit}, {boardId, itemId, newVal}) {
     itemsRepository.changeItemValue(boardId, itemId, newVal)
+  },
+  changeFindItem ({commit}, val) {
+    commit('SET_FIND_ITEM_TEXT', val)
   }
 
 }
