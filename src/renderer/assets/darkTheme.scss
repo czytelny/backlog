@@ -78,6 +78,18 @@ body.darkTheme {
         border-bottom-color: $borders-color;
     }
 
+    button {
+        background-color:transparent;
+        border-color: $buttons-borders-color;
+        color: $button-text-color;
+    }
+    
+    button:hover {
+        background-color: $input-background-color;
+        border-color: $buttons-borders-color;
+        color: $button-text-color;
+    }
+
     button.ivu-btn-circle{
         border-color: $buttons-borders-color;
         color: $button-text-color;

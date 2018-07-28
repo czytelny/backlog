@@ -13,7 +13,7 @@
            @keyup.enter="saveItem"
            v-on:blur="saveItem"
            class="draftText animated fadeIn">
-    <div v-else>
+    <div class="item-div" v-else>
       <Checkbox :value="isDone"
                 @on-change="changeIsDone">
       </Checkbox>
@@ -189,6 +189,10 @@
     cursor: move;
     box-sizing: content-box;
     z-index: 2;
+  }
+
+  .item-div {
+    max-width: 90%;
   }
 
   .item {
