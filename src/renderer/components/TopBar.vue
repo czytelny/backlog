@@ -41,9 +41,10 @@
     background-color: #ffffff;
     height: 30px;
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
+    z-index: -1;
+    top: 1px;
+    left: 1px;
+    width: 99%;
     padding: 5px;
     -webkit-transition: all .3s;
     transition: all .3s;
@@ -70,6 +71,7 @@
     -webkit-transition: all .3s;
     transition: all .3s;
     color: #272822;
+    line-height: 2em;
   }
 
   .actionBtn:hover {

@@ -177,11 +177,12 @@
 
   div.fixedTabs .ivu-tabs-bar {
     position: fixed;
-    top: 5px;
+    top: 37px;
     z-index: 100;
     background-color: #fff;
-    width: 96vw;
+    width: 95vw;
     box-shadow: 0 0 0 6px #ffffff;
+    left: 7px;
   }
 
   .ivu-tabs-tab-active .close-icon {
