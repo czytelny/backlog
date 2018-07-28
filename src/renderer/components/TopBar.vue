@@ -1,21 +1,35 @@
 <template>
-  <div class="topBar" :class="{'darkTheme': darkTheme}">
+  <div class="topBar">
     Backlog v.{{version}}
-    <div class="closeBtn">
-      <Icon type="ios-close-outline"></Icon>
+    <div class="actionBtn-container">
+      <div class="minimize actionBtn"
+           @click="minimize">
+        <Icon type="ios-minus-outline"></Icon>
+      </div>
+      <div class="close actionBtn"
+           @click="closeApp">
+        <Icon type="ios-close-outline"></Icon>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+  const remote = require('electron').remote
+
   export default {
     name: 'TopBar',
     computed: {
-      darkTheme () {
-        return this.$store.state.settings.darkTheme
-      },
       version () {
         return this.$store.state.modals.settings.currentVersion
+      }
+    },
+    methods: {
+      closeApp () {
+        remote.app.quit()
+      },
+      minimize () {
+        remote.BrowserWindow.getFocusedWindow().minimize()
       }
     }
   }
@@ -24,7 +38,7 @@
 <style scoped>
   .topBar {
     -webkit-app-region: drag;
-    background-color: #f6f6f6;
+    background-color: #ffffff;
     height: 30px;
     position: fixed;
     top: 0;
@@ -33,24 +47,31 @@
     padding: 5px;
     -webkit-transition: all .3s;
     transition: all .3s;
+    user-select: none;
+    text-align: center;
+    font-size: 1.1em;
   }
-  .closeBtn {
-    -webkit-app-region: no-drag;
+
+  .actionBtn-container {
     position: fixed;
     right: 0;
     top: 0;
+    display: flex;
+  }
+
+  .actionBtn {
+    -webkit-app-region: no-drag;
+    font-size: 16px;
+    width: 25px;
+    height: 30px;
+    text-align: center;
+    opacity: .4;
     -webkit-transition: all .3s;
     transition: all .3s;
-    cursor: pointer;
-    width: 40px;
-    height: 30px;
-    font-size: 20px;
-    text-align: center;
-    opacity: .5;
     color: #272822;
   }
 
-  .closeBtn:hover {
+  .actionBtn:hover {
     opacity: 1;
   }
 
