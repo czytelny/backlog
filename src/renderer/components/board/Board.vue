@@ -9,7 +9,7 @@
       <ShowDoneButton :boardId="board.id"
                       :showDone="board.showDone"
                       :isBoardItemsEmpty="isBoardItemsEmpty"/>
-      <FindItem></FindItem>
+      <FindItem :boardId="board.id"></FindItem>
     </div>
 
     <div v-if="isBoardItemsEmpty" class="info">
@@ -27,6 +27,7 @@
     <draggable :list="boardItems"
                v-if="filteredBoardItems.length"
                @change="boardItemsRearanged"
+               class="board"
                :class="{'filteredBoard' : isFiltered}"
                :options="{ghostClass: 'sortable-ghost',
                           handle: '.draggable'}">
@@ -84,10 +85,10 @@
         return this.boardItems.length && !this.boardItems.find(item => !item.isDone)
       },
       filterString () {
-        return this.$store.state.boards.findItem.itemText
+        return this.$store.state.boards.findItem.itemText.toLowerCase()
       },
       filteredBoardItems () {
-        return this.boardItems.filter((item) => item.text.includes(this.filterString))
+        return this.boardItems.filter((item) => item.text.toLowerCase().includes(this.filterString))
       },
       isFiltered () {
         return this.$store.state.boards.findItem.itemText.length > 0
@@ -159,15 +160,23 @@
     opacity: 0;
   }
 
+
+  .board {
+    border: 1px dashed transparent;
+    background-color: transparent;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+  }
+
   .filteredBoard{
-    border: 1px dashed #ced6c7;
-    background-color: #f6f6f6;
+    border: 1px dashed #d6dece;
+    background-color: #f8f8f8;
     border-radius: 3px;
   }
 
   .board-actions {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     padding: 10px 0;
   }
 
