@@ -6,7 +6,7 @@
            placeholder="search..."
            icon="ios-search"
            :ref="boardId"
-           v-shortkey="['ctrl', 'f']" @shortkey="inputFocus()"
+           v-shortkey="{win:['ctrl', 'f'],mac:['meta', 'f']}" @shortkey="inputFocus()"
            size="small">
   </div>
 </template>
@@ -40,7 +40,7 @@
   .findItem {
     margin: 0 5px;
     border: none;
-    border-bottom: 1px dotted #cecece;
+    border-bottom: 1px dotted transparent;
     -webkit-transition: all .3s;
     font-style: italic;
   }
