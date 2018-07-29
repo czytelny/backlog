@@ -3,6 +3,7 @@ import store from './store'
 import iView from 'iview'
 import 'iview/dist/styles/iview.css'
 import App from './App'
+import Vuebar from 'vuebar'
 
 require('autolink-js')
 
@@ -20,6 +21,7 @@ Object.defineProperties(Vue.prototype, {
 })
 
 Vue.use(iView)
+Vue.use(Vuebar)
 
 Vue.directive('focus', {
   componentUpdated: function (el) {

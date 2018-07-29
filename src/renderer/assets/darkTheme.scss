@@ -16,13 +16,19 @@ $button-focus-color-gradient-bottom: #29374B;
 $main-color: rgba(45, 140, 240, 0.53);
 $main-color-active: rgba(44, 133, 229, 0.69);
 
+
 body.darkTheme {
     .topBar {
         background-color: $main-background-color;
+        border-bottom-color: $borders-color;
         color: $text-color;
         & .actionBtn {
             color: #c4c4c4;
         }
+    }
+
+    .filteredBoard{
+        background-color: $input-background-color;
     }
 
     background-color: $main-background-color;
@@ -83,7 +89,7 @@ body.darkTheme {
         border-color: $buttons-borders-color;
         color: $button-text-color;
     }
-    
+
     button:hover {
         background-color: $input-background-color;
         border-color: $buttons-borders-color;
