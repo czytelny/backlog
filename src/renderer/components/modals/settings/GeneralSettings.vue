@@ -1,7 +1,6 @@
 <template>
   <div>
     <div class="row">
-      <h3>General settings</h3>
       <i-switch v-model="prependNewItems"
                 size="small">
       </i-switch>

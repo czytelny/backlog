@@ -39,10 +39,11 @@
 <style>
   .findItem {
     margin: 0 5px;
-    border: none;
-    border-bottom: 1px dotted transparent;
+    border: 1px solid transparent;
     -webkit-transition: all .3s;
     font-style: italic;
+    border-radius: 5px;
+    padding: 3px;
   }
 
   .findItem:focus {

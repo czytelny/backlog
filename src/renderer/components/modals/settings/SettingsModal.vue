@@ -13,29 +13,39 @@
 
     <updates-check-settings/>
     <database-location/>
-    <general-settings/>
+    <Collapse v-model="settingsCollapse" accordion>
+      <Panel name="0">
+        General Settings
+        <p slot="content">
+          <general-settings/>
+        </p>
+      </Panel>
 
-    <div class="separator"></div>
-    <h3>Setup board names and order</h3>
-    <draggable :list="boardsLocal"
-               :options="{handle: '.draggable'}"
-               @change="boardOrderChanged">
+      <Panel name="1">
+        Setup board names and order
+        <p slot="content">
+          <draggable :list="boardsLocal"
+                     :options="{handle: '.draggable'}"
+                     @change="boardOrderChanged">
 
-      <div v-for="board in boardsLocal" class="board" :key="board.id">
-        <div class="draggable">
-          <Icon type="more"
-                class="movable-icon"
-          ></Icon>
-        </div>
-        <Input v-model="board.label" style="width: 300px" @on-blur="saveBoards"/>
-        <Tooltip content="Save as a JSON"
-                 placement="left"
-                 :transfer="true"
-        >
-          <Icon type="archive" class="download-icon" @click="openSaveDialog(board.id)"></Icon>
-        </Tooltip>
-      </div>
-    </draggable>
+            <div v-for="board in boardsLocal" class="board" :key="board.id">
+              <div class="draggable">
+                <Icon type="more"
+                      class="movable-icon"
+                ></Icon>
+              </div>
+              <Input v-model="board.label" style="width: 300px" @on-blur="saveBoards"/>
+              <Tooltip content="Save as a JSON"
+                       placement="left"
+                       :transfer="true"
+              >
+                <Icon type="archive" class="download-icon" @click="openSaveDialog(board.id)"></Icon>
+              </Tooltip>
+            </div>
+          </draggable>
+        </p>
+      </Panel>
+    </Collapse>
     <div slot="footer">
       <Button size="large" @click="closeModal">Close</Button>
       <transition name="fade">
@@ -80,7 +90,8 @@
     },
     data () {
       return {
-        boardsLocal: []
+        boardsLocal: [],
+        settingsCollapse: ''
       }
     },
     methods: {

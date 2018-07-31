@@ -52,7 +52,7 @@
   import draggable from 'vuedraggable'
   import BoardItem from '@/components/board/item/BoardItem.vue'
   import boardsRepository from '@/repositories/boardsRepository'
-  import NewItemInput from '@/components/board/item/NewItemInput'
+  import NewItemInput from '@/components/board/NewItemInput'
   import ShowDoneButton from './ShowDoneButton'
   import FindItem from './FindItem'
 

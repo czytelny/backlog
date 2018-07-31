@@ -3,8 +3,8 @@ $input-background-color: #323232;
 $input-disabled-background-color: #494949;
 $borders-color: #3a3c31;
 $buttons-borders-color: #494c3e;
-$text-color: #a5a5a5;
-$button-text-color: #cdcdcd;
+$text-color: #cacaca;
+$button-text-color: #d4d4d4;
 $placeholder-color: rgba(187, 187, 187, 0.29);
 
 $button-color-gradient-top: #3a3a3a;
@@ -13,9 +13,8 @@ $button-color-gradient-bottom: #383838;
 $button-focus-color-gradient-top: #364861;
 $button-focus-color-gradient-bottom: #29374B;
 
-$main-color: rgba(45, 140, 240, 0.53);
-$main-color-active: rgba(44, 133, 229, 0.69);
-
+$main-color: rgba(45, 140, 240, 0.63);
+$main-color-active: rgba(44, 133, 229, 0.45);
 
 body.darkTheme {
     .topBar {
@@ -27,7 +26,15 @@ body.darkTheme {
         }
     }
 
-    .filteredBoard{
+    .findItem {
+        border: 1px solid transparent;
+    }
+
+    .findItem:focus {
+        border: 1px solid $main-color-active;
+    }
+
+    .filteredBoard {
         background-color: $input-background-color;
     }
 
@@ -42,8 +49,12 @@ body.darkTheme {
         border-color: $borders-color;
     }
 
-    .ivu-tabs.ivu-tabs-card>.ivu-tabs-bar .ivu-tabs-tab-active {
-        color:$main-color;
+    .ivu-tabs.ivu-tabs-card > .ivu-tabs-bar .ivu-tabs-tab-active {
+        color: $main-color;
+    }
+
+    .ivu-tabs.ivu-tabs-card > .ivu-tabs-bar .ivu-tabs-tab-active:focus {
+        color: $main-color;
     }
 
     .ivu-input:focus {
@@ -54,13 +65,32 @@ body.darkTheme {
         border-bottom-color: $borders-color;
     }
 
+    .ivu-tabs-nav-container:focus .ivu-tabs-tab-focused {
+        border-color: $main-color-active !important;
+    }
+
     .ivu-checkbox-inner {
         background-image: linear-gradient(to bottom, $button-color-gradient-top, $button-color-gradient-bottom);
         border-color: #3B3E40;
     }
 
-    .ivu-modal-footer{
+    .ivu-modal-footer {
         border-top: 1px solid $borders-color;
+    }
+
+    .ivu-collapse {
+        background-color: $main-background-color;
+        border-color: $borders-color;
+        .ivu-collapse-header {
+            color: $button-text-color;
+        }
+        .ivu-collapse-content {
+            background-color: $main-background-color;
+            color: $button-text-color;
+        }
+        & > .ivu-collapse-item {
+            border-top-color: $borders-color;
+        }
     }
 
     input {
@@ -85,7 +115,7 @@ body.darkTheme {
     }
 
     button {
-        background-color:transparent;
+        background-color: transparent;
         border-color: $buttons-borders-color;
         color: $button-text-color;
     }
@@ -96,7 +126,7 @@ body.darkTheme {
         color: $button-text-color;
     }
 
-    button.ivu-btn-circle{
+    button.ivu-btn-circle {
         border-color: $buttons-borders-color;
         color: $button-text-color;
     }
@@ -108,9 +138,8 @@ body.darkTheme {
         transition: all .3s;
     }
 
-    button.ivu-btn-primary:hover{
+    button.ivu-btn-primary:hover {
         color: $main-color-active;
-
     }
 
     button.ivu-btn-icon-only {
