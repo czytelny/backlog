@@ -2,17 +2,18 @@
   <form action="#" v-on:submit.prevent="submitNewItem">
     <Row class="input-row">
       <Col class="input-form">
-        <Input ref="mainInput"
+        <input ref="mainInput"
+               :id="'newItem-'+boardId"
                :autofocus="true"
                v-model="newItem"
                placeholder="Type and hit Enter"
-               size="large"
                @on-enter="submitNewItem"
                @on-click="submitNewItem"
+               v-shortkey="{win:['ctrl', 'n'],mac:['meta', 'n']}" @shortkey="inputFocus()"
                icon="plus"
-               class="animated"
+               class="animated ivu-input ivu-input-large"
                :class="{'fadeOutDown': isSubmittingNewItem, 'fadeIn': !isSubmittingNewItem}"
-               style="width: calc(100% - 10px);"></Input>
+               style="width: calc(100% - 10px);">
       </Col>
       <Col class="input-switch">
         <i-switch :value="prependNewItem"
@@ -47,9 +48,15 @@
         set (val) {
           this.$store.dispatch('setIsSubmittingNewItem', val)
         }
+      },
+      activeBoardId () {
+        return this.$store.state.boards.activeBoard
       }
     },
     methods: {
+      inputFocus () {
+        document.getElementById(`newItem-${this.activeBoardId}`).focus()
+      },
       prependNewItemChange (val) {
         this.$store.dispatch('switchPrependNewItem', {boardId: this.boardId, prependNewItem: val})
           .then(() => {

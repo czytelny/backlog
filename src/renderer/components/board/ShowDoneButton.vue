@@ -5,12 +5,15 @@
             shape="circle"
             size="small"
             :disabled="isBoardItemsEmpty"
-            @click="switchShowDone">Show done
+            icon="android-checkbox-outline-blank"
+            @click="switchShowDone">
+      Show done
     </Button>
     <Button v-if="showDone"
             type="dashed"
             shape="circle"
             size="small"
+            icon="android-checkbox-outline"
             :disabled="isBoardItemsEmpty"
             @click="switchShowDone">
       Hide done

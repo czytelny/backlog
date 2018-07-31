@@ -67,7 +67,7 @@
 
   .vb > .vb-dragger {
     z-index: 5;
-    width: 12px;
+    width: 8px;
     right: 0;
   }
 
@@ -84,7 +84,7 @@
       background-color 100ms ease-out,
       margin 100ms ease-out,
       height 100ms ease-out;
-    background-color: rgba(73, 73, 73, 0.1);
+    background-color: rgba(73, 73, 73, 0.05);
     margin: 5px 5px 5px 0;
     border-radius: 20px;
     height: calc(100% - 10px);
