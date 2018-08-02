@@ -7,7 +7,8 @@ const state = {
   stickBoardsOnTop: false,
   markdownMode: true,
   dbLocation: '',
-  darkTheme: false
+  darkTheme: false,
+  showUpdates: true
 }
 
 const mutations = {
@@ -31,6 +32,9 @@ const mutations = {
   },
   SET_STICK_BOARDS_ON_TOP (state, val) {
     state.stickBoardsOnTop = val
+  },
+  SET_SHOW_UPDATES (state, val) {
+    state.showUpdates = val
   }
 }
 
@@ -61,6 +65,10 @@ const actions = {
   setStickBoardsOnTop ({commit}, stickBoardsOnTop) {
     commit('SET_STICK_BOARDS_ON_TOP', stickBoardsOnTop)
     settingsRepository.updateAppSettings({stickBoardsOnTop})
+  },
+  setShowUpdates ({commit}, showUpdates) {
+    commit('SET_SHOW_UPDATES', showUpdates)
+    settingsRepository.updateAppSettings({showUpdates})
   }
 }
 

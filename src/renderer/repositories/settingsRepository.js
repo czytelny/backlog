@@ -4,7 +4,8 @@ db.defaults({
   appSettings: {
     'wasImported': false,
     'itemCreationDate': true,
-    'prependNewItems': true
+    'prependNewItems': true,
+    'showUpdates': true
   }
 }).write()
 

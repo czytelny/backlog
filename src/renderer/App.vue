@@ -4,6 +4,7 @@
       <top-bar></top-bar>
       <landing-page></landing-page>
       <restart-required-cloak></restart-required-cloak>
+      <update-modal></update-modal>
     </div>
   </div>
 </template>
@@ -13,10 +14,12 @@
   import settingsRepository from '@/repositories/settingsRepository'
   import RestartRequiredCloak from './components/RestartRequiredCloak'
   import TopBar from './components/TopBar'
+  import UpdateModal from './components/modals/UpdateModal'
 
   export default {
     name: 'backlog',
     components: {
+      UpdateModal,
       TopBar,
       RestartRequiredCloak,
       LandingPage

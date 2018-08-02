@@ -7,6 +7,13 @@
     <Button type="success" v-if="newVersionAvailable"
             @click="open('https://github.com/czytelny/backlog/releases')">New version available
     </Button>
+    <div class="row"
+         style="margin-top: 5px;">
+      <Checkbox v-model="showUpdates">
+        Check for updates on startup
+      </Checkbox>
+    </div>
+
   </div>
 </template>
 
@@ -23,10 +30,19 @@
         newVersionAvailable: false
       }
     },
+    computed: {
+      showUpdates: {
+        get () {
+          return this.$store.state.settings.showUpdates
+        },
+        set (val) {
+          this.$store.dispatch('setShowUpdates', val)
+        }
+      }
+    },
     methods: {
       loadUpdates () {
         this.loadingUpdates = true
-        console.log(`${version}`)
         axios.get('https://api.github.com/repos/czytelny/backlog/releases/latest')
           .then(({data}) => {
             if (`v${version}` === data.tag_name) {

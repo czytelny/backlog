@@ -149,7 +149,7 @@
 
 <style scoped>
   .restart-required {
-    font-size: .75em;
+    font-size: 1em;
     color: #ff9900;
   }
 

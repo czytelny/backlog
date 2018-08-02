@@ -20,6 +20,9 @@ const state = {
     isVisible: false,
     movingItemText: null,
     movingItemId: null
+  },
+  update: {
+    isVisible: false
   }
 }
 
@@ -44,6 +47,12 @@ const mutations = {
   },
   HIDE_MOVE_TO_BOARD (state) {
     state.moveToBoard.isVisible = false
+  },
+  SHOW_UPDATE_MODAL (state) {
+    state.update.isVisible = true
+  },
+  HIDE_UPDATE_MODAL (state) {
+    state.update.isVisible = false
   },
   SET_SETTINGS_BOARDS_LIST (state, boards) {
     state.settings.boardsList = boards
@@ -85,6 +94,12 @@ const actions = {
   },
   hideMoveToBoardModal ({commit}) {
     commit('HIDE_MOVE_TO_BOARD')
+  },
+  showUpdateModal ({commit}) {
+    commit('SHOW_UPDATE_MODAL')
+  },
+  hideUpdateModal ({commit}) {
+    commit('HIDE_UPDATE_MODAL')
   },
   fetchSettingsBoardsList ({commit}) {
     commit('SET_SETTINGS_BOARDS_LIST', boardsRepository.getList())

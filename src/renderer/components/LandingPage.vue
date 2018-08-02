@@ -62,8 +62,10 @@
   import MoveToBoardModal from './modals/MoveToBoardModal'
   import NewBoardModal from './modals/NewBoardModal.vue'
   import SettingsModal from './modals/settings/SettingsModal'
-
+  import axios from 'axios'
   import {mapActions} from 'vuex'
+
+  const version = require('electron').remote.app.getVersion()
 
   export default {
     components: {
@@ -153,10 +155,19 @@
           boardsRepository.importOldEntries()
           settingsRepository.updateAppSettings({'wasImported': true})
         }
+      },
+      versionCheck () {
+        axios.get('https://api.github.com/repos/czytelny/backlog/releases/latest')
+          .then(({data}) => {
+            if (`v${version}` !== data.tag_name) {
+              this.$store.dispatch('showUpdateModal')
+            }
+          })
       }
     },
     created () {
       this.$store.dispatch('fetchSettings')
+      this.versionCheck()
       this.importOldEntries()
       this.loadBoards()
       this.$store.dispatch('fetchActiveBoard')
@@ -169,6 +180,7 @@
 
   #wrapper {
     height: 100vh;
+    width: 100vw;
   }
 
   #wrapper.fixedTabs {
