@@ -63,7 +63,7 @@ It's free and opensource application under **MIT** license. You can do whatever 
 
 # Technical
 #### How ?
-This application is builded with [Electron](https://electron.atom.io) and web technologies (javascript, css, html) more specifically: [Vue.js](https://vuejs.org). UI toolkit is [iView](https://www.iviewui.com/)
+This application is built with [Electron](https://electron.atom.io) and web technologies (javascript, css, html) more specifically: [Vue.js](https://vuejs.org). UI toolkit is [iView](https://www.iviewui.com/)
 
 #### Build Setup
 You can build it yourself instead of downloading executable:
