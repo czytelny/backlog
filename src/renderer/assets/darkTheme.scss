@@ -74,6 +74,11 @@ body.darkTheme {
         border-color: #3B3E40;
     }
 
+    div.fixedTabs .ivu-tabs-bar {
+        background-color: $main-background-color;
+        box-shadow: 0 0 0 6px $main-background-color;
+    }
+
     .ivu-modal-footer {
         border-top: 1px solid $borders-color;
     }
