@@ -1,19 +1,12 @@
 <template>
   <Modal :value="isUpdateModalVisible"
-         title="Update is available"
          @on-visible-change="switchFlagIfOpened"
   >
-    <h1>New Backlog version is available!</h1>
-    <div class="center">
-      <Button type="primary"
-              size="large"
-              icon="ios-download-outline"
-              @click="open('http://czytelny.cloud/download')">Download
-      </Button>
-    </div>
-
+    <h3>
+      New version of Backlog is <a href="#" @click="open('http://czytelny.cloud/download')">available to download.</a>
+    </h3>
     <div slot="footer">
-      <Button @click="cancel">OK</Button>
+      <Button @click="cancel">Cancel</Button>
       <Button type="ghost" @click="cancelChecking">Don't bother me anymore</Button>
 
     </div>
