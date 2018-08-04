@@ -1,6 +1,8 @@
 <template>
   <div class="row" style="margin-bottom: 20px;">
-    <Button :loading="loadingUpdates" @click="loadUpdates" v-if="!newVersionAvailable">
+    <Button :loading="loadingUpdates"
+            icon="ios-reload"
+            @click="loadUpdates" v-if="!newVersionAvailable">
       <span v-if="!loadingUpdates">Check updates</span>
       <span v-else>Checking...</span>
     </Button>

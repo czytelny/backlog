@@ -36,7 +36,7 @@
                       size="small"
                       icon="gear-a"
                       shape="circle"
-                      style="margin-right: 5px; margin-top:2px;">
+                      style="margin-right: 12px; margin-top:2px;">
               </Button>
             </Tooltip>
           </div>

@@ -180,5 +180,23 @@ export default {
         resolve()
       })
     })
+  },
+  exportDbToJSON (fileName) {
+    const dbContent = db.getState()
+    return new Promise(function (resolve, reject) {
+      fs.writeFile(fileName, JSON.stringify(dbContent), function (err) {
+        if (err) reject(err)
+        resolve()
+      })
+    })
+  },
+  importDbFromJSON (filePath) {
+    return new Promise(function (resolve, reject) {
+      fs.readFile(filePath, 'utf8', function (err, content) {
+        if (err) reject(err)
+        console.log(JSON.parse(content))
+        resolve()
+      })
+    })
   }
 }

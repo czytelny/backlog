@@ -1,6 +1,6 @@
 <template>
   <div class="db-location">
-    <h3>Database Location</h3>
+    <div>Database Location</div>
     <Input v-model="dbLocation" disabled="disabled"/>
   </div>
 </template>

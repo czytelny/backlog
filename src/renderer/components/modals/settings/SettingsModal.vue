@@ -6,22 +6,43 @@
          okText="Add"
          :scrollable="true"
   >
-    <div class="row title">
-      <h1>Backlog</h1>
-      <h6>v{{currentVersion}}</h6>
+    <div class="row title-row">
+      <div class="title">
+        <h2>Backlog</h2>
+        <h6>v{{currentVersion}}</h6>
+      </div>
+      <div class="address"
+           @click="open('http://www.backlog.cloud')">
+        <a href="#">www.backlog.cloud</a>
+      </div>
     </div>
 
     <updates-check-settings/>
-    <database-location/>
     <Collapse v-model="settingsCollapse" accordion>
       <Panel name="0">
+        Data
+        <p slot="content">
+          <database-location/>
+          <Button @click="createBackup"
+                  icon="ios-download-outline"
+          >
+            Create backup
+          </Button>
+          <Button @click="importBackup"
+                  icon="ios-upload-outline"
+          >
+            Import backup
+          </Button>
+        </p>
+      </Panel>
+      <Panel name="1">
         General Settings
         <p slot="content">
           <general-settings/>
         </p>
       </Panel>
 
-      <Panel name="1">
+      <Panel name="2">
         Setup board names and order
         <p slot="content">
           <draggable :list="boardsLocal"
@@ -95,6 +116,43 @@
       }
     },
     methods: {
+      open (link) {
+        this.$electron.shell.openExternal(link)
+      },
+      createBackup () {
+        const vm = this
+        dialog.showSaveDialog({
+          filters: [
+            {name: 'json', extensions: ['json']}
+          ]
+        }, function (fileName) {
+          boardsRepository
+            .exportDbToJSON(fileName)
+            .then(() => {
+              vm.$Message.success('File saved successfully')
+            })
+            .catch((err) => {
+              vm.$Message.error({content: err.message, duration: 0, closable: true})
+            })
+        })
+      },
+      importBackup () {
+        const vm = this
+        dialog.showOpenDialog({
+          properties: ['openFile'],
+          filters: [
+            {name: 'json', extensions: ['json']}
+          ]
+        }, function (filePath) {
+          boardsRepository.importDbFromJSON(filePath[0])
+            .then(() => {
+              vm.$Message.success('File imported successfully')
+            })
+            .catch((err) => {
+              vm.$Message.error({content: err.message, duration: 0, closable: true})
+            })
+        })
+      },
       fetchSettingsBoardsList () {
         this.$store.dispatch('fetchSettingsBoardsList')
           .then(() => {
@@ -139,7 +197,7 @@
               vm.$Message.success('File saved successfully')
             })
             .catch((err) => {
-              vm.$Message.error(err.message)
+              vm.$Message.error({content: err.message, duration: 0, closable: true})
             })
         })
       }
@@ -153,12 +211,23 @@
     color: #ff9900;
   }
 
-  .row.title {
-    text-align: center;
-    font-size: 2em;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
+  .row.title-row {
     border-bottom: 1px solid #f3f3f3;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    font-size: 1.5em;
+  }
+
+  .title {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+  }
+
+  .address{
+    text-align: center;
+    font-size: .5em;
+    cursor: pointer;
   }
 
   .download-icon {
