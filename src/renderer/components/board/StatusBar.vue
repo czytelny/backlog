@@ -1,8 +1,8 @@
 <template>
   <div class="status-bar">
     <span class="done-label">{{doneItemsCount}}</span> done |
-    <span class="pending-label">{{pendingItemsCount}}</span> pending |
-    <span class="progress-label">{{progressCount}}</span>% completed
+    <span class="pending-label">{{pendingItemsCount}}</span> pending
+    <span v-if="boardItems.length"><span class="progress-label">| {{progressCount}}</span>% completed</span>
   </div>
 </template>
 
@@ -37,6 +37,5 @@
     font-size: .8em;
     color: #494c3e;
     border-bottom: 1px solid rgba(206, 206, 206, 0.25);
-    background-color: rgba(206, 206, 206, 0.11);
   }
 </style>
