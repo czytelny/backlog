@@ -83,6 +83,14 @@ body.darkTheme {
         border-top: 1px solid $borders-color;
     }
 
+    .ivu-modal-confirm-head-title {
+        color: $text-color;
+    }
+
+    .ivu-modal-confirm-body{
+        color: $button-text-color;
+    }
+
     .ivu-collapse {
         background-color: $main-background-color;
         border-color: $borders-color;
@@ -190,6 +198,12 @@ body.darkTheme {
         color: $main-color;
         opacity: .5;
 
+    }
+
+    .status-bar{
+        color: $text-color;
+        border-color: $borders-color;
+        background-color: $main-background-color;
     }
 
 }

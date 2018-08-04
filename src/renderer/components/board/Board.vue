@@ -23,6 +23,7 @@
     <div v-if="!filteredBoardItems.length && !isBoardItemsEmpty" class="info">
       <h1>No results...</h1>
     </div>
+    <StatusBar :board-items="boardItems"></StatusBar>
 
     <draggable :list="boardItems"
                v-if="filteredBoardItems.length"
@@ -55,11 +56,13 @@
   import NewItemInput from '@/components/board/NewItemInput'
   import ShowDoneButton from './ShowDoneButton'
   import FindItem from './FindItem'
+  import StatusBar from './StatusBar'
 
   export default {
     name: 'board',
     props: ['board'],
     components: {
+      StatusBar,
       FindItem,
       ShowDoneButton,
       NewItemInput,
@@ -160,7 +163,6 @@
     opacity: 0;
   }
 
-
   .board {
     border: 1px dashed transparent;
     background-color: transparent;
@@ -168,7 +170,7 @@
     transition: all .3s;
   }
 
-  .filteredBoard{
+  .filteredBoard {
     border: 1px dashed #d6dece;
     background-color: #f8f8f8;
     border-radius: 3px;
