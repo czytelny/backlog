@@ -44,7 +44,7 @@
     z-index: -1;
     top: 1px;
     left: 1px;
-    width: 99%;
+    width: 100%;
     padding: 5px;
     -webkit-transition: all .3s;
     transition: all .3s;

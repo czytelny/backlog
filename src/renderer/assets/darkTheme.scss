@@ -1,4 +1,6 @@
 $main-background-color: #272822;
+$main-second-background-color: #3C3F41;
+
 $input-background-color: #323232;
 $input-disabled-background-color: #494949;
 $borders-color: #3a3c31;
@@ -18,7 +20,7 @@ $main-color-active: rgba(44, 133, 229, 0.45);
 
 body.darkTheme {
     .topBar {
-        background-color: $main-background-color;
+        background-color: rgb(36, 37, 33);
         border-bottom-color: $borders-color;
         color: $text-color;
         & .actionBtn {
