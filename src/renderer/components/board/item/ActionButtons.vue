@@ -79,6 +79,6 @@
   .delete-btn {
     font-size: .9em;
     line-height: .7em;
-    opacity: .75;
+    opacity: .35;
   }
 </style>

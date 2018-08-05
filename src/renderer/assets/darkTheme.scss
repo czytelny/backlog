@@ -4,6 +4,7 @@ $main-second-background-color: #3C3F41;
 $input-background-color: #323232;
 $input-disabled-background-color: #494949;
 $borders-color: #3a3c31;
+$item-borders-color: #2c2e26;
 $buttons-borders-color: #494c3e;
 $text-color: #cacaca;
 $button-text-color: #d4d4d4;
@@ -20,7 +21,7 @@ $main-color-active: rgba(44, 133, 229, 0.45);
 
 body.darkTheme {
     .topBar {
-        background-color: rgb(36, 37, 33);
+        background-color: #262723;
         border-bottom-color: $borders-color;
         color: $text-color;
         & .actionBtn {
@@ -89,7 +90,7 @@ body.darkTheme {
         color: $text-color;
     }
 
-    .ivu-modal-confirm-body{
+    .ivu-modal-confirm-body {
         color: $button-text-color;
     }
 
@@ -126,7 +127,7 @@ body.darkTheme {
     }
 
     .item {
-        border-bottom-color: $borders-color;
+        border-bottom-color: $item-borders-color;
     }
 
     button {
@@ -196,13 +197,39 @@ body.darkTheme {
         }
     }
 
+    .ivu-message-notice-content {
+        background: $main-second-background-color;
+        color: $text-color;
+    }
+
+    .row.title-row {
+        border-bottom: 1px solid $borders-color;
+    }
+
+    .ivu-select-dropdown {
+        background-color: $main-background-color;
+        border-color: $borders-color;
+    }
+
+    .ivu-dropdown-item {
+        color: $text-color;
+    }
+
+    .ivu-dropdown-item:hover{
+        background-color: $main-second-background-color;
+    }
+
+    .ivu-dropdown-item-divided {
+        border-top: $item-borders-color;
+    }
+
     .movable-icon {
         color: $main-color;
         opacity: .5;
 
     }
 
-    .status-bar{
+    .status-bar {
         color: $text-color;
         border-color: $borders-color;
         background-color: $main-background-color;
