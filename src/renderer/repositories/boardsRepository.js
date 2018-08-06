@@ -191,10 +191,17 @@ export default {
     })
   },
   importDbFromJSON (filePath) {
+    const service = this
     return new Promise(function (resolve, reject) {
       fs.readFile(filePath, 'utf8', function (err, content) {
         if (err) reject(err)
-        console.log(JSON.parse(content))
+        const db = JSON.parse(content)
+        db.boards.forEach((board) => {
+          const newBoardObj = service.saveNewBoard(board.label, {prependNewItems: board.prependNewItem})
+          board.items.forEach((item) => {
+            service.addItemToEnd(newBoardObj.id, item.text, item.created, item.isDone)
+          })
+        })
         resolve()
       })
     })

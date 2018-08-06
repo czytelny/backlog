@@ -147,6 +147,7 @@
           boardsRepository.importDbFromJSON(filePath[0])
             .then(() => {
               vm.$Message.success('File imported successfully')
+              vm.$store.dispatch('fetchBoards')
             })
             .catch((err) => {
               vm.$Message.error({content: err.message, duration: 0, closable: true})

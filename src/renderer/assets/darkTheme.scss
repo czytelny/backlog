@@ -8,6 +8,7 @@ $item-borders-color: #2c2e26;
 $buttons-borders-color: #494c3e;
 $text-color: #cacaca;
 $button-text-color: #d4d4d4;
+$button-text-color-disabled: #818181;
 $placeholder-color: rgba(187, 187, 187, 0.29);
 
 $button-color-gradient-top: #3a3a3a;
@@ -145,6 +146,12 @@ body.darkTheme {
     button.ivu-btn-circle {
         border-color: $buttons-borders-color;
         color: $button-text-color;
+    }
+
+    button.ivu-btn-circle:disabled {
+        border-color: $buttons-borders-color;
+        color: $button-text-color-disabled;
+        background-color: $main-second-background-color;
     }
 
     button.ivu-btn-primary {
