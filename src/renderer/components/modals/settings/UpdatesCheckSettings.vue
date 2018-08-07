@@ -7,7 +7,7 @@
       <span v-else>Checking...</span>
     </Button>
     <Button type="success" v-if="newVersionAvailable"
-            @click="open('http://czytelny.cloud/download')">New version available
+            @click="open('http://backlog.cloud/download')">New version available
     </Button>
     <div class="row"
          style="margin-top: 5px;">
