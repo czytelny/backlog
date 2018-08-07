@@ -49,6 +49,19 @@
       by Michal Chwedczuk
     </footer>
 
+    <input style="display: none;"
+           id="inputForSettingsShortcut"
+           v-shortkey="{win:['ctrl', ','], win2: ['alt' + ','], mac:['meta', ',']}" @shortkey="showSettingsModal">
+    <input style="display: none;"
+           id="inputForCreateNewBorad"
+           v-shortkey="{win:['ctrl', 'shift', 'n'], win2: ['alt', 'shift', 'n'], mac:['meta', 'shift', 'n']}"
+           @shortkey="showNewBoardModal">
+    <input style="display: none;"
+           id="inputForActivateNextTab"
+           v-shortkey="{win:['alt', 'shift', '}'],mac:['meta', 'shift', '}']}" @shortkey="activateNextTab">
+    <input style="display: none;"
+           id="inputForActivatePrevTab"
+           v-shortkey="{win:['alt', 'shift', '{'],mac:['meta', 'shift', '{']}" @shortkey="activatePreviousTab">
     <new-board-modal @newBoardSubmitted="loadBoards"></new-board-modal>
     <settings-modal></settings-modal>
     <move-to-board-modal></move-to-board-modal>
@@ -63,7 +76,7 @@
   import NewBoardModal from './modals/NewBoardModal.vue'
   import SettingsModal from './modals/settings/SettingsModal'
   import axios from 'axios'
-  import {mapActions} from 'vuex'
+  import { mapActions } from 'vuex'
 
   const version = require('electron').remote.app.getVersion()
 
@@ -128,6 +141,18 @@
       },
       open (link) {
         this.$electron.shell.openExternal(link)
+      },
+      activateNextTab () {
+        const activeTabDOM = document.querySelector('.ivu-tabs-tab-active')
+        if (activeTabDOM.nextSibling) {
+          activeTabDOM.nextSibling.click()
+        }
+      },
+      activatePreviousTab () {
+        const activeTabDOM = document.querySelector('.ivu-tabs-tab-active')
+        if (activeTabDOM.previousSibling) {
+          activeTabDOM.previousSibling.click()
+        }
       },
       handleBoardRemove (boardLabel, boardId) {
         this.$Modal.confirm({
