@@ -3,7 +3,7 @@
          @on-visible-change="switchFlagIfOpened"
   >
     <h3>
-      New version of Backlog is <a href="#" @click="open('http://czytelny.cloud/download')">available to download.</a>
+      New version of Backlog is <a href="#" @click="open('http://backlog.cloud/download')">available to download.</a>
     </h3>
     <div slot="footer">
       <Button @click="cancel">Cancel</Button>

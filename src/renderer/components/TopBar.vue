@@ -1,6 +1,6 @@
 <template>
   <div class="topBar">
-    Backlog v.{{version}}
+    Backlog v{{version}}
     <div class="actionBtn-container">
       <div class="minimize actionBtn"
            @click="minimize">

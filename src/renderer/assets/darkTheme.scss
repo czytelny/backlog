@@ -49,12 +49,13 @@ body.darkTheme {
     }
 
     .ivu-tabs.ivu-tabs-card > .ivu-tabs-bar .ivu-tabs-tab {
-        background-color: $main-background-color;
+        background-color: #202020;
         border-color: $borders-color;
     }
 
     .ivu-tabs.ivu-tabs-card > .ivu-tabs-bar .ivu-tabs-tab-active {
         color: $main-color;
+        background-color: $main-background-color;
     }
 
     .ivu-tabs.ivu-tabs-card > .ivu-tabs-bar .ivu-tabs-tab-active:focus {
