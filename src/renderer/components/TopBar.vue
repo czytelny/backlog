@@ -78,4 +78,8 @@
     opacity: 1;
   }
 
+  .actionBtn.close:hover {
+    color: #c5281b;
+  }
+
 </style>
