@@ -5,6 +5,7 @@
             shape="circle"
             size="small"
             type="dashed"
+            tabindex="-1"
     />
     <DropdownMenu slot="list" class="dropdown-menu">
       <DropdownItem name="moveToTop">
@@ -19,7 +20,7 @@
         <Icon type="arrow-return-right"></Icon>
         Move to board...
       </DropdownItem>
-      <DropdownItem divided class="delete-btn" name="remove">
+      <DropdownItem class="delete-btn" name="remove">
         <Icon type="trash-b"></Icon>
         Delete
       </DropdownItem>

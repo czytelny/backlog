@@ -58,10 +58,12 @@
            @shortkey="showNewBoardModal">
     <input style="display: none;"
            id="inputForActivateNextTab"
-           v-shortkey="{win:['alt', 'shift', '}'],mac:['meta', 'shift', '}']}" @shortkey="activateNextTab">
+           v-shortkey="{win: ['ctrl', 'shift', '}'], win2:['alt', 'shift', '}'], mac:['meta', 'shift', '}']}"
+           @shortkey="activateNextTab">
     <input style="display: none;"
            id="inputForActivatePrevTab"
-           v-shortkey="{win:['alt', 'shift', '{'],mac:['meta', 'shift', '{']}" @shortkey="activatePreviousTab">
+           v-shortkey="{win: ['ctrl', 'shift', '{'], win2:['alt', 'shift', '{'], mac:['meta', 'shift', '{']}"
+           @shortkey="activatePreviousTab">
     <new-board-modal @newBoardSubmitted="loadBoards"></new-board-modal>
     <settings-modal></settings-modal>
     <move-to-board-modal></move-to-board-modal>
@@ -76,7 +78,7 @@
   import NewBoardModal from './modals/NewBoardModal.vue'
   import SettingsModal from './modals/settings/SettingsModal'
   import axios from 'axios'
-  import { mapActions } from 'vuex'
+  import {mapActions} from 'vuex'
 
   const version = require('electron').remote.app.getVersion()
 
@@ -144,13 +146,13 @@
       },
       activateNextTab () {
         const activeTabDOM = document.querySelector('.ivu-tabs-tab-active')
-        if (activeTabDOM.nextSibling) {
+        if (activeTabDOM.nextSibling && activeTabDOM.nextSibling.className === 'ivu-tabs-tab') {
           activeTabDOM.nextSibling.click()
         }
       },
       activatePreviousTab () {
         const activeTabDOM = document.querySelector('.ivu-tabs-tab-active')
-        if (activeTabDOM.previousSibling) {
+        if (activeTabDOM.previousSibling && activeTabDOM.previousSibling.className === 'ivu-tabs-tab') {
           activeTabDOM.previousSibling.click()
         }
       },

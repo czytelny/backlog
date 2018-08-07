@@ -38,6 +38,7 @@
               size="small"
               type="dashed"
               @click="editItem"
+              tabindex="-1"
       />
 
       <ActionButtons @remove="removeItem"
