@@ -13,7 +13,7 @@
                icon="plus"
                class="animated ivu-input ivu-input-large"
                :class="{'fadeOutDown': isSubmittingNewItem, 'fadeIn': !isSubmittingNewItem}"
-               style="width: calc(100% - 10px);">
+               style="width: calc(100% - 10px); margin:2px;">
       </Col>
       <Col class="input-switch">
         <i-switch :value="prependNewItem"

@@ -219,7 +219,7 @@
     top: 37px;
     z-index: 100;
     background-color: #fff;
-    width: 95vw;
+    width: 98vw;
     box-shadow: 0 0 0 6px #ffffff;
     left: 7px;
   }
