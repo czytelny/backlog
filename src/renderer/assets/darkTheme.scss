@@ -30,6 +30,18 @@ body.darkTheme {
         }
     }
 
+    .board-item {
+        border-bottom: 1px solid $borders-color;
+    }
+
+    .board-item:hover {
+        background-color: $main-second-background-color;
+    }
+
+    .board-item.board-disabled {
+        background-color: $main-second-background-color;
+    }
+
     .findItem {
         border: 1px solid transparent;
     }
