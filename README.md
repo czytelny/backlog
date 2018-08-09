@@ -21,6 +21,13 @@ No installation required. Just unzip archive and run executable
 - [Windows x32 version](https://github.com/czytelny/backlog/releases/download/v1.8.0/Backlog-win32-ia32.zip)
 - [Linux x32 version](https://github.com/czytelny/backlog/releases/download/v1.8.0/Backlog-linux-ia32.tar.gz)
 
+## Features
+- Organize your thoughts with items & boards. Use Markdown or plaintext for adding new items
+- Move items to other board or drag&drop for reordering within current one
+- Filter board items by text
+- Light/dark theme
+- Simple progress bar
+
 ## Screenshot
 <p align="center">
     <img src="https://github.com/czytelny/backlog/raw/master/backlog_screenshot_1.png" width="400px">
@@ -28,13 +35,6 @@ No installation required. Just unzip archive and run executable
     <img src="https://github.com/czytelny/backlog/raw/master/backlog_screenshot_3.png" width="400px">
     <img src="https://github.com/czytelny/backlog/raw/master/backlog_screenshot_4.png" width="400px">
 </p>
-
-## Features
-- Organize your thoughts with items & boards. Use Markdown or plaintext for adding new items
-- Move items to other board or drag&drop for reordering within current one
-- Filter board items by text
-- Light/dark theme
-- Simple progress bar
 
 ## Update
 When new version is available just download it, unzip and enjoy. No additional action is required. All your boards and items will be available.
