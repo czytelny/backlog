@@ -8,47 +8,57 @@
 <img src="https://github.com/czytelny/backlog/raw/master/logo.png" width="100px" height="100px">
 </p>
 
+# Official website
+[www.backlog.cloud](www.backlog.cloud)
 
 # Download
 No installation required. Just unzip archive and run executable
-- [Windows version](https://github.com/czytelny/backlog/releases/download/v1.7.0/Backlog-win32-x64.zip)
-- [MacOs version](https://github.com/czytelny/backlog/releases/download/v1.7.0/Backlog-darwin-x64.zip)
-- [Linux version](https://github.com/czytelny/backlog/releases/download/v1.7.0/Backlog-linux-x64.tar.gz)
+- [Windows version](https://github.com/czytelny/backlog/releases/download/v1.8.0/Backlog-win32-x64.zip)
+- [MacOs version](https://github.com/czytelny/backlog/releases/download/v1.8.0/Backlog-darwin-x64.zip)
+- [Linux version](https://github.com/czytelny/backlog/releases/download/v1.8.0/Backlog-linux-x64.tar.gz)
 
 #### 32bit versions
-- [Windows x32 version](https://github.com/czytelny/backlog/releases/download/v1.7.0/Backlog-win32-ia32.zip)
-- [Linux x32 version](https://github.com/czytelny/backlog/releases/download/v1.7.0/Backlog-linux-ia32.tar.gz)
+- [Windows x32 version](https://github.com/czytelny/backlog/releases/download/v1.8.0/Backlog-win32-ia32.zip)
+- [Linux x32 version](https://github.com/czytelny/backlog/releases/download/v1.8.0/Backlog-linux-ia32.tar.gz)
 
 ## Screenshot
 <p align="center">
-<img src="https://github.com/czytelny/backlog/raw/master/screenshot.png" width="400px">
+    <img src="https://github.com/czytelny/backlog/raw/master/backlog_screenshot_1.png" width="400px">
+    <img src="https://github.com/czytelny/backlog/raw/master/backlog_screenshot_2.png" width="400px">
+    <img src="https://github.com/czytelny/backlog/raw/master/backlog_screenshot_3.png" width="400px">
+    <img src="https://github.com/czytelny/backlog/raw/master/backlog_screenshot_4.png" width="400px">
 </p>
+
+## Features
+- Organize your thoughts with items & boards. Use Markdown or plaintext for adding new items
+- Move items to other board or drag&drop for reordering within current one
+- Filter board items by text
+- Light/dark theme
+- Simple progress bar
 
 ## Update
 When new version is available just download it, unzip and enjoy. No additional action is required. All your boards and items will be available.
 
-## Versions
-### 1.7.0
-> A lot of significant changes and improvements this time. Most of them according to your comments. Thank you and enjoy! 👍
+## Change log
+### 1.8.0
+> This is another huge update with number of significant improvements/features added.
+> Hopefully it will stay for a longer.
 
-# Changes/Improvements
-- **feature request**: changed items drag&drop behaviour (to move items user has dedicated handler on the left)
-- **feature request**: after clicking in text item is not marked as done now (user has to use checkbox directly)
-- **feature request**: context menu for copy/cut/paste
-- **feature request**: action button with: move to top/bottom of the board, and "move to another boad"
-- **feature request**: setting added: board list fixed on the top of the screen
-- **feature request**: saving board items as a JSON file (in settings modal)
-- **feature request**: added Markdown mode (to turn on in settings modal)
-- removed support for HTML tags (it wasn't the best idea to add it). now user has plaintext/markdown mode
-- added information about database location in settings modal
-- changed reordering tabs feature - now it requires full app restart + added dedicated handler for drag&drop on the left
-- dependency bump of electron (v2.0.2), iview, vue and others
+### Features & improvements
+- dark theme
+- `search items` feature
+- backup to file feature
+- new top bar unified acroos OS
+- modals can be closed by pressing ESC or click outside modal area
+- scroolbar ui improved
+- number of keyboard shortcuts added
+- check for updates on app startup
+- other minor ui improvements...
 
-
-
-# Bug fixes
-- fix bug which causes data lost in some cases - related to settings modal
-- fix bug related to freezing ui when adding first item (on some systems)
+### Bug fixes
+- fixed issue which makes impossible to move some item to newly created board
+- fix bug when specific items can't be edited nor deleted
+- fixed issue when items list was not fully visible (last item was truncated)
 
 ## Why I've wrote it ?
 When programming I often have a number of ideas related to possible improvements for the future or a cool new project. Most often, it's just one sentence or a couple of words - just a draft of an idea to expand in the future.
