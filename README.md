@@ -28,7 +28,7 @@ No installation required. Just unzip archive and run executable
 - Light/dark theme
 - Simple progress bar
 
-## Screenshot
+## Screenshots
 <p align="center">
     <img src="https://github.com/czytelny/backlog/raw/master/backlog_screenshot_1.png" width="400px">
     <img src="https://github.com/czytelny/backlog/raw/master/backlog_screenshot_2.png" width="400px">
