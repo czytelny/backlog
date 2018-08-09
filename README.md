@@ -9,7 +9,7 @@
 </p>
 
 # Official website
-[www.backlog.cloud](www.backlog.cloud)
+[www.backlog.cloud](http://www.backlog.cloud)
 
 # Download
 No installation required. Just unzip archive and run executable
