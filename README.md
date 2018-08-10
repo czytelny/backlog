@@ -27,6 +27,7 @@ No installation required. Just unzip archive and run executable
 - Filter board items by text
 - Light/dark theme
 - Simple progress bar
+- Keyboard shortcuts [full list available here](http://www.backlog.cloud/help)
 
 ## Screenshots
 <p align="center">
