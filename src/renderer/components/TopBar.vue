@@ -4,11 +4,11 @@
     <div class="actionBtn-container">
       <div class="minimize actionBtn"
            @click="minimize">
-        <Icon type="ios-minus-outline"></Icon>
+        <i class="el-icon-minus"></i>
       </div>
       <div class="close actionBtn"
            @click="closeApp">
-        <Icon type="ios-close-outline"></Icon>
+        <i class="el-icon-close"></i>
       </div>
     </div>
   </div>
@@ -39,33 +39,32 @@
   .topBar {
     -webkit-app-region: drag;
     background-color: #ffffff;
-    height: 30px;
     position: fixed;
     z-index: -1;
-    top: 1px;
-    left: 1px;
+    top: 0;
+    left: 0;
     width: 100%;
-    padding: 5px;
+    padding: 8px;
     -webkit-transition: all .3s;
     transition: all .3s;
     user-select: none;
     text-align: center;
-    font-size: 1.1em;
-    border-bottom: 1px solid #f9f9f9;
+    font-size: 1em;
+    border-bottom: 1px solid #c7c7c7;
   }
 
   .actionBtn-container {
     position: fixed;
-    right: 0;
-    top: 0;
+    right: 4px;
+    top: 2px;
     display: flex;
   }
 
   .actionBtn {
     -webkit-app-region: no-drag;
     font-size: 16px;
-    width: 25px;
-    height: 30px;
+    width: 28px;
+    height: 32px;
     text-align: center;
     opacity: .4;
     -webkit-transition: all .3s;
@@ -79,7 +78,7 @@
   }
 
   .actionBtn.close:hover {
-    color: #c5281b;
+    color: #ed4014
   }
 
 </style>

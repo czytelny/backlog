@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import store from './store'
-import iView from 'iview'
-import 'iview/dist/styles/iview.css'
 import App from './App'
 import Vuebar from 'vuebar'
 import VueShortkey from 'vue-shortkey'
+import './theme/index.css'
+import { Button, Input } from 'element-ui'
 
 require('autolink-js')
 
@@ -21,9 +21,11 @@ Object.defineProperties(Vue.prototype, {
   }
 })
 
-Vue.use(iView)
 Vue.use(Vuebar)
 Vue.use(VueShortkey)
+
+Vue.use(Button)
+Vue.use(Input)
 
 Vue.directive('focus', {
   componentUpdated: function (el) {
