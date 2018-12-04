@@ -55,6 +55,19 @@ let rendererConfig = {
         ]
       },
       {
+        test: /\.less$/,
+        use: [
+          'vue-style-loader',
+          'css-loader',
+          {
+            loader: 'less-loader',
+            options: {
+              javascriptEnabled: true
+            }
+          }
+        ],
+      },
+      {
         test: /\.html$/,
         use: 'vue-html-loader'
       },

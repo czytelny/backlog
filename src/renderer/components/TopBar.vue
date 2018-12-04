@@ -4,11 +4,11 @@
     <div class="actionBtn-container">
       <div class="minimize actionBtn"
            @click="minimize">
-        <i class="el-icon-minus"></i>
+        <Icon type="ios-remove" size="24"/>
       </div>
       <div class="close actionBtn"
            @click="closeApp">
-        <i class="el-icon-close"></i>
+        <Icon type="ios-close" size="24"/>
       </div>
     </div>
   </div>
@@ -40,7 +40,6 @@
     -webkit-app-region: drag;
     background-color: #ffffff;
     position: fixed;
-    z-index: -1;
     top: 0;
     left: 0;
     width: 100%;
@@ -50,7 +49,7 @@
     user-select: none;
     text-align: center;
     font-size: 1em;
-    border-bottom: 1px solid #c7c7c7;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.11);
   }
 
   .actionBtn-container {

@@ -1,6 +1,6 @@
 <template>
   <div class="board-content-container">
-  board content
+    <Button type="primary">Primary</Button>
   </div>
 </template>
 

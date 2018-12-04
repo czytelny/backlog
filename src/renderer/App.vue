@@ -31,14 +31,6 @@
   @import url('~animate.css');
 
 
-  @font-face {
-    font-family: 'Source Code Pro';
-    src: url('theme/fonts/SourceSansPro-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-  }
-
-
   * {
     box-sizing: border-box;
     margin: 0;
@@ -46,18 +38,15 @@
   }
 
   html {
-    border: 1px solid rgba(90, 99, 118, 0.13);
   }
 
   body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Source Code Pro', sans-serif;
+    font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
     background-color: #ffffff;
     padding: 10px 0;
     margin-top: 26px;
     overflow: hidden;
 
-    #app {
-    }
   }
 
 </style>

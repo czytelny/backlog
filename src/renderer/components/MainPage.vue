@@ -30,5 +30,6 @@
 <style scoped>
   .main-page{
     display: flex;
+    margin-top: 32px;
   }
 </style>
