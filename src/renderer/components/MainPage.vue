@@ -1,8 +1,10 @@
 <template>
   <div class="main-page">
     <BoardsMenu></BoardsMenu>
-    <router-view></router-view>
-    <new-board-modal @newBoardSubmitted="loadBoards"></new-board-modal>
+    <transition name="fade" mode="out-in" :duration="100">
+      <router-view :key="activeBoardId"></router-view>
+    </transition>
+    <new-board-modal></new-board-modal>
   </div>
 </template>
 
@@ -25,7 +27,13 @@
       // this.importOldEntries()
       this.loadBoards()
       this.$store.dispatch('fetchActiveBoard')
+      this.$router.push({ path: `/board/${this.activeBoardId}` })
       this.$nextTick().then(() => this.$bus.$emit('appInit', this.selectedTab))
+    },
+    computed: {
+      activeBoardId () {
+        return this.$store.state.boards.activeBoard
+      }
     }
   }
 </script>

@@ -50,6 +50,7 @@
     text-align: center;
     font-size: 1em;
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.11);
+    z-index: 100;
   }
 
   .actionBtn-container {

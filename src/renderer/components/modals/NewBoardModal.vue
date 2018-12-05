@@ -56,10 +56,10 @@
         this.$store
           .dispatch('saveNewBoard', this.newBoardName.trim())
           .then((savedBoardId) => {
-            this.$nextTick(() => this.$bus.$emit('boardAdded', savedBoardId))
             this.closeModal()
             this.$Message.success('Board added')
-            this.$emit('newBoardSubmitted')
+            this.$store.dispatch('fetchBoards')
+            this.$router.push({ path: `/board/${savedBoardId}` })
           })
       },
       closeModal () {
