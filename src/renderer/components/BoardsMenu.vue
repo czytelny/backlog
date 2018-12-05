@@ -1,9 +1,6 @@
 <template>
   <div class="board-menu-container">
-    <div class="boards-title-row">
-      BOARDS
-      <Icon type="ios-add" size="18" style="padding-bottom:2px; float:right; cursor:pointer;"/>
-    </div>
+    <boards-title-row></boards-title-row>
     <board-row v-for="board in boards"
                :boardId="board.id"
                :label="board.label"
@@ -14,10 +11,11 @@
 
 <script>
   import BoardRow from './BoardRow'
+  import BoardsTitleRow from './BoardsTitleRow'
 
   export default {
     name: 'BoardsMenu',
-    components: {BoardRow},
+    components: {BoardsTitleRow, BoardRow},
     computed: {
       boards () {
         return this.$store.state.boards.boardsList

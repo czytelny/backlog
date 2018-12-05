@@ -3,7 +3,7 @@ import store from './store'
 import App from './App'
 import Vuebar from 'vuebar'
 import VueShortkey from 'vue-shortkey'
-import {Button, Icon} from 'iview'
+import {Button, Icon, Tooltip, Modal, Input, Message} from 'iview'
 import './theme/default-theme.less'
 
 require('autolink-js')
@@ -25,6 +25,10 @@ Vue.use(Vuebar)
 Vue.use(VueShortkey)
 Vue.component('Button', Button)
 Vue.component('Icon', Icon)
+Vue.component('Tooltip', Tooltip)
+Vue.component('Modal', Modal)
+Vue.component('Input', Input)
+Vue.prototype.$Message = Message
 
 Vue.directive('focus', {
   componentUpdated: function (el) {

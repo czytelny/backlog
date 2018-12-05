@@ -1,16 +1,19 @@
 <template>
   <div class="main-page">
-      <BoardsMenu></BoardsMenu>
+    <BoardsMenu></BoardsMenu>
     <BoardContent></BoardContent>
+    <new-board-modal @newBoardSubmitted="loadBoards"></new-board-modal>
   </div>
 </template>
 
 <script>
   import BoardsMenu from './BoardsMenu'
   import BoardContent from './BoardContent'
+  import NewBoardModal from './modals/NewBoardModal'
+
   export default {
     name: 'MainPage',
-    components: {BoardContent, BoardsMenu},
+    components: {NewBoardModal, BoardContent, BoardsMenu},
     methods: {
       loadBoards () {
         this.$store.dispatch('fetchBoards')
@@ -28,7 +31,7 @@
 </script>
 
 <style scoped>
-  .main-page{
+  .main-page {
     display: flex;
     margin-top: 32px;
   }
