@@ -67,6 +67,12 @@ export default {
       .get('boards')
       .cloneDeep()
       .value()
+      .map((board) => {
+        return {
+          id: board.id,
+          label: board.label
+        }
+      })
   },
   addItemToEnd (boardId, text, created, isDone) {
     return db
@@ -153,6 +159,14 @@ export default {
       .getById(boardId)
       .cloneDeep()
       .value()
+  },
+  getBoardItems (boardId) {
+    return db
+      .get('boards')
+      .getById(boardId)
+      .cloneDeep()
+      .value()
+      .items
   },
   switchShowDone (boardId, value) {
     return db

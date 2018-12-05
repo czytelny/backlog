@@ -5,6 +5,7 @@ import itemsRepository from '@/repositories/itemsRepository'
 const state = {
   activeBoard: 'default',
   boardsList: [],
+  boardItems: [],
   newItem: '',
   isSubmittingNewItem: false,
   findItem: {
@@ -21,6 +22,9 @@ const mutations = {
     if (boardIndex >= 0) {
       Vue.set(state.boardsList, boardIndex, board)
     }
+  },
+  SET_BOARD_ITEMS (state, items) {
+    state.boardItems = items
   },
   SET_ACTIVE_BOARD (state, boardId) {
     state.activeBoard = boardId
@@ -49,7 +53,7 @@ const actions = {
     commit('SET_BOARDS', boardsRepository.getList())
   },
   fetchBoard ({commit}, boardId) {
-    commit('SET_BOARD', boardsRepository.getBoardById(boardId))
+    commit('SET_BOARD_ITEMS', boardsRepository.getBoardItems(boardId))
   },
   fetchActiveBoard ({commit}) {
     commit('SET_ACTIVE_BOARD', boardsRepository.getActiveBoard())

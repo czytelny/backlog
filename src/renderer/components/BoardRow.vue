@@ -1,9 +1,11 @@
 <template>
-  <div class="board-row"
-       :class="{'active': isBoardActive}"
-       @click="saveActiveBoard">
-    <router-link :to="'/board/'+boardId">{{label}}</router-link>
-  </div>
+  <router-link :to="'/board/'+boardId">
+    <div class="board-row"
+         :class="{'active': isBoardActive}"
+         @click="saveActiveBoard">
+      {{label}}
+    </div>
+  </router-link>
 </template>
 
 <script>
@@ -34,18 +36,18 @@
 <style scoped>
   a {
     color: inherit;
-    transition: inherit ;
+    transition: inherit;
   }
 
   a:hover {
     color: inherit;
     -webkit-transition: inherit;
-    -moz-transition: inherit ;
-    -ms-transition: inherit ;
-    -o-transition: inherit ;
-    transition: inherit ;
+    -moz-transition: inherit;
+    -ms-transition: inherit;
+    -o-transition: inherit;
+    transition: inherit;
   }
-  
+
   .board-row {
     padding: 2px 16px;
     cursor: pointer;

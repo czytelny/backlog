@@ -1,7 +1,7 @@
 <template>
   <div class="main-page">
     <BoardsMenu></BoardsMenu>
-    <BoardContent></BoardContent>
+    <router-view></router-view>
     <new-board-modal @newBoardSubmitted="loadBoards"></new-board-modal>
   </div>
 </template>
