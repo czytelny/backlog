@@ -1,9 +1,11 @@
 import Vue from 'vue'
+import VueRouter from 'vue-router'
 import store from './store'
 import App from './App'
 import Vuebar from 'vuebar'
 import VueShortkey from 'vue-shortkey'
 import {Button, Icon, Tooltip, Modal, Input, Message} from 'iview'
+import BoardContent from './components/BoardContent.vue'
 import './theme/default-theme.less'
 
 require('autolink-js')
@@ -28,6 +30,7 @@ Vue.component('Icon', Icon)
 Vue.component('Tooltip', Tooltip)
 Vue.component('Modal', Modal)
 Vue.component('Input', Input)
+Vue.use(VueRouter)
 Vue.prototype.$Message = Message
 
 Vue.directive('focus', {
@@ -36,9 +39,18 @@ Vue.directive('focus', {
   }
 })
 
+const routes = [
+  {path: '/board/:boardId', component: BoardContent}
+]
+
+const router = new VueRouter({
+  routes // short for `routes: routes`
+})
+
 /* eslint-disable no-new */
 new Vue({
   components: {App},
   template: '<App/>',
-  store
+  store,
+  router
 }).$mount('#app')

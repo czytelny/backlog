@@ -22,6 +22,9 @@
 </script>
 
 <style scoped>
+  .boards-title-row {
+    user-select: none;
+  }
 
   .add-icon-container {
     float: right;
