@@ -1,9 +1,11 @@
 <template>
   <div class="board-menu-container">
+    <boards-actions-row></boards-actions-row>
     <boards-title-row></boards-title-row>
     <board-row v-for="board in boards"
                :boardId="board.id"
                :label="board.label"
+               :progress="board.progress"
                :key="board.id">
     </board-row>
   </div>
@@ -12,10 +14,11 @@
 <script>
   import BoardRow from './BoardRow'
   import BoardsTitleRow from './BoardsTitleRow'
+  import BoardsActionsRow from './BoardsActionsRow'
 
   export default {
     name: 'BoardsMenu',
-    components: {BoardsTitleRow, BoardRow},
+    components: {BoardsActionsRow, BoardsTitleRow, BoardRow},
     computed: {
       boards () {
         return this.$store.state.boards.boardsList

@@ -63,6 +63,18 @@ export default {
       .value()
   },
   getList () {
+    function doneItemsCount (boardItems) {
+      return boardItems.filter(item => item.isDone === true).length
+    }
+
+    function progressCount (board) {
+      const res = Math.round((doneItemsCount(board.items) / board.items.length) * 100)
+      if (isNaN(res)) {
+        return 0
+      }
+      return res
+    }
+
     return db
       .get('boards')
       .cloneDeep()
@@ -70,7 +82,8 @@ export default {
       .map((board) => {
         return {
           id: board.id,
-          label: board.label
+          label: board.label,
+          progress: progressCount(board)
         }
       })
   },
