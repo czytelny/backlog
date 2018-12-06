@@ -1,8 +1,9 @@
 <template>
-  <div>
+  <div class="board-row-container" >
     <router-link :to="'/board/'+boardId">
       <div class="board-row"
-           :class="{'active': isBoardActive}"
+           :class="{'active': isBoardActive,
+                    'isDragging': isDragging}"
            @click="saveActiveBoard">
         <span class="board-label-row">{{label}}</span>
         <span class="progress">{{progress}}%</span>
@@ -14,7 +15,7 @@
 <script>
   export default {
     name: 'BoardRow',
-    props: ['boardId', 'label', 'progress'],
+    props: ['boardId', 'label', 'progress', 'isDragging'],
     computed: {
       isBoardActive () {
         return this.$store.state.boards.activeBoard === this.boardId
@@ -65,23 +66,35 @@
   }
 
   .board-row:hover {
-    color: #fff;
-    text-shadow: 0 0 5px #D2DBDE;
+    color: #eaeaea;
 
     .progress {
       opacity: 1;
     }
   }
 
-  .board-label-row {
-  }
-
   .active {
     color: #fff;
-    text-shadow: 0 0 5px #D2DBDE;
+    text-shadow: 0 0 3px rgba(210, 219, 222, 0.51);
+    font-weight: bold;
+
+    .progress {
+      opacity: 1;
+    }
+  }
+
+  .board-row.isDragging{
+    text-shadow: none;
+    color:inherit;
   }
 
   .progress {
     opacity: .25;
   }
+
+  .board-row-container.sortable-chosen .board-row {
+    text-shadow: 0 0 5px #292929;
+    color: #e7e7e7;
+  }
+
 </style>

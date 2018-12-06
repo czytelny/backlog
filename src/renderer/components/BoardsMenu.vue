@@ -2,34 +2,68 @@
   <div class="board-menu-container">
     <boards-actions-row></boards-actions-row>
     <boards-title-row></boards-title-row>
-    <board-row v-for="board in boards"
-               :boardId="board.id"
-               :label="board.label"
-               :progress="board.progress"
-               :key="board.id">
-    </board-row>
+    <draggable :list="boards"
+               :options="{handle: '.board-row-container'}"
+               @change="boardsRearranged"
+               @start="draggingStarted"
+               @end="draggingEnded"
+    >
+      <transition-group name="board-list-transition">
+        <board-row v-for="board in boards"
+                   :isDragging="isDragging"
+                   :boardId="board.id"
+                   :label="board.label"
+                   :progress="board.progress"
+                   :key="board.id">
+        </board-row>
+      </transition-group>
+    </draggable>
   </div>
 </template>
 
 <script>
+  import draggable from 'vuedraggable'
+
   import BoardRow from './BoardRow'
   import BoardsTitleRow from './BoardsTitleRow'
   import BoardsActionsRow from './BoardsActionsRow'
 
   export default {
     name: 'BoardsMenu',
-    components: {BoardsActionsRow, BoardsTitleRow, BoardRow},
-    computed: {
-      boards () {
-        return this.$store.state.boards.boardsList
+    components: {BoardsActionsRow, BoardsTitleRow, BoardRow, draggable},
+    data () {
+      return {
+        localBoards: [],
+        isDragging: false
       }
+    },
+    computed: {
+      boards: {
+        get () {
+          return this.$store.state.boards.boardsList
+        }
+      }
+    },
+    methods: {
+      boardsRearranged ({moved}) {
+        this.$store.dispatch('changeBoardsOrder', moved)
+      },
+      draggingStarted () {
+        this.isDragging = true
+      },
+      draggingEnded () {
+        this.isDragging = false
+      }
+    },
+    created () {
+      this.localBoards = JSON.parse(JSON.stringify(this.$store.state.boards.boardsList))
     }
   }
 </script>
 
 <style scoped>
   .board-menu-container {
-    background: linear-gradient(to top, #1a1b20 0%,#2d3039 100%);
+    background: linear-gradient(to top, #1a1b20 0%, #2d3039 100%);
     height: 100vh;
     width: 20%;
     padding: 16px;
@@ -37,9 +71,9 @@
     color: #A1A1A1;
   }
 
-  .add-board-btn{
+  .add-board-btn {
     cursor: pointer;
-    float:right;
+    float: right;
   }
 
   .boards-title-row {
@@ -47,4 +81,15 @@
     font-weight: bold;
     margin: 16px 0;
   }
+
+  .sortable-ghost {
+    background-color: #4c4f61;
+    border: 1px solid #4c4f61;
+    border-radius: 4px;
+  }
+
+  .board-list-transition-move {
+    transition: transform .3s;
+  }
+
 </style>

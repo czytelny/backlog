@@ -87,6 +87,16 @@ export default {
         }
       })
   },
+  changeBoardsOrder (movedElement) {
+    const allBoards = db
+      .get('boards')
+      .cloneDeep()
+      .value()
+
+    const movedItem = allBoards.splice(movedElement.oldIndex, 1)[0]
+    allBoards.splice(movedElement.newIndex, 0, movedItem)
+    this.saveBoardsArray(allBoards)
+  },
   addItemToEnd (boardId, text, created, isDone) {
     return db
       .get('boards')

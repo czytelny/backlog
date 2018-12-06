@@ -71,6 +71,9 @@ const actions = {
     boardsRepository.saveBoardsArray(boardsArray)
     commit('SET_BOARDS', boardsRepository.getList())
   },
+  changeBoardsOrder ({commit}, moved) {
+    boardsRepository.changeBoardsOrder(moved)
+  },
   moveItemToBoard ({commit}, {fromBrd, toBrd, movingItemId}) {
     boardsRepository.moveItemToBoard(fromBrd, toBrd, movingItemId)
   },
