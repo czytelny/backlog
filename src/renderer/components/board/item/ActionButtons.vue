@@ -1,8 +1,7 @@
 <template>
   <span>
     <Dropdown @on-click="handleClick" :transfer="true">
-    <Button icon="android-more-vertical"
-            shape="circle"
+    <Button icon="md-more"
             size="small"
             type="dashed"
             tabindex="-1"

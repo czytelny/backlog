@@ -9,6 +9,7 @@
   import settingsRepository from '@/repositories/settingsRepository'
   import MainPage from './components/MainPage'
   import TopBar from './components/TopBar'
+  import './theme/default-theme.less'
 
   export default {
     name: 'backlog',
@@ -30,7 +31,6 @@
 <style lang="scss">
   @import url('~animate.css');
 
-
   * {
     box-sizing: border-box;
     margin: 0;
@@ -41,12 +41,8 @@
   }
 
   body {
-    font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
-    background-color: #ffffff;
-    padding: 10px 0;
-    margin-top: 26px;
+    background-color: #f4f4f4;
     overflow: hidden;
-
   }
 
 </style>

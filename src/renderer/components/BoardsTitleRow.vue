@@ -1,7 +1,7 @@
 <template>
   <div class="boards-title-row">
     BOARDS
-    <Tooltip content="Add New Board" class="add-icon-container">
+    <Tooltip content="Add New Board" class="add-icon-container" placement="right">
       <Icon type="ios-add"
             size="18"
             class="add-icon"

@@ -1,9 +1,9 @@
 <template>
     <div class="boards-actions-row">
-      <Tooltip content="Cloud Settings">
+      <Tooltip content="Cloud Settings" placement="right">
         <Icon type="ios-cloud" size="16"/>
       </Tooltip>
-      <Tooltip content="Application Settings">
+      <Tooltip content="Application Settings" placement="right">
         <Icon type="ios-build" size="16"/>
       </Tooltip>
     </div>
@@ -25,6 +25,10 @@
   i {
     padding-left: 8px;
     cursor: pointer;
+  }
+
+  i:hover {
+    color: #fff;
   }
 
 </style>

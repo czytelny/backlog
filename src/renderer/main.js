@@ -4,9 +4,8 @@ import store from './store'
 import App from './App'
 import Vuebar from 'vuebar'
 import VueShortkey from 'vue-shortkey'
-import {Button, Icon, Tooltip, Modal, Input, Message} from 'iview'
+import {Button, Icon, Tooltip, Modal, Input, Message, DropdownMenu, Dropdown, DropdownItem, Checkbox} from 'iview'
 import BoardContent from './components/BoardContent.vue'
-import './theme/default-theme.less'
 
 require('autolink-js')
 
@@ -30,6 +29,10 @@ Vue.component('Icon', Icon)
 Vue.component('Tooltip', Tooltip)
 Vue.component('Modal', Modal)
 Vue.component('Input', Input)
+Vue.component('Dropdown', Dropdown)
+Vue.component('DropdownMenu', DropdownMenu)
+Vue.component('DropdownItem', DropdownItem)
+Vue.component('Checkbox', Checkbox)
 Vue.use(VueRouter)
 Vue.prototype.$Message = Message
 
