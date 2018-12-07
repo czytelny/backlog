@@ -2,7 +2,6 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from './store'
 import App from './App'
-import Vuebar from 'vuebar'
 import VueShortkey from 'vue-shortkey'
 import {Button, Icon, Tooltip, Modal, Input, Message, DropdownMenu, Dropdown, DropdownItem, Checkbox} from 'iview'
 import BoardContent from './components/BoardContent.vue'
@@ -22,7 +21,6 @@ Object.defineProperties(Vue.prototype, {
   }
 })
 
-Vue.use(Vuebar)
 Vue.use(VueShortkey)
 Vue.component('Button', Button)
 Vue.component('Icon', Icon)

@@ -51,6 +51,7 @@
     font-size: 1em;
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.11);
     z-index: 100;
+    border:1px solid #e4e4e4;
   }
 
   .actionBtn-container {

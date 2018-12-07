@@ -42,11 +42,11 @@
     "markdown-it": "^8.4.2",
     "shortid": "^2.2.12",
     "sillyname": "^0.1.0",
+    "simplebar-vue": "^0.1.1",
     "vue": "^2.5.17",
     "vue-electron": "^1.0.6",
     "vue-router": "^3.0.2",
     "vue-shortkey": "^3.1.6",
-    "vuebar": "0.0.20",
     "vuedraggable": "^2.17.0",
     "vuex": "^3.0.1"
   },
