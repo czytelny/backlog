@@ -1,25 +1,26 @@
 <template>
-
-  <simplebar class="board-menu-container">
-    <boards-actions-row></boards-actions-row>
-    <boards-title-row></boards-title-row>
-    <draggable :list="boards"
-               :options="{handle: '.board-row-container'}"
-               @change="boardsRearranged"
-               @start="draggingStarted"
-               @end="draggingEnded"
-    >
-      <transition-group name="board-list-transition">
-        <board-row v-for="board in boards"
-                   :isDragging="isDragging"
-                   :boardId="board.id"
-                   :label="board.label"
-                   :progress="board.progress"
-                   :key="board.id">
-        </board-row>
-      </transition-group>
-    </draggable>
-  </simplebar>
+  <div class="root-container">
+    <simplebar class="board-menu">
+      <boards-actions-row></boards-actions-row>
+      <boards-title-row></boards-title-row>
+      <draggable :list="boards"
+                 :options="{handle: '.board-row-container'}"
+                 @change="boardsRearranged"
+                 @start="draggingStarted"
+                 @end="draggingEnded"
+      >
+        <transition-group name="board-list-transition">
+          <board-row v-for="board in boards"
+                     :isDragging="isDragging"
+                     :boardId="board.id"
+                     :label="board.label"
+                     :progress="board.progress"
+                     :key="board.id">
+          </board-row>
+        </transition-group>
+      </draggable>
+    </simplebar>
+  </div>
 </template>
 
 <script>
@@ -65,15 +66,25 @@
 </script>
 
 <style scoped>
-  .board-menu-container {
+  .root-container {
     background: linear-gradient(to top, #1a1b20 0%, #2d3039 100%);
     height: calc(100vh - 32px);
     width: 20%;
-    padding: 16px;
-    min-width: 250px;
+    min-width: 200px;
     color: #A1A1A1;
-    overflow-y: auto;
-    overflow-x: hidden;
+  }
+
+  .board-menu {
+    width: 100%;
+    padding: 16px;
+    transition: all .3s;
+  }
+
+  @media only screen and (min-width: 1024px) {
+    .board-menu {
+      padding-left:20%;
+    }
+
   }
 
   .add-board-btn {

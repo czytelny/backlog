@@ -20,9 +20,7 @@
       <h1>Great, all items are done!</h1>
     </div>
 
-    <div v-if="!filteredBoardItems.length && !isBoardItemsEmpty" class="info">
-      <h1>No results...</h1>
-    </div>
+
     <StatusBar :board-items="boardItems"></StatusBar>
 
     <draggable :list="boardItems"

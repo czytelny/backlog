@@ -1,9 +1,9 @@
 <template>
     <div class="boards-actions-row">
-      <Tooltip content="Cloud Settings" placement="right">
+      <Tooltip content="Cloud Settings" placement="right" :transfer="true">
         <Icon type="ios-cloud" size="16"/>
       </Tooltip>
-      <Tooltip content="Application Settings" placement="right">
+      <Tooltip content="Application Settings" placement="right" :transfer="true">
         <Icon type="ios-build" size="16"/>
       </Tooltip>
     </div>
