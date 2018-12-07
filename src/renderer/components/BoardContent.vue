@@ -74,10 +74,11 @@
 
 <style scoped>
   .board-content-container {
-    background-color: #f4f4f4;
+    background-color: #fcfcfc;
     padding: 16px;
     width: 80%;
     max-width: 960px;
+    border-right: 1px solid #cecece;
   }
 
   .info {
@@ -88,9 +89,6 @@
   }
 
   .items-container {
-    background-color: #ffffff;
-    box-shadow: 0 0 8px #dbdfd1;
-    padding: 16px;
   }
 
 </style>
