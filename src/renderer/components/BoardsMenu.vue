@@ -1,23 +1,25 @@
 <template>
-  <div class="board-menu-container">
-    <boards-actions-row></boards-actions-row>
-    <boards-title-row></boards-title-row>
-    <draggable :list="boards"
-               :options="{handle: '.board-row-container'}"
-               @change="boardsRearranged"
-               @start="draggingStarted"
-               @end="draggingEnded"
-    >
-      <transition-group name="board-list-transition">
-        <board-row v-for="board in boards"
-                   :isDragging="isDragging"
-                   :boardId="board.id"
-                   :label="board.label"
-                   :progress="board.progress"
-                   :key="board.id">
-        </board-row>
-      </transition-group>
-    </draggable>
+  <div v-bar>
+    <div class="board-menu-container">
+      <boards-actions-row></boards-actions-row>
+      <boards-title-row></boards-title-row>
+      <draggable :list="boards"
+                 :options="{handle: '.board-row-container'}"
+                 @change="boardsRearranged"
+                 @start="draggingStarted"
+                 @end="draggingEnded"
+      >
+        <transition-group name="board-list-transition">
+          <board-row v-for="board in boards"
+                     :isDragging="isDragging"
+                     :boardId="board.id"
+                     :label="board.label"
+                     :progress="board.progress"
+                     :key="board.id">
+          </board-row>
+        </transition-group>
+      </draggable>
+    </div>
   </div>
 </template>
 
@@ -64,11 +66,12 @@
 <style scoped>
   .board-menu-container {
     background: linear-gradient(to top, #1a1b20 0%, #2d3039 100%);
-    height: 100vh;
+    height: calc(100vh - 20px);
     width: 20%;
     padding: 16px;
     min-width: 250px;
     color: #A1A1A1;
+    overflow-y: auto;
   }
 
   .add-board-btn {
