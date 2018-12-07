@@ -5,6 +5,7 @@
       <router-view :key="activeBoardId"></router-view>
     </transition>
     <new-board-modal></new-board-modal>
+    <rename-board-modal></rename-board-modal>
   </div>
 </template>
 
@@ -12,10 +13,11 @@
   import BoardsMenu from './BoardsMenu'
   import BoardContent from './BoardContent'
   import NewBoardModal from './modals/NewBoardModal'
+  import RenameBoardModal from './modals/RenameBoardModal'
 
   export default {
     name: 'MainPage',
-    components: {NewBoardModal, BoardContent, BoardsMenu},
+    components: {RenameBoardModal, NewBoardModal, BoardContent, BoardsMenu},
     methods: {
       loadBoards () {
         this.$store.dispatch('fetchBoards')

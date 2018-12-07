@@ -197,6 +197,12 @@ export default {
       .updateById(boardId, {showDone: value})
       .write()
   },
+  renameBoard (boardId, value) {
+    return db
+      .get('boards')
+      .updateById(boardId, {label: value})
+      .write()
+  },
   importOldEntries () {
     if (storage.has('boards')) {
       storage.get('boards').forEach((board) => {

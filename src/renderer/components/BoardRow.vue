@@ -1,11 +1,14 @@
 <template>
-  <div class="board-row-container" >
+  <div class="board-row-container">
     <router-link :to="'/board/'+boardId">
       <div class="board-row"
            :class="{'active': isBoardActive,
                     'isDragging': isDragging}"
            @click="saveActiveBoard">
-        <span class="board-label-row">{{label}}</span>
+        <span class="board-label-row" @dblclick="showRenameModal">
+          {{label}}
+        </span>
+
         <span class="progress">{{progress}}%</span>
       </div>
     </router-link>
@@ -32,6 +35,12 @@
     methods: {
       saveActiveBoard () {
         this.activeBoard = this.boardId
+      },
+      showRenameModal () {
+        this.$store.dispatch('showRenameBoardModal', {
+          currentBoardName: this.label,
+          boardId: this.boardId
+        })
       }
     }
   }
@@ -83,9 +92,9 @@
     }
   }
 
-  .board-row.isDragging{
+  .board-row.isDragging {
     text-shadow: none;
-    color:inherit;
+    color: inherit;
   }
 
   .progress {

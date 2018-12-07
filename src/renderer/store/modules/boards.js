@@ -67,6 +67,9 @@ const actions = {
     commit('SET_ACTIVE_BOARD', savedBoard.id)
     return savedBoard.id
   },
+  renameBoard ({commit, rootState}, {boardId, newName}) {
+    boardsRepository.renameBoard(boardId, newName)
+  },
   saveBoardsArray ({commit}, boardsArray) {
     boardsRepository.saveBoardsArray(boardsArray)
     commit('SET_BOARDS', boardsRepository.getList())

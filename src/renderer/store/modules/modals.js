@@ -8,6 +8,11 @@ const state = {
     isVisible: false,
     name: ''
   },
+  renameBoard: {
+    isVisible: false,
+    name: '',
+    boardId: null
+  },
   settings: {
     isVisible: false,
     currentVersion: version,
@@ -33,8 +38,19 @@ const mutations = {
   HIDE_NEW_BOARD (state) {
     state.newBoard.isVisible = false
   },
+  SHOW_RENAME_BOARD (state, {currentBoardName, boardId}) {
+    state.renameBoard.isVisible = true
+    state.renameBoard.name = currentBoardName
+    state.renameBoard.boardId = boardId
+  },
+  HIDE_RENAME_BOARD (state) {
+    state.renameBoard.isVisible = false
+  },
   SET_NEW_BOARD_NAME (state, name) {
     state.newBoard.name = name
+  },
+  SET_RENAMED_BOARD_NAME (state, name) {
+    state.renameBoard.name = name
   },
   SHOW_SETTINGS (state) {
     state.settings.isVisible = true
@@ -81,6 +97,12 @@ const actions = {
   hideNewBoardModal ({commit}) {
     commit('HIDE_NEW_BOARD')
   },
+  showRenameBoardModal ({commit}, {currentBoardName, boardId}) {
+    commit('SHOW_RENAME_BOARD', {currentBoardName, boardId})
+  },
+  hideRenameBoardModal ({commit}) {
+    commit('HIDE_RENAME_BOARD')
+  },
   showSettingsModal ({commit}) {
     commit('SHOW_SETTINGS')
   },
@@ -118,6 +140,9 @@ const actions = {
   },
   resetNewBoardName ({commit}) {
     commit('SET_NEW_BOARD_NAME', '')
+  },
+  setRenamedBoardName ({commit}, val) {
+    commit('SET_RENAMED_BOARD_NAME', val)
   }
 }
 
