@@ -18,44 +18,45 @@
       @keyup.esc.native="saveItem"
       @blur.native="saveItem"
       autofocus="autofocus"
-      class="ivu-input draftText animated fadeIn"
+      class="ivu-input draftText animated"
+      :class="{'slideInDown' : isEditing}"
     >
     </textarea-autosize>
 
-    <div v-if="isEditing" class="edit-btns">
-      <Button type="primary"
-              @click="turnOffEditing"
-      >
-        OK
-      </Button>
-    </div>
+    <Button type="primary"
+            v-if="isEditing"
+            class="ok-edit-btns"
+            @click="turnOffEditing"
+    >
+      OK
+    </Button>
 
 
-    <div class="item-div" v-else>
-      <Checkbox :value="isDone"
-                @on-change="changeIsDone">
-      </Checkbox>
-      <span class="item-text"
-            v-html="textWithLink"
-            @click="handleLinkClick"
-            @dblclick="editItem"
-      >
+  <div class="item-div" v-else>
+    <Checkbox :value="isDone"
+              @on-change="changeIsDone">
+    </Checkbox>
+    <span class="item-text"
+          v-html="textWithLink"
+          @click="handleLinkClick"
+          @dblclick="editItem"
+    >
       </span>
-      <Icon type="ios-create"
-            class="edit-icon"
-            @click="editItem"
-            v-if="!isEditing"
-            size="16"/>
+    <Icon type="ios-create"
+          class="edit-icon"
+          @click="editItem"
+          v-if="!isEditing"
+          size="16"/>
 
-      <span v-if="showDate" class="creationDate">{{created | simpleDate}}</span>
-    </div>
-    <!--<ActionButtons @remove="removeItem"-->
-    <!--@moveToTop="moveItemToTop"-->
-    <!--@moveToBottom="moveItemToBottom"-->
-    <!--@showMoveToBoardModal="showMoveToBoardModal"-->
-    <!--:boardId="boardId"-->
-    <!--&gt;-->
-    <!--</ActionButtons>-->
+    <span v-if="showDate" class="creationDate">{{created | simpleDate}}</span>
+  </div>
+  <!--<ActionButtons @remove="removeItem"-->
+  <!--@moveToTop="moveItemToTop"-->
+  <!--@moveToBottom="moveItemToBottom"-->
+  <!--@showMoveToBoardModal="showMoveToBoardModal"-->
+  <!--:boardId="boardId"-->
+  <!--&gt;-->
+  <!--</ActionButtons>-->
   </div>
 </template>
 
@@ -218,9 +219,10 @@
     padding-bottom: 5px;
   }
 
-  .edit-btns {
-    margin-left: 25px;
+  .ok-edit-btns {
+    margin-left: 23px;
     margin-top: 8px;
+    animation-duration: .3s;
   }
 
   .edit-icon {
@@ -241,7 +243,8 @@
   .creationDate {
     position: absolute;
     font-size: .7em;
-    right: 0;
+    color: #979797;
+    right: 16px;
     bottom: 0;
     opacity: .8;
   }
@@ -284,7 +287,6 @@
     margin-top: 12px;
     padding-left: 5px;
     font-size: 1.3em;
-    transition: all .7s;
     cursor: pointer;
     line-height: 16px;
     align-self: flex-start;
@@ -299,6 +301,7 @@
     margin-left: 25px;
     transition: all .3s;
     width: 90%;
+    animation-duration: .3s;
   }
 
   .item a {

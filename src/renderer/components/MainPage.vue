@@ -1,9 +1,7 @@
 <template>
   <div class="main-page">
     <BoardsMenu></BoardsMenu>
-    <transition name="fade" mode="out-in" :duration="50">
-      <router-view :key="activeBoardId"></router-view>
-    </transition>
+    <router-view :key="activeBoardId"></router-view>
     <new-board-modal></new-board-modal>
     <rename-board-modal></rename-board-modal>
     <input style="display: none;"
