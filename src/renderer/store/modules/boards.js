@@ -27,7 +27,8 @@ const mutations = {
     state.boardItems = items
   },
   SET_ACTIVE_BOARD (state, boardId) {
-    state.activeBoard = boardId
+    const activeBoard = state.boardsList.find((board) => board.id === boardId)
+    state.activeBoard = activeBoard
   },
   SWITCH_SHOW_DONE (state, {boardId, showDone}) {
     const board = state.boardsList.find((board) => board.id === boardId)
@@ -52,7 +53,7 @@ const actions = {
   fetchBoards ({commit}) {
     commit('SET_BOARDS', boardsRepository.getList())
   },
-  fetchBoard ({commit}, boardId) {
+  fetchBoardItems ({commit}, boardId) {
     commit('SET_BOARD_ITEMS', boardsRepository.getBoardItems(boardId))
   },
   fetchActiveBoard ({commit}) {
@@ -94,11 +95,13 @@ const actions = {
   setIsSubmittingNewItem ({commit}, val) {
     commit('SET_IS_SUBMITTING_NEW_ITEM', val)
   },
-  addItemToBegin ({commit}, {boardId, newItem}) {
-    boardsRepository.addItemToBegin(boardId, newItem)
-  },
-  addItemToEnd ({commit}, {boardId, newItem}) {
-    boardsRepository.addItemToEnd(boardId, newItem)
+  addItem ({commit, state}, {boardId, newItem}) {
+    const activeBoard = state.boardsList.find((board) => board.id === boardId)
+    if (activeBoard.prependNewItem === true) {
+      boardsRepository.addItemToBegin(boardId, newItem)
+    } else {
+      boardsRepository.addItemToEnd(boardId, newItem)
+    }
   },
   moveItemToBottom ({commit}, {boardId, itemId}) {
     boardsRepository.moveItemToBottom(boardId, itemId)

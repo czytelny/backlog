@@ -30,7 +30,7 @@
       switchShowDone () {
         this.$store.dispatch('switchShowDone', {boardId: this.boardId, showDone: !this.showDone})
           .then(() => {
-            this.$store.dispatch('fetchBoard', this.boardId)
+            this.$store.dispatch('fetchBoardItems', this.boardId)
           })
       }
     }

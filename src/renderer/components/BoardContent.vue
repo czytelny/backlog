@@ -14,10 +14,7 @@
     </div>
 
     <div class="new-item-input">
-      <NewItemInput ref="newItemInput"
-                    :boardId="1"
-                    :prependNewItem="false"
-      />
+      <NewItemInput/>
     </div>
 
     <StatusBar :board-items="boardItems" v-if="!isBoardItemsEmpty"></StatusBar>
@@ -54,10 +51,10 @@
       simplebar
     },
     created () {
-      this.$store.dispatch('fetchBoard', this.boardId)
+      this.$store.dispatch('fetchBoardItems', this.boardId)
     },
     beforeRouteUpdate (to, from, next) {
-      this.$store.dispatch('fetchBoard', to.params.boardId)
+      this.$store.dispatch('fetchBoardItems', to.params.boardId)
       next()
     },
     computed: {
@@ -113,7 +110,9 @@
 
   .items-container {
     overflow-y: auto;
-    height: 80vh;
+    height: calc(100vh - 150px);
+    /*box-shadow: inset 0px -32px 20px -18px rgb(146, 143, 143)*/
+    /*box-shadow: 0 1px 4px rgba(0, 0, 0, 0.27), 0 0 40px rgba(0, 0, 0, 0.06) inset*/
   }
 
 </style>

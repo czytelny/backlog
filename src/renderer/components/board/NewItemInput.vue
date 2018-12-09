@@ -4,9 +4,8 @@
       <span class="input-form">
         <input ref="mainInput"
                :id="'newItem-'+boardId"
-               :autofocus="true"
                v-model="newItem"
-               placeholder="Type and hit Enter"
+               placeholder="Add New Item..."
                @on-enter="submitNewItem"
                @on-click="submitNewItem"
                v-shortkey="{win:['ctrl', 'n'],mac:['meta', 'n']}" @shortkey="inputFocus()"
@@ -33,11 +32,17 @@
 
   export default {
     name: 'NewItemInput',
-    props: ['boardId', 'prependNewItem'],
+    props: [],
     components: {
       'i-switch': Switch
     },
+    created () {
+      this.focusOnInput()
+    },
     computed: {
+      boardId () {
+        return this.$route.params.boardId
+      },
       newItem: {
         get () {
           return this.$store.state.boards.newItem
@@ -54,51 +59,55 @@
           this.$store.dispatch('setIsSubmittingNewItem', val)
         }
       },
-      activeBoardId () {
-        return this.$store.state.boards.activeBoard
+      prependNewItem () {
+        return this.$store.state.boards.activeBoard.prependNewItem
       }
     },
     methods: {
       focusOnInput () {
         const vm = this
         setTimeout(() => {
-          if (vm.$refs['newItemInput'].$refs['mainInput']) {
-            vm.$refs['newItemInput'].$refs['mainInput'].focus()
-          }
+          vm.$refs['mainInput'].focus()
         }, 250)
-      }
-    },
-    inputFocus () {
-      document.getElementById(`newItem-${this.activeBoardId}`).focus()
-    },
-    prependNewItemChange (val) {
-      this.$store.dispatch('switchPrependNewItem', {boardId: this.boardId, prependNewItem: val})
-        .then(() => {
-          this.$store.dispatch('fetchBoard', this.boardId)
+      },
+      prependNewItemChange (val) {
+        this.$store.dispatch('switchPrependNewItem', {
+          boardId: this.boardId,
+          prependNewItem: val
+        }).then(() => {
           this.$emit('prependNewItemSwitched')
+          this.focusOnInput()
         })
-    },
-    submitNewItem () {
-      if (this.newItem.trim().length === 0) {
+      },
+      submitNewItem () {
+        if (this.newItem.trim().length === 0) {
+          this.newItem = ''
+          return
+        }
+        this.isSubmittingNewItem = true
+        this.$store.dispatch('addItem', {boardId: this.boardId, newItem: this.newItem})
         this.newItem = ''
-        return
+        this.$Message.success('Item added')
+        this.$store.dispatch('fetchBoardItems', this.boardId)
+        this.$nextTick(() => {
+          this.isSubmittingNewItem = false
+        })
       }
-      this.isSubmittingNewItem = true
-      if (this.prependNewItem) {
-        this.$store.dispatch('addItemToBegin', {boardId: this.boardId, newItem: this.newItem})
-      } else {
-        this.$store.dispatch('addItemToEnd', {boardId: this.boardId, newItem: this.newItem})
-      }
-      this.newItem = ''
-      this.$Message.success('Item added')
-      this.$store.dispatch('fetchBoard', this.boardId)
-      this.$nextTick(() => {
-        this.isSubmittingNewItem = false
-      })
     }
   }
 </script>
 
 <style scoped>
+  .input-row {
+    display: flex;
+    align-items: center;
+  }
 
+  .input-form {
+    flex: 1
+  }
+
+  .input-switch {
+    flex: 0;
+  }
 </style>

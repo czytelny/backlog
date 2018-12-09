@@ -206,16 +206,5 @@
     transform: translateX(-100%);
   }
 
-  .input-row {
-    display: flex;
-    align-items: center;
-  }
 
-  .input-form {
-    flex: 1
-  }
-
-  .input-switch {
-    flex: 0;
-  }
 </style>

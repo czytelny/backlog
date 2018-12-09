@@ -62,7 +62,7 @@
     },
     computed: {
       activeBoardId () {
-        return this.$store.state.boards.activeBoard
+        return this.$store.state.boards.activeBoard.id
       }
     }
   }
