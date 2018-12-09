@@ -12,19 +12,28 @@
     <div v-if="!filteredBoardItems.length && !isBoardItemsEmpty" class="info">
       <h1>No results...</h1>
     </div>
+
+    <div class="new-item-input">
+      <NewItemInput ref="newItemInput"
+                    :boardId="1"
+                    :prependNewItem="false"
+      />
+    </div>
+
     <StatusBar :board-items="boardItems" v-if="!isBoardItemsEmpty"></StatusBar>
 
-
     <div class="items-container" v-if="!isBoardItemsEmpty">
-      <board-item v-for="item in boardItems"
-                  :key="item.id"
-                  :itemId="item.id"
-                  :isDone="item.isDone"
-                  :text="item.text"
-                  :created="item.created"
-                  :boardId="boardId"
-      >
-      </board-item>
+      <simplebar>
+        <board-item v-for="item in boardItems"
+                    :key="item.id"
+                    :itemId="item.id"
+                    :isDone="item.isDone"
+                    :text="item.text"
+                    :created="item.created"
+                    :boardId="boardId"
+        >
+        </board-item>
+      </simplebar>
     </div>
   </div>
 </template>
@@ -32,12 +41,17 @@
 <script>
   import BoardItem from '@/components/board/item/BoardItem.vue'
   import StatusBar from '@/components/board/StatusBar'
+  import NewItemInput from '@/components/board/NewItemInput'
+  import simplebar from 'simplebar-vue'
+  import 'simplebar/dist/simplebar.min.css'
 
   export default {
     name: 'BoardContent',
     components: {
       BoardItem,
-      StatusBar
+      StatusBar,
+      NewItemInput,
+      simplebar
     },
     created () {
       this.$store.dispatch('fetchBoard', this.boardId)
@@ -88,7 +102,18 @@
     padding: 20px 0;
   }
 
+  .new-item-input {
+    background-color: #fff;
+    padding: 15px;
+    width: 100%;
+    margin-top: -16px;
+    margin-bottom: 16px;
+    box-shadow: 0 0 5px #e2e2e2;
+  }
+
   .items-container {
+    overflow-y: auto;
+    height: 80vh;
   }
 
 </style>
