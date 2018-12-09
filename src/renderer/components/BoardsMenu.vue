@@ -10,7 +10,8 @@
                  @end="draggingEnded"
       >
         <transition-group name="board-list-transition">
-          <board-row v-for="board in boards"
+          <board-row v-for="(board, $index) in boards"
+                     :data-index="$index"
                      :isDragging="isDragging"
                      :boardId="board.id"
                      :label="board.label"

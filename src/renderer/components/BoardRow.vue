@@ -2,8 +2,7 @@
   <div class="board-row-container">
     <router-link :to="'/board/'+boardId">
       <div class="board-row"
-           :class="{'active': isBoardActive,
-                    'isDragging': isDragging}"
+           :class="{'isDragging': isDragging}"
            @click="saveActiveBoard">
         <span class="board-label-row" @dblclick="showRenameModal">
           {{label}}
@@ -20,9 +19,6 @@
     name: 'BoardRow',
     props: ['boardId', 'label', 'progress', 'isDragging'],
     computed: {
-      isBoardActive () {
-        return this.$store.state.boards.activeBoard === this.boardId
-      },
       activeBoard: {
         set (value) {
           this.$store.dispatch('setActiveBoard', value)
@@ -82,7 +78,7 @@
     }
   }
 
-  .active {
+  a.router-link-active {
     color: #fff;
     text-shadow: 0 0 3px rgba(210, 219, 222, 0.51);
     font-weight: bold;
