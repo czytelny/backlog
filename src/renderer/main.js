@@ -5,6 +5,7 @@ import App from './App'
 import VueShortkey from 'vue-shortkey'
 import {Button, Icon, Tooltip, Modal, Input, Message, DropdownMenu, Dropdown, DropdownItem, Checkbox} from 'iview'
 import BoardContent from './components/BoardContent.vue'
+import VueTextareaAutosize from 'vue-textarea-autosize'
 
 require('autolink-js')
 
@@ -22,6 +23,7 @@ Object.defineProperties(Vue.prototype, {
 })
 
 Vue.use(VueShortkey)
+Vue.use(VueTextareaAutosize)
 Vue.component('Button', Button)
 Vue.component('Icon', Icon)
 Vue.component('Tooltip', Tooltip)

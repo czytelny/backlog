@@ -7,23 +7,30 @@
     <!--&gt;</Icon>-->
     <!--</div>-->
 
-    <!--<input v-if="isEditing"
-           type="text"
-           v-model="draftText"
-           ref="editableItem"
-           @keyup.enter="saveItem"
-           v-on:blur="saveItem"
-           class="draftText animated fadeIn">-->
-    <Input
+    <textarea-autosize
       v-if="isEditing"
       v-model="draftText"
-      type="textarea"
-      el-ref="editableItem"
-      :autosize="true"
-      :autofocus="true"
-      @keyup.enter="saveItem"
-      @on-blur="saveItem"
-      placeholder="Enter something..."/>
+      ref="inputEdit"
+      autocomplete="off"
+      spellcheck="false"
+      placeholder="Enter something..."
+      rows="1"
+      @keyup.esc.native="saveItem"
+      @blur.native="saveItem"
+      autofocus="autofocus"
+      class="ivu-input draftText animated fadeIn"
+    >
+    </textarea-autosize>
+
+    <div v-if="isEditing" class="edit-btns">
+      <Button type="primary"
+              @click="turnOffEditing"
+      >
+        OK
+      </Button>
+    </div>
+
+
     <div class="item-div" v-else>
       <Checkbox :value="isDone"
                 @on-change="changeIsDone">
@@ -33,8 +40,13 @@
             @click="handleLinkClick"
             @dblclick="editItem"
       >
-
       </span>
+      <Icon type="ios-create"
+            class="edit-icon"
+            @click="editItem"
+            v-if="!isEditing"
+            size="16"/>
+
       <span v-if="showDate" class="creationDate">{{created | simpleDate}}</span>
     </div>
     <!--<ActionButtons @remove="removeItem"-->
@@ -82,6 +94,7 @@
       },
       editItem () {
         this.isEditing = true
+        this.$nextTick().then(() => this.$refs.inputEdit.$el.focus())
       },
       turnOffEditing () {
         this.isEditing = false
@@ -202,9 +215,27 @@
     border-bottom: 1px solid #f0f0f0;
     position: relative;
     min-height: 40px;
-    display: flex;
-    justify-content: space-between;
     padding-bottom: 5px;
+  }
+
+  .edit-btns {
+    margin-left: 25px;
+    margin-top: 8px;
+  }
+
+  .edit-icon {
+    opacity: 0;
+    cursor: pointer;
+    -webkit-transition: all .3s;
+    -moz-transition: all .3s;
+    -ms-transition: all .3s;
+    -o-transition: all .3s;
+    transition: all .3s;
+    margin-bottom: 3px;
+  }
+
+  .item-div:hover .edit-icon {
+    opacity: 1;
   }
 
   .creationDate {
@@ -263,29 +294,21 @@
     border-bottom: 1px dashed #41B883;
   }
 
-  .draftText {
-    border: 0;
-    line-height: 14px;
-    margin-top: 3px;
-    margin-left: 18px;
-    padding-left: 5px;
-    font-size: 1.3em;
-    transition: all .7s;
+  textarea.draftText {
+    margin-top: 8px;
+    margin-left: 25px;
+    transition: all .3s;
     width: 90%;
   }
 
-  .draftText:focus {
-    outline: none;
-  }
-
   .item a {
-    color: #41B883!important;
+    color: #41B883 !important;
     font-style: italic;
     cursor: pointer;
   }
 
   .item a:hover {
-    color: #338a62!important;
+    color: #338a62 !important;
   }
 
   .item .link {
