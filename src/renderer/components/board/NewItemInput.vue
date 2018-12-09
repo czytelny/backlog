@@ -38,6 +38,7 @@
     },
     created () {
       this.focusOnInput()
+      this.$bus.$on('focusOnAddItem', this.focusOnInput)
     },
     computed: {
       boardId () {

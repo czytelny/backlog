@@ -1,18 +1,29 @@
 <template>
   <div :class="{'doneItem': isDone, 'isEditing': isEditing}"
        class="item list-complete-item">
-    <div class="draggable" v-if="!isFiltered">
-      <Icon type="more"
-            class="movable-icon"
-      ></Icon>
-    </div>
-    <input v-if="isEditing"
+    <!--<div class="draggable" v-if="!isFiltered">-->
+    <!--<Icon type="more"-->
+    <!--class="movable-icon"-->
+    <!--&gt;</Icon>-->
+    <!--</div>-->
+
+    <!--<input v-if="isEditing"
            type="text"
            v-model="draftText"
            ref="editableItem"
            @keyup.enter="saveItem"
            v-on:blur="saveItem"
-           class="draftText animated fadeIn">
+           class="draftText animated fadeIn">-->
+    <Input
+      v-if="isEditing"
+      v-model="draftText"
+      type="textarea"
+      el-ref="editableItem"
+      :autosize="true"
+      :autofocus="true"
+      @keyup.enter="saveItem"
+      @on-blur="saveItem"
+      placeholder="Enter something..."/>
     <div class="item-div" v-else>
       <Checkbox :value="isDone"
                 @on-change="changeIsDone">
@@ -20,35 +31,19 @@
       <span class="item-text"
             v-html="textWithLink"
             @click="handleLinkClick"
-            v-if="markdownMode"
+            @dblclick="editItem"
       >
-      </span>
-      <span class="item-text"
-            @click="handleLinkClick"
-            v-if="!markdownMode"
-      >
-        {{textWithLink}}
+
       </span>
       <span v-if="showDate" class="creationDate">{{created | simpleDate}}</span>
     </div>
-    <span class="actionBtns" v-if="!isEditing">
-      <Button icon="edit"
-              v-if="!isDone"
-              shape="circle"
-              size="small"
-              type="dashed"
-              @click="editItem"
-              tabindex="-1"
-      />
-
-      <ActionButtons @remove="removeItem"
-                     @moveToTop="moveItemToTop"
-                     @moveToBottom="moveItemToBottom"
-                     @showMoveToBoardModal="showMoveToBoardModal"
-                     :boardId="boardId"
-      >
-      </ActionButtons>
-    </span>
+    <!--<ActionButtons @remove="removeItem"-->
+    <!--@moveToTop="moveItemToTop"-->
+    <!--@moveToBottom="moveItemToBottom"-->
+    <!--@showMoveToBoardModal="showMoveToBoardModal"-->
+    <!--:boardId="boardId"-->
+    <!--&gt;-->
+    <!--</ActionButtons>-->
   </div>
 </template>
 
@@ -56,7 +51,9 @@
   import ActionButtons from './ActionButtons'
   import MarkdownIt from 'markdown-it'
 
-  const md = new MarkdownIt()
+  const md = new MarkdownIt({
+    breaks: true
+  })
 
   export default {
     name: 'board-item',
@@ -80,15 +77,10 @@
           itemId: this.itemId,
           newVal: this.draftText
         })
-        this.$emit('itemChanged')
+        this.$store.dispatch('fetchBoardItems', this.boardId)
+        this.$bus.$emit('focusOnAddItem')
       },
       editItem () {
-        this.turnOnEditing()
-        this.$nextTick(function () {
-          this.$refs.editableItem.focus()
-        })
-      },
-      turnOnEditing () {
         this.isEditing = true
       },
       turnOffEditing () {
@@ -100,14 +92,16 @@
           itemId: this.itemId,
           newVal
         })
-        this.$emit('itemChanged')
+        this.$store.dispatch('fetchBoardItems', this.boardId)
+        this.$bus.$emit('focusOnAddItem')
       },
       removeItem () {
         this.$store.dispatch('removeItem', {
           boardId: this.boardId,
           itemId: this.itemId
         })
-        this.$emit('itemChanged')
+        this.$store.dispatch('fetchBoardItems', this.boardId)
+        this.$bus.$emit('focusOnAddItem')
         this.$Message.success('Item removed')
       },
       moveItemToTop () {
@@ -115,14 +109,16 @@
           boardId: this.boardId,
           itemId: this.itemId
         })
-        this.$emit('itemChanged')
+        this.$store.dispatch('fetchBoardItems', this.boardId)
+        this.$bus.$emit('focusOnAddItem')
       },
       moveItemToBottom () {
         this.$store.dispatch('moveItemToBottom', {
           boardId: this.boardId,
           itemId: this.itemId
         })
-        this.$emit('itemChanged')
+        this.$store.dispatch('fetchBoardItems', this.boardId)
+        this.$bus.$emit('focusOnAddItem')
       },
       showMoveToBoardModal () {
         this.$store.dispatch('showMoveToBoard', {
@@ -134,9 +130,13 @@
         this.$electron.shell.openExternal(link)
       },
       handleLinkClick (event) {
+        event.preventDefault()
         if (event.target.className === 'link') {
-          event.preventDefault()
           this.open(event.target.title)
+        }
+
+        if (event.target.tagName.toLowerCase() === 'a') {
+          this.open(event.target.href)
         }
       }
     },
@@ -151,14 +151,13 @@
         return this.$store.state.settings.markdownMode
       },
       textWithLink () {
-        if (this.markdownMode) {
-          return md.render(this.text).autoLink({
-            callback: function (url) {
-              return `<span class='link' title="${url}">${url.split('/')[2]}</span>`
-            }
-          })
-        }
-        return this.text
+        const dupa = md.render(this.text)
+        console.log(dupa)
+        return md.render(this.text).autoLink({
+          callback: function (url) {
+            return `<span class='link' title="${url}">${url.split('/')[2]}</span>`
+          }
+        })
       }
     },
     filters: {
@@ -279,10 +278,29 @@
     outline: none;
   }
 
-  .link {
+  .item a {
+    color: #41B883!important;
+    font-style: italic;
+    cursor: pointer;
+  }
+
+  .item a:hover {
+    color: #338a62!important;
+  }
+
+  .item .link {
     color: #41B883;
     font-style: italic;
     cursor: pointer;
+    -webkit-transition: all .3s;
+    -moz-transition: all .3s;
+    -ms-transition: all .3s;
+    -o-transition: all .3s;
+    transition: all .3s;
+  }
+
+  .item .link:hover {
+    color: #338a62;
   }
 
 </style>
