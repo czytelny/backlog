@@ -1,5 +1,9 @@
 <template>
   <div class="board-row-container">
+    <span class="remove-icon" @click="removeBoard">
+      <Icon type="ios-close"/>
+    </span>
+
     <router-link :to="'/board/'+boardId">
       <div class="board-row"
            :class="{'isDragging': isDragging}"
@@ -29,6 +33,24 @@
       }
     },
     methods: {
+      removeBoard () {
+        this.$Modal.confirm({
+          title: `Removing board`,
+          okText: 'Yes, remove it',
+          cancelText: 'Cancel',
+          content: `<p>You are going to remove board <strong>"${this.label}"</strong></p>
+                    <p>All items will be deleted, are you sure ?</p>`,
+          onOk: () => {
+            this.$store.dispatch('removeBoard', this.boardId)
+            this.$store.dispatch('fetchBoards')
+            this.$store.dispatch('setFirstBoardAsActiveBoard')
+              .then((boardId) => {
+                this.$router.push({path: `/board/${boardId}`})
+              })
+            this.$Message.info('Board removed')
+          }
+        })
+      },
       saveActiveBoard () {
         this.activeBoard = this.boardId
       },
@@ -55,6 +77,23 @@
     -ms-transition: inherit;
     -o-transition: inherit;
     transition: inherit;
+  }
+
+  .remove-icon {
+    position: absolute;
+    margin: 3px -8px;
+    cursor: pointer;
+    color: #909090;
+    opacity: 0;
+    transition: opacity .3s;
+  }
+
+  .remove-icon:hover {
+    color: #fff;
+  }
+
+  .board-row-container:hover .remove-icon {
+    opacity: 1;
   }
 
   .board-row {

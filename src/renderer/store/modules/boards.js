@@ -63,6 +63,12 @@ const actions = {
     boardsRepository.setActiveBoard(boardId)
     commit('SET_ACTIVE_BOARD', boardId)
   },
+  setFirstBoardAsActiveBoard ({commit}) {
+    const activeBoard = boardsRepository.getFirstBoard().id
+    boardsRepository.setActiveBoard(activeBoard)
+    commit('SET_ACTIVE_BOARD', activeBoard)
+    return activeBoard
+  },
   saveNewBoard ({commit, rootState}, boardName) {
     const savedBoard = boardsRepository.saveNewBoard(boardName, rootState.settings)
     commit('SET_ACTIVE_BOARD', savedBoard.id)
@@ -111,6 +117,9 @@ const actions = {
   },
   removeItem ({commit}, {boardId, itemId}) {
     itemsRepository.removeItem(boardId, itemId)
+  },
+  removeBoard ({commit}, boardId) {
+    boardsRepository.removeBoard(boardId)
   },
   changeIsDone ({commit}, {boardId, itemId, newVal}) {
     itemsRepository.switchIsDone(boardId, itemId, newVal)

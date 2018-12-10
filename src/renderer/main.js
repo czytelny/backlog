@@ -35,6 +35,7 @@ Vue.component('DropdownItem', DropdownItem)
 Vue.component('Checkbox', Checkbox)
 Vue.use(VueRouter)
 Vue.prototype.$Message = Message
+Vue.prototype.$Modal = Modal
 
 Vue.directive('focus', {
   componentUpdated: function (el) {
