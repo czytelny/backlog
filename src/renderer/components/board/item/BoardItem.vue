@@ -32,7 +32,8 @@
     </Button>
 
 
-    <div class="item-div" v-else>
+    <div class="item-div"
+         v-else>
       <Checkbox :value="isDone"
                 @on-change="changeIsDone">
       </Checkbox>
@@ -48,6 +49,7 @@
             v-if="!isEditing"
             size="16"/>
 
+      <Icon type="md-more" class="icon-more" size="24"/>
       <span v-if="showDate" class="creationDate">{{created | simpleDate}}</span>
     </div>
     <!--<ActionButtons @remove="removeItem"-->
@@ -189,6 +191,13 @@
 
 <style>
 
+  .item{
+    transition: all .3s;
+  }
+  .item.newlyAddedItem {
+    box-shadow: 0 0 5px #2d8cf0;;
+  }
+
   .item-text {
     font-size: 1.2em;
     margin-top: 9px;
@@ -218,6 +227,30 @@
     position: relative;
     min-height: 40px;
     padding-bottom: 5px;
+    -webkit-border-radius: 3px;
+  }
+
+  .item:hover {
+    background-color: #eeeeef;
+  }
+
+
+  .icon-more {
+    opacity: 0;
+    position: absolute;
+    right: 32px;
+    top: 4px;
+    cursor: pointer;
+    -webkit-transition: opacity .3s;
+    transition: opacity .3s;
+  }
+
+  .item:hover .icon-more {
+    opacity: .5;
+  }
+
+  .item:hover .icon-more:hover {
+    opacity: 1;
   }
 
   .ok-edit-btns {
@@ -229,12 +262,8 @@
   .edit-icon {
     opacity: 0;
     cursor: pointer;
-    -webkit-transition: all .3s;
-    -moz-transition: all .3s;
-    -ms-transition: all .3s;
-    -o-transition: all .3s;
-    transition: all .3s;
-    margin-bottom: 4px;
+    transition: opacity .3s;
+    margin-top: 6px;
   }
 
   .item-div:hover .edit-icon {

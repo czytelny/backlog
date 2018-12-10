@@ -46,6 +46,7 @@
     "vue": "^2.5.17",
     "vue-electron": "^1.0.6",
     "vue-router": "^3.0.2",
+    "vue-scrollto": "^2.13.0",
     "vue-shortkey": "^3.1.6",
     "vue-textarea-autosize": "^1.0.4",
     "vuedraggable": "^2.17.0",

@@ -111,17 +111,20 @@ export default {
       .write()
   },
   addItemToBegin (boardId, text) {
-    return db
+    const newItem = {
+      id: shortid.generate(),
+      isDone: false,
+      created: new Date(),
+      text
+    }
+    db
       .get('boards')
       .find({id: boardId})
       .get('items')
-      .unshift({
-        id: shortid.generate(),
-        isDone: false,
-        created: new Date(),
-        text
-      })
+      .unshift(newItem)
       .write()
+
+    return newItem
   },
   moveItemToTop (boardId, itemId) {
     const items = db

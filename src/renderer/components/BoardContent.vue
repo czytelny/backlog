@@ -1,9 +1,9 @@
 <template>
   <div class="board-content-container">
     <div class="new-item-input">
-      <NewItemInput/>
+      <NewItemInput @itemAdded="scrollToNewItem"/>
     </div>
-    
+
     <div v-if="isBoardItemsEmpty" class="info">
       <h1>No items on this board yet</h1>
       <h4>Go ahead and add some!</h4>
@@ -20,17 +20,16 @@
     <StatusBar :board-items="boardItems" v-if="!isBoardItemsEmpty"></StatusBar>
 
     <div class="items-container" v-if="!isBoardItemsEmpty">
-      <simplebar>
-        <board-item v-for="item in boardItems"
-                    :key="item.id"
-                    :itemId="item.id"
-                    :isDone="item.isDone"
-                    :text="item.text"
-                    :created="item.created"
-                    :boardId="boardId"
-        >
-        </board-item>
-      </simplebar>
+      <board-item v-for="item in boardItems"
+                  :key="item.id"
+                  :itemId="item.id"
+                  :isDone="item.isDone"
+                  :text="item.text"
+                  :created="item.created"
+                  :ref="item.id"
+                  :boardId="boardId"
+      >
+      </board-item>
     </div>
   </div>
 </template>
@@ -41,6 +40,7 @@
   import NewItemInput from '@/components/board/NewItemInput'
   import simplebar from 'simplebar-vue'
   import 'simplebar/dist/simplebar.min.css'
+  import VueScrollTo from 'vue-scrollto'
 
   export default {
     name: 'BoardContent',
@@ -79,6 +79,28 @@
       isFiltered () {
         return this.$store.state.boards.findItem.itemText.length > 0
       }
+    },
+    methods: {
+      scrollToNewItem (element) {
+        if (this.$refs[element.id]) {
+          const el = this.$refs[element.id]
+
+          var options = {
+            container: '.items-container',
+            easing: 'ease-in',
+            offset: -60,
+            force: true,
+            cancelable: true,
+            x: false,
+            y: true
+          }
+          VueScrollTo.scrollTo(el[0].$el, 500, options)
+          el[0].$el.classList.add('newlyAddedItem')
+          setTimeout(() => {
+            el[0].$el.classList.remove('newlyAddedItem')
+          }, 1500)
+        }
+      }
     }
   }
 </script>
@@ -111,6 +133,7 @@
   .items-container {
     overflow-y: auto;
     height: calc(100vh - 150px);
+    padding: 4px;
     /*box-shadow: inset 0px -32px 20px -18px rgb(146, 143, 143)*/
     /*box-shadow: 0 1px 4px rgba(0, 0, 0, 0.27), 0 0 40px rgba(0, 0, 0, 0.06) inset*/
   }

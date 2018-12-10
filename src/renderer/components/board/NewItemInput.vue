@@ -28,7 +28,7 @@
 </template>
 
 <script>
-  import { Switch } from 'iview'
+  import {Switch} from 'iview'
 
   export default {
     name: 'NewItemInput',
@@ -88,12 +88,15 @@
           return
         }
         this.isSubmittingNewItem = true
-        this.$store.dispatch('addItem', {boardId: this.boardId, newItem: this.newItem})
-        this.newItem = ''
+        const newItemPromise = this.$store.dispatch('addItem', {boardId: this.boardId, newItem: this.newItem})
         this.$Message.success('Item added')
         this.$store.dispatch('fetchBoardItems', this.boardId)
+        this.newItem = ''
         this.$nextTick(() => {
           this.isSubmittingNewItem = false
+          newItemPromise.then((newItem) => {
+            this.$emit('itemAdded', newItem)
+          })
         })
       }
     }

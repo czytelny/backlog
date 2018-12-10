@@ -104,9 +104,9 @@ const actions = {
   addItem ({commit, state}, {boardId, newItem}) {
     const activeBoard = state.boardsList.find((board) => board.id === boardId)
     if (activeBoard.prependNewItem === true) {
-      boardsRepository.addItemToBegin(boardId, newItem)
+      return boardsRepository.addItemToBegin(boardId, newItem)
     } else {
-      boardsRepository.addItemToEnd(boardId, newItem)
+      return boardsRepository.addItemToEnd(boardId, newItem)
     }
   },
   moveItemToBottom ({commit}, {boardId, itemId}) {
