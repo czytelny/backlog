@@ -28,7 +28,7 @@
 </template>
 
 <script>
-  import {Switch} from 'iview'
+  import { Switch } from 'iview'
 
   export default {
     name: 'NewItemInput',
@@ -68,7 +68,9 @@
       focusOnInput () {
         const vm = this
         setTimeout(() => {
-          vm.$refs['mainInput'].focus()
+          if (vm.$refs['mainInput']) {
+            vm.$refs['mainInput'].focus()
+          }
         }, 250)
       },
       prependNewItemChange (val) {

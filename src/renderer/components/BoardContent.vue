@@ -1,5 +1,9 @@
 <template>
   <div class="board-content-container">
+    <div class="new-item-input">
+      <NewItemInput/>
+    </div>
+    
     <div v-if="isBoardItemsEmpty" class="info">
       <h1>No items on this board yet</h1>
       <h4>Go ahead and add some!</h4>
@@ -11,10 +15,6 @@
 
     <div v-if="!filteredBoardItems.length && !isBoardItemsEmpty" class="info">
       <h1>No results...</h1>
-    </div>
-
-    <div class="new-item-input">
-      <NewItemInput/>
     </div>
 
     <StatusBar :board-items="boardItems" v-if="!isBoardItemsEmpty"></StatusBar>
@@ -87,7 +87,7 @@
   .board-content-container {
     background-color: #fcfcfc;
     padding: 16px;
-    width: 80%;
+    width: calc(80% - 80px);
     max-width: 960px;
     border-right: 1px solid #cecece;
   }

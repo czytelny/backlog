@@ -32,31 +32,31 @@
     </Button>
 
 
-  <div class="item-div" v-else>
-    <Checkbox :value="isDone"
-              @on-change="changeIsDone">
-    </Checkbox>
-    <span class="item-text"
-          v-html="textWithLink"
-          @click="handleLinkClick"
-          @dblclick="editItem"
-    >
+    <div class="item-div" v-else>
+      <Checkbox :value="isDone"
+                @on-change="changeIsDone">
+      </Checkbox>
+      <span class="item-text"
+            v-html="textWithLink"
+            @click="handleLinkClick"
+            @dblclick="editItem"
+      >
       </span>
-    <Icon type="ios-create"
-          class="edit-icon"
-          @click="editItem"
-          v-if="!isEditing"
-          size="16"/>
+      <Icon type="ios-create"
+            class="edit-icon"
+            @click="editItem"
+            v-if="!isEditing"
+            size="16"/>
 
-    <span v-if="showDate" class="creationDate">{{created | simpleDate}}</span>
-  </div>
-  <!--<ActionButtons @remove="removeItem"-->
-  <!--@moveToTop="moveItemToTop"-->
-  <!--@moveToBottom="moveItemToBottom"-->
-  <!--@showMoveToBoardModal="showMoveToBoardModal"-->
-  <!--:boardId="boardId"-->
-  <!--&gt;-->
-  <!--</ActionButtons>-->
+      <span v-if="showDate" class="creationDate">{{created | simpleDate}}</span>
+    </div>
+    <!--<ActionButtons @remove="removeItem"-->
+    <!--@moveToTop="moveItemToTop"-->
+    <!--@moveToBottom="moveItemToBottom"-->
+    <!--@showMoveToBoardModal="showMoveToBoardModal"-->
+    <!--:boardId="boardId"-->
+    <!--&gt;-->
+    <!--</ActionButtons>-->
   </div>
 </template>
 
@@ -107,6 +107,7 @@
           newVal
         })
         this.$store.dispatch('fetchBoardItems', this.boardId)
+        this.$store.dispatch('fetchBoards')
         this.$bus.$emit('focusOnAddItem')
       },
       removeItem () {
@@ -165,8 +166,6 @@
         return this.$store.state.settings.markdownMode
       },
       textWithLink () {
-        const dupa = md.render(this.text)
-        console.log(dupa)
         return md.render(this.text).autoLink({
           callback: function (url) {
             return `<span class='link' title="${url}">${url.split('/')[2]}</span>`
@@ -192,6 +191,7 @@
 
   .item-text {
     font-size: 1.2em;
+    margin-top: 9px;
   }
 
   .item-text p {
@@ -210,6 +210,7 @@
 
   .item-div {
     max-width: 90%;
+    display: flex;
   }
 
   .item {
@@ -233,7 +234,7 @@
     -ms-transition: all .3s;
     -o-transition: all .3s;
     transition: all .3s;
-    margin-bottom: 3px;
+    margin-bottom: 4px;
   }
 
   .item-div:hover .edit-icon {
