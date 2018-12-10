@@ -195,7 +195,7 @@
     transition: all .3s;
   }
   .item.newlyAddedItem {
-    box-shadow: 0 0 5px #2d8cf0;;
+    box-shadow: inset 0 0 3px #2d8cf0;;
   }
 
   .item-text {

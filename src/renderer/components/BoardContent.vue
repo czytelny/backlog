@@ -98,7 +98,7 @@
           el[0].$el.classList.add('newlyAddedItem')
           setTimeout(() => {
             el[0].$el.classList.remove('newlyAddedItem')
-          }, 1500)
+          }, 2000)
         }
       }
     }
@@ -133,7 +133,6 @@
   .items-container {
     overflow-y: auto;
     height: calc(100vh - 150px);
-    padding: 4px;
     /*box-shadow: inset 0px -32px 20px -18px rgb(146, 143, 143)*/
     /*box-shadow: 0 1px 4px rgba(0, 0, 0, 0.27), 0 0 40px rgba(0, 0, 0, 0.06) inset*/
   }
