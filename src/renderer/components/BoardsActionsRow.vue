@@ -1,7 +1,9 @@
 <template>
     <div class="boards-actions-row">
       <Tooltip content="Keymap" placement="right" :transfer="true">
-        <keyboard-light/>
+        <span @click="showKeymap">
+          <icon-key-bind/>
+        </span>
       </Tooltip>
       <Tooltip content="Cloud Settings" placement="right" :transfer="true">
         <Icon type="ios-cloud" size="16"/>
@@ -14,11 +16,16 @@
 
 <script>
   import IconSvgBase from './IconSvgBase'
-  import KeyboardLight from './icons/KeyboardLight'
+  import IconKeyBind from './icons/IconKeyBind'
 
   export default {
     name: 'BoardsActionsRow',
-    components: {IconSvgBase, KeyboardLight}
+    components: {IconSvgBase, IconKeyBind},
+    methods: {
+      showKeymap () {
+        this.$store.dispatch('showKeymapModal')
+      }
+    }
   }
 </script>
 

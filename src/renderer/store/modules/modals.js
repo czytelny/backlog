@@ -28,6 +28,9 @@ const state = {
   },
   update: {
     isVisible: false
+  },
+  keymap: {
+    isVisible: false
   }
 }
 
@@ -63,6 +66,12 @@ const mutations = {
   },
   HIDE_MOVE_TO_BOARD (state) {
     state.moveToBoard.isVisible = false
+  },
+  SHOW_KEYMAP_MODAL (state) {
+    state.keymap.isVisible = true
+  },
+  HIDE_KEYMAP_MODAL (state) {
+    state.keymap.isVisible = false
   },
   SHOW_UPDATE_MODAL (state) {
     state.update.isVisible = true
@@ -122,6 +131,12 @@ const actions = {
   },
   hideUpdateModal ({commit}) {
     commit('HIDE_UPDATE_MODAL')
+  },
+  showKeymapModal ({commit}) {
+    commit('SHOW_KEYMAP_MODAL')
+  },
+  hideKeymapModal ({commit}) {
+    commit('HIDE_KEYMAP_MODAL')
   },
   fetchSettingsBoardsList ({commit}) {
     commit('SET_SETTINGS_BOARDS_LIST', boardsRepository.getList())

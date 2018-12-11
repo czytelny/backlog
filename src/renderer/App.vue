@@ -2,6 +2,7 @@
   <div id="app">
      <top-bar></top-bar>
      <MainPage></MainPage>
+     <key-map-modal></key-map-modal>
   </div>
 </template>
 
@@ -10,10 +11,11 @@
   import MainPage from './components/MainPage'
   import TopBar from './components/TopBar'
   import './theme/default-theme.less'
+  import KeyMapModal from './components/modals/KeyMapModal'
 
   export default {
     name: 'backlog',
-    components: {TopBar, MainPage},
+    components: {KeyMapModal, TopBar, MainPage},
     data () {
       return {
         settings: null

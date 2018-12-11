@@ -68,7 +68,8 @@
 
 <style scoped>
   .root-container {
-    background: linear-gradient(to top, #1a1b20 0%, #2d3039 100%);
+    /*background: linear-gradient(to top, #1a1b20 0%, #2d3039 100%);*/
+    background: #3b3b3b;
     height: calc(100vh - 32px);
     width: 20%;
     min-width: 200px;
