@@ -9,7 +9,7 @@
         <Icon type="ios-cloud" size="16"/>
       </Tooltip>
       <Tooltip content="Application Settings" placement="bottom" :transfer="true">
-        <Icon type="ios-build" size="16"/>
+        <Icon type="ios-build" size="16" @click="showSettingsModal"/>
       </Tooltip>
     </div>
 </template>
@@ -24,6 +24,9 @@
     methods: {
       showKeymap () {
         this.$store.dispatch('showKeymapModal')
+      },
+      showSettingsModal () {
+        this.$store.dispatch('showSettingsModal')
       }
     }
   }
