@@ -8,7 +8,7 @@
                placeholder="Add New Item..."
                @on-enter="submitNewItem"
                @on-click="submitNewItem"
-               v-shortkey="{win:['ctrl', 'n'],mac:['meta', 'n']}" @shortkey="inputFocus()"
+               v-shortkey="{win:['ctrl', 'n'],mac:['meta', 'n']}" @shortkey="focusOnInput"
                icon="plus"
                class="animated ivu-input ivu-input-large"
                :class="{'fadeOutDown': isSubmittingNewItem, 'fadeIn': !isSubmittingNewItem}"

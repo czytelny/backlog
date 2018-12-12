@@ -5,7 +5,7 @@
          @on-visible-change="visibleChange"
   >
     <div class="keymap">
-      <table class="windows" v-if="isWindows">
+      <table v-if="isWindows">
         <thead>
         <tr>
           <td>Shortcut</td>
@@ -37,9 +37,15 @@
             Switch to the previous board
           </td>
         </tr>
+        <tr>
+          <td>
+            <div><kbd>ctrl</kbd> + <kbd>n</kbd></div>
+          </td>
+          <td>Bring focus to "Add New Item" field</td>
+        </tr>
         </tbody>
       </table>
-      <table class="windows" v-if="isMac">
+      <table v-if="isMac">
         <thead>
         <tr>
           <td>Shortcut</td>
@@ -65,6 +71,13 @@
           </td>
           <td> Switch to the previous board</td>
         </tr>
+        <tr>
+          <td>
+            <div><kbd>⌘</kbd> + <kbd>n</kbd></div>
+          </td>
+          <td>Bring focus to "Add New Item" field</td>
+        </tr>
+
         </tbody>
       </table>
     </div>
