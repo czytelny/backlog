@@ -15,8 +15,14 @@
         <tbody>
         <tr>
           <td>
-            <div><kbd>CTRL</kbd> + <kbd>SHIFT</kbd> +<kbd>}</kbd></div>
-            <div><kbd>ALT</kbd> + <kbd>SHIFT</kbd> +<kbd>}</kbd></div>
+            <div><kbd>ctrl</kbd> + <kbd>k</kbd></div>
+          </td>
+          <td>Show keymap window</td>
+        </tr>
+        <tr>
+          <td>
+            <div><kbd>ctrl</kbd> + <kbd>shift</kbd> +<kbd>}</kbd></div>
+            <div><kbd>alt</kbd> + <kbd>shift</kbd> +<kbd>}</kbd></div>
           </td>
           <td>
             Switch to the next board
@@ -24,12 +30,40 @@
         </tr>
         <tr>
           <td>
-            <div><kbd>CTRL</kbd> + <kbd>SHIFT</kbd> +<kbd>{</kbd></div>
-            <div><kbd>ALT</kbd> + <kbd>SHIFT</kbd> +<kbd>{</kbd></div>
+            <div><kbd>ctrl</kbd> + <kbd>shift</kbd> +<kbd>{</kbd></div>
+            <div><kbd>alt</kbd> + <kbd>shift</kbd> +<kbd>{</kbd></div>
           </td>
           <td>
             Switch to the previous board
           </td>
+        </tr>
+        </tbody>
+      </table>
+      <table class="windows" v-if="isMac">
+        <thead>
+        <tr>
+          <td>Shortcut</td>
+          <td>Action</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>
+            <div><kbd>⌘</kbd> + <kbd>k</kbd></div>
+          </td>
+          <td>Show keymap window</td>
+        </tr>
+        <tr>
+          <td>
+            <div><kbd>⌘</kbd> + <kbd>shift</kbd> + <kbd>}</kbd></div>
+          </td>
+          <td> Switch to the next board</td>
+        </tr>
+        <tr>
+          <td>
+            <div><kbd>⌘</kbd> + <kbd>shift</kbd> + <kbd>{</kbd></div>
+          </td>
+          <td> Switch to the previous board</td>
         </tr>
         </tbody>
       </table>

@@ -1,8 +1,9 @@
 <template>
   <div id="app">
-     <top-bar></top-bar>
-     <MainPage></MainPage>
-     <key-map-modal></key-map-modal>
+    <top-bar></top-bar>
+    <MainPage></MainPage>
+    <key-map-modal></key-map-modal>
+    <global-keybindings></global-keybindings>
   </div>
 </template>
 
@@ -12,10 +13,11 @@
   import TopBar from './components/TopBar'
   import './theme/default-theme.less'
   import KeyMapModal from './components/modals/KeyMapModal'
+  import GlobalKeybindings from './components/GlobalKeybindings'
 
   export default {
     name: 'backlog',
-    components: {KeyMapModal, TopBar, MainPage},
+    components: {GlobalKeybindings, KeyMapModal, TopBar, MainPage},
     data () {
       return {
         settings: null

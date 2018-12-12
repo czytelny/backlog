@@ -1,14 +1,14 @@
 <template>
     <div class="boards-actions-row">
-      <Tooltip content="Keymap" placement="right" :transfer="true">
+      <Tooltip content="Keymap" placement="bottom" :transfer="true">
         <span @click="showKeymap">
           <icon-key-bind/>
         </span>
       </Tooltip>
-      <Tooltip content="Cloud Settings" placement="right" :transfer="true">
+      <Tooltip content="Cloud Settings" placement="bottom" :transfer="true">
         <Icon type="ios-cloud" size="16"/>
       </Tooltip>
-      <Tooltip content="Application Settings" placement="right" :transfer="true">
+      <Tooltip content="Application Settings" placement="bottom" :transfer="true">
         <Icon type="ios-build" size="16"/>
       </Tooltip>
     </div>
