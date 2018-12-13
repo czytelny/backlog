@@ -1,6 +1,6 @@
 <template>
   <div class="board-row-container">
-    <span class="remove-icon" @click="removeBoard">
+    <span class="remove-icon" @click="removeBoard" v-if="!isDragging">
       <Icon type="ios-close"/>
     </span>
 
@@ -73,10 +73,10 @@
   a:hover {
     color: inherit;
     -webkit-transition: inherit;
-    -moz-transition: inherit;
-    -ms-transition: inherit;
-    -o-transition: inherit;
-    transition: inherit;
+  }
+
+  a:active {
+    color: inherit;
   }
 
   .remove-icon {

@@ -1,11 +1,9 @@
 <template>
   <div :class="{'doneItem': isDone, 'isEditing': isEditing}"
        class="item list-complete-item">
-    <!--<div class="draggable" v-if="!isFiltered">-->
-    <!--<Icon type="more"-->
-    <!--class="movable-icon"-->
-    <!--&gt;</Icon>-->
-    <!--</div>-->
+    <div class="drag" v-if="isEditing">
+      <Icon type="md-reorder"></Icon>
+    </div>
 
     <textarea-autosize
       v-if="isEditing"
@@ -16,7 +14,6 @@
       placeholder="Enter something..."
       rows="1"
       @keyup.esc.native="saveItem"
-      @blur.native="saveItem"
       autofocus="autofocus"
       class="ivu-input draftText animated"
       :class="{'slideInDown' : isEditing}"
@@ -207,14 +204,14 @@
     display: inline;
   }
 
-  .draggable {
+  .drag {
     position: absolute;
     width: 25px;
     height: 100%;
-    left: -19px;
+    left: 2px;
     cursor: move;
-    box-sizing: content-box;
-    z-index: 2;
+    font-size: 1.5em;
+
   }
 
   .item-div {
@@ -238,8 +235,8 @@
   .icon-more {
     opacity: 0;
     position: absolute;
-    right: 32px;
-    top: 4px;
+    right: 16px;
+    top: 8px;
     cursor: pointer;
     -webkit-transition: opacity .3s;
     transition: opacity .3s;
@@ -279,18 +276,14 @@
     opacity: .8;
   }
 
-  .draggable:hover .movable-icon {
-    opacity: .8;
-  }
 
   .movable-icon {
     position: absolute;
-    top: 9px;
-    transform: rotate(90deg);
+    top: 10px;
     font-size: 2em;
-    opacity: .1;
     transition: all .25s;
-    color: #41B883;
+    left:
+    /*opacity: 0;*/
   }
 
   .item.doneItem {
@@ -299,6 +292,10 @@
 
   .item:hover .actionBtns {
     opacity: 1;
+  }
+
+  .item:hover .movable-icon{
+    opacity: 1
   }
 
   .actionBtns {
@@ -324,6 +321,7 @@
 
   .isEditing {
     border-bottom: 1px dashed #41B883;
+    border-top: 1px dashed #41B883;
   }
 
   textarea.draftText {

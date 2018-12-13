@@ -20,16 +20,22 @@
     <StatusBar :board-items="boardItems" v-if="!isBoardItemsEmpty"></StatusBar>
 
     <div class="items-container" v-if="!isBoardItemsEmpty">
-      <board-item v-for="item in boardItems"
-                  :key="item.id"
-                  :itemId="item.id"
-                  :isDone="item.isDone"
-                  :text="item.text"
-                  :created="item.created"
-                  :ref="item.id"
-                  :boardId="boardId"
+      <draggable :value="boardItems"
+                 :options="{handle: '.drag'}"
       >
-      </board-item>
+        <transition-group name="list-complete">
+          <board-item v-for="item in boardItems"
+                      :key="item.id"
+                      :itemId="item.id"
+                      :isDone="item.isDone"
+                      :text="item.text"
+                      :created="item.created"
+                      :ref="item.id"
+                      :boardId="boardId"
+          >
+          </board-item>
+        </transition-group>
+      </draggable>
     </div>
   </div>
 </template>
@@ -41,6 +47,7 @@
   import simplebar from 'simplebar-vue'
   import 'simplebar/dist/simplebar.min.css'
   import VueScrollTo from 'vue-scrollto'
+  import draggable from 'vuedraggable'
 
   export default {
     name: 'BoardContent',
@@ -48,7 +55,8 @@
       BoardItem,
       StatusBar,
       NewItemInput,
-      simplebar
+      simplebar,
+      draggable
     },
     created () {
       this.$store.dispatch('fetchBoardItems', this.boardId)

@@ -4,7 +4,7 @@
     <router-view :key="activeBoardId"/>
     <new-board-modal/>
     <rename-board-modal/>
-    <settings-modal/>
+    <!--<settings-modal/>-->
   </div>
 </template>
 
