@@ -84,6 +84,9 @@ const actions = {
   changeBoardsOrder ({commit}, moved) {
     boardsRepository.changeBoardsOrder(moved)
   },
+  itemsOrderChanged ({commit}, {moved, boardId}) {
+    boardsRepository.changeItemsOrder(boardId, moved)
+  },
   moveItemToBoard ({commit}, {fromBrd, toBrd, movingItemId}) {
     boardsRepository.moveItemToBoard(fromBrd, toBrd, movingItemId)
   },

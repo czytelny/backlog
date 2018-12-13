@@ -22,6 +22,7 @@
     <div class="items-container" v-if="!isBoardItemsEmpty">
       <draggable :value="boardItems"
                  :options="{handle: '.drag'}"
+                 @change="boardItemsRearanged"
       >
         <transition-group name="list-complete">
           <board-item v-for="item in boardItems"
@@ -108,6 +109,10 @@
             el[0].$el.classList.remove('newlyAddedItem')
           }, 2000)
         }
+      },
+      boardItemsRearanged ({moved}) {
+        this.$store.dispatch('itemsOrderChanged', {boardId: this.boardId, moved})
+        this.$store.dispatch('fetchBoardItems', this.boardId)
       }
     }
   }
@@ -143,6 +148,14 @@
     height: calc(100vh - 150px);
     /*box-shadow: inset 0px -32px 20px -18px rgb(146, 143, 143)*/
     /*box-shadow: 0 1px 4px rgba(0, 0, 0, 0.27), 0 0 40px rgba(0, 0, 0, 0.06) inset*/
+  }
+
+  .sortable-ghost {
+    background-color: rgba(59, 59, 59, 0.31);
+    border-top: 1px solid #3b3b3b;
+    border-bottom: 1px solid #3b3b3b;
+    border-radius: 4px;
+    opacity: 0.5;
   }
 
 </style>

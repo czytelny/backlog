@@ -38,7 +38,6 @@
     components: {BoardsActionsRow, BoardsTitleRow, BoardRow, draggable, simplebar},
     data () {
       return {
-        localBoards: [],
         isDragging: false
       }
     },
@@ -59,9 +58,6 @@
       draggingEnded () {
         this.isDragging = false
       }
-    },
-    created () {
-      this.localBoards = JSON.parse(JSON.stringify(this.$store.state.boards.boardsList))
     }
   }
 </script>
@@ -84,7 +80,7 @@
 
   @media only screen and (min-width: 1024px) {
     .board-menu {
-      padding-left:20%;
+      padding-left: 20%;
     }
 
   }

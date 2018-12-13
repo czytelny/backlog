@@ -98,6 +98,18 @@ export default {
     allBoards.splice(movedElement.newIndex, 0, movedItem)
     this.saveBoardsArray(allBoards)
   },
+  changeItemsOrder (boardId, movedElement) {
+    const items = db
+      .get('boards')
+      .getById(boardId)
+      .get('items')
+      .cloneDeep()
+      .value()
+
+    const movedItem = items.splice(movedElement.oldIndex, 1)[0]
+    items.splice(movedElement.newIndex, 0, movedItem)
+    this.saveItemsArray(boardId, items)
+  },
   addItemToEnd (boardId, text, created, isDone) {
     return db
       .get('boards')

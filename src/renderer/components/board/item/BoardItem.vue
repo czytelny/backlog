@@ -235,7 +235,7 @@
   .icon-more {
     opacity: 0;
     position: absolute;
-    right: 16px;
+    right: 8px;
     top: 8px;
     cursor: pointer;
     -webkit-transition: opacity .3s;
@@ -271,7 +271,7 @@
     position: absolute;
     font-size: .7em;
     color: #979797;
-    right: 16px;
+    right: 32px;
     bottom: 0;
     opacity: .8;
   }
@@ -320,8 +320,8 @@
   }
 
   .isEditing {
-    border-bottom: 1px dashed #41B883;
-    border-top: 1px dashed #41B883;
+    border-bottom: 1px dashed #3b3b3b;
+    border-top: 1px dashed #3b3b3b;
   }
 
   textarea.draftText {
