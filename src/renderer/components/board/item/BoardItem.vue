@@ -46,16 +46,15 @@
             v-if="!isEditing"
             size="16"/>
 
-      <Icon type="md-more" class="icon-more" size="24"/>
+      <ActionButtons @remove="removeItem"
+                     @moveToTop="moveItemToTop"
+                     @moveToBottom="moveItemToBottom"
+                     @showMoveToBoardModal="showMoveToBoardModal"
+                     :boardId="boardId"
+      >
+      </ActionButtons>
       <span v-if="showDate" class="creationDate">{{created | simpleDate}}</span>
     </div>
-    <!--<ActionButtons @remove="removeItem"-->
-    <!--@moveToTop="moveItemToTop"-->
-    <!--@moveToBottom="moveItemToBottom"-->
-    <!--@showMoveToBoardModal="showMoveToBoardModal"-->
-    <!--:boardId="boardId"-->
-    <!--&gt;-->
-    <!--</ActionButtons>-->
   </div>
 </template>
 
@@ -74,7 +73,8 @@
     data () {
       return {
         isEditing: false,
-        draftText: this.text
+        draftText: this.text,
+        showDropdown: false
       }
     },
     methods: {
@@ -231,24 +231,6 @@
     background-color: #eeeeef;
   }
 
-
-  .icon-more {
-    opacity: 0;
-    position: absolute;
-    right: 8px;
-    top: 8px;
-    cursor: pointer;
-    -webkit-transition: opacity .3s;
-    transition: opacity .3s;
-  }
-
-  .item:hover .icon-more {
-    opacity: .5;
-  }
-
-  .item:hover .icon-more:hover {
-    opacity: 1;
-  }
 
   .ok-edit-btns {
     margin-left: 23px;

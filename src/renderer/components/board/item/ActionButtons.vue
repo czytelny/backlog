@@ -1,11 +1,8 @@
 <template>
-  <span>
+  <span class="icon-more">
     <Dropdown @on-click="handleClick" :transfer="true">
-    <Button icon="md-more"
-            size="small"
-            type="dashed"
-            tabindex="-1"
-    />
+    <Icon type="md-more" size="24"/>
+
     <DropdownMenu slot="list" class="dropdown-menu">
       <DropdownItem name="moveToTop">
         <Icon type="arrow-up-b"></Icon>
@@ -14,10 +11,6 @@
       <DropdownItem name="moveToBottom">
         <Icon type="arrow-down-b"></Icon>
         Move to bottom
-      </DropdownItem>
-      <DropdownItem name="moveTo">
-        <Icon type="arrow-return-right"></Icon>
-        Move to board...
       </DropdownItem>
       <DropdownItem class="delete-btn" name="remove">
         <Icon type="trash-b"></Icon>
@@ -71,7 +64,7 @@
   }
 </script>
 
-<style scoped>
+<style>
   .dropdown-menu {
     z-index: 100;
   }
@@ -80,5 +73,23 @@
     font-size: .9em;
     line-height: .7em;
     opacity: .35;
+  }
+
+  .icon-more {
+    opacity: 0;
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    cursor: pointer;
+    -webkit-transition: opacity .3s;
+    transition: opacity .3s;
+  }
+
+  .item:hover .icon-more {
+    opacity: .5;
+  }
+
+  .item:hover .icon-more:hover {
+    opacity: 1;
   }
 </style>
