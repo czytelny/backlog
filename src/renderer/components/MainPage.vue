@@ -1,7 +1,7 @@
 <template>
   <div class="main-page">
     <BoardsMenu/>
-      <router-view :key="activeBoardId"/>
+    <router-view :key="activeBoardId"/>
     <new-board-modal/>
     <rename-board-modal/>
     <!--<settings-modal/>-->

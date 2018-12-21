@@ -6,7 +6,7 @@
         </span>
       </Tooltip>
       <Tooltip content="Cloud Settings" placement="bottom" :transfer="true">
-        <Icon type="ios-cloud" size="16"/>
+        <Icon type="ios-cloud" size="16" @click="showSettingsModal"/>
       </Tooltip>
       <Tooltip content="Application Settings" placement="bottom" :transfer="true">
         <Icon type="ios-build" size="16" @click="showSettingsModal"/>
@@ -26,7 +26,8 @@
         this.$store.dispatch('showKeymapModal')
       },
       showSettingsModal () {
-        this.$store.dispatch('showSettingsModal')
+        // this.$store.dispatch('showSettingsModal')
+        this.$Message.error('Sorry, not available in Alpha version')
       }
     }
   }
