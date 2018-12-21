@@ -8,6 +8,9 @@
 
     <button v-shortkey="keymapShortcut"
             @shortkey="showKeymap"/>
+
+    <button v-shortkey="showNewBoardModalShortcut"
+            @shortkey="showNewBoardModal"/>
   </div>
 </template>
 
@@ -18,7 +21,8 @@
       return {
         nextTabShortcuts: {win: ['ctrl', 'shift', '}'], win2: ['alt', 'shift', '}'], mac: ['meta', 'shift', ']']},
         prevTabShortcuts: {win: ['ctrl', 'shift', '{'], win2: ['alt', 'shift', '{'], mac: ['meta', 'shift', '[']},
-        keymapShortcut: {win: ['ctrl', 'k'], win2: ['alt', 'k'], mac: ['meta', 'k']}
+        keymapShortcut: {win: ['ctrl', 'k'], win2: ['alt', 'k'], mac: ['meta', 'k']},
+        showNewBoardModalShortcut: {win: ['ctrl', 'shift', 'n'], mac: ['meta', 'shift', 'n']}
       }
     },
     methods: {
@@ -44,6 +48,9 @@
       },
       showKeymap () {
         this.$store.dispatch('showKeymapModal')
+      },
+      showNewBoardModal () {
+        this.$store.dispatch('showNewBoardModal')
       }
     }
 

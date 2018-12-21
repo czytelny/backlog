@@ -1,7 +1,7 @@
 <template>
   <div class="main-page">
     <BoardsMenu/>
-    <router-view :key="activeBoardId"/>
+      <router-view :key="activeBoardId"/>
     <new-board-modal/>
     <rename-board-modal/>
     <!--<settings-modal/>-->
@@ -21,12 +21,15 @@
     methods: {
       loadBoards () {
         this.$store.dispatch('fetchBoards')
+      },
+      importOldEntries () {
+        this.$store.dispatch('importOldEntries')
       }
     },
     created () {
       this.$store.dispatch('fetchSettings')
       // this.versionCheck()
-      // this.importOldEntries()
+      this.importOldEntries()
       this.loadBoards()
       this.$store.dispatch('fetchActiveBoard')
       this.$router.push({path: `/board/${this.activeBoardId}`})

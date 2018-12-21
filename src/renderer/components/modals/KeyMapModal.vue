@@ -5,7 +5,7 @@
          @on-visible-change="visibleChange"
   >
     <div class="keymap">
-      <table v-if="isWindows">
+      <table v-if="isWindows || isLinux">
         <thead>
         <tr>
           <td>Shortcut</td>
@@ -18,6 +18,12 @@
             <div><kbd>ctrl</kbd> + <kbd>k</kbd></div>
           </td>
           <td>Show keymap window</td>
+        </tr>
+        <tr>
+          <td>
+            <div><kbd>ctrl</kbd> + <kbd>shift</kbd> + <kbd>n</kbd></div>
+          </td>
+          <td>Create New Board Modal</td>
         </tr>
         <tr>
           <td>
@@ -58,6 +64,12 @@
             <div><kbd>⌘</kbd> + <kbd>k</kbd></div>
           </td>
           <td>Show keymap window</td>
+        </tr>
+        <tr>
+          <td>
+            <div><kbd>⌘</kbd> + <kbd>shift</kbd> + <kbd>n</kbd></div>
+          </td>
+          <td>Create New Board Modal</td>
         </tr>
         <tr>
           <td>
@@ -166,7 +178,7 @@
   }
 
   tbody td {
-    padding: 4px 0;
+    padding: 16px 0;
   }
 
   .header {

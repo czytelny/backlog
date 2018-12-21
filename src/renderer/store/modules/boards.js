@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import boardsRepository from '@/repositories/boardsRepository'
 import itemsRepository from '@/repositories/itemsRepository'
+import settingsRepository from '@/repositories/settingsRepository'
 
 const state = {
   activeBoard: 'default',
@@ -132,6 +133,12 @@ const actions = {
   },
   changeFindItem ({commit}, val) {
     commit('SET_FIND_ITEM_TEXT', val)
+  },
+  importOldEntries ({commit, rootState}) {
+    if (!rootState.settings.wasImported) {
+      boardsRepository.importOldEntries()
+      settingsRepository.updateAppSettings({'wasImported': true})
+    }
   }
 
 }
