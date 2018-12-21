@@ -60,6 +60,7 @@
             this.$Message.success('Board added')
             this.$store.dispatch('fetchBoards')
             this.$router.push({ path: `/board/${savedBoardId}` })
+            this.$store.dispatch('setActiveBoard', savedBoardId)
           })
       },
       closeModal () {
