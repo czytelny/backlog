@@ -36,11 +36,11 @@
       removeBoard () {
         this.$Modal.confirm({
           title: `Removing board`,
-          okText: 'Yes, remove it',
-          cancelText: 'Cancel',
+          okText: 'Cancel',
+          cancelText: 'Yes, remove it',
           content: `<p>You are going to remove board <strong>"${this.label}"</strong></p>
                     <p>All items will be deleted, are you sure ?</p>`,
-          onOk: () => {
+          onCancel: () => {
             this.$store.dispatch('removeBoard', this.boardId)
             this.$store.dispatch('fetchBoards')
             this.$store.dispatch('setFirstBoardAsActiveBoard')

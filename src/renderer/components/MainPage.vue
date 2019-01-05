@@ -47,5 +47,6 @@
   .main-page {
     display: flex;
     margin-top: 32px;
+    justify-content: center;
   }
 </style>
