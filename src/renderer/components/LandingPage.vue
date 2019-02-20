@@ -58,11 +58,11 @@
            @shortkey="showNewBoardModal">
     <input style="display: none;"
            id="inputForActivateNextTab"
-           v-shortkey="{win: ['ctrl', 'shift', '}'], win2:['alt', 'shift', '}'], mac:['meta', 'shift', '}']}"
+           v-shortkey="{win:['ctrl', 'shift', '}'], win2:['alt', 'shift', '}'], win3:['ctrl', 'pagedown'], win4:['ctrl', 'tab'], mac:['meta', 'shift', '}']}"
            @shortkey="activateNextTab">
     <input style="display: none;"
            id="inputForActivatePrevTab"
-           v-shortkey="{win: ['ctrl', 'shift', '{'], win2:['alt', 'shift', '{'], mac:['meta', 'shift', '{']}"
+           v-shortkey="{win:['ctrl', 'shift', '{'], win2:['alt', 'shift', '{'], win3:['ctrl', 'pageup'], win4:['ctrl', 'shift', 'tab'], mac:['meta', 'shift', '{']}"
            @shortkey="activatePreviousTab">
     <new-board-modal @newBoardSubmitted="loadBoards"></new-board-modal>
     <settings-modal></settings-modal>
