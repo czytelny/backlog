@@ -92,6 +92,9 @@
     color: #fff;
   }
 
+  .board-row-container {
+    font-size: 1.1em;
+  }
   .board-row-container:hover .remove-icon {
     opacity: 1;
   }
@@ -110,7 +113,7 @@
   }
 
   .board-row:hover {
-    color: #eaeaea;
+    color: #2a2a2a;
 
     .progress {
       opacity: 1;
@@ -118,8 +121,8 @@
   }
 
   a.router-link-active {
-    color: #fff;
-    text-shadow: 0 0 3px rgba(210, 219, 222, 0.51);
+    color: #3b3b3b;
+    text-shadow: 0 0 3px rgba(188, 195, 198, 0.67);
     font-weight: bold;
 
     .progress {

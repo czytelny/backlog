@@ -14,6 +14,7 @@
       placeholder="Enter something..."
       rows="1"
       @keyup.esc.native="saveItem"
+      @blur.native="saveItem"
       autofocus="autofocus"
       class="ivu-input draftText animated"
       :class="{'slideInDown' : isEditing}"

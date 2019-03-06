@@ -64,8 +64,7 @@
 
 <style scoped>
   .root-container {
-    /*background: linear-gradient(to top, #1a1b20 0%, #2d3039 100%);*/
-    background: #3b3b3b;
+    background: #fff;
     height: calc(100vh - 32px);
     width: 20%;
     min-width: 200px;
@@ -91,7 +90,8 @@
   }
 
   .boards-title-row {
-    color: #fff;
+    font-size: 1.2em;
+    color: #3b3b3b;
     font-weight: bold;
     margin: 16px 0;
   }
