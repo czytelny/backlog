@@ -32,10 +32,11 @@
   import BoardRow from './BoardRow'
   import BoardsTitleRow from './BoardsTitleRow'
   import BoardsActionsRow from './BoardsActionsRow'
+  import IconSvgBase from './IconSvgBase'
 
   export default {
     name: 'BoardsMenu',
-    components: {BoardsActionsRow, BoardsTitleRow, BoardRow, draggable, simplebar},
+    components: {IconSvgBase, BoardsActionsRow, BoardsTitleRow, BoardRow, draggable, simplebar},
     data () {
       return {
         isDragging: false
@@ -64,25 +65,17 @@
 
 <style scoped>
   .root-container {
-    background: #fff;
+    background: #626870;
     height: calc(100vh - 32px);
-    width: 20%;
-    min-width: 200px;
+    width: 350px;
     color: #A1A1A1;
   }
 
   .board-menu {
     width: 100%;
-    padding: 16px;
+    padding: 32px;
     transition: all .3s;
     box-shadow: 0 0 16px rgba(57, 59, 62, 0.11);
-  }
-
-  @media only screen and (min-width: 1024px) {
-    .board-menu {
-      padding-left: 20%;
-    }
-
   }
 
   .add-board-btn {
@@ -90,12 +83,6 @@
     float: right;
   }
 
-  .boards-title-row {
-    font-size: 1.2em;
-    color: #3b3b3b;
-    font-weight: bold;
-    margin: 16px 0;
-  }
 
   .sortable-ghost {
     background-color: #4c4f61;

@@ -14,7 +14,7 @@ export default function (userAppPath) {
       useContentSize: true,
       width: 600,
       show: false,
-      minWidth: 300,
+      minWidth: 600,
       x: undefined,
       y: undefined
     }

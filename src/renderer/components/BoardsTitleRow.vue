@@ -1,9 +1,9 @@
 <template>
   <div class="boards-title-row">
     BOARDS
-    <Tooltip content="Add New Board" class="add-icon-container" placement="right">
+    <Tooltip content="Add New Board" class="add-icon-container" placement="right" :transfer="true">
       <Icon type="ios-add"
-            size="18"
+            size="24"
             class="add-icon"
             @click="showNewBoardModal"/>
     </Tooltip>
@@ -24,6 +24,10 @@
 <style scoped>
   .boards-title-row {
     user-select: none;
+    font-size: 22px;
+    color: #f4f4f4;
+    font-weight: bold;
+    margin: 16px 0;
   }
 
   .add-icon-container {

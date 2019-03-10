@@ -21,6 +21,7 @@ const winURL = process.env.NODE_ENV === 'development'
   : `file://${__dirname}/index.html`
 
 function createWindow () {
+  windowSettings.updateWindowState({minWidth: 600})
   const windowConfig = windowSettings.getWindowState()
   windowConfig.frame = false
 

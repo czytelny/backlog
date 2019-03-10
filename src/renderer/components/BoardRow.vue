@@ -64,7 +64,7 @@
   }
 </script>
 
-<style scoped lang="scss">
+<style  lang="scss">
   a {
     color: inherit;
     transition: inherit;
@@ -81,9 +81,9 @@
 
   .remove-icon {
     position: absolute;
-    margin: 3px -8px;
+    margin: -1px -16px;
     cursor: pointer;
-    color: #909090;
+    color: #fff4fb;
     opacity: 0;
     transition: opacity .3s;
   }
@@ -103,31 +103,33 @@
     display: flex;
     justify-content: space-between;
     width: 100%;
-    padding: 4px 8px;
     cursor: pointer;
     -webkit-transition: all .3s;
     -moz-transition: all .3s;
     -ms-transition: all .3s;
     -o-transition: all .3s;
     transition: all .3s;
+    color: #ededed;
   }
 
   .board-row:hover {
-    color: #2a2a2a;
-
     .progress {
       opacity: 1;
     }
   }
 
   a.router-link-active {
-    color: #3b3b3b;
-    text-shadow: 0 0 3px rgba(188, 195, 198, 0.67);
+    text-shadow: 0 0 4px rgba(148, 154, 158, 0.67);
     font-weight: bold;
+    font-size: 1.2em;
 
     .progress {
       opacity: 1;
     }
+  }
+
+  a.router-link-active:hover {
+    text-shadow: none;
   }
 
   .board-row.isDragging {
