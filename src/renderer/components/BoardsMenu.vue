@@ -75,6 +75,7 @@
     width: 100%;
     padding: 16px;
     transition: all .3s;
+    box-shadow: 0 0 16px rgba(57, 59, 62, 0.11);
   }
 
   @media only screen and (min-width: 1024px) {

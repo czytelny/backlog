@@ -120,11 +120,12 @@
 
 <style scoped>
   .board-content-container {
-    background-color: #fcfcfc;
+    background-color: #FAFCFF;
     padding: 16px;
     width: calc(80% - 80px);
     max-width: 960px;
     border-right: 1px solid #cecece;
+    box-shadow: 16px 0 64px rgba(57, 59, 62, 0.13);
   }
 
   .info {

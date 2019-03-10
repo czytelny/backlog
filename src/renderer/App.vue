@@ -45,7 +45,8 @@
   }
 
   body {
-    background-color: #f4f4f4;
+    background: rgb(190,190,190);
+    background: linear-gradient(315deg, #7B8394 0%, #F0F1F4 100%);
     overflow: hidden;
   }
 
