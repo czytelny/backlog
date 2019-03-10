@@ -54,7 +54,11 @@
                      :boardId="boardId"
       >
       </ActionButtons>
-      <span v-if="showDate" class="creationDate">{{created | simpleDate}}</span>
+      <span v-if="showDate" class="creationDate">
+         <Tooltip placement="left" :content="daysFrom(created)">
+           {{created | simpleDate}}
+         </Tooltip>
+      </span>
     </div>
   </div>
 </template>
@@ -79,6 +83,11 @@
       }
     },
     methods: {
+      daysFrom (firstDate) {
+        const oneDay = 24 * 60 * 60 * 1000 // hours*minutes*seconds*milliseconds
+        const today = new Date()
+        return `Created ${Math.round(Math.abs((firstDate.getTime() - today.getTime()) / (oneDay)))} days ago`
+      },
       saveItem () {
         if (this.draftText.trim() === '') {
           this.draftText = ''
@@ -189,9 +198,10 @@
 
 <style>
 
-  .item{
+  .item {
     transition: all .3s;
   }
+
   .item.newlyAddedItem {
     box-shadow: inset 0 0 3px #2d8cf0;;
   }
@@ -243,7 +253,7 @@
     opacity: 0;
     cursor: pointer;
     transition: opacity .3s;
-    margin-top: 6px;
+    margin-top: 11px;
   }
 
   .item-div:hover .edit-icon {
@@ -257,6 +267,7 @@
     right: 32px;
     bottom: 0;
     opacity: .8;
+    cursor: default;
   }
 
 
@@ -265,8 +276,7 @@
     top: 10px;
     font-size: 2em;
     transition: all .25s;
-    left:
-    /*opacity: 0;*/
+    left: /*opacity: 0;*/
   }
 
   .item.doneItem {
@@ -277,7 +287,7 @@
     opacity: 1;
   }
 
-  .item:hover .movable-icon{
+  .item:hover .movable-icon {
     opacity: 1
   }
 
