@@ -28,8 +28,8 @@
                @change="boardItemsRearanged"
                class="board"
                :class="{'filteredBoard' : isFiltered}"
-               :options="{ghostClass: 'sortable-ghost',
-                          handle: '.draggable'}">
+               ghostClas="sortable-ghost"
+               handle=".draggable">
       <transition-group name="list-complete">
         <board-item v-for="item in filteredBoardItems"
                     :key="item.id"

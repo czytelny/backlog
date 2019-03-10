@@ -21,7 +21,7 @@
 
     <div class="items-container" v-if="!isBoardItemsEmpty">
       <draggable :value="boardItems"
-                 :options="{handle: '.drag'}"
+                 handle=".drag"
                  @change="boardItemsRearanged"
       >
         <transition-group name="list-complete">

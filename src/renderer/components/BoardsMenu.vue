@@ -4,7 +4,7 @@
       <boards-actions-row></boards-actions-row>
       <boards-title-row></boards-title-row>
       <draggable :list="boards"
-                 :options="{handle: '.board-row-container'}"
+                 handle=".board-row-container"
                  @change="boardsRearranged"
                  @start="draggingStarted"
                  @end="draggingEnded"

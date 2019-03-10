@@ -47,6 +47,9 @@
         this.loadingUpdates = true
         axios.get('https://api.github.com/repos/czytelny/backlog/releases/latest')
           .then(({data}) => {
+            if (!data.tag_name) {
+              return
+            }
             if (`v${version}` === data.tag_name) {
               this.$Message.info('You have the latest version of Backlog')
             } else {

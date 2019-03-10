@@ -46,7 +46,7 @@
         Setup board names and order
         <p slot="content">
           <draggable :list="boardsLocal"
-                     :options="{handle: '.draggable'}"
+                     handle=".draggable"
                      @change="boardOrderChanged">
 
             <div v-for="board in boardsLocal" class="board" :key="board.id">
