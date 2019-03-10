@@ -68,7 +68,7 @@
     background: #626870;
     height: calc(100vh - 32px);
     width: 350px;
-    color: #A1A1A1;
+    color: #ededed;
   }
 
   .board-menu {

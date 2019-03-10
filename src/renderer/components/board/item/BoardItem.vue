@@ -84,9 +84,13 @@
     },
     methods: {
       daysFrom (firstDate) {
+        if (!firstDate) {
+          return
+        }
         const oneDay = 24 * 60 * 60 * 1000 // hours*minutes*seconds*milliseconds
         const today = new Date()
-        return `Created ${Math.round(Math.abs((firstDate.getTime() - today.getTime()) / (oneDay)))} days ago`
+        const then = new Date(firstDate)
+        return `Created ${Math.round(Math.abs((then.getTime() - today.getTime()) / (oneDay)))} days ago`
       },
       saveItem () {
         if (this.draftText.trim() === '') {

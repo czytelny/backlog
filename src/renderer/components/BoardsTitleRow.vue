@@ -24,7 +24,7 @@
 <style scoped>
   .boards-title-row {
     user-select: none;
-    font-size: 22px;
+    font-size: 18px;
     color: #f4f4f4;
     font-weight: bold;
     margin: 16px 0;

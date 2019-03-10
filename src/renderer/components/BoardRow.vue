@@ -64,7 +64,7 @@
   }
 </script>
 
-<style  lang="scss">
+<style scoped lang="scss">
   a {
     color: inherit;
     transition: inherit;
@@ -109,7 +109,7 @@
     -ms-transition: all .3s;
     -o-transition: all .3s;
     transition: all .3s;
-    color: #ededed;
+    margin:2px 0;
   }
 
   .board-row:hover {
@@ -118,10 +118,13 @@
     }
   }
 
+  a {
+    color: #c7c7c7;
+  }
+
   a.router-link-active {
-    text-shadow: 0 0 4px rgba(148, 154, 158, 0.67);
     font-weight: bold;
-    font-size: 1.2em;
+    color: #47B784;
 
     .progress {
       opacity: 1;
