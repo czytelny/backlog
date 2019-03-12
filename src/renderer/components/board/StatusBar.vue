@@ -1,9 +1,15 @@
 <template>
-  <div class="status-bar">
-    <span class="done-label">{{doneItemsCount}}</span> done |
-    <span class="pending-label">{{pendingItemsCount}}</span> pending
-    <span v-if="boardItems.length"><span class="progress-label">| {{progressCount}}</span>% completed</span>
-  </div>
+  <Tooltip style="width: 100%">
+    <Progress :percent="progressCount"
+              :stroke-width="8"
+              :success-percent="progressCount"
+              hide-info/>
+    <div slot="content">
+      <span class="done-label">{{doneItemsCount}}</span> done |
+      <span class="pending-label">{{pendingItemsCount}}</span> pending |
+      <span :class="{'done-label': progressCount === 100 }">{{progressCount}}%</span> done
+    </div>
+  </Tooltip>
 </template>
 
 <script>
@@ -30,12 +36,7 @@
   }
 
   .pending-label {
-    color: rgb(44, 133, 229);
+    color: rgb(172, 172, 172);
   }
 
-  .status-bar {
-    font-size: .8em;
-    color: #494c3e;
-    border-bottom: 1px solid rgba(206, 206, 206, 0.25);
-  }
 </style>

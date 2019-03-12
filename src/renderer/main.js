@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 import store from './store'
 import App from './App'
 import VueShortkey from 'vue-shortkey'
-import {Button, Icon, Tooltip, Modal, Input, Message, DropdownMenu, Dropdown, DropdownItem, Checkbox} from 'iview'
+import {Button, Icon, Tooltip, Modal, Input, Message, DropdownMenu, Dropdown, DropdownItem, Checkbox, Progress} from 'iview'
 import BoardContent from './components/BoardContent.vue'
 import VueTextareaAutosize from 'vue-textarea-autosize'
 
@@ -33,6 +33,7 @@ Vue.component('Dropdown', Dropdown)
 Vue.component('DropdownMenu', DropdownMenu)
 Vue.component('DropdownItem', DropdownItem)
 Vue.component('Checkbox', Checkbox)
+Vue.component('Progress', Progress)
 Vue.use(VueRouter)
 Vue.prototype.$Message = Message
 Vue.prototype.$Modal = Modal
