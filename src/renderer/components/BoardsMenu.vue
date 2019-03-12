@@ -1,7 +1,11 @@
 <template>
   <div class="root-container">
     <simplebar class="board-menu">
-      <boards-actions-row></boards-actions-row>
+      <!--<boards-actions-row></boards-actions-row>-->
+      <div style="text-align: center;">
+        <Tooltip content="Settings" placement="right">
+          <img src="./../logo2.svg" width="70" class="logo"></Tooltip>
+      </div>
       <boards-title-row></boards-title-row>
       <draggable :list="boards"
                  handle=".board-row-container"
@@ -64,6 +68,24 @@
 </script>
 
 <style scoped>
+  .logo {
+    padding: 16px;
+    box-sizing: content-box;
+    background-color: #878f99;
+    border-radius: 12%;
+    -webkit-transition: all .3s;
+    -moz-transition: all .3s;
+    -ms-transition: all .3s;
+    -o-transition: all .3s;
+    transition: all .3s;
+    cursor: pointer;
+  }
+
+  .logo:hover {
+    border-radius: 0;
+    background-color: #6b717a;
+  }
+
   .root-container {
     background: #626870;
     height: calc(100vh - 32px);

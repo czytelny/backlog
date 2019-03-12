@@ -35,7 +35,7 @@
 
 <style scoped>
   .boards-actions-row{
-    border-bottom: 1px solid #484848;
+    border-bottom: 1px solid #4e535b;
     text-align: right;
     padding: 4px 0;
     display: flex;
