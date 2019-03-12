@@ -18,7 +18,8 @@
     </div>
 
     <StatusBar :board-items="boardItems" v-if="!isBoardItemsEmpty"></StatusBar>
-
+    <BoardSettings :boardId="boardId"
+                   :boardLength="boardItems.length"/>
     <div class="items-container" v-if="!isBoardItemsEmpty">
       <draggable :value="boardItems"
                  handle=".drag"
@@ -32,6 +33,7 @@
                       :text="item.text"
                       :created="item.created"
                       :ref="item.id"
+                      v-if="shouldBeDisplayed(item)"
                       :boardId="boardId"
           >
           </board-item>
@@ -49,10 +51,12 @@
   import 'simplebar/dist/simplebar.min.css'
   import VueScrollTo from 'vue-scrollto'
   import draggable from 'vuedraggable'
+  import BoardSettings from './board/BoardSettings'
 
   export default {
     name: 'BoardContent',
     components: {
+      BoardSettings,
       BoardItem,
       StatusBar,
       NewItemInput,
@@ -67,6 +71,9 @@
       next()
     },
     computed: {
+      board () {
+        return this.$store.state.boards.activeBoard
+      },
       boardId () {
         return this.$route.params.boardId
       },
@@ -90,6 +97,12 @@
       }
     },
     methods: {
+      shouldBeDisplayed (item) {
+        if (!item.isDone) {
+          return true
+        }
+        return this.board.showDone
+      },
       scrollToNewItem (element) {
         if (this.$refs[element.id]) {
           const el = this.$refs[element.id]
@@ -145,7 +158,7 @@
 
   .items-container {
     overflow-y: auto;
-    height: calc(100vh - 150px);
+    height: calc(100vh - 170px);
     /*box-shadow: inset 0px -32px 20px -18px rgb(146, 143, 143)*/
     /*box-shadow: 0 1px 4px rgba(0, 0, 0, 0.27), 0 0 40px rgba(0, 0, 0, 0.06) inset*/
   }

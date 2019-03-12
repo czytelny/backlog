@@ -1,19 +1,17 @@
 <template>
   <div class="showDoneButton">
     <Button v-if="!showDone"
-            type="dashed"
-            shape="circle"
             size="small"
+            type="text"
             :disabled="isBoardItemsEmpty"
-            icon="android-checkbox-outline-blank"
+            icon="ios-checkmark-circle-outline"
             @click="switchShowDone">
       Show done
     </Button>
     <Button v-if="showDone"
-            type="dashed"
-            shape="circle"
             size="small"
-            icon="android-checkbox-outline"
+            type="text"
+            icon="ios-remove-circle-outline"
             :disabled="isBoardItemsEmpty"
             @click="switchShowDone">
       Hide done
@@ -25,13 +23,21 @@
 <script>
   export default {
     name: 'ShowDoneButton',
-    props: ['boardId', 'showDone', 'isBoardItemsEmpty'],
+    props: ['boardId', 'isBoardItemsEmpty'],
     methods: {
       switchShowDone () {
-        this.$store.dispatch('switchShowDone', {boardId: this.boardId, showDone: !this.showDone})
-          .then(() => {
-            this.$store.dispatch('fetchBoardItems', this.boardId)
+        console.log(this.showDone)
+        this.$store.dispatch('switchShowDone',
+          {
+            boardId: this.boardId,
+            showDone: !this.showDone
           })
+          .then(() => this.$store.dispatch('fetchBoardItems', this.boardId))
+      }
+    },
+    computed: {
+      showDone () {
+        return this.$store.state.boards.activeBoard.showDone
       }
     }
   }

@@ -84,7 +84,8 @@ export default {
           id: board.id,
           label: board.label,
           progress: progressCount(board),
-          prependNewItem: board.prependNewItem
+          prependNewItem: board.prependNewItem,
+          showDone: board.showDone
         }
       })
   },

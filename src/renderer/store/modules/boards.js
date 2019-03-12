@@ -4,7 +4,7 @@ import itemsRepository from '@/repositories/itemsRepository'
 import settingsRepository from '@/repositories/settingsRepository'
 
 const state = {
-  activeBoard: 'default',
+  activeBoard: {},
   boardsList: [],
   boardItems: [],
   newItem: '',

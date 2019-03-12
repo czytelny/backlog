@@ -6,9 +6,7 @@
                   @prependNewItemSwitched="focusOnInput"/>
 
     <div class="board-actions">
-      <ShowDoneButton :boardId="board.id"
-                      :showDone="board.showDone"
-                      :isBoardItemsEmpty="isBoardItemsEmpty"/>
+
       <FindItem :boardId="board.id"></FindItem>
     </div>
 
