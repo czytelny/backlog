@@ -54,10 +54,8 @@
                      :boardId="boardId"
       >
       </ActionButtons>
-      <span v-if="showDate" class="creationDate">
-         <Tooltip placement="left" :content="daysFrom(created)">
-           {{created | simpleDate}}
-         </Tooltip>
+      <span v-if="showDate" >
+        <BoardItemCalendar :created="created"/>
       </span>
     </div>
   </div>
@@ -66,6 +64,7 @@
 <script>
   import ActionButtons from './ActionButtons'
   import MarkdownIt from 'markdown-it'
+  import BoardItemCalendar from './BoardItemCalendar'
 
   const md = new MarkdownIt({
     breaks: true
@@ -73,7 +72,7 @@
 
   export default {
     name: 'board-item',
-    components: {ActionButtons},
+    components: {BoardItemCalendar, ActionButtons},
     props: ['boardId', 'itemId', 'isDone', 'text', 'created'],
     data () {
       return {
@@ -83,15 +82,6 @@
       }
     },
     methods: {
-      daysFrom (firstDate) {
-        if (!firstDate) {
-          return
-        }
-        const oneDay = 24 * 60 * 60 * 1000 // hours*minutes*seconds*milliseconds
-        const today = new Date()
-        const then = new Date(firstDate)
-        return `Created ${Math.round(Math.abs((then.getTime() - today.getTime()) / (oneDay)))} days ago`
-      },
       saveItem () {
         if (this.draftText.trim() === '') {
           this.draftText = ''
@@ -185,18 +175,7 @@
           }
         })
       }
-    },
-    filters: {
-      simpleDate (dateString) {
-        if (!dateString) {
-          return
-        }
-        const date = new Date(dateString)
-        return `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}
-                ${date.getHours()}:${(date.getMinutes() < 10 ? '0' : '')}${date.getMinutes()}`
-      }
     }
-
   }
 </script>
 
@@ -207,7 +186,7 @@
   }
 
   .item.newlyAddedItem {
-    box-shadow: inset 0 0 3px #2d8cf0;;
+    box-shadow: inset 0 0 70px rgba(98, 104, 112, 0.26);
   }
 
   .item-text {
@@ -264,23 +243,12 @@
     opacity: 1;
   }
 
-  .creationDate {
-    position: absolute;
-    font-size: .7em;
-    color: #979797;
-    right: 32px;
-    bottom: 0;
-    opacity: .8;
-    cursor: default;
-  }
-
-
   .movable-icon {
     position: absolute;
     top: 10px;
     font-size: 2em;
     transition: all .25s;
-    left: /*opacity: 0;*/
+    /*left: !*opacity: 0;*!*/
   }
 
   .item.doneItem {
