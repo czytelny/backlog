@@ -1,7 +1,6 @@
 <template>
   <div class="board-settings">
-    <ShowDoneButton :boardId="boardId"
-                    :isBoardItemsEmpty="!boardLength"/>
+    <ShowDoneButton :boardId="boardId"/>
   </div>
 </template>
 
@@ -10,7 +9,7 @@
 
   export default {
     name: 'BoardSettings',
-    props: ['boardId', 'boardLength'],
+    props: ['boardId'],
     components: {
       ShowDoneButton
     }
@@ -20,6 +19,6 @@
 <style scoped>
   .board-settings {
     display: flex;
-    margin-bottom: 8px;
+    margin: 4px 0;
   }
 </style>

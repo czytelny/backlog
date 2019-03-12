@@ -41,7 +41,7 @@
             @dblclick="editItem"
       >
       </span>
-      <Icon type="ios-create"
+      <Icon type="ios-search-outline"
             class="edit-icon"
             @click="editItem"
             v-if="!isEditing"
@@ -236,7 +236,7 @@
     opacity: 0;
     cursor: pointer;
     transition: opacity .3s;
-    margin-top: 11px;
+    margin-top: 12px;
   }
 
   .item-div:hover .edit-icon {

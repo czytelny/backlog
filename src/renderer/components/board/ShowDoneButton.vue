@@ -3,7 +3,6 @@
     <Button v-if="!showDone"
             size="small"
             type="text"
-            :disabled="isBoardItemsEmpty"
             icon="ios-checkmark-circle-outline"
             @click="switchShowDone">
       Show done
@@ -12,7 +11,6 @@
             size="small"
             type="text"
             icon="ios-remove-circle-outline"
-            :disabled="isBoardItemsEmpty"
             @click="switchShowDone">
       Hide done
     </Button>
@@ -23,7 +21,7 @@
 <script>
   export default {
     name: 'ShowDoneButton',
-    props: ['boardId', 'isBoardItemsEmpty'],
+    props: ['boardId'],
     methods: {
       switchShowDone () {
         console.log(this.showDone)
@@ -44,7 +42,4 @@
 </script>
 
 <style scoped>
-  .showDoneButton {
-    text-align: center;
-  }
 </style>

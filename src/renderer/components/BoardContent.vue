@@ -18,8 +18,10 @@
     </div>
 
     <StatusBar :board-items="boardItems" v-if="!isBoardItemsEmpty"></StatusBar>
-    <BoardSettings :boardId="boardId"
-                   :boardLength="boardItems.length"/>
+
+    <BoardSettings v-if="!isBoardItemsEmpty"
+                   :boardId="boardId"/>
+
     <div class="items-container" v-if="!isBoardItemsEmpty">
       <draggable :value="boardItems"
                  handle=".drag"
