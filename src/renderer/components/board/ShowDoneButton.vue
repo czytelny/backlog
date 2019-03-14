@@ -30,7 +30,6 @@
             boardId: this.boardId,
             showDone: !this.showDone
           })
-          .then(() => this.$store.dispatch('fetchBoardItems', this.boardId))
       }
     },
     computed: {

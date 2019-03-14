@@ -1,11 +1,13 @@
 <template>
   <div class="root-container">
     <simplebar class="board-menu">
-      <!--<boards-actions-row></boards-actions-row>-->
+<!--
       <div style="text-align: center;">
         <Tooltip content="Settings" placement="right">
-          <img src="./../logo2.svg" width="70" class="logo"></Tooltip>
+          <img src="./../logo2.svg" width="50" class="logo">
+        </Tooltip>
       </div>
+-->
       <boards-title-row></boards-title-row>
       <draggable :list="boards"
                  handle=".board-row-container"
@@ -24,6 +26,8 @@
           </board-row>
         </transition-group>
       </draggable>
+      <boards-actions-row></boards-actions-row>
+
     </simplebar>
   </div>
 </template>
@@ -69,7 +73,7 @@
 
 <style scoped>
   .logo {
-    padding: 16px;
+    padding: 8px;
     box-sizing: content-box;
     background-color: #878f99;
     border-radius: 12%;

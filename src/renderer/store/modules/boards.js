@@ -32,8 +32,7 @@ const mutations = {
     state.activeBoard = activeBoard
   },
   SWITCH_SHOW_DONE (state, {boardId, showDone}) {
-    const board = state.boardsList.find((board) => board.id === boardId)
-    board.showDone = showDone
+    state.activeBoard.showDone = showDone
   },
   SWITCH_PREPEND_NEW_ITEM (state, {boardId, prependNewItem}) {
     const board = state.boardsList.find((board) => board.id === boardId)

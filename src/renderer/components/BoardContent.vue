@@ -17,10 +17,10 @@
       <h1>No results...</h1>
     </div>
 
-    <StatusBar :board-items="boardItems" v-if="!isBoardItemsEmpty"></StatusBar>
-
     <BoardSettings v-if="!isBoardItemsEmpty"
                    :boardId="boardId"/>
+
+    <StatusBar :board-items="boardItems" v-if="!isBoardItemsEmpty"></StatusBar>
 
     <div class="items-container" v-if="!isBoardItemsEmpty">
       <draggable :value="boardItems"
