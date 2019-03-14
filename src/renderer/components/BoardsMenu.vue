@@ -1,5 +1,5 @@
 <template>
-  <div class="root-container">
+  <div class="menu-container">
     <simplebar class="board-menu">
 <!--
       <div style="text-align: center;">
@@ -89,11 +89,14 @@
     background-color: #6b717a;
   }
 
-  .root-container {
+  .menu-container {
     background: #626870;
     height: calc(100vh - 32px);
     width: 350px;
+    min-width: 230px;
     color: #ededed;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
+    z-index: 1;
   }
 
   .board-menu {

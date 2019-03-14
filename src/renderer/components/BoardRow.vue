@@ -81,7 +81,7 @@
 
   .remove-icon {
     position: absolute;
-    margin: -3px -16px;
+    margin: -4px -24px;
     cursor: pointer;
     color: #fff4fb;
     opacity: 0;

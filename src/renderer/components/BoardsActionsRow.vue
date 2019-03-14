@@ -40,7 +40,7 @@
     position: absolute;
     bottom: 8px;
     justify-content: space-between;
-    width: 180px;
+    min-width: 180px;
     align-items: center;
   }
   .action-icon {
@@ -52,7 +52,7 @@
     transition: all .3s;
     opacity: .6;
     cursor: pointer;
-    filter: drop-shadow(0 0 2px rgba(0,0,0,0.8));
+    filter: drop-shadow(0 0 2px rgba(70, 70, 70, 0.8));
   }
   .action-icon:hover {
     opacity: 1;
