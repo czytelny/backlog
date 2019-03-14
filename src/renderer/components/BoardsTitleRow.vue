@@ -27,7 +27,7 @@
     font-size: 18px;
     color: #f4f4f4;
     font-weight: bold;
-    margin: 16px 0;
+    margin: 0 0 16px 0;
   }
 
   .add-icon-container {

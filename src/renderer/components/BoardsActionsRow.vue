@@ -2,14 +2,14 @@
     <div class="boards-actions-row">
       <Tooltip content="Keymap" placement="bottom" :transfer="true">
         <span @click="showKeymap">
-          <icon-key-bind/>
+            <img src="./../assets/icon/keymap.svg" width="24" alt="Keymap" class="action-icon"/>
         </span>
       </Tooltip>
       <Tooltip content="Cloud Settings" placement="bottom" :transfer="true">
-        <Icon type="ios-cloud" size="16" @click="showSettingsModal"/>
+        <Icon type="ios-cloud" size="32" @click="showSettingsModal" class="action-icon"/>
       </Tooltip>
       <Tooltip content="Application Settings" placement="bottom" :transfer="true">
-        <Icon type="ios-build" size="16" @click="showSettingsModal"/>
+        <Icon type="ios-build" size="32" @click="showSettingsModal" class="action-icon"/>
       </Tooltip>
     </div>
 </template>
@@ -34,11 +34,29 @@
 </script>
 
 <style scoped>
-  .boards-actions-row{
-    border-bottom: 1px solid #4e535b;
+  .boards-actions-row {
     text-align: right;
     padding: 4px 0;
     display: flex;
+    position: absolute;
+    bottom: 8px;
+    justify-content: space-between;
+    width: 180px;
+    align-items: center;
+  }
+  .action-icon {
+    color: #2C2E32;
+    -webkit-transition: all .3s;
+    -moz-transition: all .3s;
+    -ms-transition: all .3s;
+    -o-transition: all .3s;
+    transition: all .3s;
+    opacity: .3;
+    cursor: pointer;
+  }
+  .action-icon:hover {
+    opacity: 1;
+    color: #2C2E32;
   }
 
   i {

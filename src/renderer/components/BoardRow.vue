@@ -8,7 +8,7 @@
       <div class="board-row"
            :class="{'isDragging': isDragging}"
            @click="saveActiveBoard">
-        <span class="board-label-row" @dblclick="showRenameModal">
+        <span @dblclick="showRenameModal">
           {{label}}
         </span>
 
@@ -81,7 +81,7 @@
 
   .remove-icon {
     position: absolute;
-    margin: -1px -16px;
+    margin: -3px -16px;
     cursor: pointer;
     color: #fff4fb;
     opacity: 0;
@@ -109,7 +109,8 @@
     -ms-transition: all .3s;
     -o-transition: all .3s;
     transition: all .3s;
-    margin:2px 0;
+    margin:8px 0;
+    line-height: 1em;
   }
 
   .board-row:hover {
@@ -124,7 +125,7 @@
 
   a.router-link-active {
     font-weight: bold;
-    color: #47B784;
+    color: #58BB73;
 
     .progress {
       opacity: 1;
