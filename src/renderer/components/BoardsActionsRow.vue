@@ -15,12 +15,11 @@
 </template>
 
 <script>
-  import IconSvgBase from './IconSvgBase'
   import IconKeyBind from './icons/IconKeyBind'
 
   export default {
     name: 'BoardsActionsRow',
-    components: {IconSvgBase, IconKeyBind},
+    components: {IconKeyBind},
     methods: {
       showKeymap () {
         this.$store.dispatch('showKeymapModal')
@@ -51,12 +50,14 @@
     -ms-transition: all .3s;
     -o-transition: all .3s;
     transition: all .3s;
-    opacity: .3;
+    opacity: .6;
     cursor: pointer;
+    filter: drop-shadow(0 0 2px rgba(0,0,0,0.8));
   }
   .action-icon:hover {
     opacity: 1;
     color: #2C2E32;
+    filter: drop-shadow(0 0 8px rgba(0,0,0,0.8));
   }
 
   i {

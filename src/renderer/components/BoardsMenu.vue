@@ -40,11 +40,10 @@
   import BoardRow from './BoardRow'
   import BoardsTitleRow from './BoardsTitleRow'
   import BoardsActionsRow from './BoardsActionsRow'
-  import IconSvgBase from './IconSvgBase'
 
   export default {
     name: 'BoardsMenu',
-    components: {IconSvgBase, BoardsActionsRow, BoardsTitleRow, BoardRow, draggable, simplebar},
+    components: {BoardsActionsRow, BoardsTitleRow, BoardRow, draggable, simplebar},
     data () {
       return {
         isDragging: false
@@ -109,11 +108,8 @@
     float: right;
   }
 
-
   .sortable-ghost {
-    background-color: #4c4f61;
-    border: 1px solid #4c4f61;
-    border-radius: 4px;
+    opacity: 0;
   }
 
   .board-list-transition-move {

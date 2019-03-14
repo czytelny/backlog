@@ -166,11 +166,18 @@
   }
 
   .sortable-ghost {
-    background-color: rgba(59, 59, 59, 0.31);
-    border-top: 1px solid #3b3b3b;
-    border-bottom: 1px solid #3b3b3b;
-    border-radius: 4px;
-    opacity: 0.5;
+    opacity: 0;
+  }
+
+  .list-complete-item {
+    transition: all .3s;
+  }
+
+  .list-complete-enter, .list-complete-leave-to
+    /* .list-complete-leave-active below version 2.1.8 */
+  {
+    opacity: 0;
+    transform: translateX(-100%);
   }
 
 </style>

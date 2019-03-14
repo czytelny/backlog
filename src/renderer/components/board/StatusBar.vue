@@ -1,5 +1,5 @@
 <template>
-  <Tooltip style="width: 100%">
+  <Tooltip style="width: 100%" placement="top">
     <Progress :percent="progressCount"
               :stroke-width="8"
               :success-percent="progressCount"

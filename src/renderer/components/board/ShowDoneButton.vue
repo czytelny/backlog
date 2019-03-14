@@ -24,7 +24,6 @@
     props: ['boardId'],
     methods: {
       switchShowDone () {
-        console.log(this.showDone)
         this.$store.dispatch('switchShowDone',
           {
             boardId: this.boardId,

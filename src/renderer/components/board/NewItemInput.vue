@@ -19,8 +19,16 @@
                   @on-change="prependNewItemChange"
                   size="large"
         >
-          <span slot="open">Head</span>
-          <span slot="close">Tail</span>
+          <span slot="open">
+            <Tooltip content="Add item to top">
+              Head
+            </Tooltip>
+          </span>
+          <span slot="close">
+            <Tooltip content="Add item to tail">
+              Tail
+            </Tooltip>
+          </span>
         </i-switch>
       </span>
     </div>

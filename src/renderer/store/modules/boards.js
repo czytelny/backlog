@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import boardsRepository from '@/repositories/boardsRepository'
 import itemsRepository from '@/repositories/itemsRepository'
 import settingsRepository from '@/repositories/settingsRepository'
@@ -18,12 +17,6 @@ const mutations = {
   SET_BOARDS (state, boardsArray) {
     state.boardsList = boardsArray
   },
-  SET_BOARD (state, board) {
-    const boardIndex = state.boardsList.findIndex((b) => b.id === board.id)
-    if (boardIndex >= 0) {
-      Vue.set(state.boardsList, boardIndex, board)
-    }
-  },
   SET_BOARD_ITEMS (state, items) {
     state.boardItems = items
   },
@@ -35,8 +28,7 @@ const mutations = {
     state.activeBoard.showDone = showDone
   },
   SWITCH_PREPEND_NEW_ITEM (state, {boardId, prependNewItem}) {
-    const board = state.boardsList.find((board) => board.id === boardId)
-    board.prependNewItem = prependNewItem
+    state.activeBoard.prependNewItem = prependNewItem
   },
   SET_NEW_ITEM (state, val) {
     state.newItem = val
