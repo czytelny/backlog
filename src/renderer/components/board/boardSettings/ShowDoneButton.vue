@@ -1,8 +1,13 @@
 <template>
   <div class="showDoneButton">
-    <Button v-if="!showDone"
+    <Checkbox :value="showDone"
+              size="small"
+              @on-change="switchShowDone">
+      <span>Show done</span>
+    </Checkbox>
+<!--    <Button v-if="!showDone"
             size="small"
-            type="text"
+            type="dashed"
             icon="ios-checkmark-circle-outline"
             @click="switchShowDone">
       Show done
@@ -13,7 +18,7 @@
             icon="ios-remove-circle-outline"
             @click="switchShowDone">
       Hide done
-    </Button>
+    </Button>-->
   </div>
 
 </template>
@@ -21,12 +26,11 @@
 <script>
   export default {
     name: 'ShowDoneButton',
-    props: ['boardId'],
     methods: {
       switchShowDone () {
         this.$store.dispatch('switchShowDone',
           {
-            boardId: this.boardId,
+            boardId: this.$store.state.boards.activeBoard.id,
             showDone: !this.showDone
           })
       }

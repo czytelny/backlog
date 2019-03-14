@@ -1,16 +1,22 @@
 <template>
   <div class="board-settings">
-    <ShowDoneButton :boardId="boardId"/>
+    <Find-item/>
+    <ShowDoneButton/>
+    <BoardCompletionBtn/>
   </div>
 </template>
 
 <script>
   import ShowDoneButton from './ShowDoneButton'
+  import BoardCompletionBtn from './BoardCompletionBtn'
+  import FindItem from './FindItem'
 
   export default {
     name: 'BoardSettings',
     props: ['boardId'],
     components: {
+      FindItem,
+      BoardCompletionBtn,
       ShowDoneButton
     }
   }
@@ -20,5 +26,7 @@
   .board-settings {
     display: flex;
     margin: 4px 0;
+    align-items: center;
+    justify-content: space-between;
   }
 </style>

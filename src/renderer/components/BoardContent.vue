@@ -53,7 +53,7 @@
   import 'simplebar/dist/simplebar.min.css'
   import VueScrollTo from 'vue-scrollto'
   import draggable from 'vuedraggable'
-  import BoardSettings from './board/BoardSettings'
+  import BoardSettings from './board/boardSettings/BoardSettings'
 
   export default {
     name: 'BoardContent',

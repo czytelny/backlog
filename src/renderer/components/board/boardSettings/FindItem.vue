@@ -1,20 +1,18 @@
 <template>
-  <div>
+  <div class="find-item-container">
     <input v-model="findItem"
-           :id="'findItem-'+boardId"
+           :id="'findItem-' + activeBoardId"
            class="findItem"
-           placeholder="search..."
-           icon="ios-search"
-           :ref="boardId"
+           placeholder="Filter..."
+           :ref="activeBoardId"
            v-shortkey="{win:['ctrl', 'f'],mac:['meta', 'f']}" @shortkey="inputFocus()"
-           size="small">
+    >
   </div>
 </template>
 
 <script>
   export default {
     name: 'FindItem',
-    props: ['boardId'],
     computed: {
       findItem: {
         get () {
@@ -25,7 +23,7 @@
         }
       },
       activeBoardId () {
-        return this.$store.state.boards.activeBoard
+        return this.$store.state.boards.activeBoard.id
       }
     },
     methods: {
@@ -37,17 +35,23 @@
 </script>
 
 <style>
+  .find-item-container {
+    width: 60%;
+  }
+
   .findItem {
-    margin: 0 5px;
-    border: 1px solid transparent;
+    border: 1px dashed transparent;
+    border-bottom-color: #dddddd;
     -webkit-transition: all .3s;
-    font-style: italic;
-    border-radius: 5px;
+    border-radius: 3px;
     padding: 3px;
+    width: 95%;
+    background-color: #FAFCFF
   }
 
   .findItem:focus {
     outline: none;
     border-color: rgba(44, 133, 229, 0.69);
+    background-color: rgba(224, 235, 251, 0.67)
   }
 </style>
