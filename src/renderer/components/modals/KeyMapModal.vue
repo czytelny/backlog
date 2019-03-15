@@ -20,7 +20,7 @@
           <td>Show keymap window</td>
         </tr>
         <KeyBinding name="Create New Board Modal dupa"
-                      :keys="['ctrl', 'shift', 'd']"/>
+                    :keys="['ctrl', 'shift', 'd']"/>
         <tr>
           <td>
             <div><kbd>ctrl</kbd> + <kbd>shift</kbd> +<kbd>}</kbd></div>
@@ -55,33 +55,17 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-          <td>
-            <div><kbd>⌘</kbd> + <kbd>k</kbd></div>
-          </td>
-          <td>Show keymap window</td>
-        </tr>
+        <KeyBinding name="Show keymap window"
+                    :keys="['meta', 'k']"/>
         <KeyBinding name="Create New Board Modal"
+                    id="addNewBoard"
                     :keys="addNewBoardShortcutMac"/>
-        <tr>
-          <td>
-            <div><kbd>⌘</kbd> + <kbd>shift</kbd> + <kbd>}</kbd></div>
-          </td>
-          <td> Switch to the next board</td>
-        </tr>
-        <tr>
-          <td>
-            <div><kbd>⌘</kbd> + <kbd>shift</kbd> + <kbd>{</kbd></div>
-          </td>
-          <td> Switch to the previous board</td>
-        </tr>
-        <tr>
-          <td>
-            <div><kbd>⌘</kbd> + <kbd>n</kbd></div>
-          </td>
-          <td>Bring focus to "Add New Item" field</td>
-        </tr>
-
+        <KeyBinding name="Switch to the next board"
+                    :keys="['meta', 'shift', '}']"/>
+        <KeyBinding name="Switch to the previous board"
+                    :keys="['meta', 'shift', '{']"/>
+        <KeyBinding name="Bring focus to 'Add New Item' field"
+                    :keys="['meta', 'shift', 'n']"/>
         </tbody>
       </table>
     </div>
@@ -93,6 +77,7 @@
 
 <script>
   import KeyBinding from './keyBindings/KeyBinding'
+
   export default {
     name: 'KeyMapModal',
     components: {KeyBinding},
@@ -134,29 +119,13 @@
   }
 </script>
 
-<style scoped>
+<style>
 
   .close-icon {
     position: absolute;
     right: 16px;
     top: 16px;
     cursor: pointer;
-  }
-
-  kbd {
-    position: relative;
-    display: inline-block;
-    margin: 0 1px 2px;
-    padding: 4px;
-    border: 1px solid #e6e6e6;
-    border-radius: 4px;
-    white-space: nowrap;
-    letter-spacing: .2px;
-    background: #fafafa;
-    font-family: inherit;
-    line-height: 1em;
-    -webkit-transition: background-color .6s;
-    transition: background-color .6s;
   }
 
   table {
@@ -175,7 +144,7 @@
   }
 
   tbody td {
-    padding: 16px 0;
+    padding: 4px 0;
   }
 
   .header {
@@ -184,6 +153,14 @@
 
   tbody tr {
     border-bottom: 1px solid #f3f3f3;
+    cursor: pointer;
+    border-radius: 4px;
+    padding: 4px;
+    transition: all .3s;
+  }
+
+  tbody tr:hover {
+    background-color: #f3f3f3;
   }
 
   .keymap {
