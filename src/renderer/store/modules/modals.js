@@ -8,6 +8,10 @@ const state = {
     isVisible: false,
     name: ''
   },
+  findItem: {
+    isVisible: false,
+    findingItem: ''
+  },
   renameBoard: {
     isVisible: false,
     name: '',
@@ -16,10 +20,7 @@ const state = {
   settings: {
     isVisible: false,
     currentVersion: version,
-    boardsList: [],
-    restartRequired: false,
-    restartReqCloak: false,
-    restartCountdown: 3
+    boardsList: []
   },
   moveToBoard: {
     isVisible: false,
@@ -61,6 +62,12 @@ const mutations = {
   HIDE_SETTINGS (state) {
     state.settings.isVisible = false
   },
+  HIDE_FIND_ITEM_MODAL (state) {
+    state.findItem.isVisible = false
+  },
+  SHOW_FIND_ITEM_MODAL (state) {
+    state.findItem.isVisible = true
+  },
   SHOW_MOVE_TO_BOARD (state) {
     state.moveToBoard.isVisible = true
   },
@@ -87,9 +94,6 @@ const mutations = {
   },
   SET_RESTART_REQ_CLOAK (state, val) {
     state.settings.restartReqCloak = val
-  },
-  DECREASE_RESTART_REQ_CLOAK (state) {
-    state.settings.restartCountdown -= 1
   },
   SET_MOVING_ITEM_ID (state, movingItemId) {
     state.moveToBoard.movingItemId = movingItemId
@@ -138,6 +142,12 @@ const actions = {
   hideKeymapModal ({commit}) {
     commit('HIDE_KEYMAP_MODAL')
   },
+  hideFindItemModal ({commit}) {
+    commit('HIDE_FIND_ITEM_MODAL')
+  },
+  showFindItemModal ({commit}) {
+    commit('SHOW_FIND_ITEM_MODAL')
+  },
   fetchSettingsBoardsList ({commit}) {
     commit('SET_SETTINGS_BOARDS_LIST', boardsRepository.getList())
   },
@@ -146,9 +156,6 @@ const actions = {
   },
   showRestartReqCloak ({commit}) {
     commit('SET_RESTART_REQ_CLOAK', true)
-  },
-  decreaseRestartCountdown ({commit}) {
-    commit('DECREASE_RESTART_REQ_CLOAK')
   },
   setNewBoardName ({commit}, val) {
     commit('SET_NEW_BOARD_NAME', val)

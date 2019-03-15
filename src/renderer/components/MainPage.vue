@@ -4,11 +4,13 @@
     <transition
       name="fade"
       mode="out-in"
+      duration="150"
     >
       <router-view :key="activeBoardId"/>
     </transition>
     <new-board-modal/>
     <rename-board-modal/>
+    <find-item-modal/>
     <!--<settings-modal/>-->
   </div>
 </template>
@@ -19,10 +21,11 @@
   import NewBoardModal from './modals/NewBoardModal'
   import RenameBoardModal from './modals/RenameBoardModal'
   import SettingsModal from './modals/settings/SettingsModal'
+  import FindItemModal from './modals/FindItemModal'
 
   export default {
     name: 'MainPage',
-    components: {SettingsModal, RenameBoardModal, NewBoardModal, BoardContent, BoardsMenu},
+    components: {FindItemModal, SettingsModal, RenameBoardModal, NewBoardModal, BoardContent, BoardsMenu},
     methods: {
       loadBoards () {
         this.$store.dispatch('fetchBoards')

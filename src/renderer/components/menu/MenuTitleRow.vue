@@ -1,11 +1,23 @@
 <template>
   <div class="menu-title-row">
     BOARDS
-    <Tooltip content="Add New Board" class="add-icon-container" placement="right" :transfer="true">
+    <Tooltip content="Add New Board"
+             class="add-icon-container"
+             placement="right"
+             :transfer="true">
       <Icon type="ios-add"
             size="24"
             class="add-icon"
             @click="showNewBoardModal"/>
+    </Tooltip>
+    <Tooltip content="Find item..."
+             class="add-icon-container"
+             placement="right"
+             :transfer="true">
+      <Icon type="ios-glasses-outline"
+            size="24"
+            class="add-icon"
+            @click="showFindItemModal"/>
     </Tooltip>
   </div>
 </template>
@@ -16,6 +28,9 @@
     methods: {
       showNewBoardModal () {
         this.$store.dispatch('showNewBoardModal')
+      },
+      showFindItemModal () {
+        this.$store.dispatch('showFindItemModal')
       }
     }
   }
