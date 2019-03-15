@@ -48,4 +48,13 @@
     overflow: hidden;
   }
 
+  .invisible {
+    opacity: 0;
+    transition: opacity .3s;
+  }
+
+  .visible {
+    opacity: 1;
+  }
+
 </style>

@@ -1,12 +1,15 @@
 <template>
   <div class="board-content-container">
-    <div class="board-top-actions">
+    <div class="board-top-actions"
+         :class="{'smaller' : !isProgressVisible}">
       <NewItemInput @itemAdded="scrollToNewItem"/>
       <BoardSettings v-if="!isBoardItemsEmpty"
                      :boardId="boardId"/>
 
       <StatusBar :board-items="boardItems"
-                 v-if="!isBoardItemsEmpty && isProgressVisible"/>
+                 class="invisible"
+                 :class="{'visible' : isProgressVisible}"
+                 v-if="!isBoardItemsEmpty"/>
     </div>
 
     <div v-if="isBoardItemsEmpty" class="info">
@@ -48,7 +51,7 @@
 <script>
   import BoardItem from '@/components/board/item/BoardItem.vue'
   import StatusBar from './../components/board/StatusBar'
-  import NewItemInput from '@/components/board/NewItemInput'
+  import NewItemInput from './../components/board/NewItemInput'
   import simplebar from 'simplebar-vue'
   import 'simplebar/dist/simplebar.min.css'
   import VueScrollTo from 'vue-scrollto'
@@ -146,15 +149,21 @@
   }
 
   .board-top-actions {
-    /*background-color: #fff;*/
-    background-image: linear-gradient(to bottom, #fff, #fff);
+    background-color: #fff;
     padding: 32px 16px 8px 16px;
     width: 100%;
     margin-top: -16px;
     box-shadow: 0 0 8px #e2e2e2;
     border-radius: 8px;
-
+    margin-bottom: 4px;
+    transition: all .3s;
+    height: 155px;
   }
+
+  .board-top-actions.smaller {
+    height: 125px;
+  }
+
 
   .info {
     text-align: center;

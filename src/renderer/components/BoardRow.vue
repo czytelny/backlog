@@ -12,9 +12,11 @@
           {{label}}
         </span>
 
-        <span class="progress" v-if="showProgress">
-          {{progress}}%
-        </span>
+        <transition name="fade" duration="300">
+          <span class="progress" v-if="showProgress">
+            {{progress}}%
+          </span>
+        </transition>
       </div>
     </router-link>
   </div>
@@ -112,7 +114,7 @@
     -ms-transition: all .3s;
     -o-transition: all .3s;
     transition: all .3s;
-    margin: 8px 0;
+    margin: 12px 0;
     line-height: 1em;
   }
 
