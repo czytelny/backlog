@@ -148,8 +148,7 @@
   .board-top-actions {
     /*background-color: #fff;*/
     background-image: linear-gradient(to bottom, #fff, #fff);
-    padding: 16px;
-    padding-bottom: 8px;
+    padding: 24px 16px 8px 16px;
     width: 100%;
     margin-top: -16px;
     box-shadow: 0 0 8px #e2e2e2;

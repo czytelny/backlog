@@ -102,7 +102,7 @@
 
   .board-menu {
     width: 100%;
-    padding: 32px;
+    padding: 24px;
     transition: all .3s;
     box-shadow: 0 0 16px rgba(57, 59, 62, 0.11);
   }
