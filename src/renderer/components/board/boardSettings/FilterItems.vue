@@ -57,7 +57,7 @@
     cursor: pointer;
   }
   .findItem {
-    border: 1px dashed #dddddd;
+    border: 1px dashed #eeeeee;
     -webkit-transition: all .3s;
     border-radius: 3px;
     padding: 4px 8px;
