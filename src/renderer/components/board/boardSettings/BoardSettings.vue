@@ -9,7 +9,7 @@
 <script>
   import ShowDoneButton from './ShowDoneButton'
   import BoardCompletionBtn from './BoardCompletionBtn'
-  import FindItem from './FindItem'
+  import FindItem from './FilterItems'
 
   export default {
     name: 'BoardSettings',

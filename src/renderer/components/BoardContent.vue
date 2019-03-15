@@ -1,7 +1,11 @@
 <template>
   <div class="board-content-container">
-    <div class="new-item-input">
+    <div class="board-top-actions">
       <NewItemInput @itemAdded="scrollToNewItem"/>
+      <BoardSettings v-if="!isBoardItemsEmpty"
+                     :boardId="boardId"/>
+
+      <StatusBar :board-items="boardItems" v-if="!isBoardItemsEmpty"></StatusBar>
     </div>
 
     <div v-if="isBoardItemsEmpty" class="info">
@@ -17,18 +21,13 @@
       <h1>No results...</h1>
     </div>
 
-    <BoardSettings v-if="!isBoardItemsEmpty"
-                   :boardId="boardId"/>
-
-    <StatusBar :board-items="boardItems" v-if="!isBoardItemsEmpty"></StatusBar>
-
     <div class="items-container" v-if="!isBoardItemsEmpty">
       <draggable :value="boardItems"
                  handle=".drag"
                  @change="boardItemsRearanged"
       >
         <transition-group name="list-complete">
-          <board-item v-for="item in boardItems"
+          <board-item v-for="item in filteredBoardItems"
                       :key="item.id"
                       :itemId="item.id"
                       :isDone="item.isDone"
@@ -47,7 +46,7 @@
 
 <script>
   import BoardItem from '@/components/board/item/BoardItem.vue'
-  import StatusBar from '@/components/board/StatusBar'
+  import StatusBar from './../components/board/StatusBar'
   import NewItemInput from '@/components/board/NewItemInput'
   import simplebar from 'simplebar-vue'
   import 'simplebar/dist/simplebar.min.css'
@@ -142,20 +141,20 @@
     box-shadow: 16px 0 64px rgba(57, 59, 62, 0.13);
   }
 
+  .board-top-actions {
+    background-color: #fff;
+    padding: 16px;
+    padding-bottom: 8px;
+    width: 100%;
+    margin-top: -16px;
+    box-shadow: 0 0 16px #e2e2e2;
+  }
+
   .info {
     text-align: center;
     font-size: 1.5em;
     opacity: .25;
     padding: 20px 0;
-  }
-
-  .new-item-input {
-    background-color: #fff;
-    padding: 15px;
-    width: 100%;
-    margin-top: -16px;
-    margin-bottom: 16px;
-    box-shadow: 0 0 5px #e2e2e2;
   }
 
   .items-container {

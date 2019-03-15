@@ -1,5 +1,5 @@
 <template>
-  <form action="#" v-on:submit.prevent="submitNewItem">
+  <form action="#" v-on:submit.prevent="submitNewItem" class="new-item-input">
     <div class="input-row">
       <span class="input-form">
         <input ref="mainInput"
@@ -112,6 +112,13 @@
 </script>
 
 <style scoped>
+
+  input {
+    margin: 0!important;
+  }
+  .new-item-input {
+    margin-bottom: 16px;
+  }
   .input-row {
     display: flex;
     align-items: center;

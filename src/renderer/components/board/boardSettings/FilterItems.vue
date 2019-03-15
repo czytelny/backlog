@@ -3,10 +3,13 @@
     <input v-model="findItem"
            :id="'findItem-' + activeBoardId"
            class="findItem"
-           placeholder="Filter..."
+           placeholder="Filter items list..."
            :ref="activeBoardId"
            v-shortkey="{win:['ctrl', 'f'],mac:['meta', 'f']}" @shortkey="inputFocus()"
     >
+    <Icon  class="clear-btn"
+           :class="{'clear-btn-visible': findItem.length}"
+           type="ios-close-circle-outline" @click="clearFilterInput"/>
   </div>
 </template>
 
@@ -29,6 +32,10 @@
     methods: {
       inputFocus () {
         document.getElementById(`findItem-${this.activeBoardId}`).focus()
+      },
+      clearFilterInput () {
+        this.findItem = ''
+        this.inputFocus()
       }
     }
   }
@@ -39,19 +46,26 @@
     width: 60%;
   }
 
+  .clear-btn {
+    opacity: 0;
+    margin-left: -22px;
+    transition: all .3s;
+  }
+
+  .clear-btn-visible {
+    opacity: 1;
+    cursor: pointer;
+  }
   .findItem {
-    border: 1px dashed transparent;
-    border-bottom-color: #dddddd;
+    border: 1px dashed #dddddd;
     -webkit-transition: all .3s;
     border-radius: 3px;
-    padding: 3px;
+    padding: 4px 8px;
     width: 95%;
-    background-color: #FAFCFF
   }
 
   .findItem:focus {
     outline: none;
-    border-color: rgba(44, 133, 229, 0.69);
-    background-color: rgba(224, 235, 251, 0.67)
+    border-color: #626870;
   }
 </style>

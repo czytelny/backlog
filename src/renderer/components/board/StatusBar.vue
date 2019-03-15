@@ -1,8 +1,9 @@
 <template>
-  <Tooltip style="width: 100%" placement="top">
+  <Tooltip style="width: 100%" placement="bottom">
     <Progress :percent="progressCount"
               :stroke-width="8"
               :success-percent="progressCount"
+              style="margin-top:8px;"
               hide-info/>
     <div slot="content">
       <span class="done-label">{{doneItemsCount}}</span> done |
