@@ -19,12 +19,8 @@
           </td>
           <td>Show keymap window</td>
         </tr>
-        <tr>
-          <td>
-            <div><kbd>ctrl</kbd> + <kbd>shift</kbd> + <kbd>n</kbd></div>
-          </td>
-          <td>Create New Board Modal</td>
-        </tr>
+        <KeyBinding name="Create New Board Modal dupa"
+                      :keys="['ctrl', 'shift', 'd']"/>
         <tr>
           <td>
             <div><kbd>ctrl</kbd> + <kbd>shift</kbd> +<kbd>}</kbd></div>
@@ -65,12 +61,8 @@
           </td>
           <td>Show keymap window</td>
         </tr>
-        <tr>
-          <td>
-            <div><kbd>⌘</kbd> + <kbd>shift</kbd> + <kbd>n</kbd></div>
-          </td>
-          <td>Create New Board Modal</td>
-        </tr>
+        <KeyBinding name="Create New Board Modal"
+                    :keys="addNewBoardShortcutMac"/>
         <tr>
           <td>
             <div><kbd>⌘</kbd> + <kbd>shift</kbd> + <kbd>}</kbd></div>
@@ -100,8 +92,10 @@
 </template>
 
 <script>
+  import KeyBinding from './keyBindings/KeyBinding'
   export default {
     name: 'KeyMapModal',
+    components: {KeyBinding},
     data () {
       return {
         system: null
@@ -119,6 +113,9 @@
       },
       isLinux () {
         return this.system.includes('linux')
+      },
+      addNewBoardShortcutMac () {
+        return this.$store.state.settings.keyBindings.addNewBoard.mac
       }
     },
     created () {

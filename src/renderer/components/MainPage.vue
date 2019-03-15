@@ -26,19 +26,14 @@
   export default {
     name: 'MainPage',
     components: {FindItemModal, SettingsModal, RenameBoardModal, NewBoardModal, BoardContent, BoardsMenu},
-    methods: {
-      loadBoards () {
-        this.$store.dispatch('fetchBoards')
-      },
-      importOldEntries () {
-        this.$store.dispatch('importOldEntries')
-      }
-    },
     created () {
       this.$store.dispatch('fetchSettings')
+      console.log(this.$store.state.settings.dbLocation)
+
       // this.versionCheck()
-      this.importOldEntries()
-      this.loadBoards()
+      this.$store.dispatch('importOldEntries')
+      this.$store.dispatch('setupKeyBindings')
+      this.$store.dispatch('fetchBoards')
       this.$store.dispatch('fetchActiveBoard')
       this.$router.push({path: `/board/${this.activeBoardId}`})
       this.$nextTick().then(() => this.$bus.$emit('appInit', this.selectedTab))

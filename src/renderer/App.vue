@@ -13,7 +13,7 @@
   import TopBar from './components/TopBar'
   import './theme/default-theme.less'
   import KeyMapModal from './components/modals/KeyMapModal'
-  import GlobalKeybindings from './components/GlobalKeybindings'
+  import GlobalKeybindings from './components/GlobalKeyBindings'
 
   export default {
     name: 'backlog',

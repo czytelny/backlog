@@ -1,4 +1,4 @@
-import settingsRepository from '@/repositories/settingsRepository'
+import settingsRepository from './../../repositories/settingsRepository'
 
 const state = {
   wasImported: true,
@@ -8,7 +8,8 @@ const state = {
   markdownMode: true,
   dbLocation: '',
   darkTheme: false,
-  showUpdates: true
+  showUpdates: true,
+  keyBindings: undefined
 }
 
 const mutations = {
@@ -69,6 +70,11 @@ const actions = {
   setShowUpdates ({commit}, showUpdates) {
     commit('SET_SHOW_UPDATES', showUpdates)
     settingsRepository.updateAppSettings({showUpdates})
+  },
+  setupKeyBindings ({commit}) {
+    if (!state.keyBindings) {
+      settingsRepository.setupKeyBindings()
+    }
   }
 }
 
