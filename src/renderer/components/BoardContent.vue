@@ -49,7 +49,7 @@
 </template>
 
 <script>
-  import BoardItem from '@/components/board/item/BoardItem.vue'
+  import BoardItem from './../components/board/item/BoardItem.vue'
   import StatusBar from './../components/board/StatusBar'
   import NewItemInput from './../components/board/NewItemInput'
   import simplebar from 'simplebar-vue'

@@ -54,9 +54,8 @@
                      :boardId="boardId"
       >
       </ActionButtons>
-      <span v-if="showDate" >
-        <BoardItemCalendar :created="created"/>
-      </span>
+
+      <BoardItemCalendar :created="created" v-if="showDate"/>
     </div>
   </div>
 </template>

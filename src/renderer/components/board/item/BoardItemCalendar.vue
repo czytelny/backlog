@@ -1,6 +1,6 @@
 <template>
   <div class="creationDate">
-    <Tooltip placement="left">
+    <Tooltip placement="left" :transfer="true">
       <Icon type="ios-calendar-outline"/>
       <div slot="content">
         <p>{{created | simpleDate}}</p>
