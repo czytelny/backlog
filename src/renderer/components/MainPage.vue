@@ -1,7 +1,12 @@
 <template>
   <div class="main-page">
     <BoardsMenu/>
-    <router-view :key="activeBoardId"/>
+    <transition
+      name="fade"
+      mode="out-in"
+    >
+      <router-view :key="activeBoardId"/>
+    </transition>
     <new-board-modal/>
     <rename-board-modal/>
     <!--<settings-modal/>-->

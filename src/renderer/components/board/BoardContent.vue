@@ -162,6 +162,7 @@
 
   .board-top-actions.smaller {
     height: 125px;
+    transition-delay: .2s;
   }
 
 
