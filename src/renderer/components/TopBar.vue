@@ -1,5 +1,6 @@
 <template>
   <div class="topBar">
+    <img src="./../assets/icon/logo.svg" alt="Logo" class="logo-icon"/>
     Backlog v{{version}}
     <div class="actionBtn-container">
       <div class="minimize actionBtn"
@@ -51,7 +52,7 @@
     font-size: 1em;
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
     z-index: 100;
-    border:1px solid #e4e4e4;
+    border: 1px solid #e4e4e4;
   }
 
   .actionBtn-container {
@@ -80,6 +81,13 @@
 
   .actionBtn.close:hover {
     color: #ed4014
+  }
+
+  .logo-icon {
+    position: absolute;
+    height: 20px;
+    margin-left: -24px;
+    top: 6px;
   }
 
 </style>
