@@ -26,9 +26,8 @@
           </board-row>
         </transition-group>
       </draggable>
-      <boards-actions-row></boards-actions-row>
-
     </simplebar>
+    <boards-actions-row></boards-actions-row>
   </div>
 </template>
 
@@ -97,6 +96,7 @@
     color: #ededed;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
     z-index: 1;
+    position: relative;
   }
 
   .board-menu {

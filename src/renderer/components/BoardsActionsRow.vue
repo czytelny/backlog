@@ -1,15 +1,15 @@
 <template>
     <div class="boards-actions-row">
-      <Tooltip content="Keymap" placement="bottom" :transfer="true">
+      <Tooltip content="Keymap" placement="bottom" :transfer="true" class="tooltip-height">
         <span @click="showKeymap">
-            <img src="./../assets/icon/keymap.svg" width="24" alt="Keymap" class="action-icon"/>
+            <img src="./../assets/icon/keymap.svg" alt="Keymap" class="action-icon"/>
         </span>
       </Tooltip>
-      <Tooltip content="Cloud Settings" placement="bottom" :transfer="true">
-        <Icon type="ios-cloud" size="32" @click="showSettingsModal" class="action-icon"/>
+      <Tooltip content="Cloud integration - unset" placement="bottom" :transfer="true" class="tooltip-height">
+        <img src="./../assets/icon/cloud_unset.svg" alt="Keymap" class="action-icon"/>
       </Tooltip>
-      <Tooltip content="Application Settings" placement="bottom" :transfer="true">
-        <Icon type="ios-build" size="32" @click="showSettingsModal" class="action-icon"/>
+      <Tooltip content="Application Settings" placement="bottom" :transfer="true" class="tooltip-height">
+        <img src="./../assets/icon/settings.svg" alt="Keymap" class="action-icon"/>
       </Tooltip>
     </div>
 </template>
@@ -34,15 +34,21 @@
 
 <style scoped>
   .boards-actions-row {
-    text-align: right;
-    padding: 4px 0;
+    padding: 8px 32px;
     display: flex;
     position: absolute;
-    bottom: 8px;
-    justify-content: space-between;
-    min-width: 180px;
+    bottom: 0;
+    left: 0;
+    justify-content: space-around;
     align-items: center;
+    background-color: #565a61;
+    width: 100%;
   }
+
+  .tooltip-height{
+    height: 24px;
+  }
+
   .action-icon {
     color: #2C2E32;
     -webkit-transition: all .3s;

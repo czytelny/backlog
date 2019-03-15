@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
     <title>icon/keymap</title>
     <desc>Created with Sketch.</desc>
     <g id="icon/keymap" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <rect id="Rectangle" stroke="#2C2E32" fill="#4C5057" x="0.5" y="0.5" width="31" height="31" rx="4"></rect>
-        <text id="⌘" font-family="LucidaGrande, Lucida Grande" font-size="12" font-weight="normal" fill="#ECECEC">
-            <tspan x="10" y="20.5">⌘</tspan>
+        <rect id="Rectangle" stroke="#2C2E32" stroke-width="0.75" fill="#4C5057" x="2.375" y="2.375" width="19.25" height="19.25" rx="3"></rect>
+        <text id="⌘" font-family="LucidaGrande, Lucida Grande" font-size="10" font-weight="normal" fill="#ECECEC">
+            <tspan x="7" y="16">⌘</tspan>
         </text>
     </g>
 </svg>
