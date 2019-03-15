@@ -49,14 +49,14 @@
 </template>
 
 <script>
-  import BoardItem from './../components/board/item/BoardItem.vue'
-  import StatusBar from './../components/board/StatusBar'
-  import NewItemInput from './../components/board/NewItemInput'
+  import BoardItem from './item/BoardItem.vue'
+  import StatusBar from './StatusBar'
+  import NewItemInput from './NewItemInput'
   import simplebar from 'simplebar-vue'
   import 'simplebar/dist/simplebar.min.css'
   import VueScrollTo from 'vue-scrollto'
   import draggable from 'vuedraggable'
-  import BoardSettings from './board/boardSettings/BoardSettings'
+  import BoardSettings from './boardSettingsBar/BoardSettings'
 
   export default {
     name: 'BoardContent',

@@ -24,7 +24,7 @@
 
 <script>
   export default {
-    name: 'BoardRow',
+    name: 'MenuRow',
     props: ['boardId', 'label', 'progress', 'isDragging', 'showProgress'],
     computed: {
       activeBoard: {

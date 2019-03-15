@@ -9,8 +9,8 @@
 </template>
 
 <script>
-  import BoardsMenu from './BoardsMenu'
-  import BoardContent from './BoardContent'
+  import BoardsMenu from './menu/Menu'
+  import BoardContent from './board/BoardContent'
   import NewBoardModal from './modals/NewBoardModal'
   import RenameBoardModal from './modals/RenameBoardModal'
   import SettingsModal from './modals/settings/SettingsModal'

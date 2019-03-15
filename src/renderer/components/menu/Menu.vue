@@ -16,7 +16,7 @@
                  @end="draggingEnded"
       >
         <transition-group name="board-list-transition">
-          <board-row v-for="(board, $index) in boards"
+          <menu-row v-for="(board, $index) in boards"
                      :data-index="$index"
                      :isDragging="isDragging"
                      :boardId="board.id"
@@ -24,7 +24,7 @@
                      :progress="board.progress"
                      :showProgress="board.showProgress"
                      :key="board.id">
-          </board-row>
+          </menu-row>
         </transition-group>
       </draggable>
     </simplebar>
@@ -37,13 +37,13 @@
   import simplebar from 'simplebar-vue'
   import 'simplebar/dist/simplebar.min.css'
 
-  import BoardRow from './BoardRow'
-  import BoardsTitleRow from './BoardsTitleRow'
-  import BoardsActionsRow from './BoardsActionsRow'
+  import MenuRow from './MenuRow'
+  import BoardsTitleRow from './MenuTitleRow'
+  import BoardsActionsRow from './MenuActionsRow'
 
   export default {
-    name: 'BoardsMenu',
-    components: {BoardsActionsRow, BoardsTitleRow, BoardRow, draggable, simplebar},
+    name: 'Menu',
+    components: {BoardsActionsRow, BoardsTitleRow, MenuRow, draggable, simplebar},
     data () {
       return {
         isDragging: false

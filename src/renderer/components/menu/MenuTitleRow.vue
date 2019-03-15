@@ -1,5 +1,5 @@
 <template>
-  <div class="boards-title-row">
+  <div class="menu-title-row">
     BOARDS
     <Tooltip content="Add New Board" class="add-icon-container" placement="right" :transfer="true">
       <Icon type="ios-add"
@@ -12,7 +12,7 @@
 
 <script>
   export default {
-    name: 'BoardsTitleRow',
+    name: 'MenuTitleRow',
     methods: {
       showNewBoardModal () {
         this.$store.dispatch('showNewBoardModal')
@@ -22,7 +22,7 @@
 </script>
 
 <style scoped>
-  .boards-title-row {
+  .menu-title-row {
     user-select: none;
     font-size: 18px;
     color: #f4f4f4;

@@ -1,22 +1,22 @@
 <template>
-  <div class="boards-actions-row">
+  <div class="menu-actions-row">
     <Tooltip content="Keymap" placement="bottom" :transfer="true" class="tooltip-height">
         <span @click="showKeymap">
-            <img src="./../assets/icon/keymap.svg" alt="Keymap" class="action-icon"/>
+            <img src="./../../assets/icon/keymap.svg" alt="Keymap" class="action-icon"/>
         </span>
     </Tooltip>
     <Tooltip content="Cloud - unset" placement="bottom" :transfer="true" class="tooltip-height">
-      <img src="./../assets/icon/cloud_unset.svg" alt="Keymap" class="action-icon"/>
+      <img src="./../../assets/icon/cloud_unset.svg" alt="Keymap" class="action-icon"/>
     </Tooltip>
     <Tooltip content="Application Settings" placement="bottom" :transfer="true" class="tooltip-height">
-      <img src="./../assets/icon/settings.svg" alt="Keymap" class="action-icon"/>
+      <img src="./../../assets/icon/settings.svg" alt="Keymap" class="action-icon"/>
     </Tooltip>
   </div>
 </template>
 
 <script>
   export default {
-    name: 'BoardsActionsRow',
+    name: 'MenuActionsRow',
     methods: {
       showKeymap () {
         this.$store.dispatch('showKeymapModal')
@@ -30,7 +30,7 @@
 </script>
 
 <style scoped>
-  .boards-actions-row {
+  .menu-actions-row {
     padding: 8px 32px;
     display: flex;
     position: absolute;
