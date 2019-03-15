@@ -22,6 +22,7 @@
                      :boardId="board.id"
                      :label="board.label"
                      :progress="board.progress"
+                     :showProgress="board.showProgress"
                      :key="board.id">
           </board-row>
         </transition-group>

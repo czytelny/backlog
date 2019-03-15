@@ -2,13 +2,13 @@
   <div class="board-settings">
     <Find-item/>
     <ShowDoneButton/>
-    <BoardCompletionBtn/>
+    <ShowProgressBtn/>
   </div>
 </template>
 
 <script>
   import ShowDoneButton from './ShowDoneButton'
-  import BoardCompletionBtn from './BoardCompletionBtn'
+  import ShowProgressBtn from './ShowProgressBtn'
   import FindItem from './FilterItems'
 
   export default {
@@ -16,7 +16,7 @@
     props: ['boardId'],
     components: {
       FindItem,
-      BoardCompletionBtn,
+      ShowProgressBtn,
       ShowDoneButton
     }
   }

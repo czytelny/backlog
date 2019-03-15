@@ -4,15 +4,19 @@ const shortid = require('shortid')
 const storage = require('electron').remote.require('electron-settings')
 const fs = require('electron').remote.require('fs')
 
-db.defaults({
-  activeBoard: 'default',
-  boards: [{
+function defaultBoard () {
+  return {
     id: 'default',
     label: 'Default board',
     showDone: false,
+    showProgress: false,
     prependNewItem: false,
     items: []
-  }]
+  }
+}
+db.defaults({
+  activeBoard: 'default',
+  boards: [defaultBoard()]
 }).write()
 
 export default {
@@ -25,6 +29,7 @@ export default {
       .insert({
         label: boardName,
         showDone: false,
+        showProgress: false,
         prependNewItem: defaults.prependNewItems,
         items: []
       })
@@ -85,7 +90,8 @@ export default {
           label: board.label,
           progress: progressCount(board),
           prependNewItem: board.prependNewItem,
-          showDone: board.showDone
+          showDone: board.showDone,
+          showProgress: board.showProgress
         }
       })
   },

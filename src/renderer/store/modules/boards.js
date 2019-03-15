@@ -24,10 +24,13 @@ const mutations = {
     const activeBoard = state.boardsList.find((board) => board.id === boardId)
     state.activeBoard = activeBoard
   },
-  SWITCH_SHOW_DONE (state, {boardId, showDone}) {
+  SWITCH_SHOW_DONE (state, {showDone}) {
     state.activeBoard.showDone = showDone
   },
-  SWITCH_PREPEND_NEW_ITEM (state, {boardId, prependNewItem}) {
+  SWITCH_SHOW_PROGRESS (state, val) {
+    state.activeBoard.showProgress = val
+  },
+  SWITCH_PREPEND_NEW_ITEM (state, {prependNewItem}) {
     state.activeBoard.prependNewItem = prependNewItem
   },
   SET_NEW_ITEM (state, val) {
@@ -89,6 +92,10 @@ const actions = {
   switchPrependNewItem ({commit}, {boardId, prependNewItem}) {
     itemsRepository.switchPrependNewItem(boardId, prependNewItem)
     commit('SWITCH_PREPEND_NEW_ITEM', {boardId, prependNewItem})
+  },
+  switchShowProgress ({commit}, {boardId, val}) {
+    itemsRepository.switchShowProgress(boardId, val)
+    commit('SWITCH_SHOW_PROGRESS', val)
   },
   setNewItemVal ({commit}, val) {
     commit('SET_NEW_ITEM', val)

@@ -16,6 +16,12 @@ export default {
       .assign({isDone: value})
       .write()
   },
+  switchShowProgress (boardId, val) {
+    return db
+      .get('boards')
+      .updateById(boardId, {showProgress: val})
+      .write()
+  },
   removeItem (boardId, itemId) {
     return db
       .get('boards')

@@ -5,7 +5,8 @@
       <BoardSettings v-if="!isBoardItemsEmpty"
                      :boardId="boardId"/>
 
-      <StatusBar :board-items="boardItems" v-if="!isBoardItemsEmpty"></StatusBar>
+      <StatusBar :board-items="boardItems"
+                 v-if="!isBoardItemsEmpty && isProgressVisible"/>
     </div>
 
     <div v-if="isBoardItemsEmpty" class="info">
@@ -95,6 +96,9 @@
       },
       isFiltered () {
         return this.$store.state.boards.findItem.itemText.length > 0
+      },
+      isProgressVisible () {
+        return this.$store.state.boards.activeBoard.showProgress
       }
     },
     methods: {

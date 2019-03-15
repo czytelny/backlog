@@ -12,7 +12,9 @@
           {{label}}
         </span>
 
-        <span class="progress">{{progress}}%</span>
+        <span class="progress" v-if="showProgress">
+          {{progress}}%
+        </span>
       </div>
     </router-link>
   </div>
@@ -21,7 +23,7 @@
 <script>
   export default {
     name: 'BoardRow',
-    props: ['boardId', 'label', 'progress', 'isDragging'],
+    props: ['boardId', 'label', 'progress', 'isDragging', 'showProgress'],
     computed: {
       activeBoard: {
         set (value) {
@@ -95,6 +97,7 @@
   .board-row-container {
     font-size: 1.1em;
   }
+
   .board-row-container:hover .remove-icon {
     opacity: 1;
   }
@@ -109,7 +112,7 @@
     -ms-transition: all .3s;
     -o-transition: all .3s;
     transition: all .3s;
-    margin:8px 0;
+    margin: 8px 0;
     line-height: 1em;
   }
 
