@@ -40,6 +40,17 @@ export default {
       .assign(updateProp)
       .write()
   },
+  updateKeyBinding (keyId, combination, isMac) {
+    if (isMac) {
+      return db
+        .set(`appSettings.keyBindings.${keyId}.mac`, combination)
+        .write()
+    } else {
+      return db.get('appSettings')
+        .set(`appSettings.keyBindings.${keyId}.win`, combination)
+        .write()
+    }
+  },
   setupKeyBindings () {
     this.updateAppSettings({'keyBindings': keyBindings})
     console.log(db.get('appSettings').value())

@@ -1,4 +1,4 @@
-import boardsRepository from '@/repositories/boardsRepository'
+import boardsRepository from './../../repositories/boardsRepository'
 
 const remote = require('electron').remote
 const version = remote.app.getVersion()
@@ -31,6 +31,7 @@ const state = {
     isVisible: false
   },
   keymap: {
+    system: '',
     isVisible: false,
     isCapturing: false
   }
@@ -104,6 +105,9 @@ const mutations = {
   },
   SET_IS_CAPTURING (state, val) {
     state.keymap.isCapturing = val
+  },
+  SET_SYSTEM (state, val) {
+    state.keymap.system = val
   }
 }
 
@@ -172,6 +176,9 @@ const actions = {
   },
   setIsCapturing ({commit}, val) {
     commit('SET_IS_CAPTURING', val)
+  },
+  setSystem ({commit}, val) {
+    commit('SET_SYSTEM', val)
   }
 }
 

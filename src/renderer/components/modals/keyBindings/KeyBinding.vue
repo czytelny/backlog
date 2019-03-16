@@ -1,8 +1,19 @@
 <template>
   <tr @click="captureCombination">
     <td class="capturing" v-if="keyCapturing">
-      <Icon type="ios-radio-button-on" size="15"/>
-      Recording...
+      <div v-if="combination.length === 0">
+        <Icon type="ios-radio-button-on" size="15"/>
+        Recording...
+      </div>
+      <div v-else>
+        <span v-for="(k, index) in combination">
+          <kbd class="capturing">
+            <span v-if="k==='meta'">⌘</span>
+            <span v-else>{{k}}</span>
+          </kbd>
+          <span v-if="index !== combination.length - 1">+ </span>
+        </span>
+      </div>
     </td>
     <td v-else>
       <div>
@@ -26,7 +37,13 @@
     data () {
       return {
         keyCapturing: false,
+        combination: [],
         keysPressed: 0
+      }
+    },
+    computed: {
+      isMac () {
+        return this.$store.state.modals.keymap.system.includes('mac')
       }
     },
     methods: {
@@ -36,16 +53,34 @@
         }
         this.$store.dispatch('setIsCapturing', true)
         this.keyCapturing = true
+        this.combination.length = 0
+        this.keysPressed = 0
+
         document.onkeydown = (e) => {
-          console.log(e.key)
-          this.keysPressed++
+          if (!e.repeat) {
+            this.keysPressed++
+            this.combination.push(e.key.toLowerCase())
+          }
         }
 
         document.onkeyup = (e) => {
-          this.keysPressed--
-          if (this.keysPressed === 0) {
-            this.keyCapturing = false
-            this.$store.dispatch('setIsCapturing', false)
+          this.keyCapturing = false
+          this.$store.dispatch('setIsCapturing', false)
+          document.onkeydown = null
+          document.onkeyup = null
+          if (this.keysPressed > 1 && this.keysPressed < 4) {
+            console.log('proper combination')
+            this.$store.dispatch('updateKeyBinding',
+              {
+                id: this.id,
+                combination: this.combination,
+                isMac: this.isMac
+              }).then(() => {
+              this.$store.dispatch('fetchSettings')
+              this.$Message.success('Shortcut modified')
+            })
+          } else {
+            this.$Message.error('Invalid combination')
           }
         }
       }
@@ -92,4 +127,10 @@
     -webkit-transition: background-color .6s;
     transition: background-color .6s;
   }
+
+  kbd.capturing {
+    border: 1px solid #62676E;
+    background: rgba(88, 187, 115, 0.91);
+  }
+
 </style>

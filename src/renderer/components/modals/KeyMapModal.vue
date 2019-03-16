@@ -68,7 +68,7 @@
                     id="prevTab"
                     :keys="prevBoardShortcutMac"/>
         <KeyBinding name="Bring focus to 'Add New Item' field"
-                    :keys="['meta', 'shift', 'n']"/>
+                    :keys="['meta', 'n']"/>
         </tbody>
       </table>
     </div>
@@ -84,14 +84,12 @@
   export default {
     name: 'KeyMapModal',
     components: {KeyBinding},
-    data () {
-      return {
-        system: null
-      }
-    },
     computed: {
       isVisible () {
         return this.$store.state.modals.keymap.isVisible
+      },
+      system () {
+        return this.$store.state.modals.keymap.system
       },
       isWindows () {
         return this.system.includes('win')
@@ -117,7 +115,7 @@
 
     },
     created () {
-      this.system = window.navigator.platform.toLowerCase()
+      this.$store.dispatch('setSystem', window.navigator.platform.toLowerCase())
     },
     methods: {
       visibleChange (isVisible) {

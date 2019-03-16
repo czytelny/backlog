@@ -36,6 +36,13 @@ const mutations = {
   },
   SET_SHOW_UPDATES (state, val) {
     state.showUpdates = val
+  },
+  SET_NEW_KEYBINDING (state, {id, combination, isMac}) {
+    if (isMac) {
+      state.keyBindings[id].mac = combination
+    } else {
+      state.keyBindings[id].win = combination
+    }
   }
 }
 
@@ -75,6 +82,9 @@ const actions = {
     if (!state.keyBindings) {
       settingsRepository.setupKeyBindings()
     }
+  },
+  updateKeyBinding ({commit}, {id, combination, isMac}) {
+    settingsRepository.updateKeyBinding(id, combination, isMac)
   }
 }
 
