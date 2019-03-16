@@ -13,38 +13,21 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-          <td>
-            <div><kbd>ctrl</kbd> + <kbd>k</kbd></div>
-          </td>
-          <td>Show keymap window</td>
-        </tr>
-        <KeyBinding name="Create New Board Modal dupa"
-                    :keys="['ctrl', 'shift', 'd']"/>
-        <tr>
-          <td>
-            <div><kbd>ctrl</kbd> + <kbd>shift</kbd> +<kbd>}</kbd></div>
-            <div><kbd>alt</kbd> + <kbd>shift</kbd> +<kbd>}</kbd></div>
-          </td>
-          <td>
-            Switch to the next board
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <div><kbd>ctrl</kbd> + <kbd>shift</kbd> +<kbd>{</kbd></div>
-            <div><kbd>alt</kbd> + <kbd>shift</kbd> +<kbd>{</kbd></div>
-          </td>
-          <td>
-            Switch to the previous board
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <div><kbd>ctrl</kbd> + <kbd>n</kbd></div>
-          </td>
-          <td>Bring focus to "Add New Item" field</td>
-        </tr>
+        <KeyBinding id="showKeymap"
+                    name="Show keymap window"
+                    :keys="showKeymapShortcutWin"/>
+        <KeyBinding id="addNewBoard"
+                    name="Create New Board Modal"
+                    :keys="addNewBoardShortcutWin"/>
+        <KeyBinding name="Switch to the next board"
+                    id="nextTab"
+                    :keys="nextBoardShortcutWin"/>
+        <KeyBinding name="Switch to the previous board"
+                    id="prevTab"
+                    :keys="prevBoardShortcutWin"/>
+        <KeyBinding name="Bring focus to 'Add New Item' field"
+                    id="newItemFocus"
+                    :keys="newItemFocusWin"/>
         </tbody>
       </table>
       <table v-if="isMac">
@@ -115,8 +98,22 @@
       },
       newItemFocusMac () {
         return this.$store.state.settings.keyBindings.newItemFocus.mac
+      },
+      showKeymapShortcutWin () {
+        return this.$store.state.settings.keyBindings.showKeymap.win
+      },
+      addNewBoardShortcutWin () {
+        return this.$store.state.settings.keyBindings.addNewBoard.win
+      },
+      nextBoardShortcutWin () {
+        return this.$store.state.settings.keyBindings.nextTab.win
+      },
+      prevBoardShortcutWin () {
+        return this.$store.state.settings.keyBindings.prevTab.win
+      },
+      newItemFocusWin () {
+        return this.$store.state.settings.keyBindings.newItemFocus.win
       }
-
     },
     created () {
       this.$store.dispatch('setSystem', window.navigator.platform.toLowerCase())
