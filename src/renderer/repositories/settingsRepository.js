@@ -38,6 +38,7 @@ db.defaults({
 }).write()
 
 export default {
+  keyBindings,
   getAppSettings () {
     return db.get('appSettings')
       .cloneDeep()
@@ -47,6 +48,9 @@ export default {
     return db.get('appSettings')
       .assign(updateProp)
       .write()
+  },
+  hasKeyBindingsProperty () {
+    return db.has('appSettings.keyBindings').value()
   },
   updateKeyBinding (keyId, combination, isMac) {
     if (isMac) {

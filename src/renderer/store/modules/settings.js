@@ -9,7 +9,7 @@ const state = {
   dbLocation: '',
   darkTheme: false,
   showUpdates: true,
-  keyBindings: undefined
+  keyBindings: settingsRepository.keyBindings
 }
 
 const mutations = {
@@ -72,7 +72,7 @@ const actions = {
     settingsRepository.updateAppSettings({showUpdates})
   },
   setupKeyBindings () {
-    if (!state.keyBindings) {
+    if (!settingsRepository.hasKeyBindingsProperty()) {
       settingsRepository.setupKeyBindings()
     }
   },
