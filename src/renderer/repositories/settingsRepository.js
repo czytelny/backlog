@@ -16,6 +16,10 @@ const keyBindings = {
   prevTab: {
     win: ['ctrl', 'shift', '{'],
     mac: ['meta', 'shift', '[']
+  },
+  newItemFocus: {
+    mac: ['meta', 'n'],
+    win: ['ctrl', 'n']
   }
 }
 

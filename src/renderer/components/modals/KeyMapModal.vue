@@ -68,7 +68,8 @@
                     id="prevTab"
                     :keys="prevBoardShortcutMac"/>
         <KeyBinding name="Bring focus to 'Add New Item' field"
-                    :keys="['meta', 'n']"/>
+                    id="newItemFocus"
+                    :keys="newItemFocusMac"/>
         </tbody>
       </table>
     </div>
@@ -111,6 +112,9 @@
       },
       prevBoardShortcutMac () {
         return this.$store.state.settings.keyBindings.prevTab.mac
+      },
+      newItemFocusMac () {
+        return this.$store.state.settings.keyBindings.newItemFocus.mac
       }
 
     },

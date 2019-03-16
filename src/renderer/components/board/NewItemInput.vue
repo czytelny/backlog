@@ -8,7 +8,8 @@
                placeholder="Add New Item..."
                @on-enter="submitNewItem"
                @on-click="submitNewItem"
-               v-shortkey="{win:['ctrl', 'n'],mac:['meta', 'n']}" @shortkey="focusOnInput"
+               v-shortkey="newItemFocusShortcut"
+               @shortkey="focusOnInput"
                icon="plus"
                class="animated ivu-input ivu-input-large"
                :class="{'fadeOutDown': isSubmittingNewItem, 'fadeIn': !isSubmittingNewItem}"
@@ -51,6 +52,9 @@
     computed: {
       boardId () {
         return this.$route.params.boardId
+      },
+      newItemFocusShortcut () {
+        return this.$store.state.settings.keyBindings.newItemFocus
       },
       newItem: {
         get () {
