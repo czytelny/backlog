@@ -9,7 +9,7 @@
         <span v-for="(k, index) in mappedCombination">
           <kbd class="capturing">
             <span v-if="k==='meta'">⌘</span>
-            <span v-else>{{k}}</span>
+            <span v-else class="text-uppercase">{{k}}</span>
           </kbd>
           <span v-if="index !== mappedCombination.length - 1">+ </span>
         </span>
@@ -20,7 +20,7 @@
         <span v-for="(k, index) in keys">
           <kbd>
             <span v-if="k==='meta'">⌘</span>
-            <span v-else>{{k}}</span>
+            <span v-else class="text-uppercase">{{k}}</span>
           </kbd>
           <span v-if="index !== keys.length - 1">+ </span>
         </span>

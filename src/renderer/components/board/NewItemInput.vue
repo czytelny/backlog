@@ -15,7 +15,7 @@
                :class="{'fadeOutDown': isSubmittingNewItem, 'fadeIn': !isSubmittingNewItem}"
                style="width: calc(100% - 10px); margin:2px;">
          <span class="shortcut">
-          <code>{{newItemFocusShortcutString}}</code>
+          {{newItemFocusShortcutString | metaTextReplacer}}
         </span>
       </span>
       <span class="input-switch">
@@ -61,9 +61,9 @@
       },
       newItemFocusShortcutString () {
         if (this.$store.state.modals.keymap.system.includes('mac')) {
-          return this.$store.state.settings.keyBindings.newItemFocus.mac.join(' + ')
+          return this.$store.state.settings.keyBindings.newItemFocus.mac.join('').toUpperCase()
         } else {
-          return this.$store.state.settings.keyBindings.newItemFocus.win.join(' + ')
+          return this.$store.state.settings.keyBindings.newItemFocus.win.join('').toUpperCase()
         }
       },
       newItem: {
@@ -136,11 +136,11 @@
   }
 
 
-  input:focus + .shortcut{
+  input:focus + .shortcut {
     opacity: 0;
   }
 
-  .shortcut{
+  .shortcut {
     position: absolute;
     right: 32px;
     top: 9px;

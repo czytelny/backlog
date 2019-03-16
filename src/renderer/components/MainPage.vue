@@ -47,9 +47,13 @@
   }
 </script>
 
-<style scoped>
+<style>
   .main-page {
     display: flex;
     margin-top: 32px;
+  }
+
+  .text-uppercase{
+    text-transform: uppercase;
   }
 </style>

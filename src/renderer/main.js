@@ -44,6 +44,10 @@ Vue.directive('focus', {
   }
 })
 
+Vue.filter('metaTextReplacer', function (text) {
+  return text.replace('META', '⌘')
+})
+
 const routes = [
   {path: '/board/:boardId', component: BoardContent}
 ]

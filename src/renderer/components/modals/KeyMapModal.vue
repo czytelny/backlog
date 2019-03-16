@@ -183,7 +183,6 @@
   .keymap {
     position: relative;
     width: 500px;
-    height: 400px;
     border-radius: 4px;
     padding: 16px;
   }

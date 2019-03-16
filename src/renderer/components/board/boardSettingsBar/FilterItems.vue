@@ -9,7 +9,7 @@
            @shortkey="inputFocus()"
     >
     <span class="shortcut">
-      <code>{{filterItemsShortcutString}}</code>
+      <code>{{filterItemsShortcutString | metaTextReplacer}}</code>
     </span>
     <Icon class="clear-btn"
           :class="{'clear-btn-visible': findItem.length}"
@@ -26,9 +26,9 @@
       },
       filterItemsShortcutString () {
         if (this.$store.state.modals.keymap.system.includes('mac')) {
-          return `${this.$store.state.settings.keyBindings.filterItemsFocus.mac.join(' + ')}`
+          return `${this.$store.state.settings.keyBindings.filterItemsFocus.mac.join('').toUpperCase()}`
         } else {
-          return `${this.$store.state.settings.keyBindings.filterItemsFocus.win.join(' + ')}`
+          return `${this.$store.state.settings.keyBindings.filterItemsFocus.win.join('').toUpperCase()}`
         }
       },
       findItem: {
