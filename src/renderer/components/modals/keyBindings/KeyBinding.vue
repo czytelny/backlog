@@ -1,7 +1,8 @@
 <template>
   <tr @click="captureCombination">
-    <td v-if="keyPressing">
-      RECORDING
+    <td class="capturing" v-if="keyCapturing">
+      <Icon type="ios-radio-button-on" size="15"/>
+      Recording...
     </td>
     <td v-else>
       <div>
@@ -24,13 +25,17 @@
     props: ['id', 'name', 'keys'],
     data () {
       return {
-        keyPressing: false,
+        keyCapturing: false,
         keysPressed: 0
       }
     },
     methods: {
       captureCombination () {
-        this.keyPressing = true
+        if (this.$store.state.modals.keymap.isCapturing === true) {
+          return
+        }
+        this.$store.dispatch('setIsCapturing', true)
+        this.keyCapturing = true
         document.onkeydown = (e) => {
           console.log(e.key)
           this.keysPressed++
@@ -39,7 +44,8 @@
         document.onkeyup = (e) => {
           this.keysPressed--
           if (this.keysPressed === 0) {
-            this.keyPressing = false
+            this.keyCapturing = false
+            this.$store.dispatch('setIsCapturing', false)
           }
         }
       }
@@ -48,6 +54,29 @@
 </script>
 
 <style scoped>
+  td {
+    padding: 4px;
+    height: 33px;
+  }
+
+  @keyframes flickerAnimation {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  .capturing i {
+    animation: flickerAnimation 1.5s infinite;
+    color: #e43436;
+  }
+
+
   kbd {
     position: relative;
     display: inline-block;

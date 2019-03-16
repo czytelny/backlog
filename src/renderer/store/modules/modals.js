@@ -31,7 +31,8 @@ const state = {
     isVisible: false
   },
   keymap: {
-    isVisible: false
+    isVisible: false,
+    isCapturing: false
   }
 }
 
@@ -100,6 +101,9 @@ const mutations = {
   },
   SET_MOVING_ITEM_TEXT (state, movingItemText) {
     state.moveToBoard.movingItemText = movingItemText
+  },
+  SET_IS_CAPTURING (state, val) {
+    state.keymap.isCapturing = val
   }
 }
 
@@ -165,6 +169,9 @@ const actions = {
   },
   setRenamedBoardName ({commit}, val) {
     commit('SET_RENAMED_BOARD_NAME', val)
+  },
+  setIsCapturing ({commit}, val) {
+    commit('SET_IS_CAPTURING', val)
   }
 }
 

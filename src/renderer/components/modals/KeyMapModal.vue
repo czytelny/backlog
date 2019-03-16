@@ -55,15 +55,18 @@
         </tr>
         </thead>
         <tbody>
-        <KeyBinding name="Show keymap window"
-                    :keys="['meta', 'k']"/>
-        <KeyBinding name="Create New Board Modal"
-                    id="addNewBoard"
+        <KeyBinding id="showKeymap"
+                    name="Show keymap window"
+                    :keys="showKeymapShortcutMac"/>
+        <KeyBinding id="addNewBoard"
+                    name="Create New Board Modal"
                     :keys="addNewBoardShortcutMac"/>
         <KeyBinding name="Switch to the next board"
-                    :keys="['meta', 'shift', '}']"/>
+                    id="nextTab"
+                    :keys="nextBoardShortcutMac"/>
         <KeyBinding name="Switch to the previous board"
-                    :keys="['meta', 'shift', '{']"/>
+                    id="prevTab"
+                    :keys="prevBoardShortcutMac"/>
         <KeyBinding name="Bring focus to 'Add New Item' field"
                     :keys="['meta', 'shift', 'n']"/>
         </tbody>
@@ -99,9 +102,19 @@
       isLinux () {
         return this.system.includes('linux')
       },
+      showKeymapShortcutMac () {
+        return this.$store.state.settings.keyBindings.showKeymap.mac
+      },
       addNewBoardShortcutMac () {
         return this.$store.state.settings.keyBindings.addNewBoard.mac
+      },
+      nextBoardShortcutMac () {
+        return this.$store.state.settings.keyBindings.nextTab.mac
+      },
+      prevBoardShortcutMac () {
+        return this.$store.state.settings.keyBindings.prevTab.mac
       }
+
     },
     created () {
       this.system = window.navigator.platform.toLowerCase()
@@ -140,10 +153,6 @@
   }
 
   thead td {
-    padding: 4px 0;
-  }
-
-  tbody td {
     padding: 4px 0;
   }
 

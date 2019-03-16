@@ -1,9 +1,21 @@
 const {db} = require('electron').remote.require('./persistence')
 
 const keyBindings = {
+  showKeymap: {
+    win: ['ctrl', 'k'],
+    mac: ['meta', 'k']
+  },
   addNewBoard: {
     win: ['ctrl', 'shift', 'n'],
     mac: ['meta', 'shift', 'n']
+  },
+  nextTab: {
+    win: ['ctrl', 'shift', '}'],
+    mac: ['meta', 'shift', ']']
+  },
+  prevTab: {
+    win: ['ctrl', 'shift', '{'],
+    mac: ['meta', 'shift', '[']
   }
 }
 

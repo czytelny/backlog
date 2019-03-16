@@ -6,10 +6,10 @@
       v-shortkey="prevTabShortcuts"
       @shortkey="activatePreviousTab"/>
 
-    <button v-shortkey="keymapShortcut"
+    <button v-shortkey="showKeymapShortcut"
             @shortkey="showKeymap"/>
 
-    <button v-shortkey="newBoardModalKeymap"
+    <button v-shortkey="newBoardModalShortcut"
             @shortkey="showNewBoardModal"/>
   </div>
 </template>
@@ -17,16 +17,18 @@
 <script>
   export default {
     name: 'GlobalKeyBindings',
-    data () {
-      return {
-        nextTabShortcuts: {win: ['ctrl', 'shift', '}'], win2: ['alt', 'shift', '}'], mac: ['meta', 'shift', ']']},
-        prevTabShortcuts: {win: ['ctrl', 'shift', '{'], win2: ['alt', 'shift', '{'], mac: ['meta', 'shift', '[']},
-        keymapShortcut: {win: ['ctrl', 'k'], win2: ['alt', 'k'], mac: ['meta', 'k']}
-      }
-    },
     computed: {
-      newBoardModalKeymap () {
+      newBoardModalShortcut () {
         return this.$store.state.settings.keyBindings.addNewBoard
+      },
+      showKeymapShortcut () {
+        return this.$store.state.settings.keyBindings.showKeymap
+      },
+      nextTabShortcuts () {
+        return this.$store.state.settings.keyBindings.nextTab
+      },
+      prevTabShortcuts () {
+        return this.$store.state.settings.keyBindings.prevTab
       }
     },
     methods: {
