@@ -5,7 +5,7 @@
         <input ref="mainInput"
                :id="'newItem-'+boardId"
                v-model="newItem"
-               placeholder="Add New Item..."
+               placeholder="Add item"
                @on-enter="submitNewItem"
                @on-click="submitNewItem"
                v-shortkey="newItemFocusShortcut"
@@ -14,6 +14,9 @@
                class="animated ivu-input ivu-input-large"
                :class="{'fadeOutDown': isSubmittingNewItem, 'fadeIn': !isSubmittingNewItem}"
                style="width: calc(100% - 10px); margin:2px;">
+         <span class="shortcut">
+          <code>{{newItemFocusShortcutString}}</code>
+        </span>
       </span>
       <span class="input-switch">
         <i-switch :value="prependNewItem"
@@ -55,6 +58,13 @@
       },
       newItemFocusShortcut () {
         return this.$store.state.settings.keyBindings.newItemFocus
+      },
+      newItemFocusShortcutString () {
+        if (this.$store.state.modals.keymap.system.includes('mac')) {
+          return this.$store.state.settings.keyBindings.newItemFocus.mac.join(' + ')
+        } else {
+          return this.$store.state.settings.keyBindings.newItemFocus.win.join(' + ')
+        }
       },
       newItem: {
         get () {
@@ -117,19 +127,39 @@
 
 <style scoped>
 
-  input {
-    margin: 0!important;
+  ::-webkit-input-placeholder {
+    font-style: italic;
   }
+
+  input {
+    margin: 0 !important;
+  }
+
+
+  input:focus + .shortcut{
+    opacity: 0;
+  }
+
+  .shortcut{
+    position: absolute;
+    right: 32px;
+    top: 9px;
+    color: #dddddd;
+    transition: opacity .3s;
+  }
+
   .new-item-input {
     margin-bottom: 16px;
   }
+
   .input-row {
     display: flex;
     align-items: center;
   }
 
   .input-form {
-    flex: 1
+    flex: 1;
+    position: relative;
   }
 
   .input-switch {

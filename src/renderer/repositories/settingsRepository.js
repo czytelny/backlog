@@ -20,6 +20,10 @@ const keyBindings = {
   newItemFocus: {
     mac: ['meta', 'n'],
     win: ['ctrl', 'n']
+  },
+  filterItemsFocus: {
+    mac: ['meta', 'f'],
+    win: ['ctrl', 'f']
   }
 }
 

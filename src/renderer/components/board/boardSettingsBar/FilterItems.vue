@@ -3,13 +3,17 @@
     <input v-model="findItem"
            :id="'findItem-' + activeBoardId"
            class="findItem"
-           placeholder="Filter items list..."
+           placeholder="Filter"
            :ref="activeBoardId"
-           v-shortkey="{win:['ctrl', 'f'],mac:['meta', 'f']}" @shortkey="inputFocus()"
+           v-shortkey="filterItemsShortcut"
+           @shortkey="inputFocus()"
     >
-    <Icon  class="clear-btn"
-           :class="{'clear-btn-visible': findItem.length}"
-           type="ios-close-circle-outline" @click="clearFilterInput"/>
+    <span class="shortcut">
+      <code>{{filterItemsShortcutString}}</code>
+    </span>
+    <Icon class="clear-btn"
+          :class="{'clear-btn-visible': findItem.length}"
+          type="ios-close-circle-outline" @click="clearFilterInput"/>
   </div>
 </template>
 
@@ -17,6 +21,16 @@
   export default {
     name: 'FindItem',
     computed: {
+      filterItemsShortcut () {
+        return this.$store.state.settings.keyBindings.filterItemsFocus
+      },
+      filterItemsShortcutString () {
+        if (this.$store.state.modals.keymap.system.includes('mac')) {
+          return `${this.$store.state.settings.keyBindings.filterItemsFocus.mac.join(' + ')}`
+        } else {
+          return `${this.$store.state.settings.keyBindings.filterItemsFocus.win.join(' + ')}`
+        }
+      },
       findItem: {
         get () {
           return this.$store.state.boards.findItem.itemText
@@ -41,9 +55,27 @@
   }
 </script>
 
-<style>
+<style scoped>
+  ::-webkit-input-placeholder {
+    font-style: italic;
+    color: #cecece;
+  }
+
   .find-item-container {
     width: 60%;
+    position: relative;
+  }
+
+  .find-item-container input:focus + .shortcut{
+    opacity: 0;
+  }
+
+  .shortcut{
+    position: absolute;
+    right: 42px;
+    top: 5px;
+    color: #dddddd;
+    transition: opacity .3s;
   }
 
   .clear-btn {
@@ -56,16 +88,20 @@
     opacity: 1;
     cursor: pointer;
   }
+
   .findItem {
-    border: 1px dashed #eeeeee;
+    border-top: 1px dashed transparent;
+    border-left: 1px dashed transparent;
+    border-right: 1px dashed transparent;
+    border-bottom: 1px dashed #eeeeee;
     -webkit-transition: all .3s;
-    border-radius: 3px;
+    border-radius: 4px;
     padding: 4px 8px;
     width: 95%;
   }
 
   .findItem:focus {
     outline: none;
-    border-color: #626870;
+    border-color: rgba(98, 104, 112, 0.43);
   }
 </style>

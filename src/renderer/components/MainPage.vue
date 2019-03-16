@@ -27,6 +27,7 @@
     name: 'MainPage',
     components: {FindItemModal, SettingsModal, RenameBoardModal, NewBoardModal, BoardContent, BoardsMenu},
     created () {
+      this.$store.dispatch('setSystem', window.navigator.platform.toLowerCase())
       this.$store.dispatch('setupKeyBindings')
       this.$store.dispatch('fetchSettings')
       console.log(this.$store.state.settings.dbLocation)

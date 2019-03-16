@@ -28,6 +28,9 @@
         <KeyBinding name="Bring focus to 'Add New Item' field"
                     id="newItemFocus"
                     :keys="newItemFocusWin"/>
+        <KeyBinding name="Bring focus to 'Filter items' field"
+                    id="filterItemsFocus"
+                    :keys="filterItemsFocusWin"/>
         </tbody>
       </table>
       <table v-if="isMac">
@@ -53,6 +56,9 @@
         <KeyBinding name="Bring focus to 'Add New Item' field"
                     id="newItemFocus"
                     :keys="newItemFocusMac"/>
+        <KeyBinding name="Bring focus to 'Filter items' field"
+                    id="filterItemsFocus"
+                    :keys="filterItemsFocusMac"/>
         </tbody>
       </table>
     </div>
@@ -99,6 +105,9 @@
       newItemFocusMac () {
         return this.$store.state.settings.keyBindings.newItemFocus.mac
       },
+      filterItemsFocusMac () {
+        return this.$store.state.settings.keyBindings.filterItemsFocus.mac
+      },
       showKeymapShortcutWin () {
         return this.$store.state.settings.keyBindings.showKeymap.win
       },
@@ -113,10 +122,10 @@
       },
       newItemFocusWin () {
         return this.$store.state.settings.keyBindings.newItemFocus.win
+      },
+      filterItemsFocusWin () {
+        return this.$store.state.settings.keyBindings.filterItemsFocus.win
       }
-    },
-    created () {
-      this.$store.dispatch('setSystem', window.navigator.platform.toLowerCase())
     },
     methods: {
       visibleChange (isVisible) {
