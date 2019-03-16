@@ -14,8 +14,8 @@
              class="add-icon-container"
              placement="right"
              :transfer="true">
-      <Icon type="ios-glasses-outline"
-            size="24"
+      <Icon type="ios-locate-outline"
+            size="18"
             class="add-icon"
             @click="showFindItemModal"/>
     </Tooltip>
