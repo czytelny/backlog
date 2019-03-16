@@ -63,7 +63,8 @@
       </table>
     </div>
     <div slot="footer">
-      <Button type="text" size="large" @click="closeModal">OK</Button>
+      <Button type="text" @click="resetToDefaults">Reset to defaults</Button>
+      <Button size="large" @click="closeModal">Close</Button>
     </div>
   </Modal>
 </template>
@@ -128,6 +129,21 @@
       }
     },
     methods: {
+      resetToDefaults () {
+        this.$Modal.confirm({
+          title: `Reset key bindings to defaults`,
+          okText: 'Reset',
+          cancelText: 'Cancel',
+          closable: true,
+          content: `<p>You are going to reset key bindings to default values.</p>
+                    <p>Are you sure you want to continue?</p>`,
+          onOk: () => {
+            this.$store.dispatch('resetKeyBindings')
+            this.$store.dispatch('fetchSettings')
+            this.$Message.success('Key bindings cleared out')
+          }
+        })
+      },
       visibleChange (isVisible) {
         if (!isVisible) {
           this.closeModal()

@@ -28,8 +28,8 @@
     components: {FindItemModal, SettingsModal, RenameBoardModal, NewBoardModal, BoardContent, BoardsMenu},
     created () {
       this.$store.dispatch('setSystem', window.navigator.platform.toLowerCase())
-      this.$store.dispatch('setupKeyBindings')
       this.$store.dispatch('fetchSettings')
+      this.$store.dispatch('setupKeyBindings')
       console.log(this.$store.state.settings.dbLocation)
 
       // this.versionCheck()
