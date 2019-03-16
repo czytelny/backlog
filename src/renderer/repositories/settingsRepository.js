@@ -47,11 +47,13 @@ export default {
   updateKeyBinding (keyId, combination, isMac) {
     if (isMac) {
       return db
-        .set(`appSettings.keyBindings.${keyId}.mac`, combination)
+        .get(`appSettings.keyBindings.${keyId}`)
+        .set('mac', combination)
         .write()
     } else {
-      return db.get('appSettings')
-        .set(`appSettings.keyBindings.${keyId}.win`, combination)
+      return db
+        .get(`appSettings.keyBindings.${keyId}`)
+        .set('win', combination)
         .write()
     }
   },

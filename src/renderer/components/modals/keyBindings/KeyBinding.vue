@@ -1,17 +1,17 @@
 <template>
   <tr @click="captureCombination">
     <td class="capturing" v-if="keyCapturing">
-      <div v-if="combination.length === 0">
+      <div v-if="mappedCombination.length === 0">
         <Icon type="ios-radio-button-on" size="15"/>
         Recording...
       </div>
       <div v-else>
-        <span v-for="(k, index) in combination">
+        <span v-for="(k, index) in mappedCombination">
           <kbd class="capturing">
             <span v-if="k==='meta'">⌘</span>
             <span v-else>{{k}}</span>
           </kbd>
-          <span v-if="index !== combination.length - 1">+ </span>
+          <span v-if="index !== mappedCombination.length - 1">+ </span>
         </span>
       </div>
     </td>
@@ -44,9 +44,23 @@
     computed: {
       isMac () {
         return this.$store.state.modals.keymap.system.includes('mac')
+      },
+      mappedCombination () {
+        return this.combination.map((item) => {
+          if (item === 'control') {
+            return 'ctrl'
+          }
+          return item
+        })
       }
     },
     methods: {
+      clearCapturing () {
+        this.keyCapturing = false
+        this.$store.dispatch('setIsCapturing', false)
+        document.onkeydown = null
+        document.onkeyup = null
+      },
       captureCombination () {
         if (this.$store.state.modals.keymap.isCapturing === true) {
           return
@@ -64,21 +78,17 @@
         }
 
         document.onkeyup = (e) => {
-          this.keyCapturing = false
-          this.$store.dispatch('setIsCapturing', false)
-          document.onkeydown = null
-          document.onkeyup = null
+          this.clearCapturing()
           if (this.keysPressed > 1 && this.keysPressed < 4) {
-            console.log('proper combination')
-            this.$store.dispatch('updateKeyBinding',
-              {
-                id: this.id,
-                combination: this.combination,
-                isMac: this.isMac
-              }).then(() => {
-              this.$store.dispatch('fetchSettings')
-              this.$Message.success('Shortcut modified')
+            this.$store.dispatch('updateKeyBinding', {
+              id: this.id,
+              combination: this.mappedCombination,
+              isMac: this.isMac
             })
+              .then(() => {
+                this.$store.dispatch('fetchSettings')
+                this.$Message.success('Shortcut modified')
+              })
           } else {
             this.$Message.error('Invalid combination')
           }
@@ -130,7 +140,8 @@
 
   kbd.capturing {
     border: 1px solid #62676E;
-    background: rgba(88, 187, 115, 0.91);
+    background: #fafafa;
+    box-shadow: 0 0 4px rgb(88, 187, 115);
   }
 
 </style>
