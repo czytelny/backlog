@@ -28,7 +28,7 @@
         if (this.$store.state.modals.keymap.system.includes('mac')) {
           return `${this.$store.state.settings.keyBindings.filterItemsFocus.mac.join('').toUpperCase()}`
         } else {
-          return `${this.$store.state.settings.keyBindings.filterItemsFocus.win.join('').toUpperCase()}`
+          return `${this.$store.state.settings.keyBindings.filterItemsFocus.win.join('+').toUpperCase()}`
         }
       },
       findItem: {

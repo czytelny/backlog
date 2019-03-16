@@ -63,7 +63,7 @@
         if (this.$store.state.modals.keymap.system.includes('mac')) {
           return this.$store.state.settings.keyBindings.newItemFocus.mac.join('').toUpperCase()
         } else {
-          return this.$store.state.settings.keyBindings.newItemFocus.win.join('').toUpperCase()
+          return this.$store.state.settings.keyBindings.newItemFocus.win.join('+').toUpperCase()
         }
       },
       newItem: {
