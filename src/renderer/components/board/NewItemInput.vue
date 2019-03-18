@@ -84,11 +84,11 @@
     methods: {
       focusOnInput () {
         const vm = this
-        setTimeout(() => {
+        this.$nextTick(() => {
           if (vm.$refs['mainInput']) {
             vm.$refs['mainInput'].focus()
           }
-        }, 250)
+        })
       },
       prependNewItemChange (val) {
         this.$store.dispatch('switchPrependNewItem', {
