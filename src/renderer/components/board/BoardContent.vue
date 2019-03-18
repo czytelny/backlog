@@ -38,6 +38,7 @@
                       :text="item.text"
                       :created="item.created"
                       :ref="item.id"
+                      :id="item.id"
                       v-if="shouldBeDisplayed(item)"
                       :boardId="boardId"
           >
@@ -73,6 +74,9 @@
     },
     beforeRouteUpdate (to, from, next) {
       this.$store.dispatch('fetchBoardItems', to.params.boardId)
+      if (to.params.itemId) {
+        this.scheduleScroll(to.params.itemId)
+      }
       next()
     },
     computed: {
@@ -105,6 +109,11 @@
       }
     },
     methods: {
+      scheduleScroll (itemId) {
+        setTimeout(() => {
+          this.scrollToNewItem({id: itemId})
+        }, 700)
+      },
       shouldBeDisplayed (item) {
         if (!item.isDone) {
           return true
@@ -112,9 +121,8 @@
         return this.board.showDone
       },
       scrollToNewItem (element) {
-        if (this.$refs[element.id]) {
-          const el = this.$refs[element.id]
-
+        const el = document.getElementById(element.id)
+        if (el) {
           var options = {
             container: '.items-container',
             easing: 'ease-in',
@@ -124,10 +132,10 @@
             x: false,
             y: true
           }
-          VueScrollTo.scrollTo(el[0].$el, 500, options)
-          el[0].$el.classList.add('newlyAddedItem')
+          VueScrollTo.scrollTo(el, 500, options)
+          el.classList.add('newlyAddedItem')
           setTimeout(() => {
-            el[0].$el.classList.remove('newlyAddedItem')
+            el.classList.remove('newlyAddedItem')
           }, 2000)
         }
       },

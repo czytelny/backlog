@@ -60,7 +60,7 @@ Vue.filter('metaTextReplacer', text => text.replace('META', '⌘'))
 Vue.filter('shiftTextReplacer', text => text.replace('SHIFT', '⇧'))
 
 const routes = [
-  {path: '/board/:boardId', component: BoardContent}
+  {path: '/board/:boardId/:itemId?', component: BoardContent}
 ]
 
 const router = new VueRouter({

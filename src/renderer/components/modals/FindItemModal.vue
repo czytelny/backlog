@@ -11,7 +11,10 @@
       />
       <div v-for="board in boards">
         <h2 class="board-name" v-if="filteredList(board.items).length">{{board.label}}</h2>
-        <div v-for="item in filteredList(board.items)" class="item">
+        <div v-for="item in filteredList(board.items)"
+             class="item"
+             :class="{'done' : item.isDone}"
+             @click="goToItem(board.id, item.id)">
           {{item.text}}
         </div>
       </div>
@@ -50,6 +53,11 @@
       }
     },
     methods: {
+      goToItem (boardId, itemId) {
+        this.closeModal()
+        this.$router.push({path: `/board/${boardId}/${itemId}`})
+        this.$store.dispatch('setActiveBoard', boardId)
+      },
       focusOnInput () {
         const vm = this
         this.$nextTick(() => {
@@ -106,6 +114,11 @@
     transition: all .3s;
     padding-right: 8px;
     padding-left: 8px;
+  }
+
+  .item.done {
+    background-color: #e8e8e8;
+    color: #b5b5b5;
   }
 
   .header {
