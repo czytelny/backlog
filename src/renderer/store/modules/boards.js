@@ -4,6 +4,7 @@ import settingsRepository from '@/repositories/settingsRepository'
 
 const state = {
   activeBoard: {},
+  rawBoards: [],
   boardsList: [],
   boardItems: [],
   newItem: '',
@@ -16,6 +17,9 @@ const state = {
 const mutations = {
   SET_BOARDS (state, boardsArray) {
     state.boardsList = boardsArray
+  },
+  SET_RAW_BOARDS (state, boards) {
+    state.rawBoards = boards
   },
   SET_BOARD_ITEMS (state, items) {
     state.boardItems = items
@@ -47,6 +51,9 @@ const mutations = {
 const actions = {
   fetchBoards ({commit}) {
     commit('SET_BOARDS', boardsRepository.getList())
+  },
+  fetchRawBoards ({commit}) {
+    commit('SET_RAW_BOARDS', boardsRepository.getRawBoards())
   },
   fetchBoardItems ({commit}, boardId) {
     commit('SET_BOARD_ITEMS', boardsRepository.getBoardItems(boardId))

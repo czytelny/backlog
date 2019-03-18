@@ -14,6 +14,7 @@ function defaultBoard () {
     items: []
   }
 }
+
 db.defaults({
   activeBoard: 'default',
   boards: [defaultBoard()]
@@ -64,6 +65,12 @@ export default {
   },
   getActiveBoard () {
     return db.get('activeBoard')
+      .cloneDeep()
+      .value()
+  },
+  getRawBoards () {
+    return db
+      .get('boards')
       .cloneDeep()
       .value()
   },

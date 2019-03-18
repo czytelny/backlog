@@ -24,6 +24,10 @@ const keyBindings = {
   filterItemsFocus: {
     mac: ['meta', 'f'],
     win: ['ctrl', 'f']
+  },
+  showFindItem: {
+    mac: ['meta', 'shift', 'f'],
+    win: ['ctrl', 'shift', 'f']
   }
 }
 

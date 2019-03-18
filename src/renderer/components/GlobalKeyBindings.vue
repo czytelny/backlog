@@ -11,6 +11,9 @@
 
     <button v-shortkey="newBoardModalShortcut"
             @shortkey="showNewBoardModal"/>
+
+    <button v-shortkey="findItemShortcut"
+            @shortkey="showFindItemModal"/>
   </div>
 </template>
 
@@ -20,6 +23,9 @@
     computed: {
       newBoardModalShortcut () {
         return this.$store.state.settings.keyBindings.addNewBoard
+      },
+      findItemShortcut () {
+        return this.$store.state.settings.keyBindings.showFindItem
       },
       showKeymapShortcut () {
         return this.$store.state.settings.keyBindings.showKeymap
@@ -57,6 +63,10 @@
       },
       showNewBoardModal () {
         this.$store.dispatch('showNewBoardModal')
+      },
+      showFindItemModal () {
+        this.$store.dispatch('showFindItemModal')
+        this.$store.dispatch('fetchRawBoards')
       }
     }
 
