@@ -1,6 +1,8 @@
 <template>
   <div class="board-completion-btn">
-    <Checkbox v-model="showProgress" size="small"
+    <Checkbox v-model="showProgress"
+              :disabled="isDisabled"
+              size="small"
     >
       <span>Show progress</span>
     </Checkbox>
@@ -10,6 +12,7 @@
 <script>
   export default {
     name: 'ShowProgressBtn',
+    props: ['isDisabled'],
     computed: {
       showProgress: {
         get () {

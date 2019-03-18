@@ -1,8 +1,8 @@
 <template>
   <div class="board-settings">
-    <Find-item/>
-    <ShowDoneButton/>
-    <ShowProgressBtn/>
+    <Find-item :isDisabled="isDisabled"/>
+    <ShowDoneButton :isDisabled="isDisabled"/>
+    <ShowProgressBtn :isDisabled="isDisabled"/>
   </div>
 </template>
 
@@ -13,7 +13,7 @@
 
   export default {
     name: 'BoardSettings',
-    props: ['boardId'],
+    props: ['boardId', 'isDisabled'],
     components: {
       FindItem,
       ShowProgressBtn,

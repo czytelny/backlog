@@ -1,13 +1,6 @@
 <template>
   <div class="menu-container">
     <simplebar class="board-menu">
-<!--
-      <div style="text-align: center;">
-        <Tooltip content="Settings" placement="right">
-          <img src="./../logo2.svg" width="50" class="logo">
-        </Tooltip>
-      </div>
--->
       <boards-title-row></boards-title-row>
       <draggable :list="boards"
                  handle=".board-row-container"

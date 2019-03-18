@@ -15,7 +15,7 @@
                :class="{'fadeOutDown': isSubmittingNewItem, 'fadeIn': !isSubmittingNewItem}"
                style="width: calc(100% - 10px); margin:2px;">
          <span class="shortcut">
-          {{newItemFocusShortcutString | metaTextReplacer}}
+          {{newItemFocusShortcutString}}
         </span>
       </span>
       <span class="input-switch">
@@ -41,12 +41,19 @@
 
 <script>
   import {Switch} from 'iview'
+  import keyShortcutMixin from './../../keyShortcutStringMixin'
 
   export default {
     name: 'NewItemInput',
+    mixins: [keyShortcutMixin],
     props: [],
     components: {
       'i-switch': Switch
+    },
+    data () {
+      return {
+        newItem: ''
+      }
     },
     created () {
       this.focusOnInput()
@@ -60,19 +67,7 @@
         return this.$store.state.settings.keyBindings.newItemFocus
       },
       newItemFocusShortcutString () {
-        if (this.$store.state.modals.keymap.system.includes('mac')) {
-          return this.$store.state.settings.keyBindings.newItemFocus.mac.join('').toUpperCase()
-        } else {
-          return this.$store.state.settings.keyBindings.newItemFocus.win.join('+').toUpperCase()
-        }
-      },
-      newItem: {
-        get () {
-          return this.$store.state.boards.newItem
-        },
-        set (val) {
-          this.$store.dispatch('setNewItemVal', val)
-        }
+        return this.shortcutString('newItemFocus')
       },
       isSubmittingNewItem: {
         get () {
@@ -146,6 +141,7 @@
     top: 9px;
     color: #dddddd;
     transition: opacity .3s;
+    user-select: none;
   }
 
   .new-item-input {

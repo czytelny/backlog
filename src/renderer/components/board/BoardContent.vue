@@ -3,7 +3,7 @@
     <div class="board-top-actions"
          :class="{'smaller' : !isProgressVisible}">
       <NewItemInput @itemAdded="scrollToNewItem"/>
-      <BoardSettings v-if="!isBoardItemsEmpty"
+      <BoardSettings :isDisabled="isBoardItemsEmpty"
                      :boardId="boardId"/>
 
       <StatusBar :board-items="boardItems"

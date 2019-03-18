@@ -1,18 +1,18 @@
 <template>
   <div class="menu-title-row">
     BOARDS
-    <Tooltip content="Add New Board"
+    <Tooltip :content="newBoardShortcutString"
              class="add-icon-container"
-             placement="right"
+             placement="bottom"
              :transfer="true">
       <Icon type="ios-add"
             size="24"
             class="add-icon"
             @click="showNewBoardModal"/>
     </Tooltip>
-    <Tooltip content="Find item..."
+    <Tooltip :content="findItemsShortcutString"
              class="add-icon-container"
-             placement="right"
+             placement="bottom"
              :transfer="true">
       <Icon type="ios-locate-outline"
             size="18"
@@ -23,14 +23,26 @@
 </template>
 
 <script>
+  import keyShortcutMixin from './../../keyShortcutStringMixin'
+
   export default {
     name: 'MenuTitleRow',
+    mixins: [keyShortcutMixin],
+    computed: {
+      newBoardShortcutString () {
+        return `Add New Board - ${this.shortcutString('addNewBoard')}`
+      },
+      findItemsShortcutString () {
+        return `Find item - ${this.shortcutString('showFindItem')}`
+      }
+    },
     methods: {
       showNewBoardModal () {
         this.$store.dispatch('showNewBoardModal')
       },
       showFindItemModal () {
         this.$store.dispatch('showFindItemModal')
+        this.$store.dispatch('fetchRawBoards')
       }
     }
   }

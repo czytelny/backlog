@@ -1,6 +1,6 @@
 <template>
   <div class="menu-actions-row">
-    <Tooltip content="Keymap" placement="bottom" :transfer="true" class="tooltip-height">
+    <Tooltip :content="keymapShortcutString" placement="bottom" :transfer="true" class="tooltip-height">
         <span @click="showKeymap">
             <img src="./../../assets/icon/keymap.svg" alt="Keymap" class="action-icon"/>
         </span>
@@ -15,8 +15,16 @@
 </template>
 
 <script>
+  import keyShortcutMixin from './../../keyShortcutStringMixin'
+
   export default {
     name: 'MenuActionsRow',
+    mixins: [keyShortcutMixin],
+    computed: {
+      keymapShortcutString () {
+        return `Keymap - ${this.shortcutString('showKeymap')}`
+      }
+    },
     methods: {
       showKeymap () {
         this.$store.dispatch('showKeymapModal')

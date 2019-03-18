@@ -3,7 +3,19 @@ import VueRouter from 'vue-router'
 import store from './store'
 import App from './App'
 import VueShortkey from 'vue-shortkey'
-import {Button, Icon, Tooltip, Modal, Input, Message, DropdownMenu, Dropdown, DropdownItem, Checkbox, Progress} from 'iview'
+import {
+  Button,
+  Icon,
+  Tooltip,
+  Modal,
+  Input,
+  Message,
+  DropdownMenu,
+  Dropdown,
+  DropdownItem,
+  Checkbox,
+  Progress
+} from 'iview'
 import BoardContent from './components/board/BoardContent.vue'
 import VueTextareaAutosize from 'vue-textarea-autosize'
 
@@ -44,9 +56,8 @@ Vue.directive('focus', {
   }
 })
 
-Vue.filter('metaTextReplacer', function (text) {
-  return text.replace('META', '⌘')
-})
+Vue.filter('metaTextReplacer', text => text.replace('META', '⌘'))
+Vue.filter('shiftTextReplacer', text => text.replace('SHIFT', '⇧'))
 
 const routes = [
   {path: '/board/:boardId', component: BoardContent}

@@ -1,6 +1,7 @@
 <template>
   <div class="showDoneButton">
     <Checkbox :value="showDone"
+              :disabled="isDisabled"
               size="small"
               @on-change="switchShowDone">
       <span>Show done</span>
@@ -12,6 +13,7 @@
 <script>
   export default {
     name: 'ShowDoneButton',
+    props: ['isDisabled'],
     methods: {
       switchShowDone () {
         this.$store.dispatch('switchShowDone',

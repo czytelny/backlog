@@ -3,13 +3,15 @@
     <input v-model="findItem"
            :id="'findItem-' + activeBoardId"
            class="findItem"
+           :class="{'disabled': isDisabled}"
            placeholder="Filter"
            :ref="activeBoardId"
            v-shortkey="filterItemsShortcut"
            @shortkey="inputFocus()"
+           :disabled="isDisabled"
     >
     <span class="shortcut">
-      <code>{{filterItemsShortcutString | metaTextReplacer}}</code>
+      <code>{{filterItemsShortcutString}}</code>
     </span>
     <Icon class="clear-btn"
           :class="{'clear-btn-visible': findItem.length}"
@@ -18,18 +20,18 @@
 </template>
 
 <script>
+  import keyShortcutMixin from './../../../keyShortcutStringMixin'
+
   export default {
     name: 'FindItem',
+    mixins: [keyShortcutMixin],
+    props: ['isDisabled'],
     computed: {
       filterItemsShortcut () {
         return this.$store.state.settings.keyBindings.filterItemsFocus
       },
       filterItemsShortcutString () {
-        if (this.$store.state.modals.keymap.system.includes('mac')) {
-          return `${this.$store.state.settings.keyBindings.filterItemsFocus.mac.join('').toUpperCase()}`
-        } else {
-          return `${this.$store.state.settings.keyBindings.filterItemsFocus.win.join('+').toUpperCase()}`
-        }
+        return this.shortcutString('filterItemsFocus')
       },
       findItem: {
         get () {
@@ -66,16 +68,17 @@
     position: relative;
   }
 
-  .find-item-container input:focus + .shortcut{
+  .find-item-container input:focus + .shortcut {
     opacity: 0;
   }
 
-  .shortcut{
+  .shortcut {
     position: absolute;
     right: 42px;
     top: 5px;
     color: #dddddd;
     transition: opacity .3s;
+    user-select: none;
   }
 
   .clear-btn {
@@ -89,7 +92,7 @@
     cursor: pointer;
   }
 
-  .findItem {
+  input.findItem {
     border-top: 1px dashed transparent;
     border-left: 1px dashed transparent;
     border-right: 1px dashed transparent;
@@ -100,7 +103,12 @@
     width: 95%;
   }
 
-  .findItem:focus {
+  input.findItem.disabled{
+    background-color: #f8f8f8;
+    cursor: no-drop;
+  }
+
+  input.findItem:focus {
     outline: none;
     border-color: rgba(98, 104, 112, 0.43);
   }

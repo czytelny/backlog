@@ -4,7 +4,7 @@
     <transition
       name="fade"
       mode="out-in"
-      duration="150"
+      duration="50"
     >
       <router-view :key="activeBoardId"/>
     </transition>
