@@ -1,21 +1,24 @@
 <template>
   <div class="row" style="margin-bottom: 20px;">
+    <h2>Updates</h2>
+
+    <Checkbox v-model="showUpdates">
+      Check for updates on startup
+    </Checkbox>
+
     <Button :loading="loadingUpdates"
             icon="ios-reload"
+            style="width:300px;"
             @click="loadUpdates" v-if="!newVersionAvailable">
-      <span v-if="!loadingUpdates">Check updates</span>
+      <span v-if="!loadingUpdates">Check updates now</span>
       <span v-else>Checking...</span>
     </Button>
-    <Button type="success" v-if="newVersionAvailable"
+
+    <Button type="success"
+            v-if="newVersionAvailable"
+            style="width:300px;"
             @click="open('http://backlog.cloud/download')">New version available
     </Button>
-    <div class="row"
-         style="margin-top: 5px;">
-      <Checkbox v-model="showUpdates">
-        Check for updates on startup
-      </Checkbox>
-    </div>
-
   </div>
 </template>
 

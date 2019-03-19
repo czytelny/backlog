@@ -43,9 +43,6 @@
           case 'moveToBottom':
             this.moveToBottom()
             break
-          case 'moveTo':
-            this.moveTo()
-            break
         }
       },
       remove () {
@@ -56,9 +53,6 @@
       },
       moveToBottom () {
         this.$emit('moveToBottom')
-      },
-      moveTo () {
-        this.$emit('showMoveToBoardModal')
       }
     }
   }

@@ -50,7 +50,6 @@
       <ActionButtons @remove="removeItem"
                      @moveToTop="moveItemToTop"
                      @moveToBottom="moveItemToBottom"
-                     @showMoveToBoardModal="showMoveToBoardModal"
                      :boardId="boardId"
       >
       </ActionButtons>
@@ -136,12 +135,6 @@
         })
         this.$store.dispatch('fetchBoardItems', this.boardId)
         this.$bus.$emit('focusOnAddItem')
-      },
-      showMoveToBoardModal () {
-        this.$store.dispatch('showMoveToBoard', {
-          itemId: this.itemId,
-          itemText: this.text
-        })
       },
       open (link) {
         this.$electron.shell.openExternal(link)

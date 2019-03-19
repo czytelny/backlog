@@ -11,7 +11,7 @@
     <new-board-modal/>
     <rename-board-modal/>
     <find-item-modal/>
-    <!--<settings-modal/>-->
+    <settings-modal/>
   </div>
 </template>
 
@@ -53,7 +53,7 @@
     margin-top: 32px;
   }
 
-  .text-uppercase{
+  .text-uppercase {
     text-transform: uppercase;
   }
 </style>

@@ -7,7 +7,6 @@ const state = {
   rawBoards: [],
   boardsList: [],
   boardItems: [],
-  newItem: '',
   isSubmittingNewItem: false,
   findItem: {
     itemText: ''

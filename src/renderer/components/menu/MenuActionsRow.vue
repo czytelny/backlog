@@ -5,11 +5,20 @@
             <img src="./../../assets/icon/keymap.svg" alt="Keymap" class="action-icon"/>
         </span>
     </Tooltip>
-    <Tooltip content="Cloud - unset" placement="bottom" :transfer="true" class="tooltip-height">
+    <Tooltip content="Cloud - unset"
+             placement="bottom"
+             :transfer="true"
+             class="tooltip-height">
       <img src="./../../assets/icon/cloud_unset.svg" alt="Keymap" class="action-icon"/>
     </Tooltip>
-    <Tooltip content="Application Settings" placement="bottom" :transfer="true" class="tooltip-height">
-      <img src="./../../assets/icon/settings.svg" alt="Keymap" class="action-icon"/>
+    <Tooltip content="Application Settings"
+             placement="bottom"
+             :transfer="true"
+             class="tooltip-height">
+      <img src="./../../assets/icon/settings.svg"
+           alt="Keymap"
+           class="action-icon"
+           @click="showSettingsModal"/>
     </Tooltip>
   </div>
 </template>
@@ -30,8 +39,7 @@
         this.$store.dispatch('showKeymapModal')
       },
       showSettingsModal () {
-        // this.$store.dispatch('showSettingsModal')
-        this.$Message.error('Sorry, not available in Alpha version')
+        this.$store.dispatch('showSettingsModal')
       }
     }
   }

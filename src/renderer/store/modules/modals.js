@@ -19,13 +19,7 @@ const state = {
   },
   settings: {
     isVisible: false,
-    currentVersion: version,
-    boardsList: []
-  },
-  moveToBoard: {
-    isVisible: false,
-    movingItemText: null,
-    movingItemId: null
+    currentVersion: version
   },
   update: {
     isVisible: false
@@ -70,12 +64,6 @@ const mutations = {
   SHOW_FIND_ITEM_MODAL (state) {
     state.findItem.isVisible = true
   },
-  SHOW_MOVE_TO_BOARD (state) {
-    state.moveToBoard.isVisible = true
-  },
-  HIDE_MOVE_TO_BOARD (state) {
-    state.moveToBoard.isVisible = false
-  },
   SHOW_KEYMAP_MODAL (state) {
     state.keymap.isVisible = true
   },
@@ -90,18 +78,6 @@ const mutations = {
   },
   SET_SETTINGS_BOARDS_LIST (state, boards) {
     state.settings.boardsList = boards
-  },
-  SET_SETTINGS_RESTART_REQUIRED (state, val) {
-    state.settings.restartRequired = val
-  },
-  SET_RESTART_REQ_CLOAK (state, val) {
-    state.settings.restartReqCloak = val
-  },
-  SET_MOVING_ITEM_ID (state, movingItemId) {
-    state.moveToBoard.movingItemId = movingItemId
-  },
-  SET_MOVING_ITEM_TEXT (state, movingItemText) {
-    state.moveToBoard.movingItemText = movingItemText
   },
   SET_IS_CAPTURING (state, val) {
     state.keymap.isCapturing = val
@@ -130,14 +106,6 @@ const actions = {
   hideSettingsModal ({commit}) {
     commit('HIDE_SETTINGS')
   },
-  showMoveToBoard ({commit}, {itemId, itemText}) {
-    commit('SET_MOVING_ITEM_ID', itemId)
-    commit('SET_MOVING_ITEM_TEXT', itemText)
-    commit('SHOW_MOVE_TO_BOARD')
-  },
-  hideMoveToBoardModal ({commit}) {
-    commit('HIDE_MOVE_TO_BOARD')
-  },
   showUpdateModal ({commit}) {
     commit('SHOW_UPDATE_MODAL')
   },
@@ -158,12 +126,6 @@ const actions = {
   },
   fetchSettingsBoardsList ({commit}) {
     commit('SET_SETTINGS_BOARDS_LIST', boardsRepository.getList())
-  },
-  setRestartRequired ({commit}) {
-    commit('SET_SETTINGS_RESTART_REQUIRED', true)
-  },
-  showRestartReqCloak ({commit}) {
-    commit('SET_RESTART_REQ_CLOAK', true)
   },
   setNewBoardName ({commit}, val) {
     commit('SET_NEW_BOARD_NAME', val)

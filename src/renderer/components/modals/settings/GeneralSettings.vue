@@ -1,21 +1,6 @@
 <template>
   <div>
     <div class="row">
-      <i-switch v-model="prependNewItems"
-                size="small">
-      </i-switch>
-      Default placement of new item:
-      <transition name="fade" mode="out-in">
-        <span v-if="prependNewItems" key="head">
-          Head
-        </span>
-        <span v-if="!prependNewItems" key="tail">
-          Tail
-        </span>
-      </transition>
-    </div>
-
-    <div class="row">
       <i-switch v-model="markdownMode"
                 size="small"
       >
@@ -32,37 +17,22 @@
     </div>
 
     <div class="row">
-      <Checkbox v-model="darkTheme">
-        Dark theme
-      </Checkbox>
-    </div>
-
-    <div class="row">
       <Checkbox v-model="itemCreationDate">
         Show creation date for each item
-      </Checkbox>
-    </div>
-    <div class="row">
-      <Checkbox v-model="stickBoardsOnTop">
-        Stick boards list to the top of screen
       </Checkbox>
     </div>
   </div>
 </template>
 
 <script>
+  import {Switch} from 'iview'
+
   export default {
     name: 'GeneralSettings',
+    components: {
+      'i-switch': Switch
+    },
     computed: {
-      prependNewItems: {
-        get () {
-          return this.$store.state.settings.prependNewItems
-        },
-        set (val) {
-          this.$store.dispatch('setPrependNewItem', val)
-          this.showSuccessNotification()
-        }
-      },
       markdownMode: {
         get () {
           return this.$store.state.settings.markdownMode
@@ -78,7 +48,6 @@
         },
         set (val) {
           this.$store.dispatch('setDarkTheme', val)
-          this.$store.dispatch('setRestartRequired')
           this.showSuccessNotification()
         }
       },
@@ -88,15 +57,6 @@
         },
         set (val) {
           this.$store.dispatch('setItemCreationDate', val)
-          this.showSuccessNotification()
-        }
-      },
-      stickBoardsOnTop: {
-        get () {
-          return this.$store.state.settings.stickBoardsOnTop
-        },
-        set (val) {
-          this.$store.dispatch('setStickBoardsOnTop', val)
           this.showSuccessNotification()
         }
       }
