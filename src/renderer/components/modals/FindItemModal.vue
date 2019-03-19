@@ -4,20 +4,22 @@
          @on-visible-change="visibleChange"
   >
     <div>
-      <input placeholder="Find item text..."
+      <input placeholder="Find item by text..."
              class="search-input"
              v-model="searchText"
              ref="searchInput"
       />
-      <div v-for="board in boards">
-        <h2 class="board-name" v-if="filteredList(board.items).length">{{board.label}}</h2>
-        <div v-for="item in filteredList(board.items)"
-             class="item"
-             :class="{'done' : item.isDone}"
-             @click="goToItem(board.id, item.id)">
-          {{item.text}}
+      <transition name="fade" duration="200">
+        <div v-for="board in boards" v-if="searchText.length">
+          <h2 class="board-name" v-if="filteredList(board.items).length">{{board.label}}</h2>
+          <div v-for="item in filteredList(board.items)"
+               class="item"
+               :class="{'done' : item.isDone}"
+               @click="goToItem(board.id, item.id)">
+            {{item.text}}
+          </div>
         </div>
-      </div>
+      </transition>
 
     </div>
 

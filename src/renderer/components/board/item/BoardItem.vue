@@ -186,6 +186,7 @@
 
   .item.newlyAddedItem {
     box-shadow: inset 0 0 70px rgba(98, 104, 112, 0.26);
+    border: 1px solid rgba(98, 104, 112, 0.66);
   }
 
   .item-text {
