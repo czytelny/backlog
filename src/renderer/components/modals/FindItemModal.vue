@@ -9,8 +9,8 @@
              v-model="searchText"
              ref="searchInput"
       />
-      <transition name="fade" duration="200">
-        <div v-for="board in boards" v-if="searchText.length">
+      <transition-group name="fade" duration="200">
+        <div v-for="board in boards" :key="board.id" v-if="searchText.length">
           <h2 class="board-name" v-if="filteredList(board.items).length">{{board.label}}</h2>
           <div v-for="item in filteredList(board.items)"
                class="item"
@@ -19,7 +19,7 @@
             {{item.text}}
           </div>
         </div>
-      </transition>
+      </transition-group>
 
     </div>
 
@@ -116,6 +116,7 @@
     transition: all .3s;
     padding-right: 8px;
     padding-left: 8px;
+    padding-bottom: 0;
   }
 
   .item.done {
