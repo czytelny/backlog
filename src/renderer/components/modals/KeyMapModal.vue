@@ -31,6 +31,9 @@
         <KeyBinding name="Bring focus to 'Filter items' field"
                     id="filterItemsFocus"
                     :keys="filterItemsFocusWin"/>
+        <KeyBinding name="Find item"
+                    id="showFindItem"
+                    :keys="showFindItemWin"/>
         </tbody>
       </table>
       <table v-if="isMac">
@@ -59,6 +62,9 @@
         <KeyBinding name="Bring focus to 'Filter items' field"
                     id="filterItemsFocus"
                     :keys="filterItemsFocusMac"/>
+        <KeyBinding name="Find item"
+                    id="showFindItem"
+                    :keys="showFindItemMac"/>
         </tbody>
       </table>
     </div>
@@ -126,6 +132,12 @@
       },
       filterItemsFocusWin () {
         return this.$store.state.settings.keyBindings.filterItemsFocus.win
+      },
+      showFindItemWin () {
+        return this.$store.state.settings.keyBindings.showFindItem.win
+      },
+      showFindItemMac () {
+        return this.$store.state.settings.keyBindings.showFindItem.mac
       }
     },
     methods: {

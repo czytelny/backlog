@@ -93,6 +93,12 @@
     border-bottom: 1px solid #cecece;
     color: #373636;
     padding: 8px;
+    text-align: center;
+  }
+
+  input.search-input::placeholder {
+    color: #cecece;
+    font-style: italic;
   }
 
   input.search-input:focus {
