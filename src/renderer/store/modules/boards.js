@@ -3,13 +3,7 @@ import itemsRepository from '@/repositories/itemsRepository'
 import settingsRepository from '@/repositories/settingsRepository'
 
 const state = {
-  activeBoard: {
-    id: '',
-    label: '',
-    showDone: false,
-    showProgress: false,
-    prependNewItem: false
-  },
+  activeBoard: {},
   rawBoards: [],
   boardsList: [],
   boardItems: [],
@@ -30,7 +24,8 @@ const mutations = {
     state.boardItems = items
   },
   SET_ACTIVE_BOARD (state, board) {
-    state.activeBoard = board
+    const activeBoard = state.boardsList.find((b) => b.id === board.id)
+    state.activeBoard = activeBoard
   },
   SWITCH_SHOW_DONE (state, {showDone}) {
     state.activeBoard.showDone = showDone
@@ -76,6 +71,7 @@ const actions = {
   },
   saveNewBoard ({commit, rootState}, boardName) {
     const savedBoard = boardsRepository.saveNewBoard(boardName, rootState.settings)
+    actions.fetchBoards({commit})
     commit('SET_ACTIVE_BOARD', savedBoard)
     return savedBoard.id
   },
