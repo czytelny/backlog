@@ -5,12 +5,12 @@
             <img src="./../../assets/icon/keymap.svg" alt="Keymap" class="action-icon"/>
         </span>
     </Tooltip>
-    <Tooltip content="Cloud - unset"
+    <!--<Tooltip content="Cloud - unset"
              placement="bottom"
              :transfer="true"
              class="tooltip-height">
       <img src="./../../assets/icon/cloud_unset.svg" alt="Keymap" class="action-icon"/>
-    </Tooltip>
+    </Tooltip>-->
     <Tooltip content="Application Settings"
              placement="bottom"
              :transfer="true"

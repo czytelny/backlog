@@ -157,9 +157,6 @@
       showDate () {
         return this.$store.state.settings.itemCreationDate
       },
-      markdownMode () {
-        return this.$store.state.settings.markdownMode
-      },
       textWithLink () {
         return md.render(this.text).autoLink({
           callback: function (url) {

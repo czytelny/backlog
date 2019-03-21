@@ -1,22 +1,6 @@
 <template>
   <div>
     <div class="row">
-      <i-switch v-model="markdownMode"
-                size="small"
-      >
-      </i-switch>
-      Edit item mode support:
-      <transition name="fade" mode="out-in">
-        <span v-if="!markdownMode" key="plaintext">
-          Plaintext
-        </span>
-        <span v-if="markdownMode" key="markdown">
-          Markdown
-        </span>
-      </transition>
-    </div>
-
-    <div class="row">
       <Checkbox v-model="itemCreationDate">
         Show creation date for each item
       </Checkbox>
@@ -33,15 +17,6 @@
       'i-switch': Switch
     },
     computed: {
-      markdownMode: {
-        get () {
-          return this.$store.state.settings.markdownMode
-        },
-        set (val) {
-          this.$store.dispatch('setMarkdownMode', val)
-          this.showSuccessNotification()
-        }
-      },
       darkTheme: {
         get () {
           return this.$store.state.settings.darkTheme

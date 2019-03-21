@@ -27,7 +27,7 @@
       Create backup
     </Button>
     <Button @click="importBackup"
-            icon="ios-upload-outline"
+            icon="ios-arrow-round-up"
     >
       Import backup
     </Button>

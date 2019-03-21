@@ -7,6 +7,7 @@
     </Checkbox>
 
     <Button :loading="loadingUpdates"
+            :disabled="true"
             icon="ios-reload"
             style="width:300px;"
             @click="loadUpdates" v-if="!newVersionAvailable">
