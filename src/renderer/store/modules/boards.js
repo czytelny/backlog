@@ -1,9 +1,15 @@
-import boardsRepository from '@/repositories/boardsRepository'
+import boardsRepository from './../../repositories/boardsRepository'
 import itemsRepository from '@/repositories/itemsRepository'
 import settingsRepository from '@/repositories/settingsRepository'
 
 const state = {
-  activeBoard: {},
+  activeBoard: {
+    id: '',
+    label: '',
+    showDone: false,
+    showProgress: false,
+    prependNewItem: false
+  },
   rawBoards: [],
   boardsList: [],
   boardItems: [],
@@ -23,9 +29,8 @@ const mutations = {
   SET_BOARD_ITEMS (state, items) {
     state.boardItems = items
   },
-  SET_ACTIVE_BOARD (state, boardId) {
-    const activeBoard = state.boardsList.find((board) => board.id === boardId)
-    state.activeBoard = activeBoard
+  SET_ACTIVE_BOARD (state, board) {
+    state.activeBoard = board
   },
   SWITCH_SHOW_DONE (state, {showDone}) {
     state.activeBoard.showDone = showDone
@@ -35,9 +40,6 @@ const mutations = {
   },
   SWITCH_PREPEND_NEW_ITEM (state, {prependNewItem}) {
     state.activeBoard.prependNewItem = prependNewItem
-  },
-  SET_NEW_ITEM (state, val) {
-    state.newItem = val
   },
   SET_IS_SUBMITTING_NEW_ITEM (state, val) {
     state.isSubmittingNewItem = val
@@ -58,38 +60,33 @@ const actions = {
     commit('SET_BOARD_ITEMS', boardsRepository.getBoardItems(boardId))
   },
   fetchActiveBoard ({commit}) {
-    commit('SET_ACTIVE_BOARD', boardsRepository.getActiveBoard())
+    const board = boardsRepository.getBoardById(boardsRepository.getActiveBoard())
+    commit('SET_ACTIVE_BOARD', board)
   },
   setActiveBoard ({commit}, boardId) {
     boardsRepository.setActiveBoard(boardId)
-    commit('SET_ACTIVE_BOARD', boardId)
+    const board = boardsRepository.getBoardById(boardId)
+    commit('SET_ACTIVE_BOARD', board)
   },
   setFirstBoardAsActiveBoard ({commit}) {
-    const activeBoard = boardsRepository.getFirstBoard().id
-    boardsRepository.setActiveBoard(activeBoard)
+    const activeBoard = boardsRepository.getFirstBoard()
+    boardsRepository.setActiveBoard(activeBoard.id)
     commit('SET_ACTIVE_BOARD', activeBoard)
-    return activeBoard
+    return activeBoard.id
   },
   saveNewBoard ({commit, rootState}, boardName) {
     const savedBoard = boardsRepository.saveNewBoard(boardName, rootState.settings)
-    commit('SET_ACTIVE_BOARD', savedBoard.id)
+    commit('SET_ACTIVE_BOARD', savedBoard)
     return savedBoard.id
   },
   renameBoard ({commit, rootState}, {boardId, newName}) {
     boardsRepository.renameBoard(boardId, newName)
-  },
-  saveBoardsArray ({commit}, boardsArray) {
-    boardsRepository.saveBoardsArray(boardsArray)
-    commit('SET_BOARDS', boardsRepository.getList())
   },
   changeBoardsOrder ({commit}, moved) {
     boardsRepository.changeBoardsOrder(moved)
   },
   itemsOrderChanged ({commit}, {moved, boardId}) {
     boardsRepository.changeItemsOrder(boardId, moved)
-  },
-  moveItemToBoard ({commit}, {fromBrd, toBrd, movingItemId}) {
-    boardsRepository.moveItemToBoard(fromBrd, toBrd, movingItemId)
   },
   switchShowDone ({commit}, {boardId, showDone}) {
     boardsRepository.switchShowDone(boardId, showDone)
@@ -102,9 +99,6 @@ const actions = {
   switchShowProgress ({commit}, {boardId, val}) {
     itemsRepository.switchShowProgress(boardId, val)
     commit('SWITCH_SHOW_PROGRESS', val)
-  },
-  setNewItemVal ({commit}, val) {
-    commit('SET_NEW_ITEM', val)
   },
   setIsSubmittingNewItem ({commit}, val) {
     commit('SET_IS_SUBMITTING_NEW_ITEM', val)
