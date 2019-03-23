@@ -14,6 +14,7 @@ const state = {
 
 const mutations = {
   SET_SETTINGS (state, settings) {
+    state.keyBindings = {...state.keyBindings, ...settings.keyBindings}
     Object.assign(state, settings)
   },
   SET_DB_LOCATION (state, newDbLocation) {
@@ -53,6 +54,13 @@ const actions = {
   setupKeyBindings () {
     if (!settingsRepository.hasKeyBindingsProperty()) {
       settingsRepository.setupKeyBindings()
+    } else { // check out if there are any missing shortcuts...
+      const repoKeys = settingsRepository.getKeyBindings()
+      for (let property in settingsRepository.keyBindings) {
+        if (!repoKeys[property]) {
+          settingsRepository.addKeyBinding(property, settingsRepository.keyBindings[property])
+        }
+      }
     }
   },
   resetKeyBindings () {

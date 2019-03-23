@@ -53,8 +53,19 @@ export default {
       .assign(updateProp)
       .write()
   },
+  getKeyBindings () {
+    return db.get('appSettings.keyBindings')
+      .cloneDeep()
+      .value()
+  },
   hasKeyBindingsProperty () {
     return db.has('appSettings.keyBindings').value()
+  },
+  addKeyBinding (keyId, keyCombinations) {
+    return db
+      .get(`appSettings.keyBindings`)
+      .set(keyId, keyCombinations)
+      .write()
   },
   updateKeyBinding (keyId, combination, isMac) {
     if (isMac) {
@@ -71,6 +82,5 @@ export default {
   },
   setupKeyBindings () {
     this.updateAppSettings({'keyBindings': keyBindings})
-    console.log(db.get('appSettings').value())
   }
 }

@@ -12,6 +12,7 @@
     <rename-board-modal/>
     <find-item-modal/>
     <settings-modal/>
+    <key-map-modal></key-map-modal>
   </div>
 </template>
 
@@ -22,14 +23,16 @@
   import RenameBoardModal from './modals/RenameBoardModal'
   import SettingsModal from './modals/settings/SettingsModal'
   import FindItemModal from './modals/FindItemModal'
+  import KeyMapModal from './modals/KeyMapModal'
 
   export default {
     name: 'MainPage',
-    components: {FindItemModal, SettingsModal, RenameBoardModal, NewBoardModal, BoardContent, BoardsMenu},
+    components: {FindItemModal, SettingsModal, RenameBoardModal, NewBoardModal, BoardContent, BoardsMenu, KeyMapModal},
     created () {
+      console.log('mainpage.vue')
+
       this.$store.dispatch('setSystem', window.navigator.platform.toLowerCase())
       this.$store.dispatch('fetchSettings')
-      this.$store.dispatch('setupKeyBindings')
       console.log(this.$store.state.settings.dbLocation)
 
       // this.versionCheck()
