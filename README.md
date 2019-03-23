@@ -8,6 +8,10 @@
 <img src="https://github.com/czytelny/backlog/raw/master/logo.png" width="100px" height="100px">
 </p>
 
+# 2.0.0-BETA release
+- [Windows version](http://czytelny.dbox.pl/download/Backlog-win32-x64-beta.zip)
+- [MacOs version](http://czytelny.dbox.pl/download/Backlog-darwin-x64-beta.zip)
+
 # Official website
 [www.backlog.cloud](http://www.backlog.cloud)
 
