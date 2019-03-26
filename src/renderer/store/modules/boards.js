@@ -133,9 +133,11 @@ const actions = {
       boardsRepository.importOldEntries()
       settingsRepository.updateAppSettings({'wasImported': true})
     }
+  },
+  moveItemToBoard ({commit}, {srcBoardId, dstBoardId, itemId}) {
+    boardsRepository.moveItemToBoard(srcBoardId, dstBoardId, itemId)
   }
-
-}
+};
 
 export default {
   state,

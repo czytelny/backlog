@@ -1,6 +1,9 @@
 <template>
   <div :class="{'doneItem': isDone, 'isEditing': isEditing}"
-       class="item list-complete-item">
+       class="item list-complete-item"
+       :data-id="itemId"
+       :data-boardId="boardId"
+       :draggable="isEditing">
     <div class="drag" v-if="isEditing">
       <Icon type="md-reorder"></Icon>
     </div>
@@ -78,6 +81,9 @@
         draftText: this.text,
         showDropdown: false
       }
+    },
+    created () {
+      this.$bus.$on('finishItemEditing', this.turnOffEditing)
     },
     methods: {
       saveItem () {

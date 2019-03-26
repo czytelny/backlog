@@ -10,13 +10,13 @@
       >
         <transition-group name="board-list-transition">
           <menu-row v-for="(board, $index) in boards"
-                     :data-index="$index"
-                     :isDragging="isDragging"
-                     :boardId="board.id"
-                     :label="board.label"
-                     :progress="board.progress"
-                     :showProgress="board.showProgress"
-                     :key="board.id">
+                    :data-index="$index"
+                    :isDragging="isDragging"
+                    :boardId="board.id"
+                    :label="board.label"
+                    :progress="board.progress"
+                    :showProgress="board.showProgress"
+                    :key="board.id">
           </menu-row>
         </transition-group>
       </draggable>
@@ -26,13 +26,13 @@
 </template>
 
 <script>
-  import draggable from 'vuedraggable'
-  import simplebar from 'simplebar-vue'
-  import 'simplebar/dist/simplebar.min.css'
+  import draggable from 'vuedraggable';
+  import simplebar from 'simplebar-vue';
+  import 'simplebar/dist/simplebar.min.css';
 
-  import MenuRow from './MenuRow'
-  import BoardsTitleRow from './MenuTitleRow'
-  import BoardsActionsRow from './MenuActionsRow'
+  import MenuRow from './MenuRow';
+  import BoardsTitleRow from './MenuTitleRow';
+  import BoardsActionsRow from './MenuActionsRow';
 
   export default {
     name: 'Menu',
@@ -40,27 +40,65 @@
     data () {
       return {
         isDragging: false
-      }
+      };
+    },
+    created () {
+      let draggedItemId;
+      let sourceBoardId;
+      document.addEventListener('dragstart', () => {
+        draggedItemId = event.target.dataset.id;
+        sourceBoardId = event.target.dataset.boardid;
+      });
+
+      document.addEventListener('drop', (event) => {
+        const boardRowEl = event.target.parentNode;
+        if (boardRowEl.classList.contains('board-row')) {
+          boardRowEl.classList.remove('draggingItem');
+          this.$store.dispatch('moveItemToBoard', {
+            srcBoardId: sourceBoardId,
+            dstBoardId: boardRowEl.dataset.id,
+            itemId: draggedItemId
+          });
+          this.$bus.$emit('finishItemEditing');
+          this.$store.dispatch('fetchBoardItems', sourceBoardId);
+        }
+      }, false);
+
+      document.addEventListener('dragenter', (event) => {
+        event.preventDefault();
+        const boardRowEl = event.target.parentNode;
+        if (boardRowEl.className === 'board-row') {
+          boardRowEl.classList.add('draggingItem');
+        }
+      }, false);
+
+      document.addEventListener('dragleave', (event) => {
+        event.preventDefault();
+        const boardRowEl = event.target.parentNode;
+        if (boardRowEl.classList.contains('board-row')) {
+          boardRowEl.classList.remove('draggingItem');
+        }
+      }, false);
     },
     computed: {
       boards: {
         get () {
-          return this.$store.state.boards.boardsList
+          return this.$store.state.boards.boardsList;
         }
       }
     },
     methods: {
       boardsRearranged ({moved}) {
-        this.$store.dispatch('changeBoardsOrder', moved)
+        this.$store.dispatch('changeBoardsOrder', moved);
       },
       draggingStarted () {
-        this.isDragging = true
+        this.isDragging = true;
       },
       draggingEnded () {
-        this.isDragging = false
+        this.isDragging = false;
       }
     }
-  }
+  };
 </script>
 
 <style scoped>

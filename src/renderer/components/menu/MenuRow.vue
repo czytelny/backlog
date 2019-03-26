@@ -6,6 +6,7 @@
 
     <router-link :to="'/board/'+boardId">
       <div class="board-row"
+           :data-id="boardId"
            :class="{'isDragging': isDragging}"
            @click="saveActiveBoard">
         <span @dblclick="showRenameModal">
@@ -105,6 +106,7 @@
   }
 
   .board-row {
+    user-select: none;
     display: flex;
     justify-content: space-between;
     width: 100%;
@@ -116,6 +118,12 @@
     transition: all .3s;
     margin: 12px 0;
     line-height: 1em;
+  }
+
+  .board-row.draggingItem {
+    color: #15f953;
+    cursor: pointer;
+    text-shadow: 0 0 8px #000;
   }
 
   .board-row:hover {
