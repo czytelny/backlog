@@ -13,7 +13,7 @@
       spellcheck="false"
       placeholder="Enter something..."
       rows="1"
-      @keyup.esc.native="saveItem"
+      @keyup.esc.native="saveItem(); turnOffEditing();"
       @blur.native="saveItem"
       autofocus="autofocus"
       class="ivu-input draftText animated"
@@ -24,7 +24,7 @@
     <Button type="primary"
             v-if="isEditing"
             class="ok-edit-btns"
-            @click="turnOffEditing"
+            @click="saveItem(); turnOffEditing();"
     >
       OK
     </Button>
@@ -85,14 +85,12 @@
           this.draftText = ''
           return
         }
-        this.turnOffEditing()
         this.$store.dispatch('changeItemVal', {
           boardId: this.boardId,
           itemId: this.itemId,
           newVal: this.draftText
         })
         this.$store.dispatch('fetchBoardItems', this.boardId)
-        this.$bus.$emit('focusOnAddItem')
       },
       editItem () {
         this.isEditing = true
@@ -100,6 +98,7 @@
       },
       turnOffEditing () {
         this.isEditing = false
+        this.$bus.$emit('focusOnAddItem')
       },
       changeIsDone (newVal) {
         this.$store.dispatch('changeIsDone', {
