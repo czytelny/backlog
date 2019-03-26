@@ -197,9 +197,13 @@ export default {
       .value();
 
     const index = items.findIndex((item) => item.id === itemId);
-    const item = items.splice(index, 1)[0];
+    const item = items.find((item) => item.id === itemId);
+    if (!item) {
+      return;
+    }
+    const srcItems = [...items.slice(0, index), ...items.slice(index + 1, items.length)];
     dstItems.push(item);
-    this.saveItemsArray(srcBoardId, items);
+    this.saveItemsArray(srcBoardId, srcItems);
     this.saveItemsArray(dstBoardId, dstItems);
   },
   getItems (boardId) {
