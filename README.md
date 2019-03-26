@@ -9,8 +9,9 @@
 </p>
 
 # 2.0.0-BETA release
-- [Windows version](http://czytelny.dbox.pl/download/Backlog-win32-x64-beta.zip)
-- [MacOs version](http://czytelny.dbox.pl/download/Backlog-darwin-x64-beta.zip)
+[Preview of 2.0.0 version](http://www.backlog.cloud/beta/)
+- [Windows version](http://czytelny.dbox.pl/download/Backlog-win32-x64-beta-1.zip)
+- [MacOs version](http://czytelny.dbox.pl/download/Backlog-darwin-x64-beta-1.zip)
 
 # Official website
 [www.backlog.cloud](http://www.backlog.cloud)
