@@ -23,7 +23,7 @@
   import RenameBoardModal from './modals/RenameBoardModal'
   import SettingsModal from './modals/settings/SettingsModal'
   import FindItemModal from './modals/FindItemModal'
-  import KeyMapModal from './modals/KeyMapModal'
+  import KeyMapModal from './modals/keyBindings/KeyMapModal'
 
   export default {
     name: 'MainPage',

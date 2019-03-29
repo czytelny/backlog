@@ -25,6 +25,7 @@ module.exports = {
     // allow debugger during development
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
     'mocha/no-exclusive-tests': 'error',
-    'semi': 0
+    'semi': 0,
+    'standard/no-callback-literal': 0,
   }
-}
+};
