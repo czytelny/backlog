@@ -16,8 +16,6 @@
       spellcheck="false"
       placeholder="Enter something..."
       rows="1"
-      @keyup.esc.native="saveItem(); turnOffEditing();"
-      @blur.native="saveItem"
       autofocus="autofocus"
       class="ivu-input draftText animated"
       :class="{'slideInDown' : isEditing}"
@@ -29,8 +27,25 @@
             class="ok-edit-btns"
             @click="saveItem(); turnOffEditing();"
     >
-      OK
+      OK  <span class="shortcut">{{shortcutString('acceptItemChange')}}</span>
     </Button>
+    <button v-if="isEditing"
+            style="display:none;"
+            v-shortkey="acceptEditShortcut"
+            @shortkey="saveItem(); turnOffEditing();"/>
+    <Button
+      v-if="isEditing"
+      class="ok-edit-btns"
+      style="margin-left:4px;"
+      @click="turnOffEditing"
+    >
+      Cancel  <span class="shortcut">{{shortcutString('cancelItemChange')}}</span>
+    </Button>
+
+    <button v-if="isEditing"
+            style="display:none;"
+            v-shortkey="cancelEditShortcut"
+            @shortkey="turnOffEditing"/>
 
 
     <div class="item-div"
@@ -63,117 +78,134 @@
 </template>
 
 <script>
-  import ActionButtons from './ActionButtons'
-  import MarkdownIt from 'markdown-it'
-  import BoardItemCalendar from './BoardItemCalendar'
+  import ActionButtons from './ActionButtons';
+  import MarkdownIt from 'markdown-it';
+  import BoardItemCalendar from './BoardItemCalendar';
+  import keyShortcutMixin from './../../../keyShortcutStringMixin'
 
   const md = new MarkdownIt({
     breaks: true
-  })
+  });
 
   export default {
     name: 'board-item',
     components: {BoardItemCalendar, ActionButtons},
+    mixins: [keyShortcutMixin],
     props: ['boardId', 'itemId', 'isDone', 'text', 'created'],
     data () {
       return {
         isEditing: false,
         draftText: this.text,
         showDropdown: false
-      }
+      };
     },
     created () {
-      this.$bus.$on('finishItemEditing', this.turnOffEditing)
+      this.$bus.$on('finishItemEditing', this.turnOffEditing);
     },
     methods: {
       saveItem () {
         if (this.draftText.trim() === '') {
-          this.draftText = ''
-          return
+          this.draftText = '';
+          return;
         }
         this.$store.dispatch('changeItemVal', {
           boardId: this.boardId,
           itemId: this.itemId,
           newVal: this.draftText
-        })
-        this.$store.dispatch('fetchBoardItems', this.boardId)
+        });
+        this.$store.dispatch('fetchBoardItems', this.boardId);
       },
       editItem () {
-        this.isEditing = true
-        this.$nextTick().then(() => this.$refs.inputEdit.$el.focus())
+        this.draftText = this.text;
+        this.isEditing = true;
+        this.$nextTick().then(() => this.$refs.inputEdit.$el.focus());
       },
       turnOffEditing () {
-        this.isEditing = false
-        this.$bus.$emit('focusOnAddItem')
+        this.isEditing = false;
+        this.$bus.$emit('focusOnAddItem');
       },
       changeIsDone (newVal) {
         this.$store.dispatch('changeIsDone', {
           boardId: this.boardId,
           itemId: this.itemId,
           newVal
-        })
-        this.$store.dispatch('fetchBoardItems', this.boardId)
-        this.$store.dispatch('fetchBoards')
-        this.$bus.$emit('focusOnAddItem')
+        });
+        this.$store.dispatch('fetchBoardItems', this.boardId);
+        this.$store.dispatch('fetchBoards');
+        this.$bus.$emit('focusOnAddItem');
       },
       removeItem () {
         this.$store.dispatch('removeItem', {
           boardId: this.boardId,
           itemId: this.itemId
-        })
-        this.$store.dispatch('fetchBoardItems', this.boardId)
-        this.$bus.$emit('focusOnAddItem')
-        this.$Message.success('Item removed')
+        });
+        this.$store.dispatch('fetchBoardItems', this.boardId);
+        this.$bus.$emit('focusOnAddItem');
+        this.$Message.success('Item removed');
       },
       moveItemToTop () {
         this.$store.dispatch('moveItemToTop', {
           boardId: this.boardId,
           itemId: this.itemId
-        })
-        this.$store.dispatch('fetchBoardItems', this.boardId)
-        this.$bus.$emit('focusOnAddItem')
+        });
+        this.$store.dispatch('fetchBoardItems', this.boardId);
+        this.$bus.$emit('focusOnAddItem');
       },
       moveItemToBottom () {
         this.$store.dispatch('moveItemToBottom', {
           boardId: this.boardId,
           itemId: this.itemId
-        })
-        this.$store.dispatch('fetchBoardItems', this.boardId)
-        this.$bus.$emit('focusOnAddItem')
+        });
+        this.$store.dispatch('fetchBoardItems', this.boardId);
+        this.$bus.$emit('focusOnAddItem');
       },
       open (link) {
-        this.$electron.shell.openExternal(link)
+        this.$electron.shell.openExternal(link);
       },
       handleLinkClick (event) {
-        event.preventDefault()
+        event.preventDefault();
         if (event.target.className === 'link') {
-          this.open(event.target.title)
+          this.open(event.target.title);
         }
 
         if (event.target.tagName.toLowerCase() === 'a') {
-          this.open(event.target.href)
+          this.open(event.target.href);
         }
       }
     },
     computed: {
+      acceptEditShortcut () {
+        return this.$store.state.settings.keyBindings.acceptItemChange;
+      },
+      cancelEditShortcut () {
+        return this.$store.state.settings.keyBindings.cancelItemChange;
+      },
       isFiltered () {
-        return this.$store.state.boards.findItem.itemText.length > 0
+        return this.$store.state.boards.findItem.itemText.length > 0;
       },
       showDate () {
-        return this.$store.state.settings.itemCreationDate
+        return this.$store.state.settings.itemCreationDate;
       },
       textWithLink () {
         return md.render(this.text).autoLink({
           callback: function (url) {
-            return `<span class='link' title="${url}">${url.split('/')[2]}</span>`
+            return `<span class='link' title="${url}">${url.split('/')[2]}</span>`;
           }
-        })
+        });
       }
     }
-  }
+  };
 </script>
 
-<style>
+<style scoped>
+
+  .shortcut {
+    color: #dddddd;
+    user-select: none;
+    margin-left:8px;
+    font-size: .8em;
+    line-height: 1em;
+  }
 
   .item {
     transition: all .3s;
@@ -222,7 +254,7 @@
 
 
   .ok-edit-btns {
-    margin-left: 23px;
+    margin-left: 25px;
     margin-top: 8px;
     animation-duration: .3s;
   }

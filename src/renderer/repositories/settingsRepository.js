@@ -1,4 +1,4 @@
-const {db} = require('electron').remote.require('./persistence')
+const {db} = require('electron').remote.require('./persistence');
 
 const keyBindings = {
   showKeymap: {
@@ -28,8 +28,16 @@ const keyBindings = {
   showFindItem: {
     mac: ['meta', 'shift', 'f'],
     win: ['ctrl', 'shift', 'f']
+  },
+  acceptItemChange: {
+    mac: ['meta', 'enter'],
+    win: ['ctrl', 'enter']
+  },
+  cancelItemChange: {
+    mac: ['esc'],
+    win: ['esc']
   }
-}
+};
 
 db.defaults({
   appSettings: {
@@ -39,48 +47,48 @@ db.defaults({
     'showUpdates': true,
     'keyBindings': keyBindings
   }
-}).write()
+}).write();
 
 export default {
   keyBindings,
   getAppSettings () {
     return db.get('appSettings')
       .cloneDeep()
-      .value()
+      .value();
   },
   updateAppSettings (updateProp) {
     return db.get('appSettings')
       .assign(updateProp)
-      .write()
+      .write();
   },
   getKeyBindings () {
     return db.get('appSettings.keyBindings')
       .cloneDeep()
-      .value()
+      .value();
   },
   hasKeyBindingsProperty () {
-    return db.has('appSettings.keyBindings').value()
+    return db.has('appSettings.keyBindings').value();
   },
   addKeyBinding (keyId, keyCombinations) {
     return db
       .get(`appSettings.keyBindings`)
       .set(keyId, keyCombinations)
-      .write()
+      .write();
   },
   updateKeyBinding (keyId, combination, isMac) {
     if (isMac) {
       return db
         .get(`appSettings.keyBindings.${keyId}`)
         .set('mac', combination)
-        .write()
+        .write();
     } else {
       return db
         .get(`appSettings.keyBindings.${keyId}`)
         .set('win', combination)
-        .write()
+        .write();
     }
   },
   setupKeyBindings () {
-    this.updateAppSettings({'keyBindings': keyBindings})
+    this.updateAppSettings({'keyBindings': keyBindings});
   }
-}
+};
