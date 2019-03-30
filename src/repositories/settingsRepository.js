@@ -1,4 +1,4 @@
-const {db} = require('electron').remote.require('./persistence');
+const {db} = require('./../persistence');
 
 const keyBindings = {
   showKeymap: {
