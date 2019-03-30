@@ -74,13 +74,13 @@ const actions = {
     commit('SET_ACTIVE_BOARD', savedBoard);
     return savedBoard.id;
   },
-  renameBoard ({commit, rootState}, {boardId, newName}) {
+  renameBoard (context, {boardId, newName}) {
     boardsRepository.renameBoard(boardId, newName);
   },
-  changeBoardsOrder ({commit}, moved) {
+  changeBoardsOrder (context, moved) {
     boardsRepository.changeBoardsOrder(moved);
   },
-  itemsOrderChanged ({commit}, {moved, boardId}) {
+  itemsOrderChanged (context, {moved, boardId}) {
     boardsRepository.changeItemsOrder(boardId, moved);
   },
   switchShowDone ({commit}, {boardId, showDone}) {
@@ -98,7 +98,7 @@ const actions = {
   setIsSubmittingNewItem ({commit}, val) {
     commit('SET_IS_SUBMITTING_NEW_ITEM', val);
   },
-  addItem ({commit, state}, {boardId, newItem}) {
+  addItem ({state}, {boardId, newItem}) {
     const activeBoard = state.boardsList.find((board) => board.id === boardId);
     if (activeBoard.prependNewItem === true) {
       return boardsRepository.addItemToBegin(boardId, newItem);
@@ -106,23 +106,23 @@ const actions = {
       return boardsRepository.addItemToEnd(boardId, newItem);
     }
   },
-  moveItemToBottom ({commit}, {boardId, itemId}) {
+  moveItemToBottom (context, {boardId, itemId}) {
     boardsRepository.moveItemToBottom(boardId, itemId);
   },
-  moveItemToTop ({commit}, {boardId, itemId}) {
+  moveItemToTop (context, {boardId, itemId}) {
     boardsRepository.moveItemToTop(boardId, itemId);
   },
   removeItem ({commit}, {boardId, itemId}) {
     itemsRepository.removeItem(boardId, itemId);
     actions.fetchBoards({commit});
   },
-  removeBoard ({commit}, boardId) {
+  removeBoard (context, boardId) {
     boardsRepository.removeBoard(boardId);
   },
-  changeIsDone ({commit}, {boardId, itemId, newVal}) {
+  changeIsDone (context, {boardId, itemId, newVal}) {
     itemsRepository.switchIsDone(boardId, itemId, newVal);
   },
-  changeItemVal ({commit}, {boardId, itemId, newVal}) {
+  changeItemVal (context, {boardId, itemId, newVal}) {
     itemsRepository.changeItemValue(boardId, itemId, newVal);
   },
   changeFindItem ({commit}, val) {

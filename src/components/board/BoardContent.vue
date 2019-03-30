@@ -39,7 +39,6 @@
                       :created="item.created"
                       :ref="item.id"
                       :id="item.id"
-                      v-if="shouldBeDisplayed(item)"
                       :boardId="boardId"
           >
           </board-item>
@@ -50,14 +49,12 @@
 </template>
 
 <script>
-  import BoardItem from './item/BoardItem.vue'
-  import StatusBar from './StatusBar'
-  import NewItemInput from './NewItemInput'
-  import simplebar from 'simplebar-vue'
-  import 'simplebar/dist/simplebar.min.css'
-  import VueScrollTo from 'vue-scrollto'
-  import draggable from 'vuedraggable'
-  import BoardSettings from './boardSettingsBar/BoardSettings'
+  import BoardItem from './item/BoardItem.vue';
+  import StatusBar from './StatusBar';
+  import NewItemInput from './NewItemInput';
+  import VueScrollTo from 'vue-scrollto';
+  import draggable from 'vuedraggable';
+  import BoardSettings from './boardSettingsBar/BoardSettings';
 
   export default {
     name: 'BoardContent',
@@ -66,62 +63,63 @@
       BoardItem,
       StatusBar,
       NewItemInput,
-      simplebar,
       draggable
     },
     created () {
-      this.$store.dispatch('fetchBoardItems', this.boardId)
+      this.$store.dispatch('fetchBoardItems', this.boardId);
     },
     beforeRouteUpdate (to, from, next) {
-      this.$store.dispatch('fetchBoardItems', to.params.boardId)
+      this.$store.dispatch('fetchBoardItems', to.params.boardId);
       if (to.params.itemId) {
-        this.scheduleScroll(to.params.itemId)
+        this.scheduleScroll(to.params.itemId);
       }
-      next()
+      next();
     },
     computed: {
       board () {
-        return this.$store.state.boards.activeBoard
+        return this.$store.state.boards.activeBoard;
       },
       boardId () {
-        return this.$route.params.boardId
+        return this.$route.params.boardId;
       },
       boardItems () {
-        return this.$store.state.boards.boardItems
+        return this.$store.state.boards.boardItems;
       },
       isBoardItemsEmpty () {
-        return !this.boardItems.length
+        return !this.boardItems.length;
       },
       isAllItemsDone () {
-        return this.boardItems.length && !this.boardItems.find(item => !item.isDone)
+        return this.boardItems.length && !this.boardItems.find(item => !item.isDone);
       },
       filterString () {
-        return this.$store.state.boards.findItem.itemText.toLowerCase()
+        return this.$store.state.boards.findItem.itemText.toLowerCase();
       },
       filteredBoardItems () {
-        return this.boardItems.filter((item) => item.text.toLowerCase().includes(this.filterString))
+        return this.boardItems.filter((item) => {
+          if (!item.text.toLowerCase().includes(this.filterString)) {
+            return false;
+          }
+          if (!item.isDone) {
+            return true;
+          }
+          return this.board.showDone;
+        });
       },
       isFiltered () {
-        return this.$store.state.boards.findItem.itemText.length > 0
+        return this.$store.state.boards.findItem.itemText.length > 0;
       },
       isProgressVisible () {
-        return this.$store.state.boards.activeBoard.showProgress
+        return this.$store.state.boards.activeBoard.showProgress;
       }
     },
     methods: {
       scheduleScroll (itemId) {
         setTimeout(() => {
-          this.scrollToNewItem({id: itemId})
-        }, 700)
-      },
-      shouldBeDisplayed (item) {
-        if (!item.isDone) {
-          return true
-        }
-        return this.board.showDone
+          this.scrollToNewItem({id: itemId});
+        }, 700);
       },
       scrollToNewItem (element) {
-        const el = document.getElementById(element.id)
+        const el = document.getElementById(element.id);
         if (el) {
           var options = {
             container: '.items-container',
@@ -131,20 +129,20 @@
             cancelable: true,
             x: false,
             y: true
-          }
-          VueScrollTo.scrollTo(el, 500, options)
-          el.classList.add('newlyAddedItem')
+          };
+          VueScrollTo.scrollTo(el, 500, options);
+          el.classList.add('newlyAddedItem');
           setTimeout(() => {
-            el.classList.remove('newlyAddedItem')
-          }, 2000)
+            el.classList.remove('newlyAddedItem');
+          }, 2000);
         }
       },
       boardItemsRearanged ({moved}) {
-        this.$store.dispatch('itemsOrderChanged', {boardId: this.boardId, moved})
-        this.$store.dispatch('fetchBoardItems', this.boardId)
+        this.$store.dispatch('itemsOrderChanged', {boardId: this.boardId, moved});
+        this.$store.dispatch('fetchBoardItems', this.boardId);
       }
     }
-  }
+  };
 </script>
 
 <style scoped>

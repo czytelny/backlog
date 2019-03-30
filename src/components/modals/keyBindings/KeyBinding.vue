@@ -6,7 +6,8 @@
         Recording...
       </div>
       <div v-else>
-        <span v-for="(k, index) in mappedCombination">
+        <span v-for="(k, index) in mappedCombination"
+              :key="index">
           <kbd class="capturing">
             <span v-if="k==='meta'">⌘</span>
             <span v-else class="text-uppercase">{{k}}</span>
@@ -17,7 +18,8 @@
     </td>
     <td v-else>
       <div>
-        <span v-for="(k, index) in keys">
+        <span v-for="(k, index) in keys"
+              :key="index">
           <kbd>
             <span v-if="k==='meta'">⌘</span>
             <span v-else class="text-uppercase">{{k}}</span>
@@ -39,46 +41,46 @@
         keyCapturing: false,
         combination: [],
         keysPressed: 0
-      }
+      };
     },
     computed: {
       isMac () {
-        return this.$store.state.modals.keymap.system.includes('mac')
+        return this.$store.state.modals.keymap.system.includes('mac');
       },
       mappedCombination () {
         return this.combination.map((item) => {
           if (item === 'control') {
-            return 'ctrl'
+            return 'ctrl';
           }
-          return item
-        })
+          return item;
+        });
       }
     },
     methods: {
       clearCapturing () {
-        this.keyCapturing = false
-        this.$store.dispatch('setIsCapturing', false)
-        document.onkeydown = null
-        document.onkeyup = null
+        this.keyCapturing = false;
+        this.$store.dispatch('setIsCapturing', false);
+        document.onkeydown = null;
+        document.onkeyup = null;
       },
       captureCombination () {
         if (this.$store.state.modals.keymap.isCapturing === true) {
-          return
+          return;
         }
-        this.$store.dispatch('setIsCapturing', true)
-        this.keyCapturing = true
-        this.combination.length = 0
-        this.keysPressed = 0
+        this.$store.dispatch('setIsCapturing', true);
+        this.keyCapturing = true;
+        this.combination.length = 0;
+        this.keysPressed = 0;
 
         document.onkeydown = (e) => {
           if (!e.repeat) {
-            this.keysPressed++
-            this.combination.push(e.key.toLowerCase())
+            this.keysPressed++;
+            this.combination.push(e.key.toLowerCase());
           }
-        }
+        };
 
-        document.onkeyup = (e) => {
-          this.clearCapturing()
+        document.onkeyup = () => {
+          this.clearCapturing();
           if (this.keysPressed > 1 && this.keysPressed < 4) {
             this.$store.dispatch('updateKeyBinding', {
               id: this.id,
@@ -86,16 +88,16 @@
               isMac: this.isMac
             })
               .then(() => {
-                this.$store.dispatch('fetchSettings')
-                this.$Message.success('Shortcut modified')
-              })
+                this.$store.dispatch('fetchSettings');
+                this.$Message.success('Shortcut modified');
+              });
           } else {
-            this.$Message.error('Invalid combination')
+            this.$Message.error('Invalid combination');
           }
-        }
+        };
       }
     }
-  }
+  };
 </script>
 
 <style scoped>

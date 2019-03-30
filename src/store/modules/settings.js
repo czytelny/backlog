@@ -66,7 +66,7 @@ const actions = {
   resetKeyBindings () {
     settingsRepository.setupKeyBindings();
   },
-  updateKeyBinding ({commit}, {id, combination, isMac}) {
+  updateKeyBinding (context, {id, combination, isMac}) {
     settingsRepository.updateKeyBinding(id, combination, isMac);
   }
 };
