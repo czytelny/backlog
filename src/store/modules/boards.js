@@ -1,6 +1,5 @@
 import boardsRepository from './../../repositories/boardsRepository';
-import itemsRepository from '@/repositories/itemsRepository';
-import settingsRepository from '@/repositories/settingsRepository';
+import itemsRepository from './../../repositories/itemsRepository';
 
 const state = {
   activeBoard: {},

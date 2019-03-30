@@ -6,14 +6,14 @@
 </template>
 
 <script>
-  const remote = require('electron').remote
+  const remote = require('electron').remote;
 
   export default {
     name: 'DatabaseLocation',
     computed: {
       dbLocation: {
         get () {
-          return this.$store.state.settings.dbLocation
+          return this.$store.state.settings.dbLocation;
         },
         set () {
           // TODO: when implementing customizing db location
@@ -22,10 +22,10 @@
     },
     created () {
       if (!this.dbLocation) {
-        this.$store.dispatch('setDbLocation', remote.getGlobal('userDataPath'))
+        this.$store.dispatch('setDbLocation', remote.getGlobal('userDataPath'));
       }
     }
-  }
+  };
 </script>
 
 <style scoped>

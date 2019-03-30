@@ -16,29 +16,30 @@
 </template>
 
 <script>
-  const remote = require('electron').remote
+  const remote = require('electron').remote;
 
   export default {
     name: 'TopBar',
     computed: {
       version () {
-        return this.$store.state.modals.settings.currentVersion
+        return this.$store.state.modals.settings.currentVersion;
       }
     },
     methods: {
       closeApp () {
-        remote.app.quit()
+        remote.app.quit();
       },
       minimize () {
-        remote.BrowserWindow.getFocusedWindow().minimize()
+        remote.BrowserWindow.getFocusedWindow().minimize();
       }
     }
-  }
+  };
 </script>
 
 <style scoped>
   .topBar {
     -webkit-app-region: drag;
+    -webkit-user-select: none;
     background-color: #ffffff;
     position: fixed;
     top: 0;

@@ -22,55 +22,55 @@
     name: 'GlobalKeyBindings',
     computed: {
       newBoardModalShortcut () {
-        return this.$store.state.settings.keyBindings.addNewBoard
+        return this.$store.state.settings.keyBindings.addNewBoard;
       },
       findItemShortcut () {
-        return this.$store.state.settings.keyBindings.showFindItem
+        return this.$store.state.settings.keyBindings.showFindItem;
       },
       showKeymapShortcut () {
-        return this.$store.state.settings.keyBindings.showKeymap
+        return this.$store.state.settings.keyBindings.showKeymap;
       },
       nextTabShortcuts () {
-        return this.$store.state.settings.keyBindings.nextTab
+        return this.$store.state.settings.keyBindings.nextTab;
       },
       prevTabShortcuts () {
-        return this.$store.state.settings.keyBindings.prevTab
+        return this.$store.state.settings.keyBindings.prevTab;
       }
     },
     methods: {
       activateNextTab () {
-        const activeTabDOM = document.querySelector('a.router-link-active')
-        const nextTab = activeTabDOM.parentElement.nextSibling
+        const activeTabDOM = document.querySelector('a.router-link-active');
+        const nextTab = activeTabDOM.parentElement.nextSibling;
         if (nextTab) {
-          const routePath = nextTab.children[1].hash.substring(1, nextTab.children[1].hash.length)
-          const boardId = routePath.split('/')[2]
-          this.$router.push(routePath)
-          this.$store.dispatch('setActiveBoard', boardId)
+          const routePath = nextTab.children[1].hash.substring(1, nextTab.children[1].hash.length);
+          const boardId = routePath.split('/')[2];
+          this.$router.push(routePath);
+          this.$store.dispatch('setActiveBoard', boardId);
         }
       },
       activatePreviousTab () {
-        const activeTabDOM = document.querySelector('a.router-link-active')
-        const prevTab = activeTabDOM.parentElement.previousSibling
+        const activeTabDOM = document.querySelector('a.router-link-active');
+        const prevTab = activeTabDOM.parentElement.previousSibling;
         if (prevTab) {
-          const routePath = prevTab.children[1].hash.substring(1, prevTab.children[1].hash.length)
-          const boardId = routePath.split('/')[2]
-          this.$router.push(routePath)
-          this.$store.dispatch('setActiveBoard', boardId)
+          const routePath = prevTab.children[1].hash.substring(1, prevTab.children[1].hash.length);
+          const boardId = routePath.split('/')[2];
+          this.$router.push(routePath);
+          this.$store.dispatch('setActiveBoard', boardId);
         }
       },
       showKeymap () {
-        this.$store.dispatch('showKeymapModal')
+        this.$store.dispatch('showKeymapModal');
       },
       showNewBoardModal () {
-        this.$store.dispatch('showNewBoardModal')
+        this.$store.dispatch('showNewBoardModal');
       },
       showFindItemModal () {
-        this.$store.dispatch('showFindItemModal')
-        this.$store.dispatch('fetchRawBoards')
+        this.$store.dispatch('showFindItemModal');
+        this.$store.dispatch('fetchRawBoards');
       }
     }
 
-  }
+  };
 </script>
 
 <style scoped>

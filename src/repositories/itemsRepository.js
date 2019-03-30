@@ -5,7 +5,7 @@ export default {
     return db
       .get('boards')
       .updateById(boardId, {prependNewItem: value})
-      .write()
+      .write();
   },
   switchIsDone (boardId, itemId, value) {
     return db
@@ -14,13 +14,13 @@ export default {
       .get('items')
       .find({id: itemId})
       .assign({isDone: value})
-      .write()
+      .write();
   },
   switchShowProgress (boardId, val) {
     return db
       .get('boards')
       .updateById(boardId, {showProgress: val})
-      .write()
+      .write();
   },
   removeItem (boardId, itemId) {
     return db
@@ -28,7 +28,7 @@ export default {
       .find({id: boardId})
       .get('items')
       .remove({id: itemId})
-      .write()
+      .write();
   },
   changeItemValue (boardId, itemId, itemVal) {
     return db
@@ -37,6 +37,6 @@ export default {
       .get('items')
       .find({id: itemId})
       .assign({text: itemVal})
-      .write()
+      .write();
   }
-}
+};

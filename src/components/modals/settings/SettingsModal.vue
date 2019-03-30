@@ -42,39 +42,37 @@
 </template>
 
 <script>
-  import draggable from 'vuedraggable'
-  import boardsRepository from '@/repositories/boardsRepository'
-  import GeneralSettings from './GeneralSettings'
-  import UpdatesCheckSettings from './UpdatesCheckSettings'
-  import DatabaseLocation from './DatabaseLocation'
+  import boardsRepository from '@/repositories/boardsRepository';
+  import GeneralSettings from './GeneralSettings';
+  import UpdatesCheckSettings from './UpdatesCheckSettings';
+  import DatabaseLocation from './DatabaseLocation';
 
-  const {dialog} = require('electron').remote
+  const {dialog} = require('electron').remote;
 
   export default {
     name: 'settings-modal',
     components: {
       DatabaseLocation,
       UpdatesCheckSettings,
-      GeneralSettings,
-      draggable
+      GeneralSettings
     },
     computed: {
       isVisible () {
-        return this.$store.state.modals.settings.isVisible
+        return this.$store.state.modals.settings.isVisible;
       },
       currentVersion () {
-        return this.$store.state.modals.settings.currentVersion
+        return this.$store.state.modals.settings.currentVersion;
       }
     },
     data () {
-      return {}
+      return {};
     },
     methods: {
       open (link) {
-        this.$electron.shell.openExternal(link)
+        this.$electron.shell.openExternal(link);
       },
       createBackup () {
-        const vm = this
+        const vm = this;
         dialog.showSaveDialog({
           filters: [
             {name: 'json', extensions: ['json']}
@@ -83,15 +81,15 @@
           boardsRepository
             .exportDbToJSON(fileName)
             .then(() => {
-              vm.$Message.success('File saved successfully')
+              vm.$Message.success('File saved successfully');
             })
             .catch((err) => {
-              vm.$Message.error({content: err.message, duration: 0, closable: true})
-            })
-        })
+              vm.$Message.error({content: err.message, duration: 0, closable: true});
+            });
+        });
       },
       importBackup () {
-        const vm = this
+        const vm = this;
         dialog.showOpenDialog({
           properties: ['openFile'],
           filters: [
@@ -100,27 +98,27 @@
         }, function (filePath) {
           boardsRepository.importDbFromJSON(filePath[0])
             .then(() => {
-              vm.$Message.success('File imported successfully')
-              vm.$store.dispatch('fetchBoards')
+              vm.$Message.success('File imported successfully');
+              vm.$store.dispatch('fetchBoards');
             })
             .catch((err) => {
-              vm.$Message.error({content: err.message, duration: 0, closable: true})
-            })
-        })
+              vm.$Message.error({content: err.message, duration: 0, closable: true});
+            });
+        });
       },
       visibleChange (isVisible) {
         if (!isVisible) {
-          this.closeModal()
+          this.closeModal();
         }
       },
       showSuccessNotification () {
-        this.$Message.success('Setting updated')
+        this.$Message.success('Setting updated');
       },
       closeModal () {
-        this.$store.dispatch('hideSettingsModal')
+        this.$store.dispatch('hideSettingsModal');
       },
       openSaveDialog (boardId) {
-        const vm = this
+        const vm = this;
         dialog.showSaveDialog({
           filters: [
             {name: 'JSON', extensions: ['json']}
@@ -129,21 +127,22 @@
           boardsRepository
             .exportBoardToJSON(fileName, boardId)
             .then(() => {
-              vm.$Message.success('File saved successfully')
+              vm.$Message.success('File saved successfully');
             })
             .catch((err) => {
-              vm.$Message.error({content: err.message, duration: 0, closable: true})
-            })
-        })
+              vm.$Message.error({content: err.message, duration: 0, closable: true});
+            });
+        });
       }
     }
-  }
+  };
 </script>
 
 <style scoped>
   h2 {
     margin-top: 16px;
   }
+
   .row.title-row {
     border-bottom: 1px solid #f3f3f3;
     padding-bottom: 10px;
@@ -163,12 +162,6 @@
     cursor: pointer;
   }
 
-  .download-icon {
-    cursor: pointer;
-    margin-left: 5px;
-    font-size: 1.5em;
-  }
-
   h4 {
     margin: 5px 0;
   }
@@ -177,8 +170,4 @@
     margin: 7px 0;
   }
 
-  .separator {
-    border-bottom: 1px solid #f5f5f5;
-    margin: 15px 0
-  }
 </style>

@@ -24,9 +24,9 @@
 </template>
 
 <script>
-  import axios from 'axios'
+  import axios from 'axios';
 
-  const version = require('electron').remote.app.getVersion()
+  const version = require('electron').remote.app.getVersion();
 
   export default {
     name: 'UpdatesCheckSettings',
@@ -34,41 +34,41 @@
       return {
         loadingUpdates: false,
         newVersionAvailable: false
-      }
+      };
     },
     computed: {
       showUpdates: {
         get () {
-          return this.$store.state.settings.showUpdates
+          return this.$store.state.settings.showUpdates;
         },
         set (val) {
-          this.$store.dispatch('setShowUpdates', val)
+          this.$store.dispatch('setShowUpdates', val);
         }
       }
     },
     methods: {
       loadUpdates () {
-        this.loadingUpdates = true
+        this.loadingUpdates = true;
         axios.get('https://api.github.com/repos/czytelny/backlog/releases/latest')
           .then(({data}) => {
             if (!data.tag_name) {
-              return
+              return;
             }
             if (`v${version}` === data.tag_name) {
-              this.$Message.info('You have the latest version of Backlog')
+              this.$Message.info('You have the latest version of Backlog');
             } else {
-              this.newVersionAvailable = true
+              this.newVersionAvailable = true;
             }
           })
           .finally(() => {
-            this.loadingUpdates = false
-          })
+            this.loadingUpdates = false;
+          });
       },
       open (link) {
-        this.$electron.shell.openExternal(link)
+        this.$electron.shell.openExternal(link);
       }
     }
-  }
+  };
 </script>
 
 <style scoped>

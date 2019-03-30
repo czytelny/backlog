@@ -10,7 +10,7 @@
            placeholder="New board name"
            @on-keyup.enter="submitBoardRename"
            v-focus
-    ></Input>
+    />
     <div slot="footer">
       <Button type="text" size="large" @click="closeModal">Cancel</Button>
       <Button id="saveNewBoardBtn"
@@ -27,27 +27,27 @@
     name: 'RenameBoardModal',
     computed: {
       isVisible () {
-        return this.$store.state.modals.renameBoard.isVisible
+        return this.$store.state.modals.renameBoard.isVisible;
       },
       newBoardName: {
         set (val) {
-          this.$store.dispatch('setRenamedBoardName', val)
+          this.$store.dispatch('setRenamedBoardName', val);
         },
         get () {
-          return this.$store.state.modals.renameBoard.name
+          return this.$store.state.modals.renameBoard.name;
         }
       }
     },
     methods: {
       visibleChange (isVisible) {
         if (!isVisible) {
-          this.closeModal()
+          this.closeModal();
         }
       },
       submitBoardRename () {
         if (this.newBoardName.trim() === '') {
-          this.$Message.warning('Please provide new board name')
-          return false
+          this.$Message.warning('Please provide new board name');
+          return false;
         }
         this.$store
           .dispatch('renameBoard', {
@@ -55,16 +55,16 @@
             boardId: this.$store.state.modals.renameBoard.boardId
           })
           .then(() => {
-            this.closeModal()
-            this.$Message.success('Board renamed')
-            this.$store.dispatch('fetchBoards')
-          })
+            this.closeModal();
+            this.$Message.success('Board renamed');
+            this.$store.dispatch('fetchBoards');
+          });
       },
       closeModal () {
-        this.$store.dispatch('hideRenameBoardModal')
+        this.$store.dispatch('hideRenameBoardModal');
       }
     }
-  }
+  };
 </script>
 
 <style scoped>

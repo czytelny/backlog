@@ -17,36 +17,35 @@
 </template>
 
 <script>
-  import BoardsMenu from './menu/Menu'
-  import BoardContent from './board/BoardContent'
-  import NewBoardModal from './modals/NewBoardModal'
-  import RenameBoardModal from './modals/RenameBoardModal'
-  import SettingsModal from './modals/settings/SettingsModal'
-  import FindItemModal from './modals/FindItemModal'
-  import KeyMapModal from './modals/keyBindings/KeyMapModal'
+  import BoardsMenu from './menu/Menu';
+  import NewBoardModal from './modals/NewBoardModal';
+  import RenameBoardModal from './modals/RenameBoardModal';
+  import SettingsModal from './modals/settings/SettingsModal';
+  import FindItemModal from './modals/FindItemModal';
+  import KeyMapModal from './modals/keyBindings/KeyMapModal';
 
   export default {
     name: 'MainPage',
-    components: {FindItemModal, SettingsModal, RenameBoardModal, NewBoardModal, BoardContent, BoardsMenu, KeyMapModal},
+    components: {FindItemModal, SettingsModal, RenameBoardModal, NewBoardModal, BoardsMenu, KeyMapModal},
     created () {
-      console.log('mainpage.vue')
+      console.log('mainpage.vue');
 
-      this.$store.dispatch('setSystem', window.navigator.platform.toLowerCase())
-      this.$store.dispatch('fetchSettings')
-      console.log(this.$store.state.settings.dbLocation)
+      this.$store.dispatch('setSystem', window.navigator.platform.toLowerCase());
+      this.$store.dispatch('fetchSettings');
+      console.log(this.$store.state.settings.dbLocation);
 
       // this.versionCheck()
-      this.$store.dispatch('fetchBoards')
-      this.$store.dispatch('fetchActiveBoard')
-      this.$router.push({path: `/board/${this.activeBoardId}`})
-      this.$nextTick().then(() => this.$bus.$emit('appInit', this.selectedTab))
+      this.$store.dispatch('fetchBoards');
+      this.$store.dispatch('fetchActiveBoard');
+      this.$router.push({path: `/board/${this.activeBoardId}`});
+      this.$nextTick().then(() => this.$bus.$emit('appInit', this.selectedTab));
     },
     computed: {
       activeBoardId () {
-        return this.$store.state.boards.activeBoard.id
+        return this.$store.state.boards.activeBoard.id;
       }
     }
-  }
+  };
 </script>
 
 <style>

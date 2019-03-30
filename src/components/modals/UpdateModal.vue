@@ -19,26 +19,26 @@
     methods: {
       switchFlagIfOpened (isVisible) {
         if (!isVisible) {
-          this.cancel()
+          this.cancel();
         }
       },
       cancel () {
-        this.$store.dispatch('hideUpdateModal')
+        this.$store.dispatch('hideUpdateModal');
       },
       cancelChecking () {
-        this.$store.dispatch('setShowUpdates', false)
-        this.$store.dispatch('hideUpdateModal')
+        this.$store.dispatch('setShowUpdates', false);
+        this.$store.dispatch('hideUpdateModal');
       },
       open (link) {
-        this.$electron.shell.openExternal(link)
+        this.$electron.shell.openExternal(link);
       }
     },
     computed: {
       isUpdateModalVisible () {
-        return this.$store.state.modals.update.isVisible && this.$store.state.settings.showUpdates
+        return this.$store.state.modals.update.isVisible && this.$store.state.settings.showUpdates;
       }
     }
-  }
+  };
 </script>
 
 <style scoped>

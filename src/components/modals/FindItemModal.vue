@@ -9,11 +9,13 @@
              v-model="searchText"
              ref="searchInput"
       />
-      <transition-group name="fade" duration="200">
-        <div v-for="board in boards" :key="board.id" v-if="searchText.length">
+      <transition-group name="fade" duration="200"
+                        v-if="searchText.length">
+        <div v-for="board in boards" :key="board.id">
           <h2 class="board-name" v-if="filteredList(board.items).length">{{board.label}}</h2>
           <div v-for="item in filteredList(board.items)"
                class="item"
+               :key="item.id"
                :class="{'done' : item.isDone}"
                @click="goToItem(board.id, item.id)">
             {{item.text}}
@@ -41,47 +43,47 @@
     data () {
       return {
         searchText: ''
-      }
+      };
     },
     updated () {
-      this.focusOnInput()
+      this.focusOnInput();
     },
     computed: {
       isVisible () {
-        return this.$store.state.modals.findItem.isVisible
+        return this.$store.state.modals.findItem.isVisible;
       },
       boards () {
-        return this.$store.state.boards.rawBoards
+        return this.$store.state.boards.rawBoards;
       }
     },
     methods: {
       goToItem (boardId, itemId) {
-        this.closeModal()
-        this.$router.push({path: `/board/${boardId}/${itemId}`})
-        this.$store.dispatch('setActiveBoard', boardId)
+        this.closeModal();
+        this.$router.push({path: `/board/${boardId}/${itemId}`});
+        this.$store.dispatch('setActiveBoard', boardId);
       },
       focusOnInput () {
-        const vm = this
+        const vm = this;
         this.$nextTick(() => {
           if (vm.$refs['searchInput']) {
-            vm.$refs['searchInput'].focus()
+            vm.$refs['searchInput'].focus();
           }
-        })
+        });
       },
       filteredList (boardList) {
-        return boardList.filter(item => item.text.includes(this.searchText))
+        return boardList.filter(item => item.text.includes(this.searchText));
       },
       visibleChange (isVisible) {
         if (!isVisible) {
-          this.closeModal()
+          this.closeModal();
         }
       },
       closeModal () {
-        this.$store.dispatch('hideFindItemModal')
-        this.searchText = ''
+        this.$store.dispatch('hideFindItemModal');
+        this.searchText = '';
       }
     }
-  }
+  };
 </script>
 
 <style scoped>

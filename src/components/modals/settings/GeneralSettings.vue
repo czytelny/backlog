@@ -9,40 +9,36 @@
 </template>
 
 <script>
-  import {Switch} from 'iview'
 
   export default {
     name: 'GeneralSettings',
-    components: {
-      'i-switch': Switch
-    },
     computed: {
       darkTheme: {
         get () {
-          return this.$store.state.settings.darkTheme
+          return this.$store.state.settings.darkTheme;
         },
         set (val) {
-          this.$store.dispatch('setDarkTheme', val)
-          this.showSuccessNotification()
+          this.$store.dispatch('setDarkTheme', val);
+          this.showSuccessNotification();
         }
       },
       itemCreationDate: {
         get () {
-          return this.$store.state.settings.itemCreationDate
+          return this.$store.state.settings.itemCreationDate;
         },
         set (val) {
-          this.$store.dispatch('setItemCreationDate', val)
-          this.showSuccessNotification()
+          this.$store.dispatch('setItemCreationDate', val);
+          this.showSuccessNotification();
         }
       }
     },
     methods: {
       showSuccessNotification () {
-        this.$Message.success('Setting updated')
-        this.$emit('settingsUpdated')
+        this.$Message.success('Setting updated');
+        this.$emit('settingsUpdated');
       }
     }
-  }
+  };
 </script>
 
 <style scoped>
