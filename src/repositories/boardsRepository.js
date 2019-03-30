@@ -1,7 +1,6 @@
 const {db} = require('./../persistence');
 
 const shortid = require('shortid');
-const storage = require('electron').remote.require('electron-settings');
 const fs = require('electron').remote.require('fs');
 
 function defaultBoard () {
@@ -240,18 +239,6 @@ export default {
       .get('boards')
       .updateById(boardId, {label: value})
       .write();
-  },
-  importOldEntries () {
-    if (storage.has('boards')) {
-      storage.get('boards').forEach((board) => {
-        const newBoard = this.saveNewBoard(board.label, {prependNewItem: false});
-        if (storage.has(`board-item-${board.id}`)) {
-          storage.get(`board-item-${board.id}`).forEach((boardItem) => {
-            this.addItemToEnd(newBoard.id, boardItem.text, boardItem.created, boardItem.isDone);
-          });
-        }
-      });
-    }
   },
   exportBoardToJSON (fileName, boardId) {
     const boardContent = this.getItems(boardId);

@@ -36,7 +36,6 @@
       console.log(this.$store.state.settings.dbLocation)
 
       // this.versionCheck()
-      this.$store.dispatch('importOldEntries')
       this.$store.dispatch('fetchBoards')
       this.$store.dispatch('fetchActiveBoard')
       this.$router.push({path: `/board/${this.activeBoardId}`})

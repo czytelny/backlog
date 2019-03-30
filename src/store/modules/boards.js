@@ -129,12 +129,6 @@ const actions = {
   changeFindItem ({commit}, val) {
     commit('SET_FIND_ITEM_TEXT', val);
   },
-  importOldEntries ({commit, rootState}) {
-    if (!rootState.settings.wasImported) {
-      boardsRepository.importOldEntries();
-      settingsRepository.updateAppSettings({'wasImported': true});
-    }
-  },
   moveItemToBoard ({commit}, {srcBoardId, dstBoardId, itemId}) {
     boardsRepository.moveItemToBoard(srcBoardId, dstBoardId, itemId);
     actions.fetchBoards({commit});

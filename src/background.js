@@ -23,7 +23,7 @@ function createWindow () {
   windowSettings.updateWindowState({minWidth: 600});
   const windowConfig = windowSettings.getWindowState();
   windowConfig.icon = path.join(__dirname, '/assets/256x256.png');
-
+  windowConfig.frame = false;
   // Create the browser window.
   win = new BrowserWindow(windowConfig);
   win.userDataPath = path.join(app.getPath('userData'), 'backlog.json');
@@ -33,6 +33,8 @@ function createWindow () {
   } else {
     win.setMenu(null);
   }
+
+  win.webContents.openDevTools();
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode
