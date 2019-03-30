@@ -22,6 +22,7 @@ import VueTextareaAutosize from 'vue-textarea-autosize';
 require('autolink-js');
 
 Vue.config.productionTip = false;
+Vue.config.devtools =  process.env.NODE_ENV !== 'production';
 
 const EventBus = new Vue();
 

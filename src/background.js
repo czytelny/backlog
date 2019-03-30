@@ -3,6 +3,7 @@
 import {app, BrowserWindow, Menu, protocol} from 'electron';
 import {createProtocol, installVueDevtools} from 'vue-cli-plugin-electron-builder/lib';
 import windowRepository from './windowRepository';
+
 const path = require('path');
 
 require('electron-context-menu')();
@@ -24,6 +25,7 @@ function createWindow () {
   const windowConfig = windowSettings.getWindowState();
   windowConfig.icon = path.join(__dirname, '/assets/256x256.png');
   windowConfig.frame = false;
+
   // Create the browser window.
   win = new BrowserWindow(windowConfig);
   win.userDataPath = path.join(app.getPath('userData'), 'backlog.json');

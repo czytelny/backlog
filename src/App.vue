@@ -7,18 +7,18 @@
 </template>
 
 <script>
-  import MainPage from './components/MainPage'
-  import TopBar from './components/TopBar'
-  import './theme/default-theme.less'
-  import GlobalKeybindings from './components/GlobalKeyBindings'
+  import MainPage from './components/MainPage';
+  import TopBar from './components/TopBar';
+  import './theme/default-theme.less';
+  import GlobalKeybindings from './components/GlobalKeyBindings';
 
   export default {
     name: 'backlog',
     components: {GlobalKeybindings, TopBar, MainPage},
     created () {
-      this.$store.dispatch('setupKeyBindings')
+      this.$store.dispatch('setupKeyBindings');
     }
-  }
+  };
 </script>
 
 <style lang="scss">
