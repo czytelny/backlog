@@ -40,8 +40,9 @@
 </template>
 
 <script>
-  import {Switch} from 'iview'
-  import keyShortcutMixin from './../../keyShortcutStringMixin'
+  import {Switch} from 'iview';
+  import keyShortcutMixin from './../../keyShortcutStringMixin';
+  import EmojiConvertor from 'emoji-js';
 
   export default {
     name: 'NewItemInput',
@@ -52,72 +53,79 @@
     },
     data () {
       return {
-        newItem: ''
-      }
+        newItem: '',
+        emojiHandler: null
+      };
     },
     created () {
-      this.focusOnInput()
-      this.$bus.$on('focusOnAddItem', this.focusOnInput)
+      this.focusOnInput();
+      this.$bus.$on('focusOnAddItem', this.focusOnInput);
+      this.emojiHandler = new EmojiConvertor();
+    },
+    watch: {
+      newItem () {
+        this.newItem = this.emojiHandler.replace_emoticons(this.newItem);
+      }
     },
     computed: {
       boardId () {
-        return this.$route.params.boardId
+        return this.$route.params.boardId;
       },
       newItemFocusShortcut () {
-        return this.$store.state.settings.keyBindings.newItemFocus
+        return this.$store.state.settings.keyBindings.newItemFocus;
       },
       newItemFocusShortcutString () {
-        return this.shortcutString('newItemFocus')
+        return this.shortcutString('newItemFocus');
       },
       isSubmittingNewItem: {
         get () {
-          return this.$store.state.boards.isSubmittingNewItem
+          return this.$store.state.boards.isSubmittingNewItem;
         },
         set (val) {
-          this.$store.dispatch('setIsSubmittingNewItem', val)
+          this.$store.dispatch('setIsSubmittingNewItem', val);
         }
       },
       prependNewItem () {
-        return this.$store.state.boards.activeBoard.prependNewItem
+        return this.$store.state.boards.activeBoard.prependNewItem;
       }
     },
     methods: {
       focusOnInput () {
-        const vm = this
+        const vm = this;
         this.$nextTick(() => {
           if (vm.$refs['mainInput']) {
-            vm.$refs['mainInput'].focus()
+            vm.$refs['mainInput'].focus();
           }
-        })
+        });
       },
       prependNewItemChange (val) {
         this.$store.dispatch('switchPrependNewItem', {
           boardId: this.boardId,
           prependNewItem: val
         }).then(() => {
-          this.$emit('prependNewItemSwitched')
-          this.focusOnInput()
-        })
+          this.$emit('prependNewItemSwitched');
+          this.focusOnInput();
+        });
       },
       submitNewItem () {
         if (this.newItem.trim().length === 0) {
-          this.newItem = ''
-          return
+          this.newItem = '';
+          return;
         }
-        this.isSubmittingNewItem = true
-        const newItemPromise = this.$store.dispatch('addItem', {boardId: this.boardId, newItem: this.newItem})
-        this.$Message.success('Item added')
-        this.$store.dispatch('fetchBoardItems', this.boardId)
-        this.newItem = ''
+        this.isSubmittingNewItem = true;
+        const newItemPromise = this.$store.dispatch('addItem', {boardId: this.boardId, newItem: this.newItem});
+        this.$Message.success('Item added');
+        this.$store.dispatch('fetchBoardItems', this.boardId);
+        this.newItem = '';
         this.$nextTick(() => {
-          this.isSubmittingNewItem = false
+          this.isSubmittingNewItem = false;
           newItemPromise.then((newItem) => {
-            this.$emit('itemAdded', newItem)
-          })
-        })
+            this.$emit('itemAdded', newItem);
+          });
+        });
       }
     }
-  }
+  };
 </script>
 
 <style scoped>

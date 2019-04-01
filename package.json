@@ -26,6 +26,7 @@
     "axios": "^0.18.0",
     "chai-as-promised": "^7.1.1",
     "electron-context-menu": "^0.11.0",
+    "emoji-js": "^3.4.1",
     "iview": "^3.3.0",
     "lodash-id": "^0.14.0",
     "lowdb": "^1.0.0",
