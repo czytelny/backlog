@@ -67,7 +67,6 @@ const router = new VueRouter({
   routes
 });
 
-/* eslint-disable no-new */
 new Vue({
   store,
   router,
