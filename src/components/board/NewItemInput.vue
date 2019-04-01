@@ -1,5 +1,6 @@
 <template>
   <form action="#" v-on:submit.prevent="submitNewItem" class="new-item-input">
+    <EmojiPicker @addEmoji="addEmoji"/>
     <div class="input-row">
       <span class="input-form">
         <input ref="mainInput"
@@ -42,30 +43,25 @@
 <script>
   import {Switch} from 'iview';
   import keyShortcutMixin from './../../keyShortcutStringMixin';
-  import EmojiConvertor from 'emoji-js';
+  import EmojiPicker from './EmojiPicker';
 
   export default {
     name: 'NewItemInput',
     mixins: [keyShortcutMixin],
     props: [],
     components: {
+      EmojiPicker,
       'i-switch': Switch
     },
     data () {
       return {
         newItem: '',
-        emojiHandler: null
-      };
+        emojiPicker: false
+      }
     },
     created () {
       this.focusOnInput();
       this.$bus.$on('focusOnAddItem', this.focusOnInput);
-      this.emojiHandler = new EmojiConvertor();
-    },
-    watch: {
-      newItem () {
-        this.newItem = this.emojiHandler.replace_emoticons(this.newItem);
-      }
     },
     computed: {
       boardId () {
@@ -90,6 +86,14 @@
       }
     },
     methods: {
+      addEmoji (emoji) {
+        this.newItem += emoji;
+        this.emojiPicker = false;
+        this.focusOnInput();
+      },
+      showEmoji () {
+        this.emojiPicker = true;
+      },
       focusOnInput () {
         const vm = this;
         this.$nextTick(() => {
@@ -141,6 +145,12 @@
 
   input:focus + .shortcut {
     opacity: 0;
+  }
+
+  .emoji-btn {
+    position: absolute;
+    top: 52px;
+    right: 88px;
   }
 
   .shortcut {
