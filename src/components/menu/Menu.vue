@@ -54,13 +54,17 @@
         const boardRowEl = event.target.parentNode;
         if (boardRowEl.classList.contains('board-row')) {
           boardRowEl.classList.remove('draggingItem');
-          this.$store.dispatch('moveItemToBoard', {
-            srcBoardId: sourceBoardId,
-            dstBoardId: boardRowEl.dataset.id,
-            itemId: draggedItemId
-          });
-          this.$bus.$emit('finishItemEditing');
-          this.$store.dispatch('fetchBoardItems', sourceBoardId);
+          if (draggedItemId && sourceBoardId) {
+            this.$store.dispatch('moveItemToBoard', {
+              srcBoardId: sourceBoardId,
+              dstBoardId: boardRowEl.dataset.id,
+              itemId: draggedItemId
+            });
+            this.$bus.$emit('finishItemEditing');
+            this.$store.dispatch('fetchBoardItems', sourceBoardId);
+            draggedItemId = null;
+            sourceBoardId = null;
+          }
         }
       }, false);
 

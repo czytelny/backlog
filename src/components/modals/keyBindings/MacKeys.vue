@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 style="margin-top:0;">Boards</h1>
+    <h1 style="margin-top:-16px;">Boards</h1>
     <table>
       <thead>
       <tr>
@@ -104,5 +104,7 @@
 </script>
 
 <style scoped>
-
+ table{
+   margin-bottom: 8px;
+ }
 </style>
