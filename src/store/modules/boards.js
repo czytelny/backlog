@@ -1,5 +1,6 @@
 import boardsRepository from './../../repositories/boardsRepository';
 import itemsRepository from './../../repositories/itemsRepository';
+import EmojiIcons from './../../assets/emojiIcons';
 
 const state = {
   activeBoard: {},
@@ -9,6 +10,11 @@ const state = {
   isSubmittingNewItem: false,
   findItem: {
     itemText: ''
+  },
+  addItemEmoji: {
+    search: '',
+    icons: EmojiIcons.People,
+    activeIndex: 0
   }
 };
 
@@ -40,6 +46,15 @@ const mutations = {
   },
   SET_FIND_ITEM_TEXT (state, val) {
     state.findItem.itemText = val;
+  },
+  INCREASE_ADD_ITEM_EMOJI_INDEX (state) {
+    state.addItemEmoji.activeIndex++;
+  },
+  DECREASE_ADD_ITEM_EMOJI_INDEX (state) {
+    state.addItemEmoji.activeIndex--;
+  },
+  RESET_ADD_ITEM_EMOJI_INDEX (state) {
+    state.addItemEmoji.activeIndex = 0;
   }
 };
 
@@ -131,6 +146,21 @@ const actions = {
   moveItemToBoard ({commit}, {srcBoardId, dstBoardId, itemId}) {
     boardsRepository.moveItemToBoard(srcBoardId, dstBoardId, itemId);
     actions.fetchBoards({commit});
+  },
+  resetAddItemEmojiIndex ({commit}) {
+    commit('RESET_ADD_ITEM_EMOJI_INDEX');
+  },
+  increaseAddItemEmojiIndex ({commit}) {
+    if (Object.keys(state.addItemEmoji.icons).length === state.addItemEmoji.activeIndex) {
+      return;
+    }
+    commit('INCREASE_ADD_ITEM_EMOJI_INDEX');
+  },
+  decreaseAddItemEmojiIndex ({commit}) {
+    if (state.addItemEmoji.activeIndex === 0) {
+      return;
+    }
+    commit('DECREASE_ADD_ITEM_EMOJI_INDEX');
   }
 };
 

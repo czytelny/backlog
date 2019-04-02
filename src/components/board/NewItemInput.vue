@@ -1,6 +1,16 @@
 <template>
   <form action="#" v-on:submit.prevent="submitNewItem" class="new-item-input">
-    <EmojiPicker @addEmoji="addEmoji"/>
+    <Transition name="fade">
+      <EmojiPicker @addEmoji="addEmoji"
+                   v-if="emojiPicker"/>
+    </Transition>
+    <Button shape="circle"
+            size="small"
+            class="emoji-btn"
+            icon="md-happy"
+            @click="toggleEmoji"
+    >
+    </Button>
     <div class="input-row">
       <span class="input-form">
         <input ref="mainInput"
@@ -88,11 +98,12 @@
     methods: {
       addEmoji (emoji) {
         this.newItem += emoji;
-        this.emojiPicker = false;
-        this.focusOnInput();
       },
       showEmoji () {
         this.emojiPicker = true;
+      },
+      toggleEmoji () {
+        this.emojiPicker = !this.emojiPicker;
       },
       focusOnInput () {
         const vm = this;
@@ -149,8 +160,9 @@
 
   .emoji-btn {
     position: absolute;
-    top: 52px;
+    top: 90px;
     right: 88px;
+    z-index: 100;
   }
 
   .shortcut {
