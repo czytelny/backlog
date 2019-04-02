@@ -21,6 +21,8 @@
                @on-click="submitNewItem"
                v-shortkey="newItemFocusShortcut"
                @shortkey="focusOnInput"
+               @click="trackCaret"
+               @keyup="trackCaret"
                icon="plus"
                class="animated ivu-input ivu-input-large"
                :class="{'fadeOutDown': isSubmittingNewItem, 'fadeIn': !isSubmittingNewItem}"
@@ -66,8 +68,9 @@
     data () {
       return {
         newItem: '',
-        emojiPicker: false
-      }
+        emojiPicker: false,
+        caretPosition: 0
+      };
     },
     created () {
       this.focusOnInput();
@@ -96,8 +99,14 @@
       }
     },
     methods: {
+      trackCaret () {
+        this.caretPosition = this.$refs.mainInput.selectionStart;
+      },
       addEmoji (emoji) {
-        this.newItem += emoji;
+        this.newItem =
+          this.newItem.slice(0, this.caretPosition) +
+          emoji +
+          this.newItem.slice(this.caretPosition, this.newItem.length);
       },
       showEmoji () {
         this.emojiPicker = true;
