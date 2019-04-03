@@ -20,7 +20,8 @@
           {
             boardId: this.$store.state.boards.activeBoard.id,
             showDone: !this.showDone
-          })
+          });
+        this.$bus.$emit('focusOnAddItem');
       }
     },
     computed: {

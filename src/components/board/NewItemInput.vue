@@ -2,15 +2,10 @@
   <form action="#" v-on:submit.prevent="submitNewItem" class="new-item-input">
     <Transition name="fade">
       <EmojiPicker @addEmoji="addEmoji"
+                   ref="emojiPicker"
                    v-if="emojiPicker"/>
     </Transition>
-    <Button shape="circle"
-            size="small"
-            class="emoji-btn"
-            icon="md-happy"
-            @click="toggleEmoji"
-    >
-    </Button>
+    <EmojiButton @toggleEmoji="toggleEmoji"/>
     <div class="input-row">
       <span class="input-form">
         <input ref="mainInput"
@@ -56,12 +51,14 @@
   import {Switch} from 'iview';
   import keyShortcutMixin from './../../keyShortcutStringMixin';
   import EmojiPicker from './EmojiPicker';
+  import EmojiButton from './item/EmojiButton';
 
   export default {
     name: 'NewItemInput',
     mixins: [keyShortcutMixin],
     props: [],
     components: {
+      EmojiButton,
       EmojiPicker,
       'i-switch': Switch
     },
@@ -104,21 +101,32 @@
       },
       addEmoji (emoji) {
         this.newItem =
-          this.newItem.slice(0, this.caretPosition) +
-          emoji +
-          this.newItem.slice(this.caretPosition, this.newItem.length);
-      },
-      showEmoji () {
-        this.emojiPicker = true;
+          this.newItem.slice(0, this.caretPosition) + emoji + this.newItem.slice(this.caretPosition, this.newItem.length);
+        this.focusOnInput(true);
       },
       toggleEmoji () {
         this.emojiPicker = !this.emojiPicker;
+        if (this.emojiPicker) {
+          this.$nextTick(() => {
+            this.$refs.emojiPicker.focusOnSearchInput();
+          });
+        } else {
+          this.focusOnInput();
+        }
       },
-      focusOnInput () {
+      focusOnInput (extraMark) {
         const vm = this;
         this.$nextTick(() => {
           if (vm.$refs['mainInput']) {
             vm.$refs['mainInput'].focus();
+            if (!extraMark) {
+              vm.$refs.mainInput.selectionStart = vm.caretPosition;
+              vm.$refs.mainInput.selectionEnd = vm.caretPosition;
+            } else {
+              vm.$refs.mainInput.selectionStart = vm.caretPosition + 1;
+              vm.$refs.mainInput.selectionEnd = vm.caretPosition + 1;
+            }
+
           }
         });
       },
@@ -167,12 +175,6 @@
     opacity: 0;
   }
 
-  .emoji-btn {
-    position: absolute;
-    top: 90px;
-    right: 126px;
-    z-index: 100;
-  }
 
   .shortcut {
     position: absolute;

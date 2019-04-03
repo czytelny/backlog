@@ -20,6 +20,7 @@
         },
         set (val) {
           this.$store.dispatch('switchShowProgress', {boardId: this.$store.state.boards.activeBoard.id, val})
+          this.$bus.$emit('focusOnAddItem');
         }
       }
     }

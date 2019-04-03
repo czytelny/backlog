@@ -4,22 +4,23 @@
       <Input
         v-model="searchEmoji"
         placeholder="Find emoji"
+        ref="searchEmojiInput"
         size="small"/>
     </div>
     <simplebar style="padding:4px;">
-    <div
-          v-for="(emojiGroup, category) in icons"
-          :key="category"
-    >
-      <h5>{{ category }}</h5>
-      <span
-        @click="addEmoji(emoji)"
-        class="emoji-icon"
-        v-for="(emoji, emojiName) in emojiGroup"
-        :key="emojiName"
-        :title="emojiName"
-      >{{ emoji }}</span>
-    </div>
+      <div
+        v-for="(emojiGroup, category) in icons"
+        :key="category"
+      >
+        <h4>{{ category }}</h4>
+        <span
+          @click="addEmoji(emoji)"
+          class="emoji-icon"
+          v-for="(emoji, emojiName) in emojiGroup"
+          :key="emojiName"
+          :title="emojiName"
+        >{{ emoji }}</span>
+      </div>
     </simplebar>
   </div>
 </template>
@@ -60,6 +61,11 @@
       }
     },
     methods: {
+      focusOnSearchInput () {
+        if (this.$refs['searchEmojiInput']) {
+          this.$refs['searchEmojiInput'].focus();
+        }
+      },
       addEmoji (val) {
         this.$emit('addEmoji', val);
       }
