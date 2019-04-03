@@ -1,6 +1,6 @@
 <template>
   <div class="emoji-btn">
-    <Tooltip content="Emoji" placement="right" :delay="1000">
+    <Tooltip :content="showEmojiShortcutString" placement="right" :delay="1000">
       <Button shape="circle"
               size="small"
               icon="md-happy"
@@ -12,11 +12,19 @@
 </template>
 
 <script>
+  import keyShortcutMixin from './../../../keyShortcutStringMixin';
+
   export default {
     name: 'EmojiButton',
+    mixins: [keyShortcutMixin],
+    computed: {
+      showEmojiShortcutString () {
+        return `Emoji - ${this.shortcutString('showEmoji')}`;
+      },
+    },
     methods: {
-      toggleEmoji() {
-        this.$emit('toggleEmoji')
+      toggleEmoji () {
+        this.$emit('toggleEmoji');
       }
     }
   };

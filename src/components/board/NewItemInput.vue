@@ -5,7 +5,9 @@
                    ref="emojiPicker"
                    v-if="emojiPicker"/>
     </Transition>
-    <EmojiButton @toggleEmoji="toggleEmoji"/>
+    <EmojiButton @toggleEmoji="toggleEmoji"
+                 v-shortkey="showEmojiShortcut"
+                 @shortkey.native="toggleEmoji"/>
     <div class="input-row">
       <span class="input-form">
         <input ref="mainInput"
@@ -82,6 +84,9 @@
       },
       newItemFocusShortcutString () {
         return this.shortcutString('newItemFocus');
+      },
+      showEmojiShortcut () {
+        return this.$store.state.settings.keyBindings.showEmoji;
       },
       isSubmittingNewItem: {
         get () {

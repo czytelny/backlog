@@ -36,6 +36,10 @@ const keyBindings = {
   cancelItemChange: {
     mac: ['esc'],
     win: ['esc']
+  },
+  showEmoji: {
+    mac: ['meta', 'e'],
+    win: ['ctrl', 'e']
   }
 };
 

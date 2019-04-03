@@ -33,6 +33,9 @@
       <KeyBinding name="Bring focus to 'Add New Item' field"
                   id="newItemFocus"
                   :keys="newItemFocusMac"/>
+      <KeyBinding name="Show Emoji"
+                  id="showEmoji"
+                  :keys="showEmojiMac"/>
       <KeyBinding name="Bring focus to 'Filter items' field"
                   id="filterItemsFocus"
                   :keys="filterItemsFocusMac"/>
@@ -98,6 +101,9 @@
       },
       cancelItemChange () {
         return this.$store.state.settings.keyBindings.cancelItemChange.win;
+      },
+      showEmojiMac () {
+        return this.$store.state.settings.keyBindings.showEmoji.win;
       }
     }
   };
