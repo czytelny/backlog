@@ -5,55 +5,58 @@
         v-model="searchEmoji"
         placeholder="Find emoji"
         ref="searchEmojiInput"
+        @keydown.right.native="incIndex"
+        @keydown.left.native="decrIndex"
+        @keydown.up.native="decrIndexRow"
+        @keydown.down.native="incIndexRow"
         size="small"/>
     </div>
-    <simplebar style="padding:4px;">
+    <simplebar class="emoji-simplebar-container" style="padding:4px;">
       <div
-        v-for="(emojiGroup, category) in icons"
-        :key="category"
-      >
-        <h4>{{ category }}</h4>
-        <span
-          @click="addEmoji(emoji)"
-          class="emoji-icon"
-          v-for="(emoji, emojiName) in emojiGroup"
-          :key="emojiName"
-          :title="emojiName"
-        >{{ emoji }}</span>
+        @click="addEmoji(emoji)"
+        class="emoji-icon"
+        v-for="(emoji, emojiName, index) in icons"
+        :class="{'active' : index === activeIndex}"
+        :key="emojiName"
+      >{{ emoji }}
       </div>
     </simplebar>
+    {{activeIndex}}
   </div>
 </template>
 
 <script>
   import simplebar from 'simplebar-vue';
+  import VueScrollTo from 'vue-scrollto';
 
   export default {
     name: 'EmojiSuggest',
     components: {simplebar},
     data () {
       return {
-        searchEmoji: ''
+        searchEmoji: '',
+        activeIndex: 0,
       };
     },
+    watch: {
+      searchEmoji () {
+        this.activeIndex = 0;
+      }
+    },
     computed: {
+      emojiLength () {
+        return Object.keys(this.icons).length;
+      },
       icons () {
         if (this.searchEmoji) {
           const obj = {};
-          for (const category in this.emojiTable) {
-            obj[category] = {};
-            for (const emoji in this.emojiTable[category]) {
-              if (emoji.includes(this.searchEmoji)) {
-                obj[category][emoji] = this.emojiTable[category][emoji];
-              }
-            }
-            if (Object.keys(obj[category]).length === 0) {
-              delete obj[category];
+          for (const emoji in this.emojiTable) {
+            if (emoji.includes(this.searchEmoji)) {
+              obj[emoji] = this.emojiTable[emoji];
             }
           }
           return obj;
         }
-
         return this.emojiTable;
       },
       emojiTable () {
@@ -61,9 +64,48 @@
       }
     },
     methods: {
+      incIndex () {
+        if (this.activeIndex < this.emojiLength - 1) {
+          this.activeIndex++;
+          this.scrollToActiveRow();
+        }
+      },
+      incIndexRow () {
+        if (this.activeIndex < this.emojiLength - 5) {
+          this.activeIndex += 5;
+          this.scrollToActiveRow();
+        }
+      },
+      decrIndex () {
+        if (this.activeIndex > 0) {
+          this.activeIndex--;
+          this.scrollToActiveRow();
+        }
+      },
+      decrIndexRow () {
+        if (this.activeIndex >= 5) {
+          this.activeIndex -= 5;
+          this.scrollToActiveRow();
+        }
+      },
       focusOnSearchInput () {
         if (this.$refs['searchEmojiInput']) {
           this.$refs['searchEmojiInput'].focus();
+        }
+      },
+      scrollToActiveRow () {
+        const el = document.querySelector('.emoji-icon.active');
+        if (el) {
+          var options = {
+            container: '.emoji-simplebar-container .simplebar-content',
+            easing: 'linear',
+            offset: -60,
+            force: true,
+            cancelable: true,
+            x: false,
+            y: true
+          };
+          VueScrollTo.scrollTo(el, 10, options);
         }
       },
       addEmoji (val) {
@@ -94,7 +136,11 @@
     cursor: pointer;
     border-radius: 4px;
     display: inline-flex;
+  }
 
+  .emoji-icon.active {
+    background-color: #9ba4b2;
+    color: white;
   }
 
   .emoji-icon:hover {
