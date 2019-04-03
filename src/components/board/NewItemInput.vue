@@ -170,7 +170,7 @@
   .emoji-btn {
     position: absolute;
     top: 90px;
-    right: 88px;
+    right: 126px;
     z-index: 100;
   }
 

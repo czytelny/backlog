@@ -1,18 +1,25 @@
 <template>
   <div class="emoji-container">
-    <div><Input
-      v-model="searchEmoji"
-      placeholder="Find emoji"
-      size="small"/>
+    <div>
+      <Input
+        v-model="searchEmoji"
+        placeholder="Find emoji"
+        size="small"/>
     </div>
     <simplebar style="padding:4px;">
-    <span class="emoji-icon"
-          @click="addEmoji(icon)"
-          v-for="(icon, name) in icons"
-          :key="name"
+    <div
+          v-for="(emojiGroup, category) in icons"
+          :key="category"
     >
-      {{icon}}
-    </span>
+      <h5>{{ category }}</h5>
+      <span
+        @click="addEmoji(emoji)"
+        class="emoji-icon"
+        v-for="(emoji, emojiName) in emojiGroup"
+        :key="emojiName"
+        :title="emojiName"
+      >{{ emoji }}</span>
+    </div>
     </simplebar>
   </div>
 </template>
@@ -30,8 +37,27 @@
     },
     computed: {
       icons () {
-        return this.$store.state.boards.addItemEmoji.icons;
+        if (this.searchEmoji) {
+          const obj = {};
+          for (const category in this.emojiTable) {
+            obj[category] = {};
+            for (const emoji in this.emojiTable[category]) {
+              if (emoji.includes(this.searchEmoji)) {
+                obj[category][emoji] = this.emojiTable[category][emoji];
+              }
+            }
+            if (Object.keys(obj[category]).length === 0) {
+              delete obj[category];
+            }
+          }
+          return obj;
+        }
+
+        return this.emojiTable;
       },
+      emojiTable () {
+        return this.$store.state.boards.addItemEmoji.icons;
+      }
     },
     methods: {
       addEmoji (val) {

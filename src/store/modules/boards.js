@@ -13,7 +13,7 @@ const state = {
   },
   addItemEmoji: {
     search: '',
-    icons: EmojiIcons.People,
+    icons: EmojiIcons,
     activeIndex: 0
   }
 };
