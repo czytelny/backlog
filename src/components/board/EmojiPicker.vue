@@ -74,8 +74,8 @@
         }
       },
       incIndexRow () {
-        if (this.activeIndex < this.emojiLength - 5) {
-          this.activeIndex += 5;
+        if (this.activeIndex < this.emojiLength - 4) {
+          this.activeIndex += 4;
           this.scrollToActiveRow();
         }
       },
@@ -86,8 +86,8 @@
         }
       },
       decrIndexRow () {
-        if (this.activeIndex >= 5) {
-          this.activeIndex -= 5;
+        if (this.activeIndex >= 4) {
+          this.activeIndex -= 4;
           this.scrollToActiveRow();
         }
       },
@@ -146,6 +146,8 @@
     cursor: pointer;
     border-radius: 4px;
     display: inline-flex;
+    width:25%;
+    justify-content: center;
   }
 
   .emoji-icon.active {
