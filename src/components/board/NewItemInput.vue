@@ -2,12 +2,13 @@
   <form action="#" v-on:submit.prevent="submitNewItem" class="new-item-input">
     <Transition name="fade">
       <EmojiPicker @addEmoji="addEmoji"
+                   @closeEmoji="hideEmoji"
                    ref="emojiPicker"
                    v-if="emojiPicker"/>
     </Transition>
     <EmojiButton @toggleEmoji="toggleEmoji"
                  v-shortkey="showEmojiShortcut"
-                 @shortkey.native="toggleEmoji"/>
+                 @shortkey.native="showEmoji"/>
     <div class="input-row">
       <span class="input-form">
         <input ref="mainInput"
@@ -108,6 +109,16 @@
         this.newItem =
           this.newItem.slice(0, this.caretPosition) + emoji + this.newItem.slice(this.caretPosition, this.newItem.length);
         this.focusOnInput(true);
+      },
+      showEmoji () {
+        this.emojiPicker = true;
+        this.$nextTick(() => {
+          this.$refs.emojiPicker.focusOnSearchInput();
+        });
+      },
+      hideEmoji () {
+        this.emojiPicker = false;
+        this.focusOnInput();
       },
       toggleEmoji () {
         this.emojiPicker = !this.emojiPicker;

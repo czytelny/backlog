@@ -9,6 +9,9 @@
         @keydown.left.native="decrIndex"
         @keydown.up.native="decrIndexRow"
         @keydown.down.native="incIndexRow"
+        @keyup.enter.native="addActiveEmoji"
+        @keyup.esc.native="closeEmoji"
+        style="margin-bottom:4px;"
         size="small"/>
     </div>
     <simplebar class="emoji-simplebar-container" style="padding:4px;">
@@ -35,7 +38,7 @@
     data () {
       return {
         searchEmoji: '',
-        activeIndex: 0,
+        activeIndex: 0
       };
     },
     watch: {
@@ -110,6 +113,13 @@
       },
       addEmoji (val) {
         this.$emit('addEmoji', val);
+      },
+      closeEmoji () {
+        this.$emit('closeEmoji');
+      },
+      addActiveEmoji () {
+        const el = document.querySelector('.emoji-icon.active');
+        this.addEmoji(el.innerText);
       }
     }
   };
@@ -131,8 +141,8 @@
   }
 
   .emoji-icon {
-    padding: 4px 4px;
-    font-size: 16px;
+    padding: 0 2px;
+    font-size: 24px;
     cursor: pointer;
     border-radius: 4px;
     display: inline-flex;
