@@ -35,7 +35,7 @@
 <script>
   export default {
     name: 'KeyBinding',
-    props: ['id', 'name', 'keys'],
+    props: ['id', 'name', 'keys', 'isReadOnly'],
     data () {
       return {
         keyCapturing: false,

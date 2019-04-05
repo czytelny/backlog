@@ -1,10 +1,13 @@
 <template>
-  <div class="emoji-container">
+  <div class="emoji-container"
+       :class="{'itemAdded' :itemAdded}"
+  >
     <div>
       <Input
         v-model="searchEmoji"
         placeholder="Find emoji"
         ref="searchEmojiInput"
+        class="searchInput"
         @keydown.right.native="incIndex"
         @keydown.left.native="decrIndex"
         @keydown.up.native="decrIndexRow"
@@ -16,15 +19,25 @@
     </div>
     <simplebar class="emoji-simplebar-container" style="padding:4px;">
       <div
-        @click="addEmoji(emoji)"
-        class="emoji-icon"
-        v-for="(emoji, emojiName, index) in icons"
+        v-for="(emoji, emojiName, index) in favEmoji"
+        @click="addEmoji({emoji, emojiName})"
+        class="emoji-icon fav"
         :class="{'active' : index === activeIndex}"
+        :key="emojiName+'fav'"
+        :data-name="emojiName"
+      >{{ emoji }}
+      </div>
+
+      <div
+        v-for="(emoji, emojiName, index) in icons"
+        @click="addEmoji({emoji, emojiName})"
+        class="emoji-icon"
+        :class="{'active' : index+favEmojiLength === activeIndex}"
         :key="emojiName"
+        :data-name="emojiName"
       >{{ emoji }}
       </div>
     </simplebar>
-    {{activeIndex}}
   </div>
 </template>
 
@@ -38,7 +51,9 @@
     data () {
       return {
         searchEmoji: '',
-        activeIndex: 0
+        activeIndex: 0,
+        itemAdded: false,
+        favEmoji: {}
       };
     },
     watch: {
@@ -46,9 +61,12 @@
         this.activeIndex = 0;
       }
     },
+    mounted () {
+      this.getFavEmoji();
+    },
     computed: {
       emojiLength () {
-        return Object.keys(this.icons).length;
+        return Object.keys(this.icons).length + this.favEmojiLength;
       },
       icons () {
         if (this.searchEmoji) {
@@ -64,9 +82,25 @@
       },
       emojiTable () {
         return this.$store.state.boards.addItemEmoji.icons;
+      },
+      favEmojiLength () {
+        return Object.keys(this.favEmoji).length;
       }
     },
     methods: {
+      getFavEmoji () {
+        let fav = localStorage.getItem('favEmoji');
+        if (fav) {
+          fav = JSON.parse(fav);
+        } else {
+          fav = [];
+        }
+        const obj = {};
+        fav.map((emojiName) => {
+          return obj[emojiName] = this.emojiTable[emojiName];
+        });
+        this.favEmoji = obj;
+      },
       incIndex () {
         if (this.activeIndex < this.emojiLength - 1) {
           this.activeIndex++;
@@ -111,22 +145,55 @@
           VueScrollTo.scrollTo(el, 10, options);
         }
       },
-      addEmoji (val) {
-        this.$emit('addEmoji', val);
+      addEmoji ({emoji, emojiName}) {
+        if (emoji && emojiName) {
+          this.$emit('addEmoji', {emoji});
+          this.addToFavorite(emojiName);
+          this.activeIndex = 0;
+          this.itemAdded = true;
+          this.getFavEmoji();
+          setTimeout(() => {
+            this.itemAdded = false;
+          }, 300);
+        }
+      },
+      addToFavorite (emojiName) {
+        let fav = localStorage.getItem('favEmoji');
+        if (!fav) {
+          fav = [];
+        } else {
+          fav = JSON.parse(fav);
+        }
+        if (fav.length > 7) {
+          if (fav.indexOf(emojiName) > -1) {
+            fav.splice(fav.indexOf(emojiName), 1);
+            fav.unshift(emojiName);
+          } else {
+            fav.pop();
+            fav.unshift(emojiName);
+          }
+        } else {
+          if (fav.indexOf(emojiName) > -1) {
+            fav.splice(fav.indexOf(emojiName), 1);
+          }
+          fav.unshift(emojiName);
+        }
+        localStorage.setItem('favEmoji', JSON.stringify(fav));
       },
       closeEmoji () {
         this.$emit('closeEmoji');
       },
       addActiveEmoji () {
         const el = document.querySelector('.emoji-icon.active');
-        this.addEmoji(el.innerText);
+        this.addEmoji({emoji: el.innerText, emojiName: el.dataset.name});
       }
     }
   };
 </script>
 
-<style scoped>
+<style>
   .emoji-container {
+    user-select: none;
     position: absolute;
     background: white;
     height: 180px;
@@ -138,6 +205,22 @@
     right: 99px;
     box-shadow: 0 0 8px #c7c7c7;
     border: 1px solid #cecece;
+    -webkit-transition: all .3s;
+    -moz-transition: all .3s;
+    -ms-transition: all .3s;
+    -o-transition: all .3s;
+    transition: all .3s;
+  }
+
+  .emoji-container.itemAdded {
+    box-shadow: 0 0 16px #9ba4b2;
+    border: 1px solid #58BB73;
+  }
+
+  .searchInput input.ivu-input {
+    border-top: transparent !important;
+    border-left: transparent !important;
+    border-right: transparent !important;
   }
 
   .emoji-icon {
@@ -146,8 +229,13 @@
     cursor: pointer;
     border-radius: 4px;
     display: inline-flex;
-    width:25%;
+    width: 25%;
     justify-content: center;
+  }
+
+  .emoji-icon.fav {
+    background-color: rgba(155, 164, 178, 0.16);
+    border: 1px dashed rgba(155, 164, 178, 0.48);
   }
 
   .emoji-icon.active {

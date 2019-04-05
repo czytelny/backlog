@@ -38,6 +38,7 @@ const keyBindings = {
     win: ['esc']
   },
   showEmoji: {
+    readonly: true,
     mac: ['meta', 'e'],
     win: ['ctrl', 'e']
   }

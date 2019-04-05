@@ -33,9 +33,6 @@
       <KeyBinding name="Bring focus to 'Add New Item' field"
                   id="newItemFocus"
                   :keys="newItemFocusWin"/>
-      <KeyBinding name="Show Emoji"
-                  id="showEmoji"
-                  :keys="showEmojiWin"/>
       <KeyBinding name="Bring focus to 'Filter items' field"
                   id="filterItemsFocus"
                   :keys="filterItemsFocusWin"/>

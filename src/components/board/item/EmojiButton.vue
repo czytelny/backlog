@@ -33,7 +33,7 @@
 <style>
   .emoji-btn {
     position: absolute;
-    top: 90px;
+    top: 53px;
     right: 102px;
     z-index: 100;
   }

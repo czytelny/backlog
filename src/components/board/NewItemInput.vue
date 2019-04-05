@@ -6,21 +6,21 @@
                    ref="emojiPicker"
                    v-if="emojiPicker"/>
     </Transition>
-    <EmojiButton @toggleEmoji="toggleEmoji"
-                 v-shortkey="showEmojiShortcut"
-                 @shortkey.native="showEmoji"/>
+    <EmojiButton @toggleEmoji="toggleEmoji"/>
     <div class="input-row">
       <span class="input-form">
         <input ref="mainInput"
                :id="'newItem-'+boardId"
                v-model="newItem"
                placeholder="Add item"
-               @on-enter="submitNewItem"
                @on-click="submitNewItem"
                v-shortkey="newItemFocusShortcut"
                @shortkey="focusOnInput"
                @click="trackCaret"
-               @keyup="trackCaret"
+               @keyup.exact="trackCaret"
+               @keyup.enter="submitNewItem"
+               @keydown.meta.69="showEmoji"
+               @keydown.ctrl.69="showEmoji"
                icon="plus"
                class="animated ivu-input ivu-input-large"
                :class="{'fadeOutDown': isSubmittingNewItem, 'fadeIn': !isSubmittingNewItem}"
@@ -105,9 +105,12 @@
       trackCaret () {
         this.caretPosition = this.$refs.mainInput.selectionStart;
       },
-      addEmoji (emoji) {
-        this.newItem =
-          this.newItem.slice(0, this.caretPosition) + emoji + this.newItem.slice(this.caretPosition, this.newItem.length);
+      addEmoji ({emoji}) {
+        const emojiLength = emoji.length;
+        const beforeText = this.newItem.slice(0, this.caretPosition);
+        const afterText = this.newItem.slice(this.caretPosition, this.newItem.length);
+        this.newItem = beforeText + emoji + afterText;
+        this.caretPosition += emojiLength;
         this.focusOnInput(true);
       },
       showEmoji () {
@@ -130,19 +133,13 @@
           this.focusOnInput();
         }
       },
-      focusOnInput (extraMark) {
+      focusOnInput () {
         const vm = this;
         this.$nextTick(() => {
           if (vm.$refs['mainInput']) {
             vm.$refs['mainInput'].focus();
-            if (!extraMark) {
-              vm.$refs.mainInput.selectionStart = vm.caretPosition;
-              vm.$refs.mainInput.selectionEnd = vm.caretPosition;
-            } else {
-              vm.$refs.mainInput.selectionStart = vm.caretPosition + 1;
-              vm.$refs.mainInput.selectionEnd = vm.caretPosition + 1;
-            }
-
+            vm.$refs.mainInput.selectionStart = vm.caretPosition;
+            vm.$refs.mainInput.selectionEnd = vm.caretPosition;
           }
         });
       },
