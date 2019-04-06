@@ -28,8 +28,6 @@
     name: 'MainPage',
     components: {FindItemModal, SettingsModal, RenameBoardModal, NewBoardModal, BoardsMenu, KeyMapModal},
     created () {
-      console.log('mainpage.vue');
-
       this.$store.dispatch('setSystem', window.navigator.platform.toLowerCase());
       this.$store.dispatch('fetchSettings');
       console.log(this.$store.state.settings.dbLocation);

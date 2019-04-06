@@ -27,6 +27,8 @@
       @keyup.esc.native="turnOffEditing"
       @keydown.meta.69.native="showEmoji"
       @keydown.ctrl.69.native="showEmoji"
+      @click.native="trackCaret"
+      @keyup.exact.native="trackCaret"
       :class="{'slideInDown' : isEditing}"
     >
     </textarea-autosize>
@@ -105,13 +107,17 @@
         isEditing: false,
         draftText: this.text,
         showDropdown: false,
-        emojiPicker: false
+        emojiPicker: false,
+        caretPosition: this.text.length
       };
     },
     created () {
       this.$bus.$on('finishItemEditing', this.turnOffEditing);
     },
     methods: {
+      trackCaret () {
+        this.caretPosition = this.$refs.inputEdit.$el.selectionStart;
+      },
       showEmoji () {
         this.emojiPicker = true;
         this.$nextTick(() => {
@@ -120,7 +126,7 @@
       },
       hideEmoji () {
         this.emojiPicker = false;
-        this.$refs.inputEdit.$el.focus();
+        this.focusOnInput();
       },
       toggleEmoji () {
         this.emojiPicker = !this.emojiPicker;
@@ -129,15 +135,25 @@
             this.$refs.emojiPicker.focusOnSearchInput();
           });
         } else {
-          this.$refs.inputEdit.$el.focus();
+          this.focusOnInput();
         }
       },
       addEmoji ({emoji}) {
         const emojiLength = emoji.length;
-        const beforeText = this.newItem.slice(0, this.caretPosition);
-        const afterText = this.newItem.slice(this.caretPosition, this.newItem.length);
-        this.newItem = beforeText + emoji + afterText;
+        const beforeText = this.draftText.slice(0, this.caretPosition);
+        const afterText = this.draftText.slice(this.caretPosition, this.draftText.length);
+        this.draftText = beforeText + emoji + afterText;
         this.caretPosition += emojiLength;
+        this.focusOnInput();
+      },
+      focusOnInput () {
+        this.$nextTick(() => {
+          if (this.$refs['inputEdit']) {
+            this.$refs.inputEdit.$el.focus();
+            this.$refs.inputEdit.$el.selectionStart = this.caretPosition;
+            this.$refs.inputEdit.$el.selectionEnd = this.caretPosition;
+          }
+        });
       },
       saveItem () {
         if (this.draftText.trim() === '') {
@@ -154,7 +170,7 @@
       editItem () {
         this.draftText = this.text;
         this.isEditing = true;
-        this.$nextTick().then(() => this.$refs.inputEdit.$el.focus());
+        this.$nextTick().then(() => this.focusOnInput());
       },
       turnOffEditing () {
         this.isEditing = false;
