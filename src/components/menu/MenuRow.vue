@@ -1,15 +1,14 @@
 <template>
   <div class="board-row-container">
-    <span class="remove-icon" @click="removeBoard" v-if="!isDragging">
-      <Icon type="ios-close"/>
-    </span>
-
     <router-link :to="'/board/'+boardId">
       <div class="board-row"
            :data-id="boardId"
            :class="{'isDragging': isDragging}"
+           @dblclick="showRenameModal"
            @click="saveActiveBoard">
-        <span @dblclick="showRenameModal">
+        <MenuMoreBtn :boardId="boardId" :label="label"/>
+
+        <span>
           {{label}}
         </span>
 
@@ -24,8 +23,10 @@
 </template>
 
 <script>
+  import MenuMoreBtn from './MenuMoreBtn';
   export default {
     name: 'MenuRow',
+    components: {MenuMoreBtn},
     props: ['boardId', 'label', 'progress', 'isDragging', 'showProgress'],
     computed: {
       activeBoard: {
@@ -38,24 +39,6 @@
       }
     },
     methods: {
-      removeBoard () {
-        this.$Modal.confirm({
-          title: `Removing board`,
-          okText: 'Cancel',
-          cancelText: 'Yes, remove it',
-          content: `<p>You are going to remove board <strong>"${this.label}"</strong></p>
-                    <p>All items will be deleted, are you sure ?</p>`,
-          onCancel: () => {
-            this.$store.dispatch('removeBoard', this.boardId)
-            this.$store.dispatch('fetchBoards')
-            this.$store.dispatch('setFirstBoardAsActiveBoard')
-              .then((boardId) => {
-                this.$router.push({path: `/board/${boardId}`})
-              })
-            this.$Message.info('Board removed')
-          }
-        })
-      },
       saveActiveBoard () {
         this.activeBoard = this.boardId
       },
@@ -118,6 +101,7 @@
     transition: all .3s;
     margin: 12px 0;
     line-height: 1em;
+    position: relative;
   }
 
   .board-row.draggingItem {
@@ -128,6 +112,9 @@
 
   .board-row:hover {
     .progress {
+      opacity: 1;
+    }
+    .icon-more {
       opacity: 1;
     }
   }
