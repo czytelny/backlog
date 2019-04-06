@@ -6,7 +6,8 @@
                    ref="emojiPicker"
                    v-if="emojiPicker"/>
     </Transition>
-    <EmojiButton @toggleEmoji="toggleEmoji"/>
+    <EmojiButton class="emoji-btn"
+                 @toggleEmoji="toggleEmoji"/>
     <div class="input-row">
       <span class="input-form">
         <input ref="mainInput"
@@ -174,6 +175,17 @@
 </script>
 
 <style scoped>
+
+  .emoji-btn {
+    position: absolute;
+    top: 53px;
+    right: 102px;
+    z-index: 100;
+  }
+
+  .emoji-btn >>> i {
+    margin-top: 1px;
+  }
 
   ::-webkit-input-placeholder {
     font-style: italic;

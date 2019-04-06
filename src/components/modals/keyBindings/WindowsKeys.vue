@@ -42,9 +42,6 @@
       <KeyBinding name="Accept Editing Item"
                   id="acceptItemChange"
                   :keys="acceptItemChange"/>
-      <KeyBinding name="Cancel Editing Item"
-                  id="cancelItemChange"
-                  :keys="cancelItemChange"/>
       </tbody>
     </table>
 
@@ -96,9 +93,6 @@
       },
       acceptItemChange () {
         return this.$store.state.settings.keyBindings.acceptItemChange.win;
-      },
-      cancelItemChange () {
-        return this.$store.state.settings.keyBindings.cancelItemChange.win;
       },
       showEmojiWin () {
         return this.$store.state.settings.keyBindings.showEmoji.win;

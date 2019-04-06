@@ -1,5 +1,5 @@
 <template>
-  <div class="emoji-btn">
+  <div>
     <Tooltip :content="showEmojiShortcutString" placement="right" :delay="1000">
       <Button shape="circle"
               size="small"
@@ -31,15 +31,6 @@
 </script>
 
 <style>
-  .emoji-btn {
-    position: absolute;
-    top: 53px;
-    right: 102px;
-    z-index: 100;
-  }
 
-  .emoji-btn button i {
-    margin-top: 1px;
-  }
 
 </style>

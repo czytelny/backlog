@@ -7,7 +7,13 @@
     <div class="drag" v-if="isEditing">
       <Icon type="md-reorder"></Icon>
     </div>
-
+    <Transition name="fade" v-if="isEditing">
+      <EmojiPicker @addEmoji="addEmoji"
+                   @closeEmoji="hideEmoji"
+                   style="position: absolute; top:40px; right:7.2%;"
+                   ref="emojiPicker"
+                   v-if="emojiPicker"/>
+    </Transition>
     <textarea-autosize
       v-if="isEditing"
       v-model="draftText"
@@ -18,6 +24,9 @@
       rows="1"
       autofocus="autofocus"
       class="ivu-input draftText animated"
+      @keyup.esc.native="turnOffEditing"
+      @keydown.meta.69.native="showEmoji"
+      @keydown.ctrl.69.native="showEmoji"
       :class="{'slideInDown' : isEditing}"
     >
     </textarea-autosize>
@@ -27,7 +36,7 @@
             class="ok-edit-btns"
             @click="saveItem(); turnOffEditing();"
     >
-      OK  <span class="shortcut">{{shortcutString('acceptItemChange')}}</span>
+      OK <span class="shortcut">{{shortcutString('acceptItemChange')}}</span>
     </Button>
     <button v-if="isEditing"
             style="display:none;"
@@ -39,13 +48,10 @@
       style="margin-left:4px;"
       @click="turnOffEditing"
     >
-      Cancel  <span class="shortcut">{{shortcutString('cancelItemChange')}}</span>
+      Cancel <span class="shortcut">{{shortcutString('cancelItemChange')}}</span>
     </Button>
-
-    <button v-if="isEditing"
-            style="display:none;"
-            v-shortkey="cancelEditShortcut"
-            @shortkey="turnOffEditing"/>
+    <EmojiButton class="emoji-btn" v-if="isEditing"
+                 @toggleEmoji="toggleEmoji"/>
 
 
     <div class="item-div"
@@ -81,7 +87,9 @@
   import ActionButtons from './ActionButtons';
   import MarkdownIt from 'markdown-it';
   import BoardItemCalendar from './BoardItemCalendar';
-  import keyShortcutMixin from './../../../keyShortcutStringMixin'
+  import keyShortcutMixin from './../../../keyShortcutStringMixin';
+  import EmojiPicker from './../EmojiPicker';
+  import EmojiButton from './EmojiButton';
 
   const md = new MarkdownIt({
     breaks: true
@@ -89,20 +97,48 @@
 
   export default {
     name: 'board-item',
-    components: {BoardItemCalendar, ActionButtons},
+    components: {BoardItemCalendar, ActionButtons, EmojiButton, EmojiPicker},
     mixins: [keyShortcutMixin],
     props: ['boardId', 'itemId', 'isDone', 'text', 'created'],
     data () {
       return {
         isEditing: false,
         draftText: this.text,
-        showDropdown: false
+        showDropdown: false,
+        emojiPicker: false
       };
     },
     created () {
       this.$bus.$on('finishItemEditing', this.turnOffEditing);
     },
     methods: {
+      showEmoji () {
+        this.emojiPicker = true;
+        this.$nextTick(() => {
+          this.$refs.emojiPicker.focusOnSearchInput();
+        });
+      },
+      hideEmoji () {
+        this.emojiPicker = false;
+        this.$refs.inputEdit.$el.focus();
+      },
+      toggleEmoji () {
+        this.emojiPicker = !this.emojiPicker;
+        if (this.emojiPicker) {
+          this.$nextTick(() => {
+            this.$refs.emojiPicker.focusOnSearchInput();
+          });
+        } else {
+          this.$refs.inputEdit.$el.focus();
+        }
+      },
+      addEmoji ({emoji}) {
+        const emojiLength = emoji.length;
+        const beforeText = this.newItem.slice(0, this.caretPosition);
+        const afterText = this.newItem.slice(this.caretPosition, this.newItem.length);
+        this.newItem = beforeText + emoji + afterText;
+        this.caretPosition += emojiLength;
+      },
       saveItem () {
         if (this.draftText.trim() === '') {
           this.draftText = '';
@@ -123,6 +159,7 @@
       turnOffEditing () {
         this.isEditing = false;
         this.$bus.$emit('focusOnAddItem');
+        this.emojiPicker = false;
       },
       changeIsDone (newVal) {
         this.$store.dispatch('changeIsDone', {
@@ -199,10 +236,21 @@
 
 <style scoped>
 
+  .emoji-btn {
+    position: absolute;
+    top: 0;
+    right: 7.5%;
+    z-index: 100;
+  }
+
+  .emoji-btn >>> i {
+    margin-top: 1px;
+  }
+
   .shortcut {
     color: #dddddd;
     user-select: none;
-    margin-left:8px;
+    margin-left: 8px;
     font-size: .8em;
     line-height: 1em;
   }

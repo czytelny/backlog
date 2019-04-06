@@ -42,9 +42,6 @@
       <KeyBinding name="Accept Editing Item"
                   id="acceptItemChange"
                   :keys="acceptItemChange"/>
-      <KeyBinding name="Cancel Editing Item"
-                  id="cancelItemChange"
-                  :keys="cancelItemChange"/>
       </tbody>
     </table>
 
