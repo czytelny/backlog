@@ -15,6 +15,7 @@
         @keyup.enter.native="addActiveEmoji"
         @keyup.esc.native="closeEmoji"
         style="margin-bottom:4px;"
+        clearable
         size="small"/>
     </div>
     <simplebar class="emoji-simplebar-container" style="padding:4px;">
