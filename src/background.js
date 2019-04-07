@@ -1,4 +1,5 @@
 'use strict';
+/* global __static */
 
 import {app, BrowserWindow, Menu, protocol} from 'electron';
 import {createProtocol, installVueDevtools} from 'vue-cli-plugin-electron-builder/lib';
@@ -23,7 +24,7 @@ protocol.registerStandardSchemes(['app'], {secure: true});
 function createWindow () {
   windowSettings.updateWindowState({minWidth: 600});
   const windowConfig = windowSettings.getWindowState();
-  windowConfig.icon = path.join(__dirname, '/assets/256x256.png');
+  windowConfig.icon = path.join(__static, 'icon.png');
   windowConfig.frame = false;
 
   // Create the browser window.
