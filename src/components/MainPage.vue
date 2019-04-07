@@ -10,6 +10,7 @@
     </transition>
     <new-board-modal/>
     <rename-board-modal/>
+    <duplicate-board-modal/>
     <find-item-modal/>
     <settings-modal/>
     <key-map-modal></key-map-modal>
@@ -23,10 +24,13 @@
   import SettingsModal from './modals/settings/SettingsModal';
   import FindItemModal from './modals/FindItemModal';
   import KeyMapModal from './modals/keyBindings/KeyMapModal';
+  import DuplicateBoardModal from './modals/DuplicateBoardModal';
 
   export default {
     name: 'MainPage',
-    components: {FindItemModal, SettingsModal, RenameBoardModal, NewBoardModal, BoardsMenu, KeyMapModal},
+    components: {
+      DuplicateBoardModal,
+      FindItemModal, SettingsModal, RenameBoardModal, NewBoardModal, BoardsMenu, KeyMapModal},
     created () {
       this.$store.dispatch('setSystem', window.navigator.platform.toLowerCase());
       this.$store.dispatch('fetchSettings');

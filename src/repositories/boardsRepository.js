@@ -240,6 +240,20 @@ export default {
       .updateById(boardId, {label: value})
       .write();
   },
+  duplicateBoard (boardId, newName) {
+    const items = this.getBoardItems(boardId);
+
+    return db
+      .get('boards')
+      .insert({
+        label: newName,
+        showDone: false,
+        showProgress: false,
+        prependNewItem: false,
+        items
+      })
+      .write();
+  },
   exportBoardToJSON (fileName, boardId) {
     const boardContent = this.getItems(boardId);
     return new Promise(function (resolve, reject) {

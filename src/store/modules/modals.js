@@ -17,6 +17,11 @@ const state = {
     name: '',
     boardId: null
   },
+  duplicateBoard: {
+    isVisible: false,
+    name: '',
+    boardId: null
+  },
   settings: {
     isVisible: false,
     currentVersion: version
@@ -84,6 +89,17 @@ const mutations = {
   },
   SET_SYSTEM (state, val) {
     state.keymap.system = val;
+  },
+  SET_DUPLICATE_BOARD_NAME (state, val) {
+    state.duplicateBoard.name = val;
+  },
+  SHOW_DUPLICATE_BOARD (state, {boardId, currentBoardName}) {
+    state.duplicateBoard.boardId = boardId;
+    state.duplicateBoard.name = currentBoardName + ' copy';
+    state.duplicateBoard.isVisible = true;
+  },
+  HIDE_DUPLICATE_BOARD (state) {
+    state.duplicateBoard.isVisible = false;
   }
 };
 
@@ -135,6 +151,18 @@ const actions = {
   },
   setRenamedBoardName ({commit}, val) {
     commit('SET_RENAMED_BOARD_NAME', val);
+  },
+  setDuplicatedBoardName ({commit}, val) {
+    commit('SET_DUPLICATE_BOARD_NAME', val);
+  },
+  duplicateBoard (context, {newName, boardId}) {
+    boardsRepository.duplicateBoard(boardId, newName);
+  },
+  showDuplicateBoard ({commit}, {boardId, currentBoardName}) {
+    commit('SHOW_DUPLICATE_BOARD', {boardId, currentBoardName});
+  },
+  hideDuplicateBoard ({commit}) {
+    commit('HIDE_DUPLICATE_BOARD');
   },
   setIsCapturing ({commit}, val) {
     commit('SET_IS_CAPTURING', val);

@@ -31,6 +31,10 @@
             this.remove();
             break;
           case 'duplicate':
+            this.$store.dispatch('showDuplicateBoard', {
+              currentBoardName: this.label,
+              boardId: this.boardId
+            });
             break;
           case 'rename':
             this.$store.dispatch('showRenameBoardModal', {
