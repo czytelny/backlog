@@ -40,6 +40,7 @@
                       :ref="item.id"
                       :id="item.id"
                       :boardId="boardId"
+                      v-if="shouldBeDisplayed(item)"
           >
           </board-item>
         </transition-group>
@@ -95,15 +96,7 @@
         return this.$store.state.boards.findItem.itemText.toLowerCase();
       },
       filteredBoardItems () {
-        return this.boardItems.filter((item) => {
-          if (!item.text.toLowerCase().includes(this.filterString)) {
-            return false;
-          }
-          if (!item.isDone) {
-            return true;
-          }
-          return this.board.showDone;
-        });
+        return this.boardItems.filter((item) => item.text.toLowerCase().includes(this.filterString));
       },
       isFiltered () {
         return this.$store.state.boards.findItem.itemText.length > 0;
@@ -113,6 +106,12 @@
       }
     },
     methods: {
+      shouldBeDisplayed (item) {
+        if (!item.isDone) {
+          return true;
+        }
+        return this.board.showDone;
+      },
       scheduleScroll (itemId) {
         setTimeout(() => {
           this.scrollToNewItem({id: itemId});
