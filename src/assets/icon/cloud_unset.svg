@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
-    <title>icon/cloud_unset</title>
+    <title>icon/cloud_unset copy</title>
     <desc>Created with Sketch.</desc>
-    <g id="icon/cloud_unset" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="_ionicons_svg_ios-cloud" transform="translate(1.000000, 5.000000)" fill="#4C5057" fill-rule="nonzero" stroke="#2C2E32">
+    <g id="icon/cloud_unset-copy" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="_ionicons_svg_ios-cloud" transform="translate(1.000000, 5.000000)" fill="#353D47" fill-rule="nonzero" stroke="#111519">
             <path d="M18.7779731,5.74809607 C18.4299941,2.51747706 15.6977153,0 12.3725835,0 C10.1730131,0 8.23550088,1.0997852 7.07127514,2.77953525 C6.71470416,2.63347003 6.32376489,2.55184534 5.91564148,2.55184534 C4.23589143,2.55184534 2.87404804,4.0296817 2.84827182,5.70513572 C1.13415349,6.25073228 0,7.92618629 0,9.68756102 C0,11.8441711 1.74848662,13.747315 3.90509666,13.747315 L18.0949033,13.747315 C20.2515134,13.747315 22,11.8441711 22,9.68756102 C21.995704,7.76723296 20.6080844,6.07459481 18.7779731,5.74809607 Z" id="Path"></path>
         </g>
-        <polygon id="-" fill="#ECECEC" fill-rule="nonzero" points="8.53125 13.953125 8.53125 12.796875 15.46875 12.796875 15.46875 13.953125"></polygon>
+        <polygon id="-" fill="#FAFAFA" fill-rule="nonzero" points="8.53125 13.953125 8.53125 12.796875 15.46875 12.796875 15.46875 13.953125"></polygon>
     </g>
 </svg>

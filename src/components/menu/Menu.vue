@@ -125,11 +125,11 @@
   }
 
   .menu-container {
-    background: #626870;
+    background: #374653;
     height: calc(100vh - 32px);
     width: 350px;
     min-width: 230px;
-    color: #ededed;
+    color: #fff;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
     z-index: 1;
     position: relative;

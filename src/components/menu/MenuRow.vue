@@ -120,7 +120,7 @@
   }
 
   a {
-    color: #c7c7c7;
+    color: #d3d3d3;
   }
 
   a.router-link-active {

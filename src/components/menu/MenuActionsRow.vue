@@ -54,7 +54,7 @@
     left: 0;
     justify-content: space-around;
     align-items: center;
-    background-color: #565a61;
+    background-color: #333d48;
     width: 100%;
   }
 

@@ -52,7 +52,7 @@
   .menu-title-row {
     user-select: none;
     font-size: 18px;
-    color: #f4f4f4;
+    color: #fff;
     font-weight: bold;
     margin: 0 0 16px 0;
   }
