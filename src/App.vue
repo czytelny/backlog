@@ -46,4 +46,11 @@
     opacity: 1;
   }
 
+  a {
+    color: #58BB73;
+  }
+
+  a:hover {
+    color: #338a62;
+  }
 </style>
