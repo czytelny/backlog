@@ -46,7 +46,7 @@
   import GeneralSettings from './GeneralSettings';
   import UpdatesCheckSettings from './UpdatesCheckSettings';
   import DatabaseLocation from './DatabaseLocation';
-
+  const { shell } = require('electron');
   const {dialog} = require('electron').remote;
 
   export default {
@@ -69,7 +69,7 @@
     },
     methods: {
       open (link) {
-        this.$electron.shell.openExternal(link);
+        shell.openExternal(link);
       },
       createBackup () {
         const vm = this;

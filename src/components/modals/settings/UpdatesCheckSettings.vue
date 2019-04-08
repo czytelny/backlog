@@ -25,7 +25,7 @@
 
 <script>
   import axios from 'axios';
-
+  const { shell } = require('electron');
   const version = require('electron').remote.app.getVersion();
 
   export default {
@@ -65,7 +65,7 @@
           });
       },
       open (link) {
-        this.$electron.shell.openExternal(link);
+        shell.openExternal(link);
       }
     }
   };

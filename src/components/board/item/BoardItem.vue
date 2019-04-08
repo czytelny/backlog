@@ -92,6 +92,7 @@
   import keyShortcutMixin from './../../../keyShortcutStringMixin';
   import EmojiPicker from './../EmojiPicker';
   import EmojiButton from './EmojiButton';
+  const { shell } = require('electron');
 
   const md = new MarkdownIt({
     breaks: true
@@ -213,7 +214,7 @@
         this.$bus.$emit('focusOnAddItem');
       },
       open (link) {
-        this.$electron.shell.openExternal(link);
+        shell.openExternal(link);
       },
       handleLinkClick (event) {
         event.preventDefault();
@@ -398,7 +399,7 @@
     color: #338a62 !important;
   }
 
-  .item .link {
+  .item >>> .link {
     color: #41B883;
     font-style: italic;
     cursor: pointer;
@@ -409,7 +410,7 @@
     transition: all .3s;
   }
 
-  .item .link:hover {
+  .item >>> .link:hover {
     color: #338a62;
   }
 

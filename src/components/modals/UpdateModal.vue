@@ -14,6 +14,8 @@
 </template>
 
 <script>
+  const { shell } = require('electron');
+
   export default {
     name: 'UpdateModal',
     methods: {
@@ -30,7 +32,7 @@
         this.$store.dispatch('hideUpdateModal');
       },
       open (link) {
-        this.$electron.shell.openExternal(link);
+        shell.openExternal(link);
       }
     },
     computed: {
