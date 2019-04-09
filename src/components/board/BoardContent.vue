@@ -13,15 +13,18 @@
     </div>
 
     <div v-if="isBoardItemsEmpty" class="info">
+      <div><Icon type="ios-paper" size="48"/> </div>
       <h1>No items on this board yet</h1>
       <h4>Go ahead and add some!</h4>
     </div>
 
     <div v-if="isAllItemsDone" class="info">
+      <div><Icon type="md-done-all" size="48"/> </div>
       <h1>Great, all items are done!</h1>
     </div>
 
     <div v-if="!filteredBoardItems.length && !isBoardItemsEmpty" class="info">
+      <div><Icon type="ios-rainy" size="48"/> </div>
       <h1>No results...</h1>
     </div>
 
@@ -180,7 +183,7 @@
 
   .items-container {
     overflow-y: auto;
-    height: calc(100vh - 170px);
+    height: calc(100vh - 190px);
     /*box-shadow: inset 0px -32px 20px -18px rgb(146, 143, 143)*/
     /*box-shadow: 0 1px 4px rgba(0, 0, 0, 0.27), 0 0 40px rgba(0, 0, 0, 0.06) inset*/
   }

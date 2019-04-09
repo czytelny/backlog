@@ -42,7 +42,7 @@
         const activeTabDOM = document.querySelector('a.router-link-active');
         const nextTab = activeTabDOM.parentElement.nextSibling;
         if (nextTab) {
-          const routePath = nextTab.children[1].hash.substring(1, nextTab.children[1].hash.length);
+          const routePath = nextTab.children[0].hash.substring(1, nextTab.children[0].hash.length);
           const boardId = routePath.split('/')[2];
           this.$router.push(routePath);
           this.$store.dispatch('setActiveBoard', boardId);
@@ -52,7 +52,7 @@
         const activeTabDOM = document.querySelector('a.router-link-active');
         const prevTab = activeTabDOM.parentElement.previousSibling;
         if (prevTab) {
-          const routePath = prevTab.children[1].hash.substring(1, prevTab.children[1].hash.length);
+          const routePath = prevTab.children[0].hash.substring(1, prevTab.children[0].hash.length);
           const boardId = routePath.split('/')[2];
           this.$router.push(routePath);
           this.$store.dispatch('setActiveBoard', boardId);

@@ -125,7 +125,11 @@
   }
 
   .menu-container {
-    background: #374653;
+    /*background: rgb(55,70,83);*/
+    /*background: linear-gradient(180deg, rgba(55,70,83,1) 0%, rgba(45,59,70,1) 99%);*/
+    background: #435463;
+    /*background: rgb(55,70,83);*/
+    /*background: radial-gradient(circle, rgba(55,70,83,1) 0%, rgba(45,59,70,1) 100%);*/
     height: calc(100vh - 32px);
     width: 350px;
     min-width: 230px;

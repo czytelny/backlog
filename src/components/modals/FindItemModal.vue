@@ -1,6 +1,5 @@
 <template>
   <Modal :value="isVisible"
-         fullscreen
          @on-visible-change="visibleChange"
   >
     <div>
@@ -71,7 +70,7 @@
         });
       },
       filteredList (boardList) {
-        return boardList.filter(item => item.text.includes(this.searchText));
+        return boardList.filter(item => item.text.toLowerCase().includes(this.searchText.toLowerCase()));
       },
       visibleChange (isVisible) {
         if (!isVisible) {
@@ -125,12 +124,18 @@
     padding-right: 8px;
     padding-left: 8px;
     padding-bottom: 0;
+    border-bottom: 1px dotted #cecece;
   }
 
   .item.done {
     background-color: #e8e8e8;
     color: #b5b5b5;
   }
+
+  .item:hover {
+  background-color: rgba(88, 187, 115, 0.31);
+  }
+
 
   .header {
     font-size: 22px;

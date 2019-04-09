@@ -18,7 +18,7 @@
         clearable
         size="small"/>
     </div>
-    <simplebar class="emoji-simplebar-container" style="padding:4px;">
+    <simplebar class="emoji-simplebar-container" style="padding:4px; height: 190px;">
       <div
         v-for="(emoji, emojiName, index) in favEmoji"
         @click="addEmoji({emoji, emojiName})"
@@ -187,6 +187,7 @@
       addActiveEmoji () {
         const el = document.querySelector('.emoji-icon.active');
         this.addEmoji({emoji: el.innerText, emojiName: el.dataset.name});
+        this.closeEmoji();
       }
     }
   };
@@ -197,7 +198,7 @@
     user-select: none;
     position: absolute;
     background: white;
-    height: 180px;
+    height: 220px;
     z-index: 100;
     width: 160px;
     overflow: hidden;
