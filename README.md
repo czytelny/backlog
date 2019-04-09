@@ -10,12 +10,13 @@
 
 # 2.0.0-BETA release
 [Preview of 2.0.0 version](http://www.backlog.cloud/beta/)
-- [Windows version](http://czytelny.dbox.pl/download/Backlog-win32-x64-Beta-3.zip)
-- [MacOs version](http://czytelny.dbox.pl/download/Backlog-darwin-x64-Beta-3.zip)
+- [Windows version](http://czytelny.dbox.pl/download/Backlog-win32-x64-Beta-4.zip)
+- [MacOs version](http://czytelny.dbox.pl/download/Backlog-2.0.0-Beta-4-mac.zip)
+- [Linux version](http://czytelny.dbox.pl/download/Backlog-linux-x64-Beta-4.tar.gz)
 
 New 2.x version introduces a lot of new features including new UI, configurable keybindings, search item feature, emoji, and a lot more! Check it out !
 <p align="center">
-    <img src="https://github.com/czytelny/backlog/raw/master/screenshot_beta_3.png" width="800px">
+    <img src="https://github.com/czytelny/backlog/raw/master/screenshot_beta_4.png" width="800px">
 </p>
 
 
