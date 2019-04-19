@@ -42,7 +42,6 @@
       },
       showFindItemModal () {
         this.$store.dispatch('showFindItemModal')
-        this.$store.dispatch('fetchRawBoards')
       }
     }
   }

@@ -41,11 +41,11 @@
 </template>
 
 <script>
-  import cloudSettings from "./../../cloud";
-  import axios from "axios";
+  import cloudMixin from "./../../cloudMixin";
 
   export default {
     name: "CloudModal",
+    mixins: [cloudMixin],
     data() {
       return {
         username: "",
@@ -72,21 +72,7 @@
           return;
         }
         this.$store.dispatch("setIsConnecting", true);
-        axios
-          .post(cloudSettings.login, {
-            username: this.username,
-            password: this.password
-          })
-          .then(({data}) => {
-            this.$Message.success("User successfully connected");
-            console.log(data.token);
-          })
-          .finally(() => {
-            this.$store.dispatch("setIsConnecting", false);
-          })
-          .catch(() => {
-            this.$Message.error("Invalid username or password");
-          });
+        this.login(this.username, this.password);
       },
       visibleChange(isVisible) {
         if (!isVisible) {

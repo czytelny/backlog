@@ -11,12 +11,16 @@
   import TopBar from './components/TopBar';
   import './theme/default-theme.less';
   import GlobalKeybindings from './components/GlobalKeyBindings';
+  import cloudMixin from './cloudMixin'
 
   export default {
     name: 'backlog',
     components: {GlobalKeybindings, TopBar, MainPage},
+    mixins: [cloudMixin],
     created () {
       this.$store.dispatch('setupKeyBindings');
+      this.$store.dispatch('fetchRawBoards');
+      // this.syncBoards()
     }
   };
 </script>
