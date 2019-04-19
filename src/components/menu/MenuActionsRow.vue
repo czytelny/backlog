@@ -5,12 +5,15 @@
             <img src="./../../assets/icon/keymap.svg" alt="Keymap" class="action-icon"/>
         </span>
     </Tooltip>
-    <!--<Tooltip content="Cloud - unset"
+    <Tooltip content="Cloud - not connected"
              placement="bottom"
              :transfer="true"
              class="tooltip-height">
-      <img src="./../../assets/icon/cloud_unset.svg" alt="Keymap" class="action-icon"/>
-    </Tooltip>-->
+      <img src="./../../assets/icon/cloud_unset.svg"
+           @click="showCloudModal"
+           alt="Cloud Integration"
+           class="action-icon"/>
+    </Tooltip>
     <Tooltip content="Application Settings"
              placement="bottom"
              :transfer="true"
@@ -40,6 +43,9 @@
       },
       showSettingsModal () {
         this.$store.dispatch('showSettingsModal')
+      },
+      showCloudModal () {
+        this.$store.dispatch('showCloudModal')
       }
     }
   }

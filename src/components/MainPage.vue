@@ -14,6 +14,7 @@
     <find-item-modal/>
     <settings-modal/>
     <key-map-modal></key-map-modal>
+    <cloud-modal></cloud-modal>
   </div>
 </template>
 
@@ -25,10 +26,12 @@
   import FindItemModal from './modals/FindItemModal';
   import KeyMapModal from './modals/keyBindings/KeyMapModal';
   import DuplicateBoardModal from './modals/DuplicateBoardModal';
+  import CloudModal from "./modals/CloudModal";
 
   export default {
     name: 'MainPage',
     components: {
+      CloudModal,
       DuplicateBoardModal,
       FindItemModal, SettingsModal, RenameBoardModal, NewBoardModal, BoardsMenu, KeyMapModal},
     created () {
