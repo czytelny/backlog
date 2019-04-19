@@ -5,10 +5,28 @@
          okText="Ok"
          @on-visible-change="visibleChange"
          cancelText="Cancel">
-    <h1>integrate with cloud</h1>
+    <Input v-model="email"
+           placeholder="Email address"
+           style="margin-bottom:8px;"
+           />
+    <Input v-model="password"
+           type="password"
+           placeholder="Password"
+           style="margin-bottom:8px;"
+    />
+    <Button type="primary"
+            :disabled="isInputsEmpty"
+            icon="ios-key"
+    >
+      Connect
+    </Button>
+
+    <Button style="float:right;">
+      ... or create an account
+    </Button>
+
     <div slot="footer">
-      <Button type="primary"
-              size="large"
+      <Button size="large"
               @click="closeModal">
         Close
       </Button>
@@ -19,9 +37,18 @@
 <script>
   export default {
     name: "CloudModal",
+    data() {
+      return {
+        email: "",
+        password: ""
+      };
+    },
     computed: {
       isVisible() {
         return this.$store.state.modals.cloud.isVisible;
+      },
+      isInputsEmpty () {
+        return !this.email.length || !this.password.length
       }
     },
     methods: {
