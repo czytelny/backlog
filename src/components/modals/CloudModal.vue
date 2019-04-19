@@ -5,23 +5,29 @@
          okText="Ok"
          @on-visible-change="visibleChange"
          cancelText="Cancel">
-    <Input v-model="email"
+    <Input v-model="username"
            placeholder="Email address"
+           :autofocus="true"
            style="margin-bottom:8px;"
-           />
+    />
     <Input v-model="password"
            type="password"
            placeholder="Password"
+           @on-keyup.enter="connect"
            style="margin-bottom:8px;"
     />
     <Button type="primary"
             :disabled="isInputsEmpty"
-            icon="ios-key"
+            size="small"
+            @click="connect"
     >
+      <Icon type="ios-key" v-if="!isConnecting"/>
+      <Icon type="ios-loading spin-icon-load" v-if="isConnecting"/>
       Connect
     </Button>
 
-    <Button style="float:right;">
+    <Button style="float:right;" size="small"
+    >
       ... or create an account
     </Button>
 
@@ -35,11 +41,14 @@
 </template>
 
 <script>
+  import cloudSettings from "./../../cloud";
+  import axios from "axios";
+
   export default {
     name: "CloudModal",
     data() {
       return {
-        email: "",
+        username: "",
         password: ""
       };
     },
@@ -47,18 +56,42 @@
       isVisible() {
         return this.$store.state.modals.cloud.isVisible;
       },
-      isInputsEmpty () {
-        return !this.email.length || !this.password.length
+      isConnecting() {
+        return this.$store.state.modals.cloud.isConnecting;
+      },
+      isInputsEmpty() {
+        return !this.username.length || !this.password.length;
       }
     },
     methods: {
+      closeModal() {
+        this.$store.dispatch("hideCloudModal");
+      },
+      connect() {
+        if (!this.username || !this.password) {
+          return;
+        }
+        this.$store.dispatch("setIsConnecting", true);
+        axios
+          .post(cloudSettings.login, {
+            username: this.username,
+            password: this.password
+          })
+          .then(({data}) => {
+            this.$Message.success("User successfully connected");
+            console.log(data.token);
+          })
+          .finally(() => {
+            this.$store.dispatch("setIsConnecting", false);
+          })
+          .catch(() => {
+            this.$Message.error("Invalid username or password");
+          });
+      },
       visibleChange(isVisible) {
         if (!isVisible) {
           this.closeModal();
         }
-      },
-      closeModal() {
-        this.$store.dispatch("hideCloudModal");
       }
     }
 
@@ -66,5 +99,19 @@
 </script>
 
 <style scoped>
+  .spin-icon-load {
+    animation: ani-demo-spin 1s linear infinite;
+  }
 
+  @keyframes ani-demo-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    50% {
+      transform: rotate(180deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
 </style>

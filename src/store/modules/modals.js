@@ -5,6 +5,7 @@ const version = remote.app.getVersion();
 
 const state = {
   cloud: {
+    isConnecting: false,
     isVisible: false
   },
   duplicateBoard: {
@@ -78,6 +79,9 @@ const mutations = {
   },
   SET_SYSTEM(state, val) {
     state.keymap.system = val;
+  },
+  SET_IS_CONNECTING(state, val) {
+    state.cloud.isConnecting = val;
   },
   SHOW_CLOUD(state) {
     state.cloud.isVisible = true;
@@ -154,6 +158,9 @@ const actions = {
   },
   setSystem({commit}, val) {
     commit("SET_SYSTEM", val);
+  },
+  setIsConnecting({commit}, val) {
+    commit("SET_IS_CONNECTING", val);
   },
   showCloudModal({commit}) {
     commit("SHOW_CLOUD");
