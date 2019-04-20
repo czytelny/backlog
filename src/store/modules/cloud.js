@@ -1,12 +1,16 @@
 import settingsRepository from "../../repositories/settingsRepository";
 
 const state = {
+  connectionError: false,
   syncInProgress: false,
   token: "",
   username: ""
 };
 
 const mutations = {
+  SET_CONNECTION_ERROR(state, val) {
+    state.connectionError = val;
+  },
   SET_CLOUD_TOKEN(state, val) {
     state.token = val;
   },
@@ -19,6 +23,12 @@ const mutations = {
 };
 
 const actions = {
+  clearConnectionError({commit}) {
+    commit("SET_CONNECTION_ERROR", "");
+  },
+  setConnectionError({commit}, val) {
+    commit("SET_CONNECTION_ERROR", val);
+  },
   setCloudToken({commit}, {token, username}) {
     commit("SET_CLOUD_TOKEN", token);
     commit("SET_CLOUD_USER", username);

@@ -11,14 +11,16 @@ export default {
         .then(({data}) => {
           this.$Message.success("User successfully connected");
           this.$store.dispatch("setCloudToken", {token: data.token, username});
+          this.$store.dispatch("clearConnectionError");
           this.syncBoards(username);
         })
         .finally(() => {
           this.$store.dispatch("setIsConnecting", false);
         })
-        .catch((err) => {
+        .catch(({response}) => {
           this.$Message.error("Invalid username or password");
-          console.log(err);
+          this.$store.dispatch("setConnectionError", `${response.status}:${response.data}`);
+          console.log(response);
         });
     },
     syncBoards(username) {

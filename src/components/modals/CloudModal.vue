@@ -5,6 +5,8 @@
          okText="Ok"
          @on-visible-change="visibleChange"
          cancelText="Cancel">
+    <div v-if="hasToken" style="color: #41B883;">Connected</div>
+    <div v-if="connectionError" style="color: #e43436;">Can't connect. Please try again.</div>
     <Input v-model="username"
            placeholder="Email address"
            :disabled="hasToken"
@@ -40,11 +42,18 @@
       Re-connect!
     </Button>
 
-    <Button style="float:right;" size="small"
+    <Button style="float:right;"
+            v-if="!hasToken"
+            size="small"
     >
       ... or create an account
     </Button>
-
+    <div style="margin-top:16px;" v-if="connectionError">
+      <h3>Log</h3>
+      <div class="log">
+        {{connectionError}}
+      </div>
+    </div>
     <div slot="footer">
       <Button size="large"
               @click="closeModal">
@@ -67,6 +76,9 @@
       };
     },
     computed: {
+      connectionError() {
+        return this.$store.state.cloud.connectionError;
+      },
       hasToken() {
         return this.$store.state.cloud.token.length > 0;
       },
@@ -105,6 +117,17 @@
 </script>
 
 <style scoped>
+  .log {
+    font-family: Consolas, monaco, monospace;
+    color: #c7c7c7;
+    background: #000;
+    border-radius: 4px;
+    padding: 16px;
+    margin: 4px 0;
+    overflow-y: scroll;
+    max-height: 300px;
+  }
+
   .spin-icon-load {
     animation: ani-demo-spin 1s linear infinite;
   }

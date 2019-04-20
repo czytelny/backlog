@@ -7,13 +7,37 @@
     </Tooltip>
     <Tooltip content="Cloud - not connected"
              placement="bottom"
+             v-if="!hasToken && !connectionError"
              :transfer="true"
              class="tooltip-height">
       <img src="./../../assets/icon/cloud_unset.svg"
            @click="showCloudModal"
-           alt="Cloud Integration"
+           alt="Cloud Integration - not connected"
            class="action-icon"/>
     </Tooltip>
+
+    <Tooltip content="Cloud - connected"
+             placement="bottom"
+             v-if="hasToken && !connectionError"
+             :transfer="true"
+             class="tooltip-height">
+      <img src="./../../assets/icon/cloud_connected.svg"
+           @click="showCloudModal"
+           alt="Cloud Integration - connected"
+           class="action-icon"/>
+    </Tooltip>
+
+    <Tooltip content="Cloud - connection error"
+             placement="bottom"
+             v-if="connectionError"
+             :transfer="true"
+             class="tooltip-height">
+      <img src="./../../assets/icon/cloud_error.svg"
+           @click="showCloudModal"
+           alt="Cloud Integration - connection error"
+           class="action-icon"/>
+    </Tooltip>
+
     <Tooltip content="Application Settings"
              placement="bottom"
              :transfer="true"
@@ -27,28 +51,34 @@
 </template>
 
 <script>
-  import keyShortcutMixin from './../../keyShortcutStringMixin'
+  import keyShortcutMixin from "./../../keyShortcutStringMixin";
 
   export default {
-    name: 'MenuActionsRow',
+    name: "MenuActionsRow",
     mixins: [keyShortcutMixin],
     computed: {
-      keymapShortcutString () {
-        return `Keymap - ${this.shortcutString('showKeymap')}`
+      connectionError() {
+        return this.$store.state.cloud.connectionError;
+      },
+      hasToken() {
+        return this.$store.state.cloud.token.length > 0;
+      },
+      keymapShortcutString() {
+        return `Keymap - ${this.shortcutString("showKeymap")}`;
       }
     },
     methods: {
-      showKeymap () {
-        this.$store.dispatch('showKeymapModal')
+      showKeymap() {
+        this.$store.dispatch("showKeymapModal");
       },
-      showSettingsModal () {
-        this.$store.dispatch('showSettingsModal')
+      showSettingsModal() {
+        this.$store.dispatch("showSettingsModal");
       },
-      showCloudModal () {
-        this.$store.dispatch('showCloudModal')
+      showCloudModal() {
+        this.$store.dispatch("showCloudModal");
       }
     }
-  }
+  };
 </script>
 
 <style scoped>
