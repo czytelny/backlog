@@ -32,14 +32,24 @@
     </Button>
 
 
-    <Button type="primary"
-            size="small"
-            @click="reconnect"
-            v-if="hasToken"
+    <Button
+      size="small"
+      @click="reconnect"
+      v-if="hasToken"
     >
       <Icon type="ios-key" v-if="!isConnecting"/>
       <Icon type="ios-loading spin-icon-load" v-if="isConnecting"/>
       Re-connect!
+    </Button>
+
+    <Button type="primary"
+            size="small"
+            @click="syncBoards(); closeModal();"
+            style="float:right;"
+            v-if="hasToken"
+    >
+      <Icon type="ios-loading"/>
+      Sync All
     </Button>
 
     <Button style="float:right;"
@@ -48,10 +58,10 @@
     >
       ... or create an account
     </Button>
-    <div style="margin-top:16px;" v-if="connectionError">
+    <div style="margin-top:16px;" v-if="connectionError || syncError">
       <h3>Log</h3>
       <div class="log">
-        {{connectionError}}
+        {{connectionError || syncError}}
       </div>
     </div>
     <div slot="footer">
@@ -79,8 +89,11 @@
       connectionError() {
         return this.$store.state.cloud.connectionError;
       },
+      syncError() {
+        return this.$store.state.cloud.syncError;
+      },
       hasToken() {
-        return !!this.$store.state.cloud.token
+        return !!this.$store.state.cloud.token;
       },
       isVisible() {
         return this.$store.state.modals.cloud.isVisible;

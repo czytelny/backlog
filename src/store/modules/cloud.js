@@ -2,6 +2,7 @@ import settingsRepository from "../../repositories/settingsRepository";
 
 const state = {
   connectionError: false,
+  syncError: false,
   syncInProgress: false,
   token: "",
   username: ""
@@ -19,12 +20,18 @@ const mutations = {
   },
   SET_SYNC_IN_PROGRESS(state, val) {
     state.syncInProgress = val;
+  },
+  SET_SYNC_ERROR(state, val) {
+    state.syncError = val;
   }
 };
 
 const actions = {
   clearConnectionError({commit}) {
     commit("SET_CONNECTION_ERROR", "");
+  },
+  clearSyncError({commit}) {
+    commit("SET_SYNC_ERROR", "");
   },
   setConnectionError({commit}, val) {
     commit("SET_CONNECTION_ERROR", val);
@@ -37,6 +44,9 @@ const actions = {
   },
   setIsSyncing({commit}, val) {
     commit("SET_SYNC_IN_PROGRESS", val);
+  },
+  setSyncError({commit}, val) {
+    commit("SET_SYNC_ERROR", val);
   }
 };
 

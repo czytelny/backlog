@@ -12,7 +12,7 @@ export default {
           this.$Message.success("User successfully connected");
           this.$store.dispatch("setCloudToken", {token: data.token, username});
           this.$store.dispatch("clearConnectionError");
-          this.syncBoards(username);
+          this.syncBoards();
         })
         .finally(() => {
           this.$store.dispatch("setIsConnecting", false);
@@ -23,7 +23,8 @@ export default {
           console.log(response);
         });
     },
-    syncBoards(username) {
+    syncBoards() {
+      const username = this.$store.state.cloud.username;
       this.$store.dispatch("setIsSyncing", true);
       axios({
         method: "post",
@@ -33,11 +34,18 @@ export default {
       })
         .then(({data}) => {
           this.$Message.success("Synchronization success");
+          this.$store.dispatch("syncBoardsDone", data);
+          this.$store.dispatch("clearSyncError");
           console.log(data);
         })
         .catch((err) => {
           this.$Message.error("Synchronization error");
-          console.log(err);
+          if (err.response){
+            this.$store.dispatch("setSyncError", `[${response.config.url}] - ${response.status}:${response.data}`);
+          } else {
+            this.$store.dispatch("setSyncError", `[${cloudSettings.boards}${username}] - ${err}`);
+          }
+
         })
         .finally(() => {
           this.$store.dispatch("setIsSyncing", false);
