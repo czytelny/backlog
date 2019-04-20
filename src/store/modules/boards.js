@@ -4,30 +4,21 @@ import EmojiIcons from "./../../assets/emojiIcons";
 
 const state = {
   activeBoard: {},
-  rawBoards: [],
-  boardsList: [],
-  boardItems: [],
-  isSubmittingNewItem: false,
-  findItem: {
-    itemText: ""
-  },
   addItemEmoji: {
     search: "",
     icons: EmojiIcons,
     activeIndex: 0
-  }
+  },
+  boardItems: [],
+  boardsList: [],
+  findItem: {
+    itemText: ""
+  },
+  isSubmittingNewItem: false,
+  rawBoards: []
 };
 
 const mutations = {
-  DECREASE_ADD_ITEM_EMOJI_INDEX(state) {
-    state.addItemEmoji.activeIndex--;
-  },
-  INCREASE_ADD_ITEM_EMOJI_INDEX(state) {
-    state.addItemEmoji.activeIndex++;
-  },
-  RESET_ADD_ITEM_EMOJI_INDEX(state) {
-    state.addItemEmoji.activeIndex = 0;
-  },
   SET_ACTIVE_BOARD(state, board) {
     const activeBoard = state.boardsList.find((b) => b.id === board.id);
     state.activeBoard = activeBoard;
@@ -79,12 +70,6 @@ const actions = {
   changeItemVal(context, {boardId, itemId, newVal}) {
     itemsRepository.changeItemValue(boardId, itemId, newVal);
   },
-  decreaseAddItemEmojiIndex({commit}) {
-    if (state.addItemEmoji.activeIndex === 0) {
-      return;
-    }
-    commit("DECREASE_ADD_ITEM_EMOJI_INDEX");
-  },
   fetchActiveBoard({commit}) {
     const board = boardsRepository.getBoardById(boardsRepository.getActiveBoard());
     commit("SET_ACTIVE_BOARD", board);
@@ -97,12 +82,6 @@ const actions = {
   },
   fetchRawBoards({commit}) {
     commit("SET_RAW_BOARDS", boardsRepository.getRawBoards());
-  },
-  increaseAddItemEmojiIndex({commit}) {
-    if (Object.keys(state.addItemEmoji.icons).length === state.addItemEmoji.activeIndex) {
-      return;
-    }
-    commit("INCREASE_ADD_ITEM_EMOJI_INDEX");
   },
   itemsOrderChanged(context, {moved, boardId}) {
     boardsRepository.changeItemsOrder(boardId, moved);
@@ -126,9 +105,6 @@ const actions = {
   },
   renameBoard(context, {boardId, newName}) {
     boardsRepository.renameBoard(boardId, newName);
-  },
-  resetAddItemEmojiIndex({commit}) {
-    commit("RESET_ADD_ITEM_EMOJI_INDEX");
   },
   saveNewBoard({commit, rootState}, boardName) {
     const savedBoard = boardsRepository.saveNewBoard(boardName, rootState.settings);
