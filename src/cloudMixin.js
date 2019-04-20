@@ -10,14 +10,15 @@ export default {
         })
         .then(({data}) => {
           this.$Message.success("User successfully connected");
-          this.$store.dispatch("setCloudToken", data.token);
+          this.$store.dispatch("setCloudToken", {token: data.token, username});
           this.syncBoards(username);
         })
         .finally(() => {
           this.$store.dispatch("setIsConnecting", false);
         })
-        .catch(() => {
+        .catch((err) => {
           this.$Message.error("Invalid username or password");
+          console.log(err);
         });
     },
     syncBoards(username) {

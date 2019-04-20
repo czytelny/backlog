@@ -7,11 +7,13 @@
          cancelText="Cancel">
     <Input v-model="username"
            placeholder="Email address"
+           :disabled="hasToken"
            :autofocus="true"
            style="margin-bottom:8px;"
     />
     <Input v-model="password"
            type="password"
+           :disabled="hasToken"
            placeholder="Password"
            @on-keyup.enter="connect"
            style="margin-bottom:8px;"
@@ -20,10 +22,22 @@
             :disabled="isInputsEmpty"
             size="small"
             @click="connect"
+            v-if="!hasToken"
     >
       <Icon type="ios-key" v-if="!isConnecting"/>
       <Icon type="ios-loading spin-icon-load" v-if="isConnecting"/>
       Connect
+    </Button>
+
+
+    <Button type="primary"
+            size="small"
+            @click="reconnect"
+            v-if="hasToken"
+    >
+      <Icon type="ios-key" v-if="!isConnecting"/>
+      <Icon type="ios-loading spin-icon-load" v-if="isConnecting"/>
+      Re-connect!
     </Button>
 
     <Button style="float:right;" size="small"
@@ -48,11 +62,14 @@
     mixins: [cloudMixin],
     data() {
       return {
-        username: "",
-        password: ""
+        username: this.$store.state.cloud.username,
+        password: this.$store.state.cloud.username
       };
     },
     computed: {
+      hasToken() {
+        return this.$store.state.cloud.token.length > 0;
+      },
       isVisible() {
         return this.$store.state.modals.cloud.isVisible;
       },
@@ -66,6 +83,9 @@
     methods: {
       closeModal() {
         this.$store.dispatch("hideCloudModal");
+      },
+      reconnect() {
+        this.$store.dispatch("setCloudToken", {token: "", username: ""});
       },
       connect() {
         if (!this.username || !this.password) {

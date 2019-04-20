@@ -1,99 +1,101 @@
-const {db} = require('./../persistence');
+const {db} = require("./../persistence");
 
 const keyBindings = {
   showKeymap: {
-    win: ['ctrl', 'k'],
-    mac: ['meta', 'k']
+    win: ["ctrl", "k"],
+    mac: ["meta", "k"]
   },
   addNewBoard: {
-    win: ['ctrl', 'shift', 'n'],
-    mac: ['meta', 'shift', 'n']
+    win: ["ctrl", "shift", "n"],
+    mac: ["meta", "shift", "n"]
   },
   nextTab: {
-    win: ['ctrl', 'shift', '}'],
-    mac: ['meta', 'shift', ']']
+    win: ["ctrl", "shift", "}"],
+    mac: ["meta", "shift", "]"]
   },
   prevTab: {
-    win: ['ctrl', 'shift', '{'],
-    mac: ['meta', 'shift', '[']
+    win: ["ctrl", "shift", "{"],
+    mac: ["meta", "shift", "["]
   },
   newItemFocus: {
-    mac: ['meta', 'n'],
-    win: ['ctrl', 'n']
+    mac: ["meta", "n"],
+    win: ["ctrl", "n"]
   },
   filterItemsFocus: {
-    mac: ['meta', 'f'],
-    win: ['ctrl', 'f']
+    mac: ["meta", "f"],
+    win: ["ctrl", "f"]
   },
   showFindItem: {
-    mac: ['meta', 'shift', 'f'],
-    win: ['ctrl', 'shift', 'f']
+    mac: ["meta", "shift", "f"],
+    win: ["ctrl", "shift", "f"]
   },
   acceptItemChange: {
-    mac: ['meta', 'enter'],
-    win: ['ctrl', 'enter']
+    mac: ["meta", "enter"],
+    win: ["ctrl", "enter"]
   },
   cancelItemChange: {
-    mac: ['esc'],
-    win: ['esc']
+    mac: ["esc"],
+    win: ["esc"]
   },
   showEmoji: {
     readonly: true,
-    mac: ['meta', 'e'],
-    win: ['ctrl', 'e']
+    mac: ["meta", "e"],
+    win: ["ctrl", "e"]
   }
 };
 
 db.defaults({
   appSettings: {
-    'wasImported': false,
-    'itemCreationDate': true,
-    'prependNewItems': true,
-    'showUpdates': true,
-    'keyBindings': keyBindings
+    "wasImported": false,
+    "itemCreationDate": true,
+    "prependNewItems": true,
+    "showUpdates": true,
+    "keyBindings": keyBindings,
+    "token": "",
+    "username": ""
   }
 }).write();
 
 export default {
-  keyBindings,
-  getAppSettings () {
-    return db.get('appSettings')
-      .cloneDeep()
-      .value();
-  },
-  updateAppSettings (updateProp) {
-    return db.get('appSettings')
-      .assign(updateProp)
-      .write();
-  },
-  getKeyBindings () {
-    return db.get('appSettings.keyBindings')
-      .cloneDeep()
-      .value();
-  },
-  hasKeyBindingsProperty () {
-    return db.has('appSettings.keyBindings').value();
-  },
-  addKeyBinding (keyId, keyCombinations) {
+  addKeyBinding(keyId, keyCombinations) {
     return db
       .get(`appSettings.keyBindings`)
       .set(keyId, keyCombinations)
       .write();
   },
-  updateKeyBinding (keyId, combination, isMac) {
+  getAppSettings() {
+    return db.get("appSettings")
+      .cloneDeep()
+      .value();
+  },
+  getKeyBindings() {
+    return db.get("appSettings.keyBindings")
+      .cloneDeep()
+      .value();
+  },
+  hasKeyBindingsProperty() {
+    return db.has("appSettings.keyBindings").value();
+  },
+  keyBindings,
+  setupKeyBindings() {
+    this.updateAppSettings({"keyBindings": keyBindings});
+  },
+  updateAppSettings(updateProp) {
+    return db.get("appSettings")
+      .assign(updateProp)
+      .write();
+  },
+  updateKeyBinding(keyId, combination, isMac) {
     if (isMac) {
       return db
         .get(`appSettings.keyBindings.${keyId}`)
-        .set('mac', combination)
+        .set("mac", combination)
         .write();
     } else {
       return db
         .get(`appSettings.keyBindings.${keyId}`)
-        .set('win', combination)
+        .set("win", combination)
         .write();
     }
-  },
-  setupKeyBindings () {
-    this.updateAppSettings({'keyBindings': keyBindings});
   }
 };
