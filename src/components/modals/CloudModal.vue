@@ -71,8 +71,8 @@
     mixins: [cloudMixin],
     data() {
       return {
-        username: this.$store.state.cloud.username,
-        password: this.$store.state.cloud.username
+        username: this.$store.state.cloud.username || "",
+        password: this.$store.state.cloud.username || ""
       };
     },
     computed: {
@@ -80,7 +80,7 @@
         return this.$store.state.cloud.connectionError;
       },
       hasToken() {
-        return this.$store.state.cloud.token.length > 0;
+        return !!this.$store.state.cloud.token
       },
       isVisible() {
         return this.$store.state.modals.cloud.isVisible;

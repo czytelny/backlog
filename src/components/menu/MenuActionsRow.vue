@@ -5,9 +5,18 @@
             <img src="./../../assets/icon/keymap.svg" alt="Keymap" class="action-icon"/>
         </span>
     </Tooltip>
+
+    <Tooltip content="Synchronization..."
+             placement="bottom"
+             v-if="showIsSyncing"
+             :transfer="true"
+             class="tooltip-height">
+      <CloudSyncIcon class="action-icon"/>
+    </Tooltip>
+
     <Tooltip content="Cloud - not connected"
              placement="bottom"
-             v-if="!hasToken && !connectionError"
+             v-if="showNotConnectedIcon"
              :transfer="true"
              class="tooltip-height">
       <img src="./../../assets/icon/cloud_unset.svg"
@@ -16,9 +25,9 @@
            class="action-icon"/>
     </Tooltip>
 
-    <Tooltip content="Cloud - connected"
+    <Tooltip content="Cloud Connected"
              placement="bottom"
-             v-if="hasToken && !connectionError"
+             v-if="showConnectedIcon"
              :transfer="true"
              class="tooltip-height">
       <img src="./../../assets/icon/cloud_connected.svg"
@@ -27,9 +36,9 @@
            class="action-icon"/>
     </Tooltip>
 
-    <Tooltip content="Cloud - connection error"
+    <Tooltip content="Connection Error"
              placement="bottom"
-             v-if="connectionError"
+             v-if="showConnectionErrorIcon"
              :transfer="true"
              class="tooltip-height">
       <img src="./../../assets/icon/cloud_error.svg"
@@ -52,16 +61,33 @@
 
 <script>
   import keyShortcutMixin from "./../../keyShortcutStringMixin";
+  import CloudSyncIcon from "./../../assets/icon/CloudSyncIcon";
 
   export default {
     name: "MenuActionsRow",
     mixins: [keyShortcutMixin],
+    components: {CloudSyncIcon},
     computed: {
+      showNotConnectedIcon() {
+        return !this.hasToken && !this.connectionError && !this.showIsSyncing;
+      },
+      showConnectedIcon() {
+        return this.hasToken && !this.connectionError && !this.showIsSyncing;
+      },
+      showConnectionErrorIcon() {
+        return this.connectionError && !this.showIsSyncing;
+      },
+      showIsSyncing() {
+        return this.isSyncing;
+      },
+      isSyncing() {
+        return this.$store.state.cloud.syncInProgress
+      },
       connectionError() {
         return this.$store.state.cloud.connectionError;
       },
       hasToken() {
-        return this.$store.state.cloud.token.length > 0;
+        return !!this.$store.state.cloud.token;
       },
       keymapShortcutString() {
         return `Keymap - ${this.shortcutString("showKeymap")}`;
@@ -92,6 +118,7 @@
     align-items: center;
     background-color: #404c5a;
     width: 100%;
+    user-select: none;
   }
 
   .tooltip-height {

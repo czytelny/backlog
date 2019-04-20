@@ -7,19 +7,19 @@
 </template>
 
 <script>
-  import MainPage from './components/MainPage';
-  import TopBar from './components/TopBar';
-  import './theme/default-theme.less';
-  import GlobalKeybindings from './components/GlobalKeyBindings';
-  import cloudMixin from './cloudMixin'
+  import MainPage from "./components/MainPage";
+  import TopBar from "./components/TopBar";
+  import "./theme/default-theme.less";
+  import GlobalKeybindings from "./components/GlobalKeyBindings";
+  import cloudMixin from "./cloudMixin";
 
   export default {
-    name: 'backlog',
+    name: "backlog",
     components: {GlobalKeybindings, TopBar, MainPage},
     mixins: [cloudMixin],
-    created () {
-      this.$store.dispatch('setupKeyBindings');
-      this.$store.dispatch('fetchRawBoards');
+    created() {
+      this.$store.dispatch("setupKeyBindings");
+      this.$store.dispatch("fetchRawBoards");
       // this.syncBoards()
     }
   };
@@ -56,5 +56,24 @@
 
   a:hover {
     color: #338a62;
+  }
+
+  .sync-animate {
+    animation: spin 1.5s cubic-bezier(0.4, 0, 1, 1) infinite;
+    height: 1px;
+    width: 1px;
+    transform-origin: 50% 53%;
+  }
+
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    50% {
+      transform: rotate(-180deg);
+    }
+    to {
+      transform: rotate(-360deg);
+    }
   }
 </style>
