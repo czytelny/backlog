@@ -81,7 +81,7 @@
         return this.isSyncing;
       },
       isSyncing() {
-        return this.$store.state.cloud.syncInProgress
+        return this.$store.state.cloud.syncInProgress;
       },
       connectionError() {
         return this.$store.state.cloud.connectionError;
