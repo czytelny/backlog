@@ -41,7 +41,7 @@ export default {
         .catch((err) => {
           this.$Message.error("Synchronization error");
           if (err.response){
-            this.$store.dispatch("setSyncError", `[${response.config.url}] - ${response.status}:${response.data}`);
+            this.$store.dispatch("setSyncError", `[${err.response.config.url}] - ${err.response.status}:${err.response.data}`);
           } else {
             this.$store.dispatch("setSyncError", `[${cloudSettings.boards}${username}] - ${err}`);
           }
