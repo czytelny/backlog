@@ -103,6 +103,7 @@
     margin: 12px 0;
     line-height: 1em;
     position: relative;
+    border-bottom:1px solid rgba(17, 21, 25, 0.06);
   }
 
   .board-row.draggingItem {

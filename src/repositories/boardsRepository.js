@@ -1,4 +1,4 @@
-import {addToSyncQueue, addAllToSyncQueue} from "./syncRepository";
+import {addAllToSyncQueue, addToSyncQueue} from "./syncRepository";
 
 const {db} = require("./../persistence");
 
@@ -60,8 +60,7 @@ export default {
     return writeAction;
   },
   addNewBoard(boardName, defaults) {
-    const boards = db
-      .get("boards");
+    const boards = db.get("boards");
 
     const oldBoardsVal = boards.cloneDeep().value();
     const res = boards
@@ -102,10 +101,11 @@ export default {
     this.saveItemsArray(boardId, items);
   },
   duplicateBoard(boardId, newName) {
+    const boards = db.get("boards");
+    const oldBoardsVal = boards.cloneDeep().value();
     const items = this.getBoardItems(boardId);
 
-    return db
-      .get("boards")
+    const res = boards
       .insert({
         label: newName,
         showDone: false,
@@ -114,6 +114,11 @@ export default {
         items
       })
       .write();
+
+    const newBoardsVal = boards.cloneDeep().value();
+    addAllToSyncQueue(oldBoardsVal, newBoardsVal);
+
+    return res;
   },
   exportBoardToJSON(fileName, boardId) {
     const boardContent = this.getItems(boardId);
@@ -211,7 +216,7 @@ export default {
         if (err) reject(err);
         const db = JSON.parse(content);
         db.boards.forEach((board) => {
-          const newBoardObj = service.saveNewBoard(board.label, {prependNewItems: board.prependNewItem});
+          const newBoardObj = service.addNewBoard(board.label, {prependNewItems: board.prependNewItem});
           board.items.forEach((item) => {
             service.addItemToEnd(newBoardObj.id, item.text, item.created, item.isDone);
           });
@@ -255,15 +260,12 @@ export default {
     const items = board
       .get("items")
       .value();
-    const oldBoardVal = board.cloneDeep().value();
 
     const index = items.findIndex((item) => item.id === itemId);
     const item = items.splice(index, 1)[0];
     items.push(item);
 
     this.saveItemsArray(boardId, items);
-    const newBoardVal = board.cloneDeep().value();
-    addToSyncQueue(oldBoardVal, newBoardVal);
   },
   moveItemToTop(boardId, itemId) {
     const board = db
@@ -273,37 +275,58 @@ export default {
       .get("items")
       .value();
 
-    const oldBoardVal = board.cloneDeep().value();
     const index = items.findIndex((item) => item.id === itemId);
     const item = items.splice(index, 1)[0];
     items.unshift(item);
 
     this.saveItemsArray(boardId, items);
-    const newBoardVal = board.cloneDeep().value();
-    addToSyncQueue(oldBoardVal, newBoardVal);
   },
   removeBoard(boardId) {
+    const boards = db.get("boards");
+    const oldBoardsVal = boards.cloneDeep().value();
+
     db.get("boards")
       .remove({id: boardId})
       .write();
+    const newBoardsVal = boards.cloneDeep().value();
+    addAllToSyncQueue(oldBoardsVal, newBoardsVal);
   },
   renameBoard(boardId, value) {
-    return db
-      .get("boards")
+    const boards = db.get("boards");
+    const oldBoardsVal = boards.cloneDeep().value();
+    const res = boards
       .updateById(boardId, {label: value})
       .write();
+
+    const newBoardsVal = boards.cloneDeep().value();
+    addAllToSyncQueue(oldBoardsVal, newBoardsVal);
+    return res;
   },
   saveBoardsArray(boardsArray) {
-    return db
+    const boards = db.get("boards");
+    const oldBoardsVal = boards.cloneDeep().value();
+    const res = db
       .set("boards", boardsArray)
       .write();
+
+    const newBoardsVal = boards.cloneDeep().value();
+
+    addAllToSyncQueue(oldBoardsVal, newBoardsVal);
+    return res;
   },
   saveItemsArray(boardId, items) {
-    return db
+    const board = db
       .get("boards")
-      .getById(boardId)
+      .find({id: boardId});
+
+    const oldBoardVal = board.cloneDeep().value();
+
+    const res = board
       .set("items", items)
       .write();
+    const newBoardVal = board.cloneDeep().value();
+    addToSyncQueue(oldBoardVal, newBoardVal);
+    return res;
   },
   setActiveBoard(boardId) {
     db.set("activeBoard", boardId)

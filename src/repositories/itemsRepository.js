@@ -31,13 +31,20 @@ export default {
     addToSyncQueue(oldBoardVal, newBoardVal);
   },
   switchIsDone(boardId, itemId, value) {
-    return db
+    const board = db
       .get("boards")
-      .find({id: boardId})
+      .find({id: boardId});
+    const oldBoardVal = board.cloneDeep().value();
+
+    const res = board
       .get("items")
       .find({id: itemId})
       .assign({isDone: value})
       .write();
+    const newBoardVal = board.cloneDeep().value();
+    addToSyncQueue(oldBoardVal, newBoardVal);
+
+    return res;
   },
   switchPrependNewItem(boardId, value) {
     return db
@@ -50,5 +57,5 @@ export default {
       .get("boards")
       .updateById(boardId, {showProgress: val})
       .write();
-  },
+  }
 };
