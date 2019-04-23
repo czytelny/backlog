@@ -28,7 +28,7 @@ export default {
       this.$store.dispatch("setIsSyncing", true);
       axios({
         method: "post",
-        url: `${cloudSettings.boards}${username}`,
+        url: cloudSettings.boardsUrl(username),
         data: {boards: this.$store.state.boards.rawBoards},
         headers: {"Authorization": `JWT ${this.$store.state.cloud.token}`}
       })
@@ -43,7 +43,7 @@ export default {
           if (err.response){
             this.$store.dispatch("setSyncError", `[${err.response.config.url}] - ${err.response.status}:${err.response.data}`);
           } else {
-            this.$store.dispatch("setSyncError", `[${cloudSettings.boards}${username}] - ${err}`);
+            this.$store.dispatch("setSyncError", `[${cloudSettings.boardsUrl(username)}] - ${err}`);
           }
 
         })

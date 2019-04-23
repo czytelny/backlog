@@ -1,5 +1,8 @@
-const {db} = require("./../persistence");
+import axios from "axios";
+import cloudSettings from "./../cloud";
 import {DiffPatcher} from "jsondiffpatch";
+
+const {db} = require("./../persistence");
 
 const jsDiff = new DiffPatcher({
   objectHash: (obj) => {
@@ -23,7 +26,7 @@ export function addToSyncQueue(oldBoardVal, newBoardVal) {
     .write();
 }
 
-export function addAllToSyncQueue(oldBoards, newBoards){
+export function addAllToSyncQueue(oldBoards, newBoards) {
   const delta = jsDiff.diff(oldBoards, newBoards);
   return db
     .get("syncQueue")
@@ -31,4 +34,39 @@ export function addAllToSyncQueue(oldBoards, newBoards){
       delta
     })
     .write();
+}
+
+export function tryConsumeQueue(username, token) {
+  if (!username || !token) {
+    return;
+  }
+  const queue = db.get("syncQueue").cloneDeep().value();
+  if (!queue || queue.length === 0) {
+    return;
+  }
+  const firstElement = queue.shift();
+  if (firstElement.boardId) {
+    axios({
+      method: "put",
+      url: cloudSettings.boardPatchUrl(firstElement.boardId, username),
+      data: {delta: firstElement.delta},
+      headers: {"Authorization": `JWT ${token}`}
+    })
+      .then(() => {
+        db.get("syncQueue").set(queue).write();
+        tryConsumeQueue(username, token);
+      });
+  } else {
+    axios({
+      method: "put",
+      url: cloudSettings.boardsUrl(username),
+      data: {delta: firstElement.delta},
+      headers: {"Authorization": `JWT ${token}`}
+    })
+      .then(() => {
+        db.get("syncQueue").set(queue).write();
+        tryConsumeQueue(username, token);
+      });
+
+  }
 }

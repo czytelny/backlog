@@ -1,4 +1,4 @@
-import {addAllToSyncQueue, addToSyncQueue} from "./syncRepository";
+import {addAllToSyncQueue, addToSyncQueue, tryConsumeQueue} from "./syncRepository";
 
 const {db} = require("./../persistence");
 

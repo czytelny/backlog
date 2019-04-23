@@ -1,6 +1,7 @@
 import boardsRepository from "./../../repositories/boardsRepository";
 import itemsRepository from "./../../repositories/itemsRepository";
 import EmojiIcons from "./../../assets/emojiIcons";
+import {tryConsumeQueue} from "../../repositories/syncRepository";
 
 const state = {
   activeBoard: {},
@@ -50,25 +51,30 @@ const mutations = {
 };
 
 const actions = {
-  addItem({state}, {boardId, newItem}) {
+  addItem({state, rootState}, {boardId, newItem}) {
     const activeBoard = state.boardsList.find((board) => board.id === boardId);
     if (activeBoard.prependNewItem === true) {
+      tryConsumeQueue(rootState.settings.username, rootState.settings.token);
       return boardsRepository.addItemToBegin(boardId, newItem);
     } else {
+      tryConsumeQueue(rootState.settings.username, rootState.settings.token);
       return boardsRepository.addItemToEnd(boardId, newItem);
     }
   },
-  changeBoardsOrder(context, moved) {
+  changeBoardsOrder({rootState}, moved) {
     boardsRepository.changeBoardsOrder(moved);
+    tryConsumeQueue(rootState.settings.username, rootState.settings.token);
   },
   changeFindItem({commit}, val) {
     commit("SET_FIND_ITEM_TEXT", val);
   },
-  changeIsDone(context, {boardId, itemId, newVal}) {
+  changeIsDone({rootState}, {boardId, itemId, newVal}) {
     itemsRepository.switchIsDone(boardId, itemId, newVal);
+    tryConsumeQueue(rootState.settings.username, rootState.settings.token);
   },
-  changeItemVal(context, {boardId, itemId, newVal}) {
+  changeItemVal({rootState}, {boardId, itemId, newVal}) {
     itemsRepository.changeItemValue(boardId, itemId, newVal);
+    tryConsumeQueue(rootState.settings.username, rootState.settings.token);
   },
   fetchActiveBoard({commit}) {
     const board = boardsRepository.getBoardById(boardsRepository.getActiveBoard());
@@ -83,33 +89,41 @@ const actions = {
   fetchRawBoards({commit}) {
     commit("SET_RAW_BOARDS", boardsRepository.getRawBoards());
   },
-  itemsOrderChanged(context, {moved, boardId}) {
+  itemsOrderChanged({rootState}, {moved, boardId}) {
     boardsRepository.changeItemsOrder(boardId, moved);
+    tryConsumeQueue(rootState.settings.username, rootState.settings.token);
   },
-  moveItemToBoard({commit}, {srcBoardId, dstBoardId, itemId}) {
+  moveItemToBoard({commit, rootState}, {srcBoardId, dstBoardId, itemId}) {
     boardsRepository.moveItemToBoard(srcBoardId, dstBoardId, itemId);
     actions.fetchBoards({commit});
+    tryConsumeQueue(rootState.settings.username, rootState.settings.token);
   },
-  moveItemToBottom(context, {boardId, itemId}) {
+  moveItemToBottom({rootState}, {boardId, itemId}) {
     boardsRepository.moveItemToBottom(boardId, itemId);
+    tryConsumeQueue(rootState.settings.username, rootState.settings.token);
   },
-  moveItemToTop(context, {boardId, itemId}) {
+  moveItemToTop({rootState}, {boardId, itemId}) {
     boardsRepository.moveItemToTop(boardId, itemId);
+    tryConsumeQueue(rootState.settings.username, rootState.settings.token);
   },
-  removeBoard(context, boardId) {
+  removeBoard({rootState}, boardId) {
     boardsRepository.removeBoard(boardId);
+    tryConsumeQueue(rootState.settings.username, rootState.settings.token);
   },
-  removeItem({commit}, {boardId, itemId}) {
+  removeItem({commit, rootState}, {boardId, itemId}) {
     itemsRepository.removeItem(boardId, itemId);
     actions.fetchBoards({commit});
+    tryConsumeQueue(rootState.settings.username, rootState.settings.token);
   },
-  renameBoard(context, {boardId, newName}) {
+  renameBoard({rootState}, {boardId, newName}) {
     boardsRepository.renameBoard(boardId, newName);
+    tryConsumeQueue(rootState.settings.username, rootState.settings.token);
   },
   saveNewBoard({commit, rootState}, boardName) {
     const savedBoard = boardsRepository.addNewBoard(boardName, rootState.settings);
     actions.fetchBoards({commit});
     commit("SET_ACTIVE_BOARD", savedBoard);
+    tryConsumeQueue(rootState.settings.username, rootState.settings.token);
     return savedBoard.id;
   },
   setActiveBoard({commit}, boardId) {
