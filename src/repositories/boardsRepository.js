@@ -8,11 +8,11 @@ const fs = require("electron").remote.require("fs");
 function defaultBoard() {
   return {
     id: "default",
+    items: [],
     label: "Default board",
-    showDone: false,
-    showProgress: false,
     prependNewItem: false,
-    items: []
+    showDone: false,
+    showProgress: false
   };
 }
 
@@ -22,86 +22,42 @@ db.defaults({
 }).write();
 
 export default {
-  get() {
-    console.log(`${JSON.stringify(db.getState())}`);
-  },
-  saveNewBoard(boardName, defaults) {
-    return db
+  addItemToBegin(boardId, text) {
+    const board = db
       .get("boards")
+      .find({id: boardId});
+    const newItem = {
+      id: shortid.generate(),
+      isDone: false,
+      created: new Date(),
+      text
+    };
+    const oldBoardVal = board.cloneDeep().value();
+    board
+      .get("items")
+      .unshift(newItem)
+      .write();
+    const newBoardVal = board.cloneDeep().value();
+    addToSyncQueue(oldBoardVal, newBoardVal);
+    return newItem;
+  },
+  addItemToEnd(boardId, text, created, isDone) {
+    const board = db
+      .get("boards")
+      .find({id: boardId});
+
+    const oldBoardVal = board.cloneDeep().value();
+    const writeAction = board
+      .get("items")
       .insert({
-        label: boardName,
-        showDone: false,
-        showProgress: false,
-        prependNewItem: defaults.prependNewItems,
-        items: []
+        isDone: isDone || false,
+        created: created || new Date(),
+        text
       })
       .write();
-  },
-  saveBoardsArray(boardsArray) {
-    return db
-      .set("boards", boardsArray)
-      .write();
-  },
-  saveItemsArray(boardId, items) {
-    return db
-      .get("boards")
-      .getById(boardId)
-      .set("items", items)
-      .write();
-  },
-  removeBoard(boardId) {
-    db.get("boards")
-      .remove({id: boardId})
-      .write();
-  },
-  getFirstBoard() {
-    return db.get("boards")
-      .first()
-      .cloneDeep()
-      .value();
-  },
-  setActiveBoard(boardId) {
-    db.set("activeBoard", boardId)
-      .write();
-  },
-  getActiveBoard() {
-    return db.get("activeBoard")
-      .cloneDeep()
-      .value();
-  },
-  getRawBoards() {
-    return db
-      .get("boards")
-      .cloneDeep()
-      .value();
-  },
-  getList() {
-    function doneItemsCount(boardItems) {
-      return boardItems.filter(item => item.isDone === true).length;
-    }
-
-    function progressCount(board) {
-      const res = Math.round((doneItemsCount(board.items) / board.items.length) * 100);
-      if (isNaN(res)) {
-        return 0;
-      }
-      return res;
-    }
-
-    return db
-      .get("boards")
-      .cloneDeep()
-      .value()
-      .map((board) => {
-        return {
-          id: board.id,
-          label: board.label,
-          progress: progressCount(board),
-          prependNewItem: board.prependNewItem,
-          showDone: board.showDone,
-          showProgress: board.showProgress
-        };
-      });
+    const newBoardVal = board.cloneDeep().value();
+    addToSyncQueue(oldBoardVal, newBoardVal);
+    return writeAction;
   },
   changeBoardsOrder(movedElement) {
     const allBoards = db
@@ -124,140 +80,6 @@ export default {
     const movedItem = items.splice(movedElement.oldIndex, 1)[0];
     items.splice(movedElement.newIndex, 0, movedItem);
     this.saveItemsArray(boardId, items);
-  },
-  addItemToEnd(boardId, text, created, isDone) {
-    const board = db
-      .get("boards")
-      .find({id: boardId});
-
-    const oldBoardVal = board.cloneDeep().value();
-    const writeAction = board
-      .get("items")
-      .insert({
-        isDone: isDone || false,
-        created: created || new Date(),
-        text
-      })
-      .write();
-    const newBoardVal = board.cloneDeep().value();
-    addToSyncQueue(oldBoardVal, newBoardVal);
-    return writeAction;
-  },
-  addItemToBegin(boardId, text) {
-    const board = db
-      .get("boards")
-      .find({id: boardId});
-    const newItem = {
-      id: shortid.generate(),
-      isDone: false,
-      created: new Date(),
-      text
-    };
-    const oldBoardVal = board.cloneDeep().value();
-    board
-      .get("items")
-      .unshift(newItem)
-      .write();
-    const newBoardVal = board.cloneDeep().value();
-    addToSyncQueue(oldBoardVal, newBoardVal);
-    return newItem;
-  },
-  moveItemToTop(boardId, itemId) {
-    const board = db
-      .get("boards")
-      .find({id: boardId});
-    const items = board
-      .get("items")
-      .value();
-
-    const oldBoardVal = board.cloneDeep().value();
-    const index = items.findIndex((item) => item.id === itemId);
-    const item = items.splice(index, 1)[0];
-    items.unshift(item);
-
-    this.saveItemsArray(boardId, items);
-    const newBoardVal = board.cloneDeep().value();
-    addToSyncQueue(oldBoardVal, newBoardVal);
-  },
-  moveItemToBottom(boardId, itemId) {
-    const board = db
-      .get("boards")
-      .find({id: boardId});
-    const items = board
-      .get("items")
-      .value();
-    const oldBoardVal = board.cloneDeep().value();
-
-    const index = items.findIndex((item) => item.id === itemId);
-    const item = items.splice(index, 1)[0];
-    items.push(item);
-
-    this.saveItemsArray(boardId, items);
-    const newBoardVal = board.cloneDeep().value();
-    addToSyncQueue(oldBoardVal, newBoardVal);
-  },
-  moveItemToBoard(srcBoardId, dstBoardId, itemId) {
-    if (srcBoardId === dstBoardId) {
-      return;
-    }
-    const items = db
-      .get("boards")
-      .find({id: srcBoardId})
-      .get("items")
-      .cloneDeep()
-      .value();
-
-    const dstItems = db
-      .get("boards")
-      .find({id: dstBoardId})
-      .get("items")
-      .cloneDeep()
-      .value();
-
-    const index = items.findIndex((item) => item.id === itemId);
-    const item = items.find((item) => item.id === itemId);
-    if (!item) {
-      return;
-    }
-    const srcItems = [...items.slice(0, index), ...items.slice(index + 1, items.length)];
-    dstItems.push(item);
-    this.saveItemsArray(srcBoardId, srcItems);
-    this.saveItemsArray(dstBoardId, dstItems);
-  },
-  getItems(boardId) {
-    return db
-      .get("boards")
-      .getById(boardId)
-      .get("items")
-      .cloneDeep()
-      .value();
-  },
-  getBoardById(boardId) {
-    return db
-      .get("boards")
-      .getById(boardId)
-      .cloneDeep()
-      .value();
-  },
-  getBoardItems(boardId) {
-    return db
-      .get("boards")
-      .getById(boardId)
-      .cloneDeep()
-      .value()
-      .items;
-  },
-  switchShowDone(boardId, value) {
-    return db
-      .get("boards")
-      .updateById(boardId, {showDone: value})
-      .write();
-  },
-  renameBoard(boardId, value) {
-    return db
-      .get("boards")
-      .updateById(boardId, {label: value})
-      .write();
   },
   duplicateBoard(boardId, newName) {
     const items = this.getBoardItems(boardId);
@@ -291,6 +113,77 @@ export default {
       });
     });
   },
+  get() {
+    console.log(`${JSON.stringify(db.getState())}`);
+  },
+  getActiveBoard() {
+    return db.get("activeBoard")
+      .cloneDeep()
+      .value();
+  },
+  getBoardById(boardId) {
+    return db
+      .get("boards")
+      .getById(boardId)
+      .cloneDeep()
+      .value();
+  },
+  getBoardItems(boardId) {
+    return db
+      .get("boards")
+      .getById(boardId)
+      .cloneDeep()
+      .value()
+      .items;
+  },
+  getFirstBoard() {
+    return db.get("boards")
+      .first()
+      .cloneDeep()
+      .value();
+  },
+  getItems(boardId) {
+    return db
+      .get("boards")
+      .getById(boardId)
+      .get("items")
+      .cloneDeep()
+      .value();
+  },
+  getList() {
+    function doneItemsCount(boardItems) {
+      return boardItems.filter(item => item.isDone === true).length;
+    }
+
+    function progressCount(board) {
+      const res = Math.round((doneItemsCount(board.items) / board.items.length) * 100);
+      if (isNaN(res)) {
+        return 0;
+      }
+      return res;
+    }
+
+    return db
+      .get("boards")
+      .cloneDeep()
+      .value()
+      .map((board) => {
+        return {
+          id: board.id,
+          label: board.label,
+          progress: progressCount(board),
+          prependNewItem: board.prependNewItem,
+          showDone: board.showDone,
+          showProgress: board.showProgress
+        };
+      });
+  },
+  getRawBoards() {
+    return db
+      .get("boards")
+      .cloneDeep()
+      .value();
+  },
   importDbFromJSON(filePath) {
     const service = this;
     return new Promise(function(resolve, reject) {
@@ -306,5 +199,112 @@ export default {
         resolve();
       });
     });
-  }
+  },
+  moveItemToBoard(srcBoardId, dstBoardId, itemId) {
+    if (srcBoardId === dstBoardId) {
+      return;
+    }
+    const items = db
+      .get("boards")
+      .find({id: srcBoardId})
+      .get("items")
+      .cloneDeep()
+      .value();
+
+    const dstItems = db
+      .get("boards")
+      .find({id: dstBoardId})
+      .get("items")
+      .cloneDeep()
+      .value();
+
+    const index = items.findIndex((item) => item.id === itemId);
+    const item = items.find((item) => item.id === itemId);
+    if (!item) {
+      return;
+    }
+    const srcItems = [...items.slice(0, index), ...items.slice(index + 1, items.length)];
+    dstItems.push(item);
+    this.saveItemsArray(srcBoardId, srcItems);
+    this.saveItemsArray(dstBoardId, dstItems);
+  },
+  moveItemToBottom(boardId, itemId) {
+    const board = db
+      .get("boards")
+      .find({id: boardId});
+    const items = board
+      .get("items")
+      .value();
+    const oldBoardVal = board.cloneDeep().value();
+
+    const index = items.findIndex((item) => item.id === itemId);
+    const item = items.splice(index, 1)[0];
+    items.push(item);
+
+    this.saveItemsArray(boardId, items);
+    const newBoardVal = board.cloneDeep().value();
+    addToSyncQueue(oldBoardVal, newBoardVal);
+  },
+  moveItemToTop(boardId, itemId) {
+    const board = db
+      .get("boards")
+      .find({id: boardId});
+    const items = board
+      .get("items")
+      .value();
+
+    const oldBoardVal = board.cloneDeep().value();
+    const index = items.findIndex((item) => item.id === itemId);
+    const item = items.splice(index, 1)[0];
+    items.unshift(item);
+
+    this.saveItemsArray(boardId, items);
+    const newBoardVal = board.cloneDeep().value();
+    addToSyncQueue(oldBoardVal, newBoardVal);
+  },
+  removeBoard(boardId) {
+    db.get("boards")
+      .remove({id: boardId})
+      .write();
+  },
+  renameBoard(boardId, value) {
+    return db
+      .get("boards")
+      .updateById(boardId, {label: value})
+      .write();
+  },
+  saveBoardsArray(boardsArray) {
+    return db
+      .set("boards", boardsArray)
+      .write();
+  },
+  saveItemsArray(boardId, items) {
+    return db
+      .get("boards")
+      .getById(boardId)
+      .set("items", items)
+      .write();
+  },
+  saveNewBoard(boardName, defaults) {
+    return db
+      .get("boards")
+      .insert({
+        label: boardName,
+        showDone: false,
+        showProgress: false,
+        prependNewItem: defaults.prependNewItems,
+        items: []
+      })
+      .write();
+  },
+  setActiveBoard(boardId) {
+    db.set("activeBoard", boardId)
+      .write();
+  },
+  switchShowDone(boardId, value) {
+    return db
+      .get("boards")
+      .updateById(boardId, {showDone: value})
+      .write();
+  },
 };

@@ -1,13 +1,25 @@
 const {db} = require("./../persistence");
 
 const keyBindings = {
-  showKeymap: {
-    win: ["ctrl", "k"],
-    mac: ["meta", "k"]
+  acceptItemChange: {
+    mac: ["meta", "enter"],
+    win: ["ctrl", "enter"]
   },
   addNewBoard: {
     win: ["ctrl", "shift", "n"],
     mac: ["meta", "shift", "n"]
+  },
+  cancelItemChange: {
+    mac: ["esc"],
+    win: ["esc"]
+  },
+  filterItemsFocus: {
+    mac: ["meta", "f"],
+    win: ["ctrl", "f"]
+  },
+  newItemFocus: {
+    mac: ["meta", "n"],
+    win: ["ctrl", "n"]
   },
   nextTab: {
     win: ["ctrl", "shift", "}"],
@@ -17,42 +29,30 @@ const keyBindings = {
     win: ["ctrl", "shift", "{"],
     mac: ["meta", "shift", "["]
   },
-  newItemFocus: {
-    mac: ["meta", "n"],
-    win: ["ctrl", "n"]
-  },
-  filterItemsFocus: {
-    mac: ["meta", "f"],
-    win: ["ctrl", "f"]
+  showEmoji: {
+    readonly: true,
+    mac: ["meta", "e"],
+    win: ["ctrl", "e"]
   },
   showFindItem: {
     mac: ["meta", "shift", "f"],
     win: ["ctrl", "shift", "f"]
   },
-  acceptItemChange: {
-    mac: ["meta", "enter"],
-    win: ["ctrl", "enter"]
-  },
-  cancelItemChange: {
-    mac: ["esc"],
-    win: ["esc"]
-  },
-  showEmoji: {
-    readonly: true,
-    mac: ["meta", "e"],
-    win: ["ctrl", "e"]
+  showKeymap: {
+    win: ["ctrl", "k"],
+    mac: ["meta", "k"]
   }
 };
 
 db.defaults({
   appSettings: {
-    "wasImported": false,
     "itemCreationDate": true,
+    "keyBindings": keyBindings,
     "prependNewItems": true,
     "showUpdates": true,
-    "keyBindings": keyBindings,
     "token": "",
-    "username": ""
+    "username": "",
+    "wasImported": false,
   }
 }).write();
 

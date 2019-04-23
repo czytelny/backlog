@@ -3,26 +3,19 @@ import {addToSyncQueue} from "./syncRepository";
 const {db} = require("./../persistence");
 
 export default {
-  switchPrependNewItem(boardId, value) {
-    return db
+  changeItemValue(boardId, itemId, itemVal) {
+    const board = db
       .get("boards")
-      .updateById(boardId, {prependNewItem: value})
-      .write();
-  },
-  switchIsDone(boardId, itemId, value) {
-    return db
-      .get("boards")
-      .find({id: boardId})
+      .find({id: boardId});
+
+    const oldBoardVal = board.cloneDeep().value();
+    board
       .get("items")
       .find({id: itemId})
-      .assign({isDone: value})
+      .assign({text: itemVal})
       .write();
-  },
-  switchShowProgress(boardId, val) {
-    return db
-      .get("boards")
-      .updateById(boardId, {showProgress: val})
-      .write();
+    const newBoardVal = board.cloneDeep().value();
+    addToSyncQueue(oldBoardVal, newBoardVal);
   },
   removeItem(boardId, itemId) {
     const board = db
@@ -37,18 +30,25 @@ export default {
     const newBoardVal = board.cloneDeep().value();
     addToSyncQueue(oldBoardVal, newBoardVal);
   },
-  changeItemValue(boardId, itemId, itemVal) {
-    const board = db
+  switchIsDone(boardId, itemId, value) {
+    return db
       .get("boards")
-      .find({id: boardId});
-
-    const oldBoardVal = board.cloneDeep().value();
-    board
+      .find({id: boardId})
       .get("items")
       .find({id: itemId})
-      .assign({text: itemVal})
+      .assign({isDone: value})
       .write();
-    const newBoardVal = board.cloneDeep().value();
-    addToSyncQueue(oldBoardVal, newBoardVal);
-  }
+  },
+  switchPrependNewItem(boardId, value) {
+    return db
+      .get("boards")
+      .updateById(boardId, {prependNewItem: value})
+      .write();
+  },
+  switchShowProgress(boardId, val) {
+    return db
+      .get("boards")
+      .updateById(boardId, {showProgress: val})
+      .write();
+  },
 };
