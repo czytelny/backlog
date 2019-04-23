@@ -16,8 +16,18 @@ export function addToSyncQueue(oldBoardVal, newBoardVal) {
 
   return db
     .get("syncQueue")
-    .insert({
+    .push({
       boardId: oldBoardVal.id,
+      delta
+    })
+    .write();
+}
+
+export function addAllToSyncQueue(oldBoards, newBoards){
+  const delta = jsDiff.diff(oldBoards, newBoards);
+  return db
+    .get("syncQueue")
+    .push({
       delta
     })
     .write();

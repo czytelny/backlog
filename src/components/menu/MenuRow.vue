@@ -23,33 +23,34 @@
 </template>
 
 <script>
-  import MenuMoreBtn from './MenuMoreBtn';
+  import MenuMoreBtn from "./MenuMoreBtn";
+
   export default {
-    name: 'MenuRow',
+    name: "MenuRow",
     components: {MenuMoreBtn},
-    props: ['boardId', 'label', 'progress', 'isDragging', 'showProgress'],
+    props: ["boardId", "label", "progress", "isDragging", "showProgress"],
     computed: {
       activeBoard: {
-        set (value) {
-          this.$store.dispatch('setActiveBoard', value)
+        set(value) {
+          this.$store.dispatch("setActiveBoard", value);
         },
-        get () {
-          return this.$store.state.boards.activeBoard
+        get() {
+          return this.$store.state.boards.activeBoard;
         }
       }
     },
     methods: {
-      saveActiveBoard () {
-        this.activeBoard = this.boardId
+      saveActiveBoard() {
+        this.activeBoard = this.boardId;
       },
-      showRenameModal () {
-        this.$store.dispatch('showRenameBoardModal', {
+      showRenameModal() {
+        this.$store.dispatch("showRenameBoardModal", {
           currentBoardName: this.label,
           boardId: this.boardId
-        })
+        });
       }
     }
-  }
+  };
 </script>
 
 <style scoped>
@@ -110,13 +111,12 @@
     text-shadow: 0 0 8px #000;
   }
 
-  .board-row:hover {
-    .progress {
-      opacity: 1;
-    }
-    .icon-more {
-      opacity: 1;
-    }
+  .board-row:hover .progress {
+    opacity: 1;
+  }
+
+  .board-row:hover .icon-more {
+    opacity: 1;
   }
 
   a {
@@ -126,10 +126,10 @@
   a.router-link-active {
     font-weight: bold;
     color: #58BB73;
+  }
 
-    .progress {
-      opacity: 1;
-    }
+  a.router-link-active .progress {
+    opacity: 1;
   }
 
   a.router-link-active:hover {

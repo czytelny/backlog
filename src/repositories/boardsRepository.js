@@ -1,4 +1,4 @@
-import {addToSyncQueue} from "./syncRepository";
+import {addToSyncQueue, addAllToSyncQueue} from "./syncRepository";
 
 const {db} = require("./../persistence");
 
@@ -58,6 +58,26 @@ export default {
     const newBoardVal = board.cloneDeep().value();
     addToSyncQueue(oldBoardVal, newBoardVal);
     return writeAction;
+  },
+  addNewBoard(boardName, defaults) {
+    const boards = db
+      .get("boards");
+
+    const oldBoardsVal = boards.cloneDeep().value();
+    const res = boards
+      .insert({
+        label: boardName,
+        showDone: false,
+        showProgress: false,
+        prependNewItem: defaults.prependNewItems,
+        items: []
+      })
+      .write();
+    const newBoardsVal = boards.cloneDeep().value();
+
+    addAllToSyncQueue(oldBoardsVal, newBoardsVal);
+
+    return res;
   },
   changeBoardsOrder(movedElement) {
     const allBoards = db
@@ -285,18 +305,6 @@ export default {
       .set("items", items)
       .write();
   },
-  saveNewBoard(boardName, defaults) {
-    return db
-      .get("boards")
-      .insert({
-        label: boardName,
-        showDone: false,
-        showProgress: false,
-        prependNewItem: defaults.prependNewItems,
-        items: []
-      })
-      .write();
-  },
   setActiveBoard(boardId) {
     db.set("activeBoard", boardId)
       .write();
@@ -306,5 +314,5 @@ export default {
       .get("boards")
       .updateById(boardId, {showDone: value})
       .write();
-  },
+  }
 };

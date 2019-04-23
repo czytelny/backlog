@@ -107,7 +107,7 @@ const actions = {
     boardsRepository.renameBoard(boardId, newName);
   },
   saveNewBoard({commit, rootState}, boardName) {
-    const savedBoard = boardsRepository.saveNewBoard(boardName, rootState.settings);
+    const savedBoard = boardsRepository.addNewBoard(boardName, rootState.settings);
     actions.fetchBoards({commit});
     commit("SET_ACTIVE_BOARD", savedBoard);
     return savedBoard.id;
