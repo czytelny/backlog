@@ -6,6 +6,7 @@
               icon="md-happy"
               @click="toggleEmoji"
       >
+
       </Button>
     </Tooltip>
   </div>

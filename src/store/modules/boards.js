@@ -54,11 +54,13 @@ const actions = {
   addItem({state, rootState}, {boardId, newItem}) {
     const activeBoard = state.boardsList.find((board) => board.id === boardId);
     if (activeBoard.prependNewItem === true) {
+      const res = boardsRepository.addItemToBegin(boardId, newItem);
       tryConsumeQueue(rootState.settings.username, rootState.settings.token);
-      return boardsRepository.addItemToBegin(boardId, newItem);
+      return res;
     } else {
+      const res = boardsRepository.addItemToEnd(boardId, newItem);
       tryConsumeQueue(rootState.settings.username, rootState.settings.token);
-      return boardsRepository.addItemToEnd(boardId, newItem);
+      return res;
     }
   },
   changeBoardsOrder({rootState}, moved) {

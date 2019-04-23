@@ -40,11 +40,12 @@ export function tryConsumeQueue(username, token) {
   if (!username || !token) {
     return;
   }
-  const queue = db.get("syncQueue").cloneDeep().value();
+  const syncQueue = db.get("syncQueue");
+  const queue = syncQueue.value();
   if (!queue || queue.length === 0) {
     return;
   }
-  const firstElement = queue.shift();
+  const firstElement = syncQueue.shift().value();
   if (firstElement.boardId) {
     axios({
       method: "put",
@@ -53,7 +54,7 @@ export function tryConsumeQueue(username, token) {
       headers: {"Authorization": `JWT ${token}`}
     })
       .then(() => {
-        db.get("syncQueue").set(queue).write();
+        syncQueue.write();
         tryConsumeQueue(username, token);
       });
   } else {
