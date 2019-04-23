@@ -52,7 +52,7 @@
   }
 </script>
 
-<style scoped lang="scss">
+<style scoped>
   a {
     color: inherit;
     transition: inherit;

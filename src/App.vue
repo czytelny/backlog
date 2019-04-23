@@ -25,7 +25,7 @@
   };
 </script>
 
-<style lang="scss">
+<style>
   @import url('~animate.css');
 
   * {
