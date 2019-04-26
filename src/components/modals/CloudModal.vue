@@ -111,6 +111,7 @@
       },
       reconnect() {
         this.$store.dispatch("setCloudToken", {token: "", username: ""});
+        this.$store.dispatch("resetSyncQueue");
       },
       connect() {
         if (!this.username || !this.password) {

@@ -14,6 +14,13 @@ db.defaults({
   syncQueue: []
 }).write();
 
+
+export function resetQueue() {
+  db.get("syncQueue")
+    .remove()
+    .write();
+}
+
 export function addToSyncQueue(oldBoardVal, newBoardVal) {
   const delta = jsDiff.diff(oldBoardVal, newBoardVal);
 

@@ -1,4 +1,5 @@
 import settingsRepository from "../../repositories/settingsRepository";
+import {resetQueue} from "../../repositories/syncRepository";
 
 const state = {
   connectionError: false,
@@ -41,6 +42,9 @@ const actions = {
     commit("SET_CLOUD_USER", username);
     settingsRepository.updateAppSettings({token});
     settingsRepository.updateAppSettings({username});
+  },
+  resetSyncQueue() {
+    resetQueue();
   },
   setIsSyncing({commit}, val) {
     commit("SET_SYNC_IN_PROGRESS", val);
