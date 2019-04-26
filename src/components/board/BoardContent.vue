@@ -74,6 +74,7 @@
     },
     beforeRouteUpdate (to, from, next) {
       this.$store.dispatch('fetchBoardItems', to.params.boardId);
+      // this.$store.dispatch('syncGetBoard',to.params.boardId);
       if (to.params.itemId) {
         this.scheduleScroll(to.params.itemId);
       }

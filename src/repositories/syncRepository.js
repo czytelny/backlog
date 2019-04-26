@@ -15,9 +15,13 @@ db.defaults({
 }).write();
 
 
-export function resetQueue() {
-  db.get("syncQueue")
-    .remove()
+export function addAllToSyncQueue(oldBoards, newBoards) {
+  const delta = jsDiff.diff(oldBoards, newBoards);
+  return db
+    .get("syncQueue")
+    .push({
+      delta
+    })
     .write();
 }
 
@@ -33,13 +37,25 @@ export function addToSyncQueue(oldBoardVal, newBoardVal) {
     .write();
 }
 
-export function addAllToSyncQueue(oldBoards, newBoards) {
-  const delta = jsDiff.diff(oldBoards, newBoards);
-  return db
-    .get("syncQueue")
-    .push({
-      delta
-    })
+export function initialSync(username, rawBoards, token) {
+  return axios({
+    method: "post",
+    url: cloudSettings.boardsUrl(username),
+    data: {boards: rawBoards},
+    headers: {"Authorization": `JWT ${token}`}
+  });
+}
+
+export function login(username, password) {
+  return axios
+    .post(cloudSettings.login, {
+      username, password
+    });
+}
+
+export function resetQueue() {
+  db.get("syncQueue")
+    .remove()
     .write();
 }
 

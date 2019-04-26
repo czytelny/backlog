@@ -1,18 +1,15 @@
 import cloudSettings from "./cloud";
-import axios from "axios";
+import {initialSync, login} from "./repositories/syncRepository";
 
 export default {
   methods: {
     login(username, password) {
-      axios
-        .post(cloudSettings.login, {
-          username, password
-        })
+      login(username, password)
         .then(({data}) => {
           this.$Message.success("User successfully connected");
           this.$store.dispatch("setCloudToken", {token: data.token, username});
           this.$store.dispatch("clearConnectionError");
-          this.syncBoards();
+          this.initialSyncBoards();
         })
         .finally(() => {
           this.$store.dispatch("setIsConnecting", false);
@@ -23,15 +20,10 @@ export default {
           console.log(response);
         });
     },
-    syncBoards() {
+    initialSyncBoards() {
       const username = this.$store.state.cloud.username;
       this.$store.dispatch("setIsSyncing", true);
-      axios({
-        method: "post",
-        url: cloudSettings.boardsUrl(username),
-        data: {boards: this.$store.state.boards.rawBoards},
-        headers: {"Authorization": `JWT ${this.$store.state.cloud.token}`}
-      })
+      initialSync(username, this.$store.state.boards.rawBoards, this.$store.state.cloud.token)
         .then(({data}) => {
           this.$Message.success("Synchronization success");
           this.$store.dispatch("syncBoardsDone", data);
@@ -40,7 +32,7 @@ export default {
         })
         .catch((err) => {
           this.$Message.error("Synchronization error");
-          if (err.response){
+          if (err.response) {
             this.$store.dispatch("setSyncError", `[${err.response.config.url}] - ${err.response.status}:${err.response.data}`);
           } else {
             this.$store.dispatch("setSyncError", `[${cloudSettings.boardsUrl(username)}] - ${err}`);

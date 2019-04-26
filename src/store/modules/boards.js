@@ -1,7 +1,7 @@
 import boardsRepository from "./../../repositories/boardsRepository";
 import itemsRepository from "./../../repositories/itemsRepository";
 import EmojiIcons from "./../../assets/emojiIcons";
-import {tryConsumeQueue} from "../../repositories/syncRepository";
+import {tryConsumeQueue, } from "../../repositories/syncRepository";
 
 const state = {
   activeBoard: {},
@@ -158,6 +158,8 @@ const actions = {
     boardsRepository.saveBoardsArray(boards);
     dispatch("fetchBoards");
     dispatch("fetchRawBoards");
+  },
+  syncGetBoards(){
   }
 };
 

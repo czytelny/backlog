@@ -44,7 +44,7 @@
 
     <Button type="primary"
             size="small"
-            @click="syncBoards(); closeModal();"
+            @click="initialSyncBoards(); closeModal();"
             style="float:right;"
             v-if="hasToken"
     >
