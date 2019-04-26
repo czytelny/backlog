@@ -1,7 +1,7 @@
 import boardsRepository from "./../../repositories/boardsRepository";
 import itemsRepository from "./../../repositories/itemsRepository";
 import EmojiIcons from "./../../assets/emojiIcons";
-import {tryConsumeQueue, } from "../../repositories/syncRepository";
+import syncRepository from "../../repositories/syncRepository";
 
 const state = {
   activeBoard: {},
@@ -55,28 +55,28 @@ const actions = {
     const activeBoard = state.boardsList.find((board) => board.id === boardId);
     if (activeBoard.prependNewItem === true) {
       const res = boardsRepository.addItemToBegin(boardId, newItem);
-      tryConsumeQueue(rootState.settings.username, rootState.settings.token);
+      syncRepository.tryConsumeQueue(rootState.settings.username, rootState.settings.token);
       return res;
     } else {
       const res = boardsRepository.addItemToEnd(boardId, newItem);
-      tryConsumeQueue(rootState.settings.username, rootState.settings.token);
+      syncRepository.tryConsumeQueue(rootState.settings.username, rootState.settings.token);
       return res;
     }
   },
   changeBoardsOrder({rootState}, moved) {
     boardsRepository.changeBoardsOrder(moved);
-    tryConsumeQueue(rootState.settings.username, rootState.settings.token);
+    syncRepository.tryConsumeQueue(rootState.settings.username, rootState.settings.token);
   },
   changeFindItem({commit}, val) {
     commit("SET_FIND_ITEM_TEXT", val);
   },
   changeIsDone({rootState}, {boardId, itemId, newVal}) {
     itemsRepository.switchIsDone(boardId, itemId, newVal);
-    tryConsumeQueue(rootState.settings.username, rootState.settings.token);
+    syncRepository.tryConsumeQueue(rootState.settings.username, rootState.settings.token);
   },
   changeItemVal({rootState}, {boardId, itemId, newVal}) {
     itemsRepository.changeItemValue(boardId, itemId, newVal);
-    tryConsumeQueue(rootState.settings.username, rootState.settings.token);
+    syncRepository.tryConsumeQueue(rootState.settings.username, rootState.settings.token);
   },
   fetchActiveBoard({commit}) {
     const board = boardsRepository.getBoardById(boardsRepository.getActiveBoard());
@@ -93,39 +93,39 @@ const actions = {
   },
   itemsOrderChanged({rootState}, {moved, boardId}) {
     boardsRepository.changeItemsOrder(boardId, moved);
-    tryConsumeQueue(rootState.settings.username, rootState.settings.token);
+    syncRepository.tryConsumeQueue(rootState.settings.username, rootState.settings.token);
   },
   moveItemToBoard({commit, rootState}, {srcBoardId, dstBoardId, itemId}) {
     boardsRepository.moveItemToBoard(srcBoardId, dstBoardId, itemId);
     actions.fetchBoards({commit});
-    tryConsumeQueue(rootState.settings.username, rootState.settings.token);
+    syncRepository.tryConsumeQueue(rootState.settings.username, rootState.settings.token);
   },
   moveItemToBottom({rootState}, {boardId, itemId}) {
     boardsRepository.moveItemToBottom(boardId, itemId);
-    tryConsumeQueue(rootState.settings.username, rootState.settings.token);
+    syncRepository.tryConsumeQueue(rootState.settings.username, rootState.settings.token);
   },
   moveItemToTop({rootState}, {boardId, itemId}) {
     boardsRepository.moveItemToTop(boardId, itemId);
-    tryConsumeQueue(rootState.settings.username, rootState.settings.token);
+    syncRepository.tryConsumeQueue(rootState.settings.username, rootState.settings.token);
   },
   removeBoard({rootState}, boardId) {
     boardsRepository.removeBoard(boardId);
-    tryConsumeQueue(rootState.settings.username, rootState.settings.token);
+    syncRepository.tryConsumeQueue(rootState.settings.username, rootState.settings.token);
   },
   removeItem({commit, rootState}, {boardId, itemId}) {
     itemsRepository.removeItem(boardId, itemId);
     actions.fetchBoards({commit});
-    tryConsumeQueue(rootState.settings.username, rootState.settings.token);
+    syncRepository.tryConsumeQueue(rootState.settings.username, rootState.settings.token);
   },
   renameBoard({rootState}, {boardId, newName}) {
     boardsRepository.renameBoard(boardId, newName);
-    tryConsumeQueue(rootState.settings.username, rootState.settings.token);
+    syncRepository.tryConsumeQueue(rootState.settings.username, rootState.settings.token);
   },
   saveNewBoard({commit, rootState}, boardName) {
     const savedBoard = boardsRepository.addNewBoard(boardName, rootState.settings);
     actions.fetchBoards({commit});
     commit("SET_ACTIVE_BOARD", savedBoard);
-    tryConsumeQueue(rootState.settings.username, rootState.settings.token);
+    syncRepository.tryConsumeQueue(rootState.settings.username, rootState.settings.token);
     return savedBoard.id;
   },
   setActiveBoard({commit}, boardId) {

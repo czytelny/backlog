@@ -1,10 +1,10 @@
 import cloudSettings from "./cloud";
-import {initialSync, login} from "./repositories/syncRepository";
+import syncRepository from "./repositories/syncRepository";
 
 export default {
   methods: {
     login(username, password) {
-      login(username, password)
+      syncRepository.login(username, password)
         .then(({data}) => {
           this.$Message.success("User successfully connected");
           this.$store.dispatch("setCloudToken", {token: data.token, username});
@@ -23,7 +23,7 @@ export default {
     initialSyncBoards() {
       const username = this.$store.state.cloud.username;
       this.$store.dispatch("setIsSyncing", true);
-      initialSync(username, this.$store.state.boards.rawBoards, this.$store.state.cloud.token)
+      syncRepository.initialSync(username, this.$store.state.boards.rawBoards, this.$store.state.cloud.token)
         .then(({data}) => {
           this.$Message.success("Synchronization success");
           this.$store.dispatch("syncBoardsDone", data);

@@ -1,5 +1,5 @@
 import settingsRepository from "../../repositories/settingsRepository";
-import {resetQueue} from "../../repositories/syncRepository";
+import syncRepository from "../../repositories/syncRepository";
 
 const state = {
   connectionError: false,
@@ -44,7 +44,7 @@ const actions = {
     settingsRepository.updateAppSettings({username});
   },
   resetSyncQueue() {
-    resetQueue();
+    syncRepository.resetQueue();
   },
   setIsSyncing({commit}, val) {
     commit("SET_SYNC_IN_PROGRESS", val);

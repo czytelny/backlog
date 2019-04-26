@@ -1,4 +1,4 @@
-import {addAllToSyncQueue, addToSyncQueue, tryConsumeQueue} from "./syncRepository";
+import syncRepository from "./syncRepository";
 
 const {db} = require("./../persistence");
 
@@ -38,7 +38,7 @@ export default {
       .unshift(newItem)
       .write();
     const newBoardVal = board.cloneDeep().value();
-    addToSyncQueue(oldBoardVal, newBoardVal);
+    syncRepository.addToSyncQueue(oldBoardVal, newBoardVal);
     return newItem;
   },
   addItemToEnd(boardId, text, created, isDone) {
@@ -56,7 +56,7 @@ export default {
       })
       .write();
     const newBoardVal = board.cloneDeep().value();
-    addToSyncQueue(oldBoardVal, newBoardVal);
+    syncRepository.addToSyncQueue(oldBoardVal, newBoardVal);
     return writeAction;
   },
   addNewBoard(boardName, defaults) {
@@ -325,7 +325,7 @@ export default {
       .set("items", items)
       .write();
     const newBoardVal = board.cloneDeep().value();
-    addToSyncQueue(oldBoardVal, newBoardVal);
+    syncRepository.addToSyncQueue(oldBoardVal, newBoardVal);
     return res;
   },
   setActiveBoard(boardId) {

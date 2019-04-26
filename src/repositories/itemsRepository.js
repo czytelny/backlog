@@ -1,4 +1,4 @@
-import {addToSyncQueue} from "./syncRepository";
+import syncRepository from "./syncRepository";
 
 const {db} = require("./../persistence");
 
@@ -15,7 +15,7 @@ export default {
       .assign({text: itemVal})
       .write();
     const newBoardVal = board.cloneDeep().value();
-    addToSyncQueue(oldBoardVal, newBoardVal);
+    syncRepository.addToSyncQueue(oldBoardVal, newBoardVal);
   },
   removeItem(boardId, itemId) {
     const board = db
@@ -28,7 +28,7 @@ export default {
       .remove({id: itemId})
       .write();
     const newBoardVal = board.cloneDeep().value();
-    addToSyncQueue(oldBoardVal, newBoardVal);
+    syncRepository.addToSyncQueue(oldBoardVal, newBoardVal);
   },
   switchIsDone(boardId, itemId, value) {
     const board = db
@@ -42,7 +42,7 @@ export default {
       .assign({isDone: value})
       .write();
     const newBoardVal = board.cloneDeep().value();
-    addToSyncQueue(oldBoardVal, newBoardVal);
+    syncRepository.addToSyncQueue(oldBoardVal, newBoardVal);
 
     return res;
   },
