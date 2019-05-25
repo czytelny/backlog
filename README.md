@@ -64,7 +64,7 @@ When new version is available just download it, unzip and enjoy. No additional a
 - backup to file feature
 - new top bar unified acroos OS
 - modals can be closed by pressing ESC or click outside modal area
-- scroolbar ui improved
+- scrollbar ui improved
 - number of keyboard shortcuts added
 - check for updates on app startup
 - other minor ui improvements...
