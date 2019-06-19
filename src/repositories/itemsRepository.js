@@ -37,6 +37,8 @@ export default {
     const oldBoardVal = board.cloneDeep().value();
 
     const res = board
+      .get("items")
+      .find({id: itemId})
       .assign({isDone: value})
       .write();
     const newBoardVal = board.cloneDeep().value();

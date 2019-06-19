@@ -38,8 +38,6 @@ export default {
     }
   },
   getBoards(username, rawBoards, token) {
-    username="chwedczuk.m@gmail.com"
-    token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNod2VkY3p1ay5tQGdtYWlsLmNvbSIsImlhdCI6MTU1NTk2MTAzNH0.PrZ8TbgpbEx6SwD7nesDdBUSaqdVDH3agS68y2z2CTc"
     return axios({
       method: "post",
       url: cloudSettings.boardsSyncGetUrl(username),
