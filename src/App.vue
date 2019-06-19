@@ -20,7 +20,6 @@
     created() {
       this.$store.dispatch("setupKeyBindings");
       this.$store.dispatch("fetchRawBoards");
-      this.$store.dispatch("syncGetBoards");
     }
   };
 </script>

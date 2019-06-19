@@ -74,7 +74,7 @@ export default {
       .write();
     const newBoardsVal = boards.cloneDeep().value();
 
-    addAllToSyncQueue(oldBoardsVal, newBoardsVal);
+    syncRepository.addAllToSyncQueue(oldBoardsVal, newBoardsVal);
 
     return res;
   },
@@ -116,7 +116,7 @@ export default {
       .write();
 
     const newBoardsVal = boards.cloneDeep().value();
-    addAllToSyncQueue(oldBoardsVal, newBoardsVal);
+    syncRepository.addAllToSyncQueue(oldBoardsVal, newBoardsVal);
 
     return res;
   },
@@ -289,7 +289,7 @@ export default {
       .remove({id: boardId})
       .write();
     const newBoardsVal = boards.cloneDeep().value();
-    addAllToSyncQueue(oldBoardsVal, newBoardsVal);
+    syncRepository.addAllToSyncQueue(oldBoardsVal, newBoardsVal);
   },
   renameBoard(boardId, value) {
     const boards = db.get("boards");
@@ -299,10 +299,10 @@ export default {
       .write();
 
     const newBoardsVal = boards.cloneDeep().value();
-    addAllToSyncQueue(oldBoardsVal, newBoardsVal);
+    syncRepository.addAllToSyncQueue(oldBoardsVal, newBoardsVal);
     return res;
   },
-  saveBoardsArray(boardsArray) {
+  saveBoardsArray(boardsArray, syncSource) {
     const boards = db.get("boards");
     const oldBoardsVal = boards.cloneDeep().value();
     const res = db
@@ -311,7 +311,9 @@ export default {
 
     const newBoardsVal = boards.cloneDeep().value();
 
-    addAllToSyncQueue(oldBoardsVal, newBoardsVal);
+    if (!syncSource) {
+      syncRepository.addAllToSyncQueue(oldBoardsVal, newBoardsVal);
+    }
     return res;
   },
   saveItemsArray(boardId, items) {
@@ -333,9 +335,17 @@ export default {
       .write();
   },
   switchShowDone(boardId, value) {
-    return db
+    const board = db
       .get("boards")
-      .updateById(boardId, {showDone: value})
+      .find({id: boardId});
+
+    const oldBoardVal = board.cloneDeep().value();
+
+    const res = board
+      .assign({showDone: value})
       .write();
+    const newBoardVal = board.cloneDeep().value();
+    syncRepository.addToSyncQueue(oldBoardVal, newBoardVal);
+    return res;
   }
 };

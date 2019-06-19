@@ -15,27 +15,37 @@ db.defaults({
 }).write();
 
 
-export function addAllToSyncQueue(oldBoards, newBoards) {
-  const delta = jsDiff.diff(oldBoards, newBoards);
-  return db
-    .get("syncQueue")
-    .push({
-      delta
-    })
-    .write();
-}
-
 export default {
-  addToSyncQueue(oldBoardVal, newBoardVal) {
-    const delta = jsDiff.diff(oldBoardVal, newBoardVal);
-
+  addAllToSyncQueue(oldBoards, newBoards) {
+    const delta = jsDiff.diff(oldBoards, newBoards);
     return db
       .get("syncQueue")
       .push({
-        boardId: oldBoardVal.id,
         delta
       })
       .write();
+  },
+  addToSyncQueue(oldBoardVal, newBoardVal) {
+    const delta = jsDiff.diff(oldBoardVal, newBoardVal);
+    if (delta) {
+      return db
+        .get("syncQueue")
+        .push({
+          boardId: oldBoardVal.id,
+          delta
+        })
+        .write();
+    }
+  },
+  getBoards(username, rawBoards, token) {
+    username="chwedczuk.m@gmail.com"
+    token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNod2VkY3p1ay5tQGdtYWlsLmNvbSIsImlhdCI6MTU1NTk2MTAzNH0.PrZ8TbgpbEx6SwD7nesDdBUSaqdVDH3agS68y2z2CTc"
+    return axios({
+      method: "post",
+      url: cloudSettings.boardsSyncGetUrl(username),
+      data: {boards: rawBoards},
+      headers: {"Authorization": `JWT ${token}`}
+    });
   },
   initialSync(username, rawBoards, token) {
     return axios({

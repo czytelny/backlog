@@ -142,24 +142,35 @@ const actions = {
   setIsSubmittingNewItem({commit}, val) {
     commit("SET_IS_SUBMITTING_NEW_ITEM", val);
   },
-  switchPrependNewItem({commit}, {boardId, prependNewItem}) {
+  switchPrependNewItem({commit, rootState}, {boardId, prependNewItem}) {
     itemsRepository.switchPrependNewItem(boardId, prependNewItem);
     commit("SWITCH_PREPEND_NEW_ITEM", {boardId, prependNewItem});
+    syncRepository.tryConsumeQueue(rootState.settings.username, rootState.settings.token);
   },
-  switchShowDone({commit}, {boardId, showDone}) {
+  switchShowDone({commit, rootState}, {boardId, showDone}) {
     boardsRepository.switchShowDone(boardId, showDone);
     commit("SWITCH_SHOW_DONE", {boardId, showDone});
+    syncRepository.tryConsumeQueue(rootState.settings.username, rootState.settings.token);
   },
-  switchShowProgress({commit}, {boardId, val}) {
+  switchShowProgress({commit, rootState}, {boardId, val}) {
     itemsRepository.switchShowProgress(boardId, val);
     commit("SWITCH_SHOW_PROGRESS", val);
+    syncRepository.tryConsumeQueue(rootState.settings.username, rootState.settings.token);
   },
   syncBoardsDone({dispatch}, boards) {
     boardsRepository.saveBoardsArray(boards);
     dispatch("fetchBoards");
     dispatch("fetchRawBoards");
   },
-  syncGetBoards(){
+  syncGetBoards({dispatch, rootState}, {username, rawBoards, token}){
+    syncRepository.getBoards(username, rawBoards, token)
+      .then(({data})=>{
+        boardsRepository.saveBoardsArray(data, true);
+        dispatch("fetchBoards");
+        dispatch("fetchRawBoards");
+        dispatch("fetchBoardItems", rootState.boards.activeBoard.id);
+        syncRepository.tryConsumeQueue(rootState.settings.username, rootState.settings.token)
+      })
   }
 };
 

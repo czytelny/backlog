@@ -37,8 +37,6 @@ export default {
     const oldBoardVal = board.cloneDeep().value();
 
     const res = board
-      .get("items")
-      .find({id: itemId})
       .assign({isDone: value})
       .write();
     const newBoardVal = board.cloneDeep().value();
@@ -47,15 +45,31 @@ export default {
     return res;
   },
   switchPrependNewItem(boardId, value) {
-    return db
+    const board = db
       .get("boards")
-      .updateById(boardId, {prependNewItem: value})
+      .find({id: boardId});
+    const oldBoardVal = board.cloneDeep().value();
+
+    const res = board
+      .assign({prependNewItem: value})
       .write();
+    const newBoardVal = board.cloneDeep().value();
+    syncRepository.addToSyncQueue(oldBoardVal, newBoardVal);
+
+    return res;
   },
   switchShowProgress(boardId, val) {
-    return db
+    const board = db
       .get("boards")
-      .updateById(boardId, {showProgress: val})
+      .find({id: boardId});
+    const oldBoardVal = board.cloneDeep().value();
+
+    const res = board
+      .assign({showProgress: val})
       .write();
+    const newBoardVal = board.cloneDeep().value();
+    syncRepository.addToSyncQueue(oldBoardVal, newBoardVal);
+
+    return res;
   }
 };
