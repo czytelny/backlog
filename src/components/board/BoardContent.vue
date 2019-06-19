@@ -28,7 +28,8 @@
       <h1>No results...</h1>
     </div>
 
-    <div class="items-container" v-if="!isBoardItemsEmpty">
+    <div class="items-container" v-if="!isBoardItemsEmpty"
+         :style="isAllItemsDone? {height:'calc(100vh - 400px)'} : null">
       <draggable :value="boardItems"
                  handle=".drag"
                  @change="boardItemsRearanged"
