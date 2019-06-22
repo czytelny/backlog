@@ -5,15 +5,15 @@
     <DropdownMenu slot="list" class="dropdown-menu">
       <DropdownItem name="rename">
        <Icon type="md-create"/>
-          Rename
+          {{$t("menu.rename")}}
       </DropdownItem>
       <DropdownItem name="duplicate">
         <Icon type="ios-copy-outline"/>
-          Duplicate
+         {{$t("menu.duplicate")}}
       </DropdownItem>
       <DropdownItem class="delete-btn" name="remove">
         <Icon type="ios-trash-outline"></Icon>
-        Delete
+        {{$t("menu.delete")}}
       </DropdownItem>
     </DropdownMenu>
   </Dropdown>
@@ -22,22 +22,22 @@
 
 <script>
   export default {
-    name: 'MenuMoreBtn',
-    props: ['label', 'boardId'],
+    name: "MenuMoreBtn",
+    props: ["label", "boardId"],
     methods: {
-      handleClick (val) {
+      handleClick(val) {
         switch (val) {
-          case 'remove':
+          case "remove":
             this.remove();
             break;
-          case 'duplicate':
-            this.$store.dispatch('showDuplicateBoard', {
+          case "duplicate":
+            this.$store.dispatch("showDuplicateBoard", {
               currentBoardName: this.label,
               boardId: this.boardId
             });
             break;
-          case 'rename':
-            this.$store.dispatch('showRenameBoardModal', {
+          case "rename":
+            this.$store.dispatch("showRenameBoardModal", {
               currentBoardName: this.label,
               boardId: this.boardId
             });
@@ -45,21 +45,25 @@
             break;
         }
       },
-      remove () {
+      remove() {
+        const title = this.$t("menu.removing_board");
+        const cancel = this.$t("common.cancel");
+        const yesRemove = this.$t("menu.yes_remove_it");
+
         this.$Modal.confirm({
-          title: `Removing board`,
-          okText: 'Cancel',
-          cancelText: 'Yes, remove it',
-          content: `<p>You are going to remove board <strong>"${this.label}"</strong></p>
-                    <p>All items will be deleted, are you sure ?</p>`,
+          title,
+          okText: cancel,
+          cancelText: yesRemove,
+          content: `<p>${this.$t("menu.you_are_going_to_remove")} <strong>"${this.label}"</strong></p>
+                    <p>${this.$t("menu.all_items_will_be_deleted")}</p>`,
           onCancel: () => {
-            this.$store.dispatch('removeBoard', this.boardId);
-            this.$store.dispatch('fetchBoards');
-            this.$store.dispatch('setFirstBoardAsActiveBoard')
+            this.$store.dispatch("removeBoard", this.boardId);
+            this.$store.dispatch("fetchBoards");
+            this.$store.dispatch("setFirstBoardAsActiveBoard")
               .then((boardId) => {
                 this.$router.push({path: `/board/${boardId}`});
               });
-            this.$Message.info('Board removed');
+            this.$Message.info(this.$t("menu.board_removed"));
           }
         });
 

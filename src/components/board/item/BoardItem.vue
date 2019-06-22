@@ -38,7 +38,7 @@
             class="ok-edit-btns"
             @click="saveItem(); turnOffEditing();"
     >
-      {{$t('item.ok')}}
+      {{$t('common.ok')}}
       <span class="shortcut">{{shortcutString('acceptItemChange')}}</span>
     </Button>
     <button v-if="isEditing"
@@ -51,7 +51,7 @@
       style="margin-left:4px;"
       @click="turnOffEditing"
     >
-      {{$t('item.cancel')}}
+      {{$t('common.cancel')}}
       <span class="shortcut">{{shortcutString('cancelItemChange')}}</span>
     </Button>
     <EmojiButton class="emoji-btn" v-if="isEditing"

@@ -1,12 +1,15 @@
 <template>
   <div class="menu-actions-row">
-    <Tooltip :content="keymapShortcutString" placement="bottom" :transfer="true" class="tooltip-height">
+    <Tooltip :content="keymapShortcutString"
+             placement="bottom"
+             :transfer="true"
+             class="tooltip-height">
         <span @click="showKeymap">
             <img src="./../../assets/icon/keymap.svg" alt="Keymap" class="action-icon"/>
         </span>
     </Tooltip>
 
-    <Tooltip content="Synchronization..."
+    <Tooltip :content="$t('menu.synchronization')"
              placement="bottom"
              v-if="showIsSyncing"
              :transfer="true"
@@ -14,45 +17,42 @@
       <CloudSyncIcon class="action-icon"/>
     </Tooltip>
 
-    <Tooltip content="Cloud - not connected"
+    <Tooltip :content="$t('menu.cloud_not_connected')"
              placement="bottom"
              v-if="showNotConnectedIcon"
              :transfer="true"
              class="tooltip-height">
       <img src="./../../assets/icon/cloud_unset.svg"
            @click="showCloudModal"
-           alt="Cloud Integration - not connected"
+           alt="Cloud - not connected"
            class="action-icon"/>
     </Tooltip>
 
-    <Tooltip content="Cloud Connected"
+    <Tooltip :content="$t('menu.cloud_connected')"
              placement="bottom"
              v-if="showConnectedIcon"
              :transfer="true"
              class="tooltip-height">
       <img src="./../../assets/icon/cloud_connected.svg"
            @click="showCloudModal"
-           alt="Cloud Integration - connected"
            class="action-icon"/>
     </Tooltip>
 
-    <Tooltip content="Connection Error"
+    <Tooltip :content="$t('menu.cloud_connection_error')"
              placement="bottom"
              v-if="showConnectionErrorIcon"
              :transfer="true"
              class="tooltip-height">
       <img src="./../../assets/icon/cloud_error.svg"
            @click="showCloudModal"
-           alt="Cloud Integration - connection error"
            class="action-icon"/>
     </Tooltip>
 
-    <Tooltip content="Application Settings"
+    <Tooltip :content="$t('menu.app_settings')"
              placement="bottom"
              :transfer="true"
              class="tooltip-height">
       <img src="./../../assets/icon/settings.svg"
-           alt="Keymap"
            class="action-icon"
            @click="showSettingsModal"/>
     </Tooltip>
@@ -90,7 +90,7 @@
         return !!this.$store.state.cloud.token;
       },
       keymapShortcutString() {
-        return `Keymap - ${this.shortcutString("showKeymap")}`;
+        return `${this.$t('menu.keymap')} - ${this.shortcutString("showKeymap")}`;
       }
     },
     methods: {

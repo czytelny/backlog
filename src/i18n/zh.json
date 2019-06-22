@@ -7,15 +7,36 @@
     "show_done": "",
     "show_progress": ""
   },
-  "item": {
+  "common": {
     "cancel": "",
+    "ok": ""
+  },
+  "item": {
     "created": "",
     "days_ago": "",
     "delete": "",
     "enter_something": "",
     "move_to_bottom": "",
-    "move_to_top": "",
-    "ok": ""
+    "move_to_top": ""
+  },
+  "menu": {
+    "add_new_board": "",
+    "all_items_will_be_deleted": "",
+    "app_settings": "",
+    "board_removed": "",
+    "boards": "",
+    "cloud_connected": "",
+    "cloud_connection_error": "",
+    "cloud_not_connected": "",
+    "delete": "",
+    "duplicate": "",
+    "find_item": "",
+    "keymap": "",
+    "removing_board": "",
+    "rename": "",
+    "synchronization": "",
+    "yes_remove_it": "",
+    "you_are_going_to_remove": ""
   },
   "newItem": {
     "add_item": "新增项目",

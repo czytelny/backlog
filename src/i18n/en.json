@@ -11,15 +11,36 @@
     "show_done": "Show done",
     "show_progress": "Show progress"
   },
-  "item": {
+  "common": {
     "cancel": "Cancel",
+    "ok": "Ok"
+  },
+  "item": {
     "created": "Created",
     "days_ago": "days ago",
     "delete": "Delete",
     "enter_something": "Enter something...",
     "move_to_bottom": "Move to bottom",
-    "move_to_top": "Move to top",
-    "ok": "OK"
+    "move_to_top": "Move to top"
+  },
+  "menu": {
+    "add_new_board": "Add New Board ",
+    "all_items_will_be_deleted": "All items will be deleted, are you sure ?",
+    "app_settings": "Application Settings",
+    "board_removed": "Board removed",
+    "boards": "Boards",
+    "cloud_connected": "Cloud Connected",
+    "cloud_connection_error": "Cloud Connection Error",
+    "cloud_not_connected": "Cloud - not connected",
+    "delete": "Delete",
+    "duplicate": "Duplicate",
+    "find_item": "Find item",
+    "keymap": "Keymap",
+    "removing_board": "Removing Board",
+    "rename": "Rename",
+    "synchronization": "Synchronization...",
+    "yes_remove_it": "Yes, remove it",
+    "you_are_going_to_remove": "You are going to remove board"
   },
   "newItem": {
     "add_item": "Add item",

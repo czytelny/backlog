@@ -1,6 +1,6 @@
 <template>
   <div class="menu-title-row">
-    BOARDS
+    <span class="uppercase">{{$t("menu.boards")}}</span>
     <Tooltip :content="newBoardShortcutString"
              class="add-icon-container"
              placement="bottom"
@@ -30,10 +30,10 @@
     mixins: [keyShortcutMixin],
     computed: {
       newBoardShortcutString () {
-        return `Add New Board - ${this.shortcutString('addNewBoard')}`
+        return `${this.$t("menu.add_new_board")} - ${this.shortcutString('addNewBoard')}`
       },
       findItemsShortcutString () {
-        return `Find item - ${this.shortcutString('showFindItem')}`
+        return `${this.$t("menu.find_item")} - ${this.shortcutString('showFindItem')}`
       }
     },
     methods: {

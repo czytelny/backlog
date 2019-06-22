@@ -75,4 +75,8 @@
       transform: rotate(-360deg);
     }
   }
+
+  .uppercase {
+    text-transform: uppercase;
+  }
 </style>
