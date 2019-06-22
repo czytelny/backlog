@@ -1,52 +1,72 @@
 {
   "board": {
-    "no_items_yet": "No items on this board yet!!!"
+    "all_items_done": "Super, wszystko zrobione!",
+    "empty_board": "Ta tablica jest pusta",
+    "go_and_ahead_and_add": "Śmiało dodaj nowe elementy!",
+    "no_items_yet": "Brak elementów na tej tablicy",
+    "no_results": "Nic nie znaleziono..."
   },
   "boardSettingsBar": {
-    "filter": "",
-    "show_done": "",
-    "show_progress": ""
+    "filter": "Filtr",
+    "show_done": "Pokaż zrobione",
+    "show_progress": "Pokaż postęp"
   },
   "common": {
-    "cancel": "",
-    "ok": ""
+    "cancel": "Anuluj",
+    "close": "Zamknij",
+    "ok": "OK"
   },
   "item": {
-    "created": "",
-    "days_ago": "",
-    "delete": "",
-    "enter_something": "",
-    "move_to_bottom": "",
-    "move_to_top": ""
+    "created": "Utworzone",
+    "days_ago": "dni temu",
+    "delete": "Usuń",
+    "enter_something": "Wpisz coś...",
+    "move_to_bottom": "Przesuń na dół",
+    "move_to_top": "Przesuń na górę"
   },
   "menu": {
-    "add_new_board": "",
-    "all_items_will_be_deleted": "",
-    "app_settings": "",
-    "board_removed": "",
-    "boards": "",
-    "cloud_connected": "",
-    "cloud_connection_error": "",
-    "cloud_not_connected": "",
-    "delete": "",
-    "duplicate": "",
-    "find_item": "",
-    "keymap": "",
-    "removing_board": "",
-    "rename": "",
-    "synchronization": "",
-    "yes_remove_it": "",
-    "you_are_going_to_remove": ""
+    "add_new_board": "Dodaj Nową Tablicę",
+    "all_items_will_be_deleted": "Wszystkie elementy zostaną usunięte, jesteś pewien ?",
+    "app_settings": "Ustawienia Aplikacji",
+    "board_removed": "Tablica usunięta",
+    "boards": "Tablice",
+    "cloud_connected": "Chmura Podłączona",
+    "cloud_connection_error": "Błąd Połączenia z Chmurą",
+    "cloud_not_connected": "Chmura - nie podłączono",
+    "delete": "Usuń",
+    "duplicate": "Duplikuj",
+    "find_item": "Znajdź element",
+    "keymap": "Skróty klawiszowe",
+    "removing_board": "Usuwanie Tablicy",
+    "rename": "Zmiana nazwy",
+    "synchronization": "Synchronizacja...",
+    "yes_remove_it": "Tak, usuń",
+    "you_are_going_to_remove": "Zamierzasz usunąć całą Tablicę"
+  },
+  "modals": {
+    "add": "Dodaj",
+    "add_new_board": "Dodaj nową tablicę",
+    "dont_bother_me": "Nie pokazuj tego więcej",
+    "download": "pobrania",
+    "duplicate": "Duplikuj",
+    "duplicate_board": "Duplikuj tablicę",
+    "find_item": "Znajdź element...",
+    "find_item_by_text": "Znajdź element po tekście...",
+    "new_board_name": "Nowa nazwa tablicy",
+    "new_version_available": "Nowa wersja Backlog-a jest dostępna do",
+    "please_provide_new_board_name": "Proszę podać nazwę nowej tablicy",
+    "rename": "Zmień nazwę",
+    "rename_board": "Zmiana nazwy Tablicy"
   },
   "newItem": {
-    "add_item": "Dodaj",
-    "add_item_to_tail": "",
-    "add_item_to_top": "",
-    "head": "",
-    "tail": ""
+    "add_item": "Dodaj element",
+    "add_item_to_tail": "Dodaj element na końcu",
+    "add_item_to_top": "Dodaj element na początku",
+    "head": "Start",
+    "tail": "Koniec"
   },
   "statusBar": {
-    "done": "",
-    "pending": ""
+    "done": "zrobione",
+    "pending": "oczekujące"
   }
 }

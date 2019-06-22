@@ -3,11 +3,11 @@
          @on-visible-change="switchFlagIfOpened"
   >
     <h3>
-      New version of Backlog is <a href="#" @click="open('http://backlog.cloud/download')">available to download.</a>
+       <a href="#" @click="open('http://backlog.cloud/download')">{{$t("modals.download")}}.</a>
     </h3>
     <div slot="footer">
-      <Button @click="cancel">Cancel</Button>
-      <Button type="ghost" @click="cancelChecking">Don't bother me anymore</Button>
+      <Button @click="cancel">{{$t("common.cancel")}}</Button>
+      <Button type="ghost" @click="cancelChecking">{{$t("modals.dont_bother_me")}}</Button>
 
     </div>
   </Modal>

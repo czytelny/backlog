@@ -1,22 +1,22 @@
 <template>
   <Modal id="duplicate-board-modal"
          :value="isVisible"
-         title="Duplicate board"
-         okText="Add"
+         :title="$t('modals.duplicate_board')"
          @on-visible-change="visibleChange"
-         cancelText="Cancel">
+  >
     <Input v-model="newBoardName"
            element-id="newBoardNameInput"
-           placeholder="New board name"
+           :placeholder="$t('modals.new_board_name')"
            @on-keyup.enter="submitBoardDuplication"
            v-focus
     />
     <div slot="footer">
-      <Button type="text" size="large" @click="closeModal">Cancel</Button>
+      <Button type="text" size="large" @click="closeModal">{{$t('common.cancel')}}</Button>
       <Button id="saveNewBoardBtn"
               type="primary"
               size="large"
-              @click="submitBoardDuplication">Duplicate
+              @click="submitBoardDuplication">
+        {{$t('modals.duplicate')}}
       </Button>
     </div>
   </Modal>
@@ -24,45 +24,45 @@
 
 <script>
   export default {
-    name: 'DuplicateBoardModal',
+    name: "DuplicateBoardModal",
     computed: {
-      isVisible () {
+      isVisible() {
         return this.$store.state.modals.duplicateBoard.isVisible;
       },
       newBoardName: {
-        set (val) {
-          this.$store.dispatch('setDuplicatedBoardName', val);
+        set(val) {
+          this.$store.dispatch("setDuplicatedBoardName", val);
         },
-        get () {
+        get() {
           return this.$store.state.modals.duplicateBoard.name;
         }
       }
     },
     methods: {
 
-      visibleChange (isVisible) {
+      visibleChange(isVisible) {
         if (!isVisible) {
           this.closeModal();
         }
       },
-      submitBoardDuplication () {
-        if (this.newBoardName.trim() === '') {
-          this.$Message.warning('Please provide new board name');
+      submitBoardDuplication() {
+        if (this.newBoardName.trim() === "") {
+          this.$Message.warning("Please provide new board name");
           return false;
         }
         this.$store
-          .dispatch('duplicateBoard', {
+          .dispatch("duplicateBoard", {
             newName: this.newBoardName.trim(),
             boardId: this.$store.state.modals.duplicateBoard.boardId
           })
           .then(() => {
             this.closeModal();
-            this.$Message.success('Board duplicated');
-            this.$store.dispatch('fetchBoards');
+            this.$Message.success("Board duplicated");
+            this.$store.dispatch("fetchBoards");
           });
       },
-      closeModal () {
-        this.$store.dispatch('hideDuplicateBoard');
+      closeModal() {
+        this.$store.dispatch("hideDuplicateBoard");
       }
 
     }

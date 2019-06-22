@@ -3,7 +3,7 @@
          @on-visible-change="visibleChange"
   >
     <div>
-      <input placeholder="Find item by text..."
+      <input :placeholder="$t('modals.find_item_by_text')"
              class="search-input"
              v-model="searchText"
              ref="searchInput"
@@ -27,11 +27,11 @@
     <div slot="header" class="header">
       <Icon type="ios-locate-outline"
             size="20"/>
-      Find item...
+      {{$t('modals.find_item')}}
     </div>
 
     <div slot="footer" class="footer">
-      <Button type="text" size="large" @click="closeModal">Close</Button>
+      <Button type="text" size="large" @click="closeModal">{{$t('common.close')}}</Button>
     </div>
   </Modal>
 </template>

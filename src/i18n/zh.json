@@ -9,6 +9,7 @@
   },
   "common": {
     "cancel": "",
+    "close": "",
     "ok": ""
   },
   "item": {
@@ -37,6 +38,21 @@
     "synchronization": "",
     "yes_remove_it": "",
     "you_are_going_to_remove": ""
+  },
+  "modals": {
+    "add": "",
+    "add_new_board": "",
+    "dont_bother_me": "",
+    "download": "",
+    "duplicate": "",
+    "duplicate_board": "",
+    "find_item": "",
+    "find_item_by_text": "",
+    "new_board_name": "",
+    "new_version_available": "",
+    "please_provide_new_board_name": "",
+    "rename": "",
+    "rename_board": ""
   },
   "newItem": {
     "add_item": "新增项目",

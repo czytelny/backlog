@@ -1,22 +1,20 @@
 <template>
   <Modal id="rename-board-modal"
          :value="isVisible"
-         title="Rename board"
-         okText="Add"
-         @on-visible-change="visibleChange"
-         cancelText="Cancel">
+         :title="$t('modals.rename_board')"
+         @on-visible-change="visibleChange">
     <Input v-model="newBoardName"
            element-id="newBoardNameInput"
-           placeholder="New board name"
+           :placeholder="$t('modals.new_board_name')"
            @on-keyup.enter="submitBoardRename"
            v-focus
     />
     <div slot="footer">
-      <Button type="text" size="large" @click="closeModal">Cancel</Button>
+      <Button type="text" size="large" @click="closeModal">{{$t('common.cancel')}}</Button>
       <Button id="saveNewBoardBtn"
               type="primary"
               size="large"
-              @click="submitBoardRename">Rename
+              @click="submitBoardRename">{{$t('modals.rename')}}
       </Button>
     </div>
   </Modal>
@@ -46,7 +44,7 @@
       },
       submitBoardRename () {
         if (this.newBoardName.trim() === '') {
-          this.$Message.warning('Please provide new board name');
+          this.$Message.warning(this.$t("modals.please_provide_new_board_name"));
           return false;
         }
         this.$store

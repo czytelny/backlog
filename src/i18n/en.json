@@ -13,7 +13,8 @@
   },
   "common": {
     "cancel": "Cancel",
-    "ok": "Ok"
+    "close": "Close",
+    "ok": "OK"
   },
   "item": {
     "created": "Created",
@@ -40,7 +41,22 @@
     "rename": "Rename",
     "synchronization": "Synchronization...",
     "yes_remove_it": "Yes, remove it",
-    "you_are_going_to_remove": "You are going to remove board"
+    "you_are_going_to_remove": "You are going to remove Board"
+  },
+  "modals": {
+    "add": "Add",
+    "add_new_board": "Add new board",
+    "dont_bother_me": "Don't bother me anymore",
+    "download": "download",
+    "duplicate": "Duplicate",
+    "duplicate_board": "Duplicate board",
+    "find_item": "Find item...",
+    "find_item_by_text": "Find item by text...",
+    "new_board_name": "New board name",
+    "new_version_available": "New version of Backlog is available to",
+    "please_provide_new_board_name": "Please provide new board name",
+    "rename": "Rename",
+    "rename_board": "Rename Board"
   },
   "newItem": {
     "add_item": "Add item",
