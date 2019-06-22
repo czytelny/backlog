@@ -3,6 +3,20 @@ import VueRouter from 'vue-router';
 import store from './store';
 import App from './App';
 import VueShortkey from 'vue-shortkey';
+import VueI18n from 'vue-i18n'
+import en from './i18n/en'
+import zh from './i18n/zh'
+import pl from './i18n/pl'
+
+const messages = {
+  en: en,
+  zh: zh,
+  pl: pl
+};
+
+Vue.use(VueI18n);
+const i18n = new VueI18n({ locale: 'en', messages });
+
 import {
   Button,
   Checkbox,
@@ -33,7 +47,6 @@ Object.defineProperties(Vue.prototype, {
     }
   }
 });
-
 Vue.use(VueShortkey);
 Vue.use(VueTextareaAutosize);
 Vue.component('Button', Button);
@@ -68,6 +81,7 @@ const router = new VueRouter({
 });
 
 new Vue({
+  i18n,
   store,
   router,
   render: h => h(App)

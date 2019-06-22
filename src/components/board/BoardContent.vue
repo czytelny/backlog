@@ -14,18 +14,18 @@
 
     <div v-if="isBoardItemsEmpty" class="info">
       <div><Icon type="ios-paper" size="48"/> </div>
-      <h1>No items on this board yet</h1>
-      <h4>Go ahead and add some!</h4>
+      <h1>{{$t("board.no_items_yet")}}</h1>
+      <h4>{{$t("board.go_and_ahead_and_add")}}</h4>
     </div>
 
     <div v-if="isAllItemsDone" class="info">
       <div><Icon type="md-done-all" size="48"/> </div>
-      <h1>Great, all items are done!</h1>
+      <h1>{{$t("board.all_items_done")}}</h1>
     </div>
 
     <div v-if="!filteredBoardItems.length && !isBoardItemsEmpty" class="info">
       <div><Icon type="ios-rainy" size="48"/> </div>
-      <h1>No results...</h1>
+      <h1>{{$t("board.no_results")}}</h1>
     </div>
 
     <div class="items-container" v-if="!isBoardItemsEmpty"

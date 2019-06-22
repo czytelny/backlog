@@ -1,0 +1,10 @@
+{
+  "board": {
+    "empty_board": "This board is empty",
+    "no_items_yet": "No items on this board yet",
+    "go_and_ahead_and_add": "Go ahead and add some!",
+    "all_items_done": "Great, all items are done!",
+    "no_results": "No results..."
+
+  }
+}
