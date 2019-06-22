@@ -5,13 +5,16 @@
 
     <DropdownMenu slot="list" class="dropdown-menu">
       <DropdownItem name="moveToTop">
-       <Icon type="ios-arrow-dropup"/>        Move to top
+       <Icon type="ios-arrow-dropup"/>
+          {{$t("item.move_to_top")}}
       </DropdownItem>
       <DropdownItem name="moveToBottom">
-        <Icon type="ios-arrow-dropdown"/>        Move to bottom
+        <Icon type="ios-arrow-dropdown"/>
+          {{$t("item.move_to_bottom")}}
       </DropdownItem>
       <DropdownItem class="delete-btn" name="remove">
-        <Icon type="ios-trash-outline"/>        Delete
+        <Icon type="ios-trash-outline"/>
+          {{$t("item.delete")}}
       </DropdownItem>
     </DropdownMenu>
   </Dropdown>
@@ -20,29 +23,29 @@
 
 <script>
   export default {
-    name: 'ActionButtons',
+    name: "ActionButtons",
     methods: {
-      handleClick (val) {
+      handleClick(val) {
         switch (val) {
-          case 'remove':
+          case "remove":
             this.remove();
             break;
-          case 'moveToTop':
+          case "moveToTop":
             this.moveToTop();
             break;
-          case 'moveToBottom':
+          case "moveToBottom":
             this.moveToBottom();
             break;
         }
       },
-      remove () {
-        this.$emit('remove');
+      remove() {
+        this.$emit("remove");
       },
-      moveToTop () {
-        this.$emit('moveToTop');
+      moveToTop() {
+        this.$emit("moveToTop");
       },
-      moveToBottom () {
-        this.$emit('moveToBottom');
+      moveToBottom() {
+        this.$emit("moveToBottom");
       }
     }
   };

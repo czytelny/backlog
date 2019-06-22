@@ -1,5 +1,31 @@
 {
   "board": {
     "no_items_yet": "No items on this board yet!!!"
+  },
+  "boardSettingsBar": {
+    "filter": "",
+    "show_done": "",
+    "show_progress": ""
+  },
+  "item": {
+    "cancel": "",
+    "created": "",
+    "days_ago": "",
+    "delete": "",
+    "enter_something": "",
+    "move_to_bottom": "",
+    "move_to_top": "",
+    "ok": ""
+  },
+  "newItem": {
+    "add_item": "Dodaj",
+    "add_item_to_tail": "",
+    "add_item_to_top": "",
+    "head": "",
+    "tail": ""
+  },
+  "statusBar": {
+    "done": "",
+    "pending": ""
   }
 }

@@ -4,7 +4,7 @@
            :id="'findItem-' + activeBoardId"
            class="findItem"
            :class="{'disabled': isDisabled}"
-           placeholder="Filter"
+           :placeholder="$t('boardSettingsBar.filter')"
            :ref="activeBoardId"
            v-shortkey="filterItemsShortcut"
            @shortkey="inputFocus()"
@@ -20,41 +20,41 @@
 </template>
 
 <script>
-  import keyShortcutMixin from './../../../keyShortcutStringMixin'
+  import keyShortcutMixin from "./../../../keyShortcutStringMixin";
 
   export default {
-    name: 'FindItem',
+    name: "FindItem",
     mixins: [keyShortcutMixin],
-    props: ['isDisabled'],
+    props: ["isDisabled"],
     computed: {
-      filterItemsShortcut () {
-        return this.$store.state.settings.keyBindings.filterItemsFocus
+      filterItemsShortcut() {
+        return this.$store.state.settings.keyBindings.filterItemsFocus;
       },
-      filterItemsShortcutString () {
-        return this.shortcutString('filterItemsFocus')
+      filterItemsShortcutString() {
+        return this.shortcutString("filterItemsFocus");
       },
       findItem: {
-        get () {
-          return this.$store.state.boards.findItem.itemText
+        get() {
+          return this.$store.state.boards.findItem.itemText;
         },
-        set (val) {
-          this.$store.dispatch('changeFindItem', val)
+        set(val) {
+          this.$store.dispatch("changeFindItem", val);
         }
       },
-      activeBoardId () {
-        return this.$store.state.boards.activeBoard.id
+      activeBoardId() {
+        return this.$store.state.boards.activeBoard.id;
       }
     },
     methods: {
-      inputFocus () {
-        document.getElementById(`findItem-${this.activeBoardId}`).focus()
+      inputFocus() {
+        document.getElementById(`findItem-${this.activeBoardId}`).focus();
       },
-      clearFilterInput () {
-        this.findItem = ''
-        this.inputFocus()
+      clearFilterInput() {
+        this.findItem = "";
+        this.inputFocus();
       }
     }
-  }
+  };
 </script>
 
 <style scoped>
@@ -103,7 +103,7 @@
     width: 95%;
   }
 
-  input.findItem.disabled{
+  input.findItem.disabled {
     background-color: #f8f8f8;
     cursor: no-drop;
   }

@@ -4,7 +4,7 @@
       <Icon type="ios-calendar-outline"/>
       <div slot="content">
         <p>{{created | simpleDate}}</p>
-        <p>Created {{daysFrom(created)}} days ago.</p>
+        <p>{{$t("item.created")}} {{daysFrom(created)}} {{$t("item.days_ago")}}.</p>
       </div>
     </Tooltip>
   </div>
@@ -12,30 +12,30 @@
 
 <script>
   export default {
-    name: 'BoardItemCalendar',
-    props: ['created'],
+    name: "BoardItemCalendar",
+    props: ["created"],
     methods: {
-      daysFrom (firstDate) {
+      daysFrom(firstDate) {
         if (!firstDate) {
-          return
+          return;
         }
-        const oneDay = 24 * 60 * 60 * 1000 // hours*minutes*seconds*milliseconds
-        const today = new Date()
-        const then = new Date(firstDate)
-        return `${Math.round(Math.abs((then.getTime() - today.getTime()) / (oneDay)))}`
+        const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+        const today = new Date();
+        const then = new Date(firstDate);
+        return `${Math.round(Math.abs((then.getTime() - today.getTime()) / (oneDay)))}`;
       }
     },
     filters: {
-      simpleDate (dateString) {
+      simpleDate(dateString) {
         if (!dateString) {
-          return
+          return;
         }
-        const date = new Date(dateString)
+        const date = new Date(dateString);
         return `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}
-                ${date.getHours()}:${(date.getMinutes() < 10 ? '0' : '')}${date.getMinutes()}`
+                ${date.getHours()}:${(date.getMinutes() < 10 ? "0" : "")}${date.getMinutes()}`;
       }
     }
-  }
+  };
 </script>
 
 <style scoped>

@@ -1,10 +1,35 @@
 {
   "board": {
-    "empty_board": "This board is empty",
-    "no_items_yet": "No items on this board yet",
-    "go_and_ahead_and_add": "Go ahead and add some!",
     "all_items_done": "Great, all items are done!",
+    "empty_board": "This board is empty",
+    "go_and_ahead_and_add": "Go ahead and add some!",
+    "no_items_yet": "No items on this board yet",
     "no_results": "No results..."
-
+  },
+  "boardSettingsBar": {
+    "filter": "Filter",
+    "show_done": "Show done",
+    "show_progress": "Show progress"
+  },
+  "item": {
+    "cancel": "Cancel",
+    "created": "Created",
+    "days_ago": "days ago",
+    "delete": "Delete",
+    "enter_something": "Enter something...",
+    "move_to_bottom": "Move to bottom",
+    "move_to_top": "Move to top",
+    "ok": "OK"
+  },
+  "newItem": {
+    "add_item": "Add item",
+    "add_item_to_tail": "Add item to tail",
+    "add_item_to_top": "Add item to top",
+    "head": "Head",
+    "tail": "Tail"
+  },
+  "statusBar": {
+    "done": "done",
+    "pending": "pending"
   }
 }

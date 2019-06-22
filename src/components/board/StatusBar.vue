@@ -6,9 +6,9 @@
               style="margin-top:8px;"
               hide-info/>
     <div slot="content">
-      <span class="done-label">{{doneItemsCount}}</span> done |
-      <span class="pending-label">{{pendingItemsCount}}</span> pending |
-      <span :class="{'done-label': progressCount === 100 }">{{progressCount}}%</span> done
+      <span class="done-label">{{doneItemsCount}}</span> {{$t('statusBar.done')}} |
+      <span class="pending-label">{{pendingItemsCount}}</span> {{$t('statusBar.pending')}} |
+      <span :class="{'done-label': progressCount === 100 }">{{progressCount}}%</span> {{$t('statusBar.done')}}
     </div>
   </Tooltip>
 </template>

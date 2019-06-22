@@ -13,7 +13,7 @@
         <input ref="mainInput"
                :id="'newItem-'+boardId"
                v-model="newItem"
-               placeholder="Add item"
+               :placeholder="$t('newItem.add_item')"
                @on-click="submitNewItem"
                v-shortkey="newItemFocusShortcut"
                @shortkey="focusOnInput"
@@ -36,13 +36,13 @@
                   size="large"
         >
           <span slot="open">
-            <Tooltip content="Add item to top">
-              Head
+            <Tooltip :content="$t('newItem.add_item_to_top')">
+              {{$t('newItem.head')}}
             </Tooltip>
           </span>
           <span slot="close">
-            <Tooltip content="Add item to tail">
-              Tail
+            <Tooltip :content="$t('newItem.add_item_to_tail')">
+             {{ $t('newItem.tail')}}
             </Tooltip>
           </span>
         </i-switch>

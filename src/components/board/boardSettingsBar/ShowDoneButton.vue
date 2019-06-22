@@ -4,7 +4,7 @@
               :disabled="isDisabled"
               size="small"
               @on-change="switchShowDone">
-      <span>Show done</span>
+      <span>{{$t('boardSettingsBar.show_done')}}</span>
     </Checkbox>
   </div>
 

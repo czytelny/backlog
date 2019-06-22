@@ -20,7 +20,7 @@
       ref="inputEdit"
       autocomplete="off"
       spellcheck="false"
-      placeholder="Enter something..."
+      :placeholder="$t('item.enter_something')"
       rows="1"
       autofocus="autofocus"
       class="ivu-input draftText animated"
@@ -38,7 +38,8 @@
             class="ok-edit-btns"
             @click="saveItem(); turnOffEditing();"
     >
-      OK <span class="shortcut">{{shortcutString('acceptItemChange')}}</span>
+      {{$t('item.ok')}}
+      <span class="shortcut">{{shortcutString('acceptItemChange')}}</span>
     </Button>
     <button v-if="isEditing"
             style="display:none;"
@@ -50,7 +51,8 @@
       style="margin-left:4px;"
       @click="turnOffEditing"
     >
-      Cancel <span class="shortcut">{{shortcutString('cancelItemChange')}}</span>
+      {{$t('item.cancel')}}
+      <span class="shortcut">{{shortcutString('cancelItemChange')}}</span>
     </Button>
     <EmojiButton class="emoji-btn" v-if="isEditing"
                  @toggleEmoji="toggleEmoji"/>
