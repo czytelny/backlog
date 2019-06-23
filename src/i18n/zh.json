@@ -1,68 +1,72 @@
 {
   "board": {
-    "no_items_yet": "此板上沒有任何物品"
+    "all_items_done": "真棒！所有项目都已完成！",
+    "empty_board": "这块板是空的，快来添加吧！",
+    "go_and_ahead_and_add": "继续添加一些！",
+    "no_items_yet": "此板上没有任何项目。",
+    "no_results": "没有结果······"
   },
   "boardSettingsBar": {
-    "filter": "",
-    "show_done": "",
-    "show_progress": ""
+    "filter": "过滤工具",
+    "show_done": "显示已完成",
+    "show_progress": "显示进度"
   },
   "common": {
-    "cancel": "",
-    "close": "",
-    "ok": ""
+    "cancel": "取消",
+    "close": "关闭",
+    "ok": "好的"
   },
   "item": {
-    "created": "",
-    "days_ago": "",
-    "delete": "",
-    "enter_something": "",
-    "move_to_bottom": "",
-    "move_to_top": ""
+    "created": "新建",
+    "days_ago": "天前",
+    "delete": "移除",
+    "enter_something": "写一些东西吧······",
+    "move_to_bottom": "移至底层",
+    "move_to_top": "移至顶层"
   },
   "menu": {
-    "add_new_board": "",
-    "all_items_will_be_deleted": "",
-    "app_settings": "",
-    "board_removed": "",
-    "boards": "",
-    "cloud_connected": "",
-    "cloud_connection_error": "",
-    "cloud_not_connected": "",
-    "delete": "",
-    "duplicate": "",
-    "find_item": "",
-    "keymap": "",
-    "removing_board": "",
-    "rename": "",
-    "synchronization": "",
-    "yes_remove_it": "",
-    "you_are_going_to_remove": ""
+    "add_new_board": "新建一个板",
+    "all_items_will_be_deleted": "所有项目都将被删除，你确定吗？它们将消失很久······",
+    "app_settings": "软件设置",
+    "board_removed": "移除此板",
+    "boards": "选项卡",
+    "cloud_connected": "云连接",
+    "cloud_connection_error": "云连接错误",
+    "cloud_not_connected": "云未连接",
+    "delete": "移除",
+    "duplicate": "重复",
+    "find_item": "查找项目",
+    "keymap": "键位",
+    "removing_board": "移除此板",
+    "rename": "重命名",
+    "synchronization": "同步",
+    "yes_remove_it": "我想好了，删除它！",
+    "you_are_going_to_remove": "你将要移除此版"
   },
   "modals": {
-    "add": "",
-    "add_new_board": "",
-    "dont_bother_me": "",
-    "download": "",
-    "duplicate": "",
-    "duplicate_board": "",
-    "find_item": "",
-    "find_item_by_text": "",
-    "new_board_name": "",
-    "new_version_available": "",
-    "please_provide_new_board_name": "",
-    "rename": "",
-    "rename_board": ""
+    "add": "添加",
+    "add_new_board": "添加新板",
+    "dont_bother_me": "别再打扰我了",
+    "download": "下载",
+    "duplicate": "复制",
+    "duplicate_board": "复制",
+    "find_item": "查找项目······",
+    "find_item_by_text": "按文字查找项目······",
+    "new_board_name": "新的板的名字",
+    "new_version_available": "新版Backlog可用于",
+    "please_provide_new_board_name": "请提供新版的名字",
+    "rename": "重命名",
+    "rename_board": "重命名板"
   },
   "newItem": {
-    "add_item": "新增项目",
-    "add_item_to_tail": "",
-    "add_item_to_top": "",
-    "head": "",
-    "tail": ""
+    "add_item": "添加项目",
+    "add_item_to_tail": "将项目添加到尾部",
+    "add_item_to_top": "将项目添加到顶部",
+    "head": "顶部",
+    "tail": "尾部"
   },
   "statusBar": {
-    "done": "",
-    "pending": ""
+    "done": "已完成",
+    "pending": "待做"
   }
 }
