@@ -3,7 +3,7 @@
     <td class="capturing" v-if="keyCapturing">
       <div v-if="mappedCombination.length === 0">
         <Icon type="ios-radio-button-on" size="15"/>
-        Recording...
+        {{$t("modals.recording")}}
       </div>
       <div v-else>
         <span v-for="(k, index) in mappedCombination"

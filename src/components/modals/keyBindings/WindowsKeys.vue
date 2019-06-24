@@ -1,62 +1,64 @@
 <template>
   <div>
-    <h1 style="margin-top:0;">Boards</h1>
+    <h1 style="margin-top:0;">{{$t("modals.boards")}}</h1>
     <table>
       <thead>
       <tr>
-        <td>Shortcut</td>
-        <td>Action</td>
+        <td>{{$t("modals.shortcut")}}</td>
+        <td>{{$t("modals.action")}}</td>
       </tr>
       </thead>
       <tbody>
       <KeyBinding id="addNewBoard"
-                  name="Create New Board Modal"
+                  :name="$t('modals.create_new_board_modal')"
                   :keys="addNewBoardShortcutWin"/>
-      <KeyBinding name="Switch to the next board"
+      <KeyBinding :name="$t('modals.switch_to_next_board')"
                   id="nextTab"
                   :keys="nextBoardShortcutWin"/>
-      <KeyBinding name="Switch to the previous board"
+      <KeyBinding :name="$t('modals.switch_to_prev_board')"
                   id="prevTab"
                   :keys="prevBoardShortcutWin"/>
       </tbody>
     </table>
 
-    <h1>Items</h1>
+    <h1>
+      {{$t("modals.items")}}
+    </h1>
     <table>
       <thead>
       <tr>
-        <td>Shortcut</td>
-        <td>Action</td>
+        <td>{{$t("modals.shortcut")}}</td>
+        <td>{{$t("modals.action")}}</td>
       </tr>
       </thead>
       <tbody>
-      <KeyBinding name="Bring focus to 'Add New Item' field"
+      <KeyBinding :name="$t('modals.bring_focus_to_add_item')"
                   id="newItemFocus"
                   :keys="newItemFocusWin"/>
-      <KeyBinding name="Bring focus to 'Filter items' field"
+      <KeyBinding :name="$t('modals.bring_focus_to_filter_items')"
                   id="filterItemsFocus"
                   :keys="filterItemsFocusWin"/>
-      <KeyBinding name="Find item"
+      <KeyBinding :name="$t('modals.find_item')"
                   id="showFindItem"
                   :keys="showFindItemWin"/>
-      <KeyBinding name="Accept Editing Item"
+      <KeyBinding :name="$t('modals.accept_editing_item')"
                   id="acceptItemChange"
                   :keys="acceptItemChange"/>
       </tbody>
     </table>
 
-    <h1>Misc</h1>
+    <h1>{{$t('modals.misc')}}</h1>
     <table>
       <thead>
       <tr>
-        <td>Shortcut</td>
-        <td>Action</td>
+        <td>{{$t('modals.shortcut')}}</td>
+        <td>{{$t('modals.action')}}</td>
       </tr>
       </thead>
       <tbody>
 
       <KeyBinding id="showKeymap"
-                  name="Show keymap window"
+                  :name="$t('modals.show_keymap_window')"
                   :keys="showKeymapShortcutWin"/>
       </tbody>
     </table>
@@ -64,37 +66,37 @@
 </template>
 
 <script>
-  import KeyBinding from './KeyBinding';
+  import KeyBinding from "./KeyBinding";
 
   export default {
-    name: 'WindowsKeys',
+    name: "WindowsKeys",
     components: {KeyBinding},
     computed: {
-      showFindItemWin () {
+      showFindItemWin() {
         return this.$store.state.settings.keyBindings.showFindItem.win;
       },
-      showKeymapShortcutWin () {
+      showKeymapShortcutWin() {
         return this.$store.state.settings.keyBindings.showKeymap.win;
       },
-      addNewBoardShortcutWin () {
+      addNewBoardShortcutWin() {
         return this.$store.state.settings.keyBindings.addNewBoard.win;
       },
-      nextBoardShortcutWin () {
+      nextBoardShortcutWin() {
         return this.$store.state.settings.keyBindings.nextTab.win;
       },
-      prevBoardShortcutWin () {
+      prevBoardShortcutWin() {
         return this.$store.state.settings.keyBindings.prevTab.win;
       },
-      newItemFocusWin () {
+      newItemFocusWin() {
         return this.$store.state.settings.keyBindings.newItemFocus.win;
       },
-      filterItemsFocusWin () {
+      filterItemsFocusWin() {
         return this.$store.state.settings.keyBindings.filterItemsFocus.win;
       },
-      acceptItemChange () {
+      acceptItemChange() {
         return this.$store.state.settings.keyBindings.acceptItemChange.win;
       },
-      showEmojiWin () {
+      showEmojiWin() {
         return this.$store.state.settings.keyBindings.showEmoji.win;
       }
     }

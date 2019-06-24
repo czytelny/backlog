@@ -27,7 +27,7 @@
     <div slot="header" class="header">
       <Icon type="ios-locate-outline"
             size="20"/>
-      {{$t('modals.find_item')}}
+      {{$t('modals.find_item')}}...
     </div>
 
     <div slot="footer" class="footer">

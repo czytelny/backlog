@@ -1,7 +1,7 @@
 <template>
   <Modal id="keymap-modal"
          :value="isVisible"
-         title="Key Bindings"
+         :title="$t('modals.key_bindings')"
          @on-visible-change="visibleChange"
   >
     <div class="keymap">
@@ -9,8 +9,8 @@
       <MacKeys v-if="isMac"/>
     </div>
     <div slot="footer">
-      <Button type="text" @click="resetToDefaults">Reset to defaults</Button>
-      <Button size="large" @click="closeModal">Close</Button>
+      <Button type="text" @click="resetToDefaults">{{$t('modals.reset_to_defaults')}}</Button>
+      <Button size="large" @click="closeModal">{{$t("common.close")}}</Button>
     </div>
   </Modal>
 </template>
@@ -42,12 +42,12 @@
     methods: {
       resetToDefaults () {
         this.$Modal.confirm({
-          title: `Reset key bindings to defaults`,
-          okText: 'Reset',
-          cancelText: 'Cancel',
+          title: this.$t('modals.resetConfirm'),
+          okText: this.$t('modals.reset'),
+          cancelText: this.$t('common.cancel'),
           closable: true,
-          content: `<p>You are going to reset key bindings to default values.</p>
-                    <p>Are you sure you want to continue?</p>`,
+          content: `<p>${this.$t('modals.you_are_going_to_reset')}</p>
+                    <p>${this.$t('modals.are_you_sure')}</p>`,
           onOk: () => {
             this.$store.dispatch('resetKeyBindings');
             this.$store.dispatch('fetchSettings');

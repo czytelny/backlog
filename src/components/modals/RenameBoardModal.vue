@@ -54,7 +54,7 @@
           })
           .then(() => {
             this.closeModal();
-            this.$Message.success('Board renamed');
+            this.$Message.success(this.$t("modals.board_renamed"));
             this.$store.dispatch('fetchBoards');
           });
       },

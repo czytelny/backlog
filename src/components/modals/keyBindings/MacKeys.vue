@@ -1,61 +1,63 @@
 <template>
   <div>
-    <h1 style="margin-top:-16px;">Boards</h1>
+    <h1 style="margin-top:-16px;">{{$t("modals.boards")}}</h1>
     <table>
       <thead>
       <tr>
-        <td>Shortcut</td>
-        <td>Action</td>
+        <td>{{$t("modals.shortcut")}}</td>
+        <td>{{$t("modals.action")}}</td>
       </tr>
       </thead>
       <tbody>
       <KeyBinding id="addNewBoard"
-                  name="Create New Board Modal"
+                  :name="$t('modals.create_new_board_modal')"
                   :keys="addNewBoardShortcutMac"/>
-      <KeyBinding name="Switch to the next board"
+      <KeyBinding :name="$t('modals.switch_to_next_board')"
                   id="nextTab"
                   :keys="nextBoardShortcutMac"/>
-      <KeyBinding name="Switch to the previous board"
+      <KeyBinding :name="$t('modals.switch_to_prev_board')"
                   id="prevTab"
                   :keys="prevBoardShortcutMac"/>
       </tbody>
     </table>
 
-    <h1>Items</h1>
+    <h1>
+      {{$t("modals.items")}}
+    </h1>
     <table>
       <thead>
       <tr>
-        <td>Shortcut</td>
-        <td>Action</td>
+        <td>{{$t("modals.shortcut")}}</td>
+        <td>{{$t("modals.action")}}</td>
       </tr>
       </thead>
       <tbody>
-      <KeyBinding name="Bring focus to 'Add New Item' field"
+      <KeyBinding :name="$t('modals.bring_focus_to_add_item')"
                   id="newItemFocus"
                   :keys="newItemFocusMac"/>
-      <KeyBinding name="Bring focus to 'Filter items' field"
+      <KeyBinding :name="$t('modals.bring_focus_to_filter_items')"
                   id="filterItemsFocus"
                   :keys="filterItemsFocusMac"/>
-      <KeyBinding name="Find item"
+      <KeyBinding :name="$t('modals.find_item')"
                   id="showFindItem"
                   :keys="showFindItemMac"/>
-      <KeyBinding name="Accept Editing Item"
+      <KeyBinding :name="$t('modals.accept_editing_item')"
                   id="acceptItemChange"
                   :keys="acceptItemChange"/>
       </tbody>
     </table>
 
-    <h1>Misc</h1>
+    <h1>{{$t('modals.misc')}}</h1>
     <table>
       <thead>
       <tr>
-        <td>Shortcut</td>
-        <td>Action</td>
+        <td>{{$t('modals.shortcut')}}</td>
+        <td>{{$t('modals.action')}}</td>
       </tr>
       </thead>
       <tbody>
       <KeyBinding id="showKeymap"
-                  name="Show keymap window"
+                  :name="$t('modals.show_keymap_window')"
                   :keys="showKeymapShortcutMac"/>
       </tbody>
     </table>
