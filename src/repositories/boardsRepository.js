@@ -248,6 +248,9 @@ export default {
     if (!item) {
       return;
     }
+    item.assign({
+      updated: new Date()
+    });
     const srcItems = [...items.slice(0, index), ...items.slice(index + 1, items.length)];
     dstItems.push(item);
     this.saveItemsArray(srcBoardId, srcItems);
@@ -263,6 +266,9 @@ export default {
 
     const index = items.findIndex((item) => item.id === itemId);
     const item = items.splice(index, 1)[0];
+    item.assign({
+      updated: new Date()
+    });
     items.push(item);
 
     this.saveItemsArray(boardId, items);
@@ -277,6 +283,9 @@ export default {
 
     const index = items.findIndex((item) => item.id === itemId);
     const item = items.splice(index, 1)[0];
+    item.assign({
+      updated: new Date()
+    });
     items.unshift(item);
 
     this.saveItemsArray(boardId, items);

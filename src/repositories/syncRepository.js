@@ -16,7 +16,13 @@ db.defaults({
 
 
 export default {
+  isSync() {
+    return db.get("appSettings.token").value().length;
+  },
   addAllToSyncQueue(oldBoards, newBoards) {
+    if (!this.isSync()) {
+      return;
+    }
     const delta = jsDiff.diff(oldBoards, newBoards);
     return db
       .get("syncQueue")
@@ -26,6 +32,9 @@ export default {
       .write();
   },
   addToSyncQueue(oldBoardVal, newBoardVal) {
+    if (!this.isSync()) {
+      return;
+    }
     const delta = jsDiff.diff(oldBoardVal, newBoardVal);
     if (delta) {
       return db

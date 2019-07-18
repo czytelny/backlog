@@ -12,7 +12,10 @@ export default {
     board
       .get("items")
       .find({id: itemId})
-      .assign({text: itemVal})
+      .assign({
+        text: itemVal,
+        updated: new Date()
+      })
       .write();
     const newBoardVal = board.cloneDeep().value();
     syncRepository.addToSyncQueue(oldBoardVal, newBoardVal);
@@ -39,7 +42,10 @@ export default {
     const res = board
       .get("items")
       .find({id: itemId})
-      .assign({isDone: value})
+      .assign({
+        isDone: value,
+        updated: new Date()
+      })
       .write();
     const newBoardVal = board.cloneDeep().value();
     syncRepository.addToSyncQueue(oldBoardVal, newBoardVal);
