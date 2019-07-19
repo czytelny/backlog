@@ -2,7 +2,6 @@
   <div class="menu-title-row">
     <span class="uppercase">{{$t("menu.boards")}}</span>
     <Tooltip :content="newBoardShortcutString"
-             class="add-icon-container"
              placement="bottom"
              :transfer="true">
       <Icon type="ios-add"
@@ -14,7 +13,7 @@
              class="add-icon-container"
              placement="bottom"
              :transfer="true">
-      <Icon type="ios-locate-outline"
+      <Icon type="ios-search"
             size="18"
             class="add-icon"
             @click="showFindItemModal"/>

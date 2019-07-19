@@ -100,10 +100,13 @@
     -ms-transition: all .3s;
     -o-transition: all .3s;
     transition: all .3s;
-    margin: 12px 0;
+    margin: 10px 0;
     line-height: 1em;
     position: relative;
-    border-bottom:1px solid rgba(17, 21, 25, 0.06);
+  }
+
+  .board-row:hover {
+    padding: 0 8px;
   }
 
   .board-row.draggingItem {
@@ -127,6 +130,9 @@
   a.router-link-active {
     font-weight: bold;
     color: #58BB73;
+  }
+  a.router-link-active .board-row {
+    padding-left: 8px;
   }
 
   a.router-link-active .progress {
