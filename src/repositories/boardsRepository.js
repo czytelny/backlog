@@ -30,8 +30,10 @@ export default {
       id: shortid.generate(),
       isDone: false,
       created: new Date(),
+      updated: new Date(),
       text
     };
+    board.assign({"updated": new Date()}).write();
     const oldBoardVal = board.cloneDeep().value();
     board
       .get("items")
@@ -45,6 +47,7 @@ export default {
     const board = db
       .get("boards")
       .find({id: boardId});
+    board.assign({"updated": new Date()}).write();
 
     const oldBoardVal = board.cloneDeep().value();
     const writeAction = board
@@ -52,6 +55,7 @@ export default {
       .insert({
         isDone: isDone || false,
         created: created || new Date(),
+        updated: new Date(),
         text
       })
       .write();
@@ -69,7 +73,9 @@ export default {
         showDone: false,
         showProgress: false,
         prependNewItem: defaults.prependNewItems,
-        items: []
+        items: [],
+        updated: new Date(),
+        created: new Date()
       })
       .write();
     const newBoardsVal = boards.cloneDeep().value();
@@ -314,6 +320,9 @@ export default {
   saveBoardsArray(boardsArray, syncSource) {
     const boards = db.get("boards");
     const oldBoardsVal = boards.cloneDeep().value();
+    boardsArray.forEach((board)=>{
+      board.updated = new Date();
+    });
     const res = db
       .set("boards", boardsArray)
       .write();

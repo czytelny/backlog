@@ -37,7 +37,6 @@ export default {
           } else {
             this.$store.dispatch("setSyncError", `[${cloudSettings.boardsUrl(username)}] - ${err}`);
           }
-
         })
         .finally(() => {
           this.$store.dispatch("setIsSyncing", false);

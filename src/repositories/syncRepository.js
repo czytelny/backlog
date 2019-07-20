@@ -27,7 +27,8 @@ export default {
     return db
       .get("syncQueue")
       .push({
-        delta
+        delta,
+        update: new Date(),
       })
       .write();
   },
@@ -41,6 +42,7 @@ export default {
         .get("syncQueue")
         .push({
           boardId: oldBoardVal.id,
+          update: new Date(),
           delta
         })
         .write();

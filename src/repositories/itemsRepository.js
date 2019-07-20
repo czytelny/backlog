@@ -8,6 +8,7 @@ export default {
       .get("boards")
       .find({id: boardId});
 
+    board.assign({"updated": new Date()}).write();
     const oldBoardVal = board.cloneDeep().value();
     board
       .get("items")
@@ -25,6 +26,7 @@ export default {
       .get("boards")
       .find({id: boardId});
 
+    board.assign({"updated": new Date()}).write();
     const oldBoardVal = board.cloneDeep().value();
     board
       .get("items")
@@ -37,6 +39,8 @@ export default {
     const board = db
       .get("boards")
       .find({id: boardId});
+
+    board.assign({"updated": new Date()}).write();
     const oldBoardVal = board.cloneDeep().value();
 
     const res = board
