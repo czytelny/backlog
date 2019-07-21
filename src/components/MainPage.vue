@@ -27,9 +27,12 @@
   import KeyMapModal from "./modals/keyBindings/KeyMapModal";
   import DuplicateBoardModal from "./modals/DuplicateBoardModal";
   import CloudModal from "./modals/CloudModal";
+  import cloudMixin from "./../cloudMixin";
+
 
   export default {
     name: "MainPage",
+    mixins: [cloudMixin],
     components: {
       CloudModal,
       DuplicateBoardModal,
@@ -43,11 +46,7 @@
       // this.versionCheck()
       this.$store.dispatch("fetchBoards");
       if (this.$store.state.settings.token) {
-        this.$store.dispatch("syncGetBoards", {
-          username: this.$store.state.settings.username,
-          token: this.$store.state.settings.token,
-          rawBoards: this.$store.state.boards.rawBoards
-        });
+        this.initialSyncBoards()
       }
       this.$store.dispatch("fetchActiveBoard");
       this.$router.push({path: `/board/${this.activeBoardId}`});

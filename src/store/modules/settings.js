@@ -38,6 +38,7 @@ const actions = {
     const settings = settingsRepository.getAppSettings();
     commit("SET_CLOUD_TOKEN", settings.token);
     commit("SET_CLOUD_USER", settings.username);
+    commit("SET_CLOUD_LAST_SYNC", settings.lastSync);
     commit("SET_SETTINGS", settings);
   },
   setDbLocation({commit}, dbLocation) {

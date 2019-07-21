@@ -6,7 +6,8 @@ const state = {
   syncError: false,
   syncInProgress: false,
   token: "",
-  username: ""
+  username: "",
+  lastSync: ""
 };
 
 const mutations = {
@@ -18,6 +19,9 @@ const mutations = {
   },
   SET_CLOUD_USER(state, val) {
     state.username = val;
+  },
+  SET_CLOUD_LAST_SYNC(state, val) {
+    state.lastSync = val;
   },
   SET_SYNC_IN_PROGRESS(state, val) {
     state.syncInProgress = val;

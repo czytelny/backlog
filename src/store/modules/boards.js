@@ -162,15 +162,9 @@ const actions = {
     dispatch("fetchBoards");
     dispatch("fetchRawBoards");
   },
-  syncGetBoards({dispatch, rootState}, {username, rawBoards, token}){
-    syncRepository.getBoards(username, rawBoards, token)
-      .then(({data})=>{
-        boardsRepository.saveBoardsArray(data, true);
-        dispatch("fetchBoards");
-        dispatch("fetchRawBoards");
-        dispatch("fetchBoardItems", rootState.boards.activeBoard.id);
-        syncRepository.tryConsumeQueue(rootState.settings.username, rootState.settings.token)
-      })
+  updateLastSync({commit}, syncDate) {
+    commit("SET_CLOUD_LAST_SYNC", syncDate);
+    syncRepository.updateLastSync(syncDate);
   }
 };
 

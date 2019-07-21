@@ -19,18 +19,18 @@ export default {
   isSync() {
     return db.get("appSettings.token").value().length;
   },
-  addAllToSyncQueue(oldBoards, newBoards) {
-    if (!this.isSync()) {
-      return;
-    }
-    const delta = jsDiff.diff(oldBoards, newBoards);
-    return db
-      .get("syncQueue")
-      .push({
-        delta,
-        update: new Date(),
-      })
-      .write();
+  addAllToSyncQueue() {
+    // if (!this.isSync()) {
+    //   return;
+    // }
+    // const delta = jsDiff.diff(oldBoards, newBoards);
+    // return db
+    //   .get("syncQueue")
+    //   .push({
+    //     delta,
+    //     update: new Date()
+    //   })
+    //   .write();
   },
   addToSyncQueue(oldBoardVal, newBoardVal) {
     if (!this.isSync()) {
@@ -56,11 +56,11 @@ export default {
       headers: {"Authorization": `JWT ${token}`}
     });
   },
-  initialSync(username, rawBoards, token) {
+  initialSync(username, rawBoards, token, lastSync) {
     return axios({
       method: "post",
       url: cloudSettings.boardsUrl(username),
-      data: {boards: rawBoards},
+      data: {boards: rawBoards, lastSync},
       headers: {"Authorization": `JWT ${token}`}
     });
   },
@@ -75,39 +75,42 @@ export default {
       .remove()
       .write();
   },
+  updateLastSync(syncDate) {
+    db.get("appSettings").assign({"lastSync": syncDate}).write();
+  },
   tryConsumeQueue(username, token) {
     if (!username || !token) {
       return;
     }
-    const syncQueue = db.get("syncQueue");
-    const queue = syncQueue.value();
-    if (!queue || queue.length === 0) {
-      return;
-    }
-    const firstElement = syncQueue.shift().value();
-    if (firstElement.boardId) {
-      axios({
-        method: "put",
-        url: cloudSettings.boardPatchUrl(firstElement.boardId, username),
-        data: {delta: firstElement.delta},
-        headers: {"Authorization": `JWT ${token}`}
-      })
-        .then(() => {
-          syncQueue.write();
-          this.tryConsumeQueue(username, token);
-        });
-    } else {
-      axios({
-        method: "put",
-        url: cloudSettings.boardsUrl(username),
-        data: {delta: firstElement.delta},
-        headers: {"Authorization": `JWT ${token}`}
-      })
-        .then(() => {
-          db.get("syncQueue").set(queue).write();
-          this.tryConsumeQueue(username, token);
-        });
-
-    }
+    // const syncQueue = db.get("syncQueue");
+    // const queue = syncQueue.value();
+    // if (!queue || queue.length === 0) {
+    //   return;
+    // }
+    // const firstElement = syncQueue.shift().value();
+    // if (firstElement.boardId) {
+    //   axios({
+    //     method: "put",
+    //     url: cloudSettings.boardPatchUrl(firstElement.boardId, username),
+    //     data: {delta: firstElement.delta},
+    //     headers: {"Authorization": `JWT ${token}`}
+    //   })
+    //     .then(() => {
+    //       syncQueue.write();
+    //       this.tryConsumeQueue(username, token);
+    //     });
+    // } else {
+    //   axios({
+    //     method: "put",
+    //     url: cloudSettings.boardsUrl(username),
+    //     data: {delta: firstElement.delta},
+    //     headers: {"Authorization": `JWT ${token}`}
+    //   })
+    //     .then(() => {
+    //       db.get("syncQueue").set(queue).write();
+    //       this.tryConsumeQueue(username, token);
+    //     });
+    //
+    // }
   }
 };

@@ -23,12 +23,16 @@ export default {
     initialSyncBoards() {
       const username = this.$store.state.cloud.username;
       this.$store.dispatch("setIsSyncing", true);
-      syncRepository.initialSync(username, this.$store.state.boards.rawBoards, this.$store.state.cloud.token)
+      this.$store.dispatch("resetSyncQueue");
+      syncRepository.initialSync(username,
+        this.$store.state.boards.rawBoards,
+        this.$store.state.cloud.token,
+        this.$store.state.cloud.lastSync)
         .then(({data}) => {
           this.$Message.success("Synchronization success");
-          this.$store.dispatch("syncBoardsDone", data);
+          this.$store.dispatch("syncBoardsDone", data.boards);
           this.$store.dispatch("clearSyncError");
-          console.log(data);
+          this.$store.dispatch("updateLastSync", data.lastSyncDate);
         })
         .catch((err) => {
           this.$Message.error("Synchronization error");

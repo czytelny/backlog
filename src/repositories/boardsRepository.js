@@ -31,6 +31,7 @@ export default {
       isDone: false,
       created: new Date(),
       updated: new Date(),
+      offline: true,
       text
     };
     board.assign({"updated": new Date()}).write();
@@ -56,6 +57,7 @@ export default {
         isDone: isDone || false,
         created: created || new Date(),
         updated: new Date(),
+        offline: true,
         text
       })
       .write();
@@ -75,7 +77,8 @@ export default {
         prependNewItem: defaults.prependNewItems,
         items: [],
         updated: new Date(),
-        created: new Date()
+        created: new Date(),
+        offline: true,
       })
       .write();
     const newBoardsVal = boards.cloneDeep().value();
@@ -117,7 +120,8 @@ export default {
         showDone: false,
         showProgress: false,
         prependNewItem: false,
-        items
+        items,
+        offline: true,
       })
       .write();
 
@@ -310,7 +314,7 @@ export default {
     const boards = db.get("boards");
     const oldBoardsVal = boards.cloneDeep().value();
     const res = boards
-      .updateById(boardId, {label: value})
+      .updateById(boardId, {label: value, updated: new Date()})
       .write();
 
     const newBoardsVal = boards.cloneDeep().value();
