@@ -51,32 +51,25 @@ const mutations = {
 };
 
 const actions = {
-  addItem({state, rootState}, {boardId, newItem}) {
+  addItem({state}, {boardId, newItem}) {
     const activeBoard = state.boardsList.find((board) => board.id === boardId);
     if (activeBoard.prependNewItem === true) {
-      const res = boardsRepository.addItemToBegin(boardId, newItem);
-      syncRepository.tryConsumeQueue(rootState.settings.username, rootState.settings.token);
-      return res;
+      return boardsRepository.addItemToBegin(boardId, newItem);
     } else {
-      const res = boardsRepository.addItemToEnd(boardId, newItem);
-      syncRepository.tryConsumeQueue(rootState.settings.username, rootState.settings.token);
-      return res;
+      return boardsRepository.addItemToEnd(boardId, newItem);
     }
   },
-  changeBoardsOrder({rootState}, moved) {
+  changeBoardsOrder(context, moved) {
     boardsRepository.changeBoardsOrder(moved);
-    syncRepository.tryConsumeQueue(rootState.settings.username, rootState.settings.token);
   },
   changeFindItem({commit}, val) {
     commit("SET_FIND_ITEM_TEXT", val);
   },
-  changeIsDone({rootState}, {boardId, itemId, newVal}) {
+  changeIsDone(context, {boardId, itemId, newVal}) {
     itemsRepository.switchIsDone(boardId, itemId, newVal);
-    syncRepository.tryConsumeQueue(rootState.settings.username, rootState.settings.token);
   },
-  changeItemVal({rootState}, {boardId, itemId, newVal}) {
+  changeItemVal(context, {boardId, itemId, newVal}) {
     itemsRepository.changeItemValue(boardId, itemId, newVal);
-    syncRepository.tryConsumeQueue(rootState.settings.username, rootState.settings.token);
   },
   fetchActiveBoard({commit}) {
     const board = boardsRepository.getBoardById(boardsRepository.getActiveBoard());
@@ -91,41 +84,33 @@ const actions = {
   fetchRawBoards({commit}) {
     commit("SET_RAW_BOARDS", boardsRepository.getRawBoards());
   },
-  itemsOrderChanged({rootState}, {moved, boardId}) {
+  itemsOrderChanged(context, {moved, boardId}) {
     boardsRepository.changeItemsOrder(boardId, moved);
-    syncRepository.tryConsumeQueue(rootState.settings.username, rootState.settings.token);
   },
-  moveItemToBoard({commit, rootState}, {srcBoardId, dstBoardId, itemId}) {
+  moveItemToBoard({commit}, {srcBoardId, dstBoardId, itemId}) {
     boardsRepository.moveItemToBoard(srcBoardId, dstBoardId, itemId);
     actions.fetchBoards({commit});
-    syncRepository.tryConsumeQueue(rootState.settings.username, rootState.settings.token);
   },
-  moveItemToBottom({rootState}, {boardId, itemId}) {
+  moveItemToBottom(context, {boardId, itemId}) {
     boardsRepository.moveItemToBottom(boardId, itemId);
-    syncRepository.tryConsumeQueue(rootState.settings.username, rootState.settings.token);
   },
-  moveItemToTop({rootState}, {boardId, itemId}) {
+  moveItemToTop(context, {boardId, itemId}) {
     boardsRepository.moveItemToTop(boardId, itemId);
-    syncRepository.tryConsumeQueue(rootState.settings.username, rootState.settings.token);
   },
-  removeBoard({rootState}, boardId) {
+  removeBoard(context, boardId) {
     boardsRepository.removeBoard(boardId);
-    syncRepository.tryConsumeQueue(rootState.settings.username, rootState.settings.token);
   },
-  removeItem({commit, rootState}, {boardId, itemId}) {
+  removeItem({commit}, {boardId, itemId}) {
     itemsRepository.removeItem(boardId, itemId);
     actions.fetchBoards({commit});
-    syncRepository.tryConsumeQueue(rootState.settings.username, rootState.settings.token);
   },
-  renameBoard({rootState}, {boardId, newName}) {
+  renameBoard(context, {boardId, newName}) {
     boardsRepository.renameBoard(boardId, newName);
-    syncRepository.tryConsumeQueue(rootState.settings.username, rootState.settings.token);
   },
   saveNewBoard({commit, rootState}, boardName) {
     const savedBoard = boardsRepository.addNewBoard(boardName, rootState.settings);
     actions.fetchBoards({commit});
     commit("SET_ACTIVE_BOARD", savedBoard);
-    syncRepository.tryConsumeQueue(rootState.settings.username, rootState.settings.token);
     return savedBoard.id;
   },
   setActiveBoard({commit}, boardId) {
@@ -142,20 +127,17 @@ const actions = {
   setIsSubmittingNewItem({commit}, val) {
     commit("SET_IS_SUBMITTING_NEW_ITEM", val);
   },
-  switchPrependNewItem({commit, rootState}, {boardId, prependNewItem}) {
+  switchPrependNewItem({commit}, {boardId, prependNewItem}) {
     itemsRepository.switchPrependNewItem(boardId, prependNewItem);
     commit("SWITCH_PREPEND_NEW_ITEM", {boardId, prependNewItem});
-    syncRepository.tryConsumeQueue(rootState.settings.username, rootState.settings.token);
   },
-  switchShowDone({commit, rootState}, {boardId, showDone}) {
+  switchShowDone({commit}, {boardId, showDone}) {
     boardsRepository.switchShowDone(boardId, showDone);
     commit("SWITCH_SHOW_DONE", {boardId, showDone});
-    syncRepository.tryConsumeQueue(rootState.settings.username, rootState.settings.token);
   },
-  switchShowProgress({commit, rootState}, {boardId, val}) {
+  switchShowProgress({commit}, {boardId, val}) {
     itemsRepository.switchShowProgress(boardId, val);
     commit("SWITCH_SHOW_PROGRESS", val);
-    syncRepository.tryConsumeQueue(rootState.settings.username, rootState.settings.token);
   },
   syncBoardsDone({dispatch}, boards) {
     boardsRepository.saveBoardsArray(boards);

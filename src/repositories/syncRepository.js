@@ -19,18 +19,18 @@ export default {
   isSync() {
     return db.get("appSettings.token").value().length;
   },
-  addAllToSyncQueue() {
-    // if (!this.isSync()) {
-    //   return;
-    // }
-    // const delta = jsDiff.diff(oldBoards, newBoards);
-    // return db
-    //   .get("syncQueue")
-    //   .push({
-    //     delta,
-    //     update: new Date()
-    //   })
-    //   .write();
+  addAllToSyncQueue(oldBoards, newBoards) {
+    if (!this.isSync()) {
+      return;
+    }
+    const delta = jsDiff.diff(oldBoards, newBoards);
+    return db
+      .get("syncQueue")
+      .push({
+        delta,
+        update: new Date()
+      })
+      .write();
   },
   addToSyncQueue(oldBoardVal, newBoardVal) {
     if (!this.isSync()) {
@@ -47,14 +47,6 @@ export default {
         })
         .write();
     }
-  },
-  getBoards(username, rawBoards, token) {
-    return axios({
-      method: "post",
-      url: cloudSettings.boardsSyncGetUrl(username),
-      data: {boards: rawBoards},
-      headers: {"Authorization": `JWT ${token}`}
-    });
   },
   initialSync(username, rawBoards, token, lastSync) {
     return axios({
@@ -78,39 +70,21 @@ export default {
   updateLastSync(syncDate) {
     db.get("appSettings").assign({"lastSync": syncDate}).write();
   },
-  tryConsumeQueue(username, token) {
+  patchSync(username, token, lastSync) {
     if (!username || !token) {
       return;
     }
-    // const syncQueue = db.get("syncQueue");
-    // const queue = syncQueue.value();
-    // if (!queue || queue.length === 0) {
-    //   return;
-    // }
-    // const firstElement = syncQueue.shift().value();
-    // if (firstElement.boardId) {
-    //   axios({
-    //     method: "put",
-    //     url: cloudSettings.boardPatchUrl(firstElement.boardId, username),
-    //     data: {delta: firstElement.delta},
-    //     headers: {"Authorization": `JWT ${token}`}
-    //   })
-    //     .then(() => {
-    //       syncQueue.write();
-    //       this.tryConsumeQueue(username, token);
-    //     });
-    // } else {
-    //   axios({
-    //     method: "put",
-    //     url: cloudSettings.boardsUrl(username),
-    //     data: {delta: firstElement.delta},
-    //     headers: {"Authorization": `JWT ${token}`}
-    //   })
-    //     .then(() => {
-    //       db.get("syncQueue").set(queue).write();
-    //       this.tryConsumeQueue(username, token);
-    //     });
-    //
-    // }
+    const queue = db.get("syncQueue").value();
+
+    if (!queue || queue.length === 0) {
+      return;
+    }
+
+    return axios({
+      method: "post",
+      url: cloudSettings.boardPatchUrl(username),
+      data: {queue, lastSync},
+      headers: {"Authorization": `JWT ${token}`}
+    });
   }
 };
