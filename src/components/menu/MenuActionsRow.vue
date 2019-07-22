@@ -84,7 +84,7 @@
         return this.$store.state.cloud.syncInProgress;
       },
       connectionError() {
-        return this.$store.state.cloud.connectionError;
+        return this.$store.state.cloud.connectionError || this.$store.state.cloud.syncError;
       },
       hasToken() {
         return !!this.$store.state.cloud.token;

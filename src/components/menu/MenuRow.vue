@@ -106,7 +106,7 @@
   }
 
   .board-row:hover {
-    padding: 0 8px;
+    padding: 0 4px;
   }
 
   .board-row.draggingItem {
@@ -132,7 +132,7 @@
     color: #58BB73;
   }
   a.router-link-active .board-row {
-    padding-left: 8px;
+    padding-left: 4px;
   }
 
   a.router-link-active .progress {

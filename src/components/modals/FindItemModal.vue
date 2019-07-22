@@ -25,7 +25,7 @@
     </div>
 
     <div slot="header" class="header">
-      <Icon type="ios-locate-outline"
+      <Icon type="ios-search"
             size="20"/>
       {{$t('modals.find_item')}}...
     </div>

@@ -5,7 +5,8 @@
          okText="Ok"
          @on-visible-change="visibleChange"
          cancelText="Cancel">
-    <div v-if="hasToken" style="color: #41B883;">Connected</div>
+    <div v-if="hasToken && hasNoSyncError" style="color: #41B883;">Connected</div>
+    <div v-if="hasToken && !hasNoSyncError" style="color: #e43436;">An error occurred</div>
     <div v-if="connectionError" style="color: #e43436;">Can't connect. Please try again.</div>
     <Input v-model="username"
            placeholder="Email address"
@@ -94,6 +95,9 @@
       },
       hasToken() {
         return !!this.$store.state.cloud.token;
+      },
+      hasNoSyncError () {
+        return !this.$store.state.cloud.syncError;
       },
       isVisible() {
         return this.$store.state.modals.cloud.isVisible;
