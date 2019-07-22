@@ -1,5 +1,7 @@
 <template>
   <div class="find-item-container">
+    <Icon class="filter-btn"
+          type="ios-search"/>
     <input v-model="findItem"
            :id="'findItem-' + activeBoardId"
            class="findItem"
@@ -14,7 +16,7 @@
       <code>{{filterItemsShortcutString}}</code>
     </span>
     <Icon class="clear-btn"
-          :class="{'clear-btn-visible': findItem.length}"
+          :class="{'btn-visible': findItem.length}"
           type="ios-close-circle-outline" @click="clearFilterInput"/>
   </div>
 </template>
@@ -81,25 +83,31 @@
     user-select: none;
   }
 
+  .filter-btn {
+    position: absolute;
+    top:8px;
+    left:8px;
+  }
+
   .clear-btn {
     opacity: 0;
     margin-left: -22px;
     transition: all .3s;
   }
 
-  .clear-btn-visible {
+  .btn-visible {
     opacity: 1;
     cursor: pointer;
   }
 
   input.findItem {
-    border-top: 1px dashed transparent;
-    border-left: 1px dashed transparent;
-    border-right: 1px dashed transparent;
-    border-bottom: 1px dashed #eeeeee;
+    border-top: 1px solid transparent;
+    border-left: 1px solid transparent;
+    border-right: 1px solid transparent;
+    border-bottom: 1px solid #eeeeef;
     -webkit-transition: all .3s;
     border-radius: 4px;
-    padding: 4px 8px;
+    padding: 4px 24px;
     width: 95%;
   }
 

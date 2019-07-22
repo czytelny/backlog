@@ -69,7 +69,7 @@
             @dblclick="editItem"
       >
       </span>
-      <Icon type="ios-search-outline"
+      <Icon type="ios-brush-outline"
             class="edit-icon"
             @click="editItem"
             v-if="!isEditing"
