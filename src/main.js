@@ -7,11 +7,13 @@ import VueI18n from 'vue-i18n'
 import en from './i18n/en'
 import zh from './i18n/zh'
 import pl from './i18n/pl'
+import ptBR from './i18n/pt-BR'
 
 const messages = {
   en: en,
   zh: zh,
-  pl: pl
+  pl: pl,
+  ptBR: ptBR
 };
 
 Vue.use(VueI18n);

@@ -1,0 +1,92 @@
+{
+  "board": {
+    "all_items_done": "Ótimo, todos os itens estão prontos!",
+    "empty_board": "Este board esta vazio",
+    "go_and_ahead_and_add": "Vá em frente e adicione alguns!",
+    "no_items_yet": "Ainda não há itens nesse board",
+    "no_results": "Nehum resultado..."
+  },
+  "boardSettingsBar": {
+    "filter": "Filtro",
+    "show_done": "Mostrar feito",
+    "show_progress": "Mostrar progresso"
+  },
+  "common": {
+    "cancel": "Cancelar",
+    "close": "Fechar",
+    "ok": "OK"
+  },
+  "item": {
+    "created": "Criado",
+    "days_ago": "dias atrás",
+    "delete": "Excluir",
+    "enter_something": "Digite algo...",
+    "move_to_bottom": "Mover para baixo",
+    "move_to_top": "Mover para o topo"
+  },
+  "menu": {
+    "add_new_board": "Adicionar novo board ",
+    "all_items_will_be_deleted": "Todos os itens serão deletados, tem certeza?",
+    "app_settings": "Configurações do Aplicativo",
+    "board_removed": "Board removido",
+    "boards": "Boards",
+    "cloud_connected": "Cloud Conectado",
+    "cloud_connection_error": "Cloud Connection Error",
+    "cloud_not_connected": "Cloud - não conectado",
+    "delete": "Excluir",
+    "duplicate": "Duplicar",
+    "find_item": "Encontrar item",
+    "keymap": "Keymap",
+    "removing_board": "Removendo Board",
+    "rename": "Renomear",
+    "synchronization": "Sincronização...",
+    "yes_remove_it": "Sim, remova",
+    "you_are_going_to_remove": "Você vai remover o Board"
+  },
+  "modals": {
+    "accept_editing_item": "Aceitar Edição de Item",
+    "action": "Ação",
+    "add": "Adicionar",
+    "add_new_board": "Adicionar novo board",
+    "are_you_sure": "Você tem certeza que quer continuar?",
+    "board_renamed": "Board renomeado",
+    "boards": "Boards",
+    "bring_focus_to_add_item": "Trazer o foco para o campo 'Adicionar Novo Item'",
+    "bring_focus_to_filter_items": "Trazer o foco para o campo 'Filtrar itens'",
+    "create_new_board_modal": "Criar novo Board Modal",
+    "dont_bother_me": "Não me incomoda mais",
+    "download": "download",
+    "duplicate": "Duplicar",
+    "duplicate_board": "Duplicar board",
+    "find_item": "Encontrar item",
+    "find_item_by_text": "Encontrar item por texto...",
+    "items": "Itens",
+    "key_bindings": "Combinações de Teclas",
+    "misc": "Misc",
+    "new_board_name": "Novo nome do board",
+    "new_version_available": "Nova versão do Backlog está disponível para",
+    "please_provide_new_board_name": "Por favor, forneça um novo nome para o board",
+    "recording": "Gravando...",
+    "rename": "Renomear",
+    "rename_board": "Renomear Board",
+    "reset": "Reset",
+    "reset_confirm": "Redefinir atalhos de teclado para os padrões",
+    "reset_to_defaults": "Redefinir para os padrões",
+    "shortcut": "Atalho",
+    "show_keymap_window": "Mostrar janela de keymap",
+    "switch_to_next_board": "Mudar para o próximo board",
+    "switch_to_prev_board": "Mudar para o board anterior",
+    "you_are_going_to_reset": "Você vai redefinir as combinações de teclas para os valores padrão."
+  },
+  "newItem": {
+    "add_item": "Adicionar Item",
+    "add_item_to_tail": "Adicionar item ao final",
+    "add_item_to_top": "Adicionar item ao topo",
+    "head": "Inicio",
+    "tail": "Fim"
+  },
+  "statusBar": {
+    "done": "deito",
+    "pending": "pendente"
+  }
+}
