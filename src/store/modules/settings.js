@@ -11,7 +11,25 @@ const state = {
   showUpdates: true,
   keyBindings: settingsRepository.keyBindings,
   token: "",
-  username: ""
+  username: "",
+  language: "",
+  languages: [
+    {
+      code: "ptBR",
+      label: "Brazilian Portuguese",
+    },
+    {
+      code: "zh",
+      label: "中文",
+    },
+    {
+      code: "en",
+      label: "English",
+    }, {
+      code: "pl",
+      label: "Polish",
+    },
+  ],
 };
 
 const mutations = {
@@ -30,7 +48,10 @@ const mutations = {
   },
   SET_SHOW_UPDATES(state, val) {
     state.showUpdates = val;
-  }
+  },
+  SET_LANGUAGE(state, val) {
+    state.language = val;
+  },
 };
 
 const actions = {
@@ -69,16 +90,20 @@ const actions = {
       }
     }
   },
+  changeLanguage({commit}, code) {
+    settingsRepository.updateAppSettings({language: code});
+    commit("SET_LANGUAGE", code);
+  },
   resetKeyBindings() {
     settingsRepository.setupKeyBindings();
   },
   updateKeyBinding(context, {id, combination, isMac}) {
     settingsRepository.updateKeyBinding(id, combination, isMac);
-  }
+  },
 };
 
 export default {
   state,
   mutations,
-  actions
+  actions,
 };

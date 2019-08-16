@@ -2,9 +2,9 @@
   <div class="main-page">
     <BoardsMenu/>
     <transition
-      name="fade"
-      mode="out-in"
-      duration="50"
+        name="fade"
+        mode="out-in"
+        duration="50"
     >
       <router-view :key="activeBoardId"/>
     </transition>
@@ -13,8 +13,9 @@
     <duplicate-board-modal/>
     <find-item-modal/>
     <settings-modal/>
-    <key-map-modal></key-map-modal>
-    <cloud-modal></cloud-modal>
+    <key-map-modal/>
+    <cloud-modal/>
+    <language-modal/>
   </div>
 </template>
 
@@ -28,15 +29,17 @@
   import DuplicateBoardModal from "./modals/DuplicateBoardModal";
   import CloudModal from "./modals/CloudModal";
   import cloudMixin from "./../cloudMixin";
+  import LanguageModal from "./modals/LanguageModal";
 
 
   export default {
     name: "MainPage",
     mixins: [cloudMixin],
     components: {
+      LanguageModal,
       CloudModal,
       DuplicateBoardModal,
-      FindItemModal, SettingsModal, RenameBoardModal, NewBoardModal, BoardsMenu, KeyMapModal
+      FindItemModal, SettingsModal, RenameBoardModal, NewBoardModal, BoardsMenu, KeyMapModal,
     },
     created() {
       this.$store.dispatch("setSystem", window.navigator.platform.toLowerCase());
@@ -46,7 +49,12 @@
       // this.versionCheck()
       this.$store.dispatch("fetchBoards");
       if (this.$store.state.settings.token) {
-        this.initialSyncBoards()
+        this.initialSyncBoards();
+      }
+      if (!this.$store.state.settings.language) {
+        this.$store.dispatch("showLanguageModal");
+      } else {
+        this.$i18n.locale = this.$store.state.settings.language;
       }
       this.$store.dispatch("fetchActiveBoard");
       this.$router.push({path: `/board/${this.activeBoardId}`});
@@ -55,8 +63,8 @@
     computed: {
       activeBoardId() {
         return this.$store.state.boards.activeBoard.id;
-      }
-    }
+      },
+    },
   };
 </script>
 

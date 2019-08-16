@@ -6,38 +6,41 @@ const version = remote.app.getVersion();
 const state = {
   cloud: {
     isConnecting: false,
-    isVisible: false
+    isVisible: false,
   },
   duplicateBoard: {
     isVisible: false,
     name: "",
-    boardId: null
+    boardId: null,
   },
   findItem: {
     isVisible: false,
-    findingItem: ""
+    findingItem: "",
   },
   keymap: {
     system: "",
     isVisible: false,
-    isCapturing: false
+    isCapturing: false,
   },
   newBoard: {
     isVisible: false,
-    name: ""
+    name: "",
   },
   renameBoard: {
     isVisible: false,
     name: "",
-    boardId: null
+    boardId: null,
   },
   settings: {
     isVisible: false,
-    currentVersion: version
+    currentVersion: version,
   },
   update: {
-    isVisible: false
-  }
+    isVisible: false,
+  },
+  language: {
+    isVisible: false,
+  },
 };
 
 const mutations = {
@@ -55,6 +58,9 @@ const mutations = {
   },
   HIDE_NEW_BOARD(state) {
     state.newBoard.isVisible = false;
+  },
+  HIDE_LANG_BOARD(state) {
+    state.language.isVisible = false;
   },
   HIDE_RENAME_BOARD(state) {
     state.renameBoard.isVisible = false;
@@ -110,7 +116,10 @@ const mutations = {
   },
   SHOW_UPDATE_MODAL(state) {
     state.update.isVisible = true;
-  }
+  },
+  SHOW_LANGUAGE_MODAL(state) {
+    state.language.isVisible = true;
+  },
 };
 
 const actions = {
@@ -131,6 +140,9 @@ const actions = {
   },
   hideNewBoardModal({commit}) {
     commit("HIDE_NEW_BOARD");
+  },
+  hideLanguageModal({commit}) {
+    commit("HIDE_LANG_BOARD");
   },
   hideRenameBoardModal({commit}) {
     commit("HIDE_RENAME_BOARD");
@@ -183,13 +195,16 @@ const actions = {
   showSettingsModal({commit}) {
     commit("SHOW_SETTINGS");
   },
+  showLanguageModal({commit}) {
+    commit("SHOW_LANGUAGE_MODAL");
+  },
   showUpdateModal({commit}) {
     commit("SHOW_UPDATE_MODAL");
-  }
+  },
 };
 
 export default {
   state,
   mutations,
-  actions
+  actions,
 };

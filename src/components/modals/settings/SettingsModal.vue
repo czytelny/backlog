@@ -17,6 +17,9 @@
       </div>
     </div>
 
+    <h2>Language</h2>
+    <Button @click="changeLanguage" icon="md-globe">Change language</Button>
+
     <updates-check-settings/>
 
     <h2>Data</h2>
@@ -42,99 +45,103 @@
 </template>
 
 <script>
-  import boardsRepository from '@/repositories/boardsRepository';
-  import GeneralSettings from './GeneralSettings';
-  import UpdatesCheckSettings from './UpdatesCheckSettings';
-  import DatabaseLocation from './DatabaseLocation';
-  const { shell } = require('electron');
-  const {dialog} = require('electron').remote;
+  import boardsRepository from "@/repositories/boardsRepository";
+  import GeneralSettings from "./GeneralSettings";
+  import UpdatesCheckSettings from "./UpdatesCheckSettings";
+  import DatabaseLocation from "./DatabaseLocation";
+
+  const {shell} = require("electron");
+  const {dialog} = require("electron").remote;
 
   export default {
-    name: 'settings-modal',
+    name: "settings-modal",
     components: {
       DatabaseLocation,
       UpdatesCheckSettings,
-      GeneralSettings
+      GeneralSettings,
     },
     computed: {
-      isVisible () {
+      isVisible() {
         return this.$store.state.modals.settings.isVisible;
       },
-      currentVersion () {
+      currentVersion() {
         return this.$store.state.modals.settings.currentVersion;
-      }
+      },
     },
-    data () {
+    data() {
       return {};
     },
     methods: {
-      open (link) {
+      open(link) {
         shell.openExternal(link);
       },
-      createBackup () {
+      changeLanguage() {
+        this.$store.dispatch("showLanguageModal");
+      },
+      createBackup() {
         const vm = this;
         dialog.showSaveDialog({
           filters: [
-            {name: 'json', extensions: ['json']}
-          ]
-        }, function (fileName) {
+            {name: "json", extensions: ["json"]},
+          ],
+        }, function(fileName) {
           boardsRepository
             .exportDbToJSON(fileName)
             .then(() => {
-              vm.$Message.success('File saved successfully');
+              vm.$Message.success("File saved successfully");
             })
             .catch((err) => {
               vm.$Message.error({content: err.message, duration: 0, closable: true});
             });
         });
       },
-      importBackup () {
+      importBackup() {
         const vm = this;
         dialog.showOpenDialog({
-          properties: ['openFile'],
+          properties: ["openFile"],
           filters: [
-            {name: 'json', extensions: ['json']}
-          ]
-        }, function (filePath) {
+            {name: "json", extensions: ["json"]},
+          ],
+        }, function(filePath) {
           boardsRepository.importDbFromJSON(filePath[0])
             .then(() => {
-              vm.$Message.success('File imported successfully');
-              vm.$store.dispatch('fetchBoards');
+              vm.$Message.success("File imported successfully");
+              vm.$store.dispatch("fetchBoards");
             })
             .catch((err) => {
               vm.$Message.error({content: err.message, duration: 0, closable: true});
             });
         });
       },
-      visibleChange (isVisible) {
+      visibleChange(isVisible) {
         if (!isVisible) {
           this.closeModal();
         }
       },
-      showSuccessNotification () {
-        this.$Message.success('Setting updated');
+      showSuccessNotification() {
+        this.$Message.success("Setting updated");
       },
-      closeModal () {
-        this.$store.dispatch('hideSettingsModal');
+      closeModal() {
+        this.$store.dispatch("hideSettingsModal");
       },
-      openSaveDialog (boardId) {
+      openSaveDialog(boardId) {
         const vm = this;
         dialog.showSaveDialog({
           filters: [
-            {name: 'JSON', extensions: ['json']}
-          ]
-        }, function (fileName) {
+            {name: "JSON", extensions: ["json"]},
+          ],
+        }, function(fileName) {
           boardsRepository
             .exportBoardToJSON(fileName, boardId)
             .then(() => {
-              vm.$Message.success('File saved successfully');
+              vm.$Message.success("File saved successfully");
             })
             .catch((err) => {
               vm.$Message.error({content: err.message, duration: 0, closable: true});
             });
         });
-      }
-    }
+      },
+    },
   };
 </script>
 

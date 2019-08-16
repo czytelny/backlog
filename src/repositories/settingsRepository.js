@@ -53,6 +53,7 @@ db.defaults({
     "token": "",
     "username": "",
     "wasImported": false,
+    "language": "en"
   }
 }).write();
 
@@ -75,6 +76,9 @@ export default {
   },
   hasKeyBindingsProperty() {
     return db.has("appSettings.keyBindings").value();
+  },
+  hasLanguageProperty() {
+    return db.has("appSettings.language").value();
   },
   keyBindings,
   setupKeyBindings() {
