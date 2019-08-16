@@ -17,8 +17,7 @@
       </div>
     </div>
 
-    <h2>Language</h2>
-    <Button @click="changeLanguage" icon="md-globe">Change language</Button>
+    <Button @click="changeLanguage" icon="md-globe">Change application language</Button>
 
     <updates-check-settings/>
 

@@ -71,6 +71,7 @@
     font-size: 14px;
     cursor: pointer;
     transition: all .2s;
+    border-radius: 4px;
   }
 
   .lang-pick.active {
@@ -79,7 +80,7 @@
   }
 
   .lang-pick:hover {
-    box-shadow: 0 0 16px #e9e9e9;
+    box-shadow: 0 2px 8px #e9e9e9;
   }
 
   .flag-icon {
