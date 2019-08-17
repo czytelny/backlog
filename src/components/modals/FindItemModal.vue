@@ -89,7 +89,7 @@
   input.search-input {
     margin-bottom: 8px;
     width: 100%;
-    font-size: 22px;
+    font-size: 18px;
     border: 0;
     border-bottom: 1px solid #cecece;
     color: #373636;
@@ -99,7 +99,6 @@
 
   input.search-input::placeholder {
     color: #cecece;
-    font-style: italic;
   }
 
   input.search-input:focus {
