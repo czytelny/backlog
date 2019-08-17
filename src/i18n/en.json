@@ -14,7 +14,18 @@
     "show_progress": "Show progress"
   },
   "cloud": {
+    "cant_connect": "Can't connect. Please try again.",
+    "cloud_integration": "Cloud Integration",
+    "connect": "Connect",
+    "connected": "Connected",
+    "email_address": "Email address",
+    "error_occurred": "An error occurred",
     "invalid_username_password": "Invalid username or password",
+    "log": "Logs",
+    "or_create_account": "... or create an account",
+    "password": "Password",
+    "reconnect": "Re-connect!",
+    "sync_all": "Sync all",
     "sync_error": "Synchronization error",
     "sync_success": "Synchronization success",
     "user_success_connected": "User successfully connected"

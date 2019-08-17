@@ -14,7 +14,18 @@
     "show_progress": "Pokaż postęp"
   },
   "cloud": {
+    "cant_connect": "Nie udało się połączyć. Proszę spróbować później.",
+    "cloud_integration": "Integracja z Chmurą",
+    "connect": "Połącz",
+    "connected": "Połączony",
+    "email_address": "Adres email",
+    "error_occurred": "Wystąpił błąd",
     "invalid_username_password": "Niepoprawny login lub hasło",
+    "log": "Logs",
+    "or_create_account": "... lub stwórz konto",
+    "password": "Hasło",
+    "reconnect": "Połącz ponownie!",
+    "sync_all": "Synchronizuj wszystko",
     "sync_error": "Błąd synchronizacji",
     "sync_success": "Synchronizacja zakończona sukcesem",
     "user_success_connected": "Połączono"

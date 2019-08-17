@@ -1,15 +1,21 @@
 <template>
   <Modal id="cloud-modal"
          :value="isVisible"
-         title="Cloud Integration"
+         :title="$t('cloud.cloud_integration')"
          okText="Ok"
          @on-visible-change="visibleChange"
          cancelText="Cancel">
-    <div v-if="hasToken && hasNoSyncError" style="color: #41B883;">Connected</div>
-    <div v-if="hasToken && !hasNoSyncError" style="color: #e43436;">An error occurred</div>
-    <div v-if="connectionError" style="color: #e43436;">Can't connect. Please try again.</div>
+    <div v-if="hasToken && hasNoSyncError" style="color: #41B883;">
+      {{$t("cloud.connected")}}
+    </div>
+    <div v-if="hasToken && !hasNoSyncError" style="color: #e43436;">
+      {{$t("cloud.error_occurred")}}
+    </div>
+    <div v-if="connectionError" style="color: #e43436;">
+      {{$t("cloud.cant_connect")}}
+    </div>
     <Input v-model="username"
-           placeholder="Email address"
+           :placeholder="$t('cloud.email_address')"
            :disabled="hasToken"
            :autofocus="true"
            style="margin-bottom:8px;"
@@ -17,7 +23,7 @@
     <Input v-model="password"
            type="password"
            :disabled="hasToken"
-           placeholder="Password"
+           :placeholder="$t('cloud.password')"
            @on-keyup.enter="connect"
            style="margin-bottom:8px;"
     />
@@ -29,18 +35,18 @@
     >
       <Icon type="ios-key" v-if="!isConnecting"/>
       <Icon type="ios-loading spin-icon-load" v-if="isConnecting"/>
-      Connect
+      {{$t("cloud.connect")}}
     </Button>
 
 
     <Button
-      size="small"
-      @click="reconnect"
-      v-if="hasToken"
+        size="small"
+        @click="reconnect"
+        v-if="hasToken"
     >
       <Icon type="ios-key" v-if="!isConnecting"/>
       <Icon type="ios-loading spin-icon-load" v-if="isConnecting"/>
-      Re-connect!
+      {{$t("cloud.reconnect")}}
     </Button>
 
     <Button type="primary"
@@ -50,17 +56,20 @@
             v-if="hasToken"
     >
       <Icon type="ios-loading"/>
-      Sync All
+      {{$t("cloud.sync_all")}}
     </Button>
 
     <Button style="float:right;"
             v-if="!hasToken"
             size="small"
+            @click="createAccount"
     >
-      ... or create an account
+      {{$t("cloud.or_create_account")}}
     </Button>
     <div style="margin-top:16px;" v-if="connectionError || syncError">
-      <h3>Log</h3>
+      <h3>
+        {{$t("cloud.logs")}}
+      </h3>
       <div class="log">
         {{connectionError || syncError}}
       </div>
@@ -68,7 +77,7 @@
     <div slot="footer">
       <Button size="large"
               @click="closeModal">
-        Close
+        {{$t("common.close")}}
       </Button>
     </div>
   </Modal>
@@ -83,7 +92,7 @@
     data() {
       return {
         username: this.$store.state.cloud.username || "",
-        password: this.$store.state.cloud.username || ""
+        password: this.$store.state.cloud.username || "",
       };
     },
     computed: {
@@ -96,7 +105,7 @@
       hasToken() {
         return !!this.$store.state.cloud.token;
       },
-      hasNoSyncError () {
+      hasNoSyncError() {
         return !this.$store.state.cloud.syncError;
       },
       isVisible() {
@@ -107,9 +116,12 @@
       },
       isInputsEmpty() {
         return !this.username.length || !this.password.length;
-      }
+      },
     },
     methods: {
+      createAccount() {
+        this.$Message.error("Sorry it's not ready yet!");
+      },
       closeModal() {
         this.$store.dispatch("hideCloudModal");
       },
@@ -128,8 +140,8 @@
         if (!isVisible) {
           this.closeModal();
         }
-      }
-    }
+      },
+    },
 
   };
 </script>
