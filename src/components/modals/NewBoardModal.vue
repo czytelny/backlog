@@ -48,14 +48,14 @@
       submitNewBoard() {
         if (this.newBoardName.trim() === "") {
           this.resetInput();
-          this.$Message.warning("Please provide new board name");
+          this.$Message.warning(this.$t('modals.provide_new_board_name'));
           return false;
         }
         this.$store
           .dispatch("saveNewBoard", this.newBoardName.trim())
           .then((savedBoardId) => {
             this.closeModal();
-            this.$Message.success("Board added");
+            this.$Message.success(this.$t('modals.board_added'));
             this.$store.dispatch("fetchBoards");
             this.$router.push({path: `/board/${savedBoardId}`});
             this.$store.dispatch("setActiveBoard", savedBoardId);

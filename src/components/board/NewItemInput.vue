@@ -160,7 +160,7 @@
         }
         this.isSubmittingNewItem = true;
         const newItemPromise = this.$store.dispatch('addItem', {boardId: this.boardId, newItem: this.newItem});
-        this.$Message.success('Item added');
+        this.$Message.success(this.$t('board.item_added'));
         this.$store.dispatch('fetchBoardItems', this.boardId);
         this.newItem = '';
         this.$nextTick(() => {

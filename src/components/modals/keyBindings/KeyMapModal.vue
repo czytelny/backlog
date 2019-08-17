@@ -51,7 +51,7 @@
           onOk: () => {
             this.$store.dispatch('resetKeyBindings');
             this.$store.dispatch('fetchSettings');
-            this.$Message.success('Key bindings cleared out');
+            this.$Message.success(this.$t('modals.key_bindings_cleared_out'));
           }
         });
       },

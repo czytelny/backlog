@@ -197,7 +197,7 @@
         });
         this.$store.dispatch('fetchBoardItems', this.boardId);
         this.$bus.$emit('focusOnAddItem');
-        this.$Message.success('Item removed');
+        this.$Message.success(this.$t('board.item_removed'));
       },
       moveItemToTop () {
         this.$store.dispatch('moveItemToTop', {

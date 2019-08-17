@@ -62,7 +62,7 @@
               return;
             }
             if (`v${version}` === data.tag_name) {
-              this.$Message.info(this.$i18n.$t('modals.you_have_latest_ver'));
+              this.$Message.info(this.$t('modals.you_have_latest_ver'));
             } else {
               this.newVersionAvailable = true;
             }

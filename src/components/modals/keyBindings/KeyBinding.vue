@@ -89,10 +89,10 @@
             })
               .then(() => {
                 this.$store.dispatch('fetchSettings');
-                this.$Message.success('Shortcut modified');
+                this.$Message.success(this.$t('modals.shortcut_modified'));
               });
           } else {
-            this.$Message.error('Invalid combination');
+            this.$Message.error(this.$t('modals.invalid_keys_combination'));
           }
         };
       }

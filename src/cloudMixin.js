@@ -6,7 +6,7 @@ export default {
     login(username, password) {
       syncRepository.login(username, password)
         .then(({data}) => {
-          this.$Message.success("User successfully connected");
+          this.$Message.success(this.$t('cloud.user_success_connected'));
           this.$store.dispatch("setCloudToken", {token: data.token, username});
           this.$store.dispatch("clearConnectionError");
           this.initialSyncBoards();
@@ -15,7 +15,7 @@ export default {
           this.$store.dispatch("setIsConnecting", false);
         })
         .catch(({response}) => {
-          this.$Message.error("Invalid username or password");
+            this.$Message.error(this.$t('cloud.invalid_username_password'));
           this.$store.dispatch("setConnectionError", `${response.status}:${response.data}`);
           console.log(response);
         });
@@ -29,13 +29,13 @@ export default {
         this.$store.state.cloud.token,
         this.$store.state.cloud.lastSync)
         .then(({data}) => {
-          this.$Message.success("Synchronization success");
+          this.$Message.success(this.$t('cloud.sync_success'));
           this.$store.dispatch("syncBoardsDone", data.boards);
           this.$store.dispatch("clearSyncError");
           this.$store.dispatch("updateLastSync", data.lastSyncDate);
         })
         .catch((err) => {
-          this.$Message.error("Synchronization error");
+          this.$Message.error(this.$t('cloud.sync_error'));
           if (err.response) {
             this.$store.dispatch("setSyncError", `[${err.response.config.url}] - ${err.response.status}:${err.response.data}`);
           } else {
