@@ -1,6 +1,6 @@
 <template>
   <div class="db-location">
-    <div>Database Location</div>
+    <div>{{$t('modals.database_location')}}</div>
     <Input v-model="dbLocation" disabled="disabled"/>
   </div>
 </template>

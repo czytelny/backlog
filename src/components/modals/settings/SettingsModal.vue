@@ -1,9 +1,9 @@
 <template>
   <Modal :value="isVisible"
-         title="Settings"
+         :title="$t('modals.settings')"
          @on-ok="closeModal"
          @on-visible-change="visibleChange"
-         okText="Add"
+         :okText="$t('common.add')"
          :scrollable="true"
   >
     <div class="row title-row">
@@ -17,28 +17,36 @@
       </div>
     </div>
 
-    <Button @click="changeLanguage" icon="md-globe">Change application language</Button>
+    <Button @click="changeLanguage" icon="md-globe">
+      {{$t('modals.change_app_lang')}}
+    </Button>
 
     <updates-check-settings/>
 
-    <h2>Data</h2>
+    <h2>
+      {{$t('modals.data')}}
+    </h2>
     <database-location/>
     <Button @click="createBackup"
             icon="ios-download-outline"
     >
-      Create backup
+      {{$t('modals.create_backup')}}
     </Button>
     <Button @click="importBackup"
             icon="ios-arrow-round-up"
     >
-      Import backup
+      {{$t('modals.import_backup')}}
     </Button>
 
-    <h2>General Settings</h2>
+    <h2>
+      {{$t('modals.general_settings')}}
+    </h2>
     <general-settings/>
 
     <div slot="footer">
-      <Button size="large" @click="closeModal">Close</Button>
+      <Button size="large" @click="closeModal">
+        {{$t('common.close')}}
+      </Button>
     </div>
   </Modal>
 </template>
@@ -87,7 +95,7 @@
           boardsRepository
             .exportDbToJSON(fileName)
             .then(() => {
-              vm.$Message.success("File saved successfully");
+              vm.$Message.success(this.$t('modals.file_saved_success'));
             })
             .catch((err) => {
               vm.$Message.error({content: err.message, duration: 0, closable: true});
@@ -104,7 +112,7 @@
         }, function(filePath) {
           boardsRepository.importDbFromJSON(filePath[0])
             .then(() => {
-              vm.$Message.success("File imported successfully");
+              vm.$Message.success(this.$t('modals.file_imported_success'));
               vm.$store.dispatch("fetchBoards");
             })
             .catch((err) => {
@@ -118,7 +126,7 @@
         }
       },
       showSuccessNotification() {
-        this.$Message.success("Setting updated");
+        this.$Message.success(this.$t('modals.setting_updated'));
       },
       closeModal() {
         this.$store.dispatch("hideSettingsModal");
@@ -133,7 +141,7 @@
           boardsRepository
             .exportBoardToJSON(fileName, boardId)
             .then(() => {
-              vm.$Message.success("File saved successfully");
+              vm.$Message.success(this.$t('modals.file_saved_success'));
             })
             .catch((err) => {
               vm.$Message.error({content: err.message, duration: 0, closable: true});

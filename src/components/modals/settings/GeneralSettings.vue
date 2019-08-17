@@ -2,7 +2,7 @@
   <div>
     <div class="row">
       <Checkbox v-model="itemCreationDate">
-        Show creation date for each item
+        {{$t('modals.show_creation_date_for_each_item')}}
       </Checkbox>
     </div>
   </div>
@@ -34,7 +34,7 @@
     },
     methods: {
       showSuccessNotification () {
-        this.$Message.success('Setting updated');
+        this.$Message.success(this.$t('modals.setting_updated'));
         this.$emit('settingsUpdated');
       }
     }

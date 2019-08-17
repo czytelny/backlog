@@ -1,9 +1,11 @@
 <template>
   <div class="row" style="margin-bottom: 20px;">
-    <h2>Updates</h2>
+    <h2>
+      {{$t('modals.updates')}}
+    </h2>
 
     <Checkbox v-model="showUpdates">
-      Check for updates on startup
+      {{$t('modals.check_updates_on_startup')}}
     </Checkbox>
 
     <Button :loading="loadingUpdates"
@@ -11,14 +13,19 @@
             icon="ios-reload"
             style="width:300px;"
             @click="loadUpdates" v-if="!newVersionAvailable">
-      <span v-if="!loadingUpdates">Check updates now</span>
-      <span v-else>Checking...</span>
+      <span v-if="!loadingUpdates">
+        {{$t('modals.check_updates_now')}}
+      </span>
+      <span v-else>
+        {{$t('modals.checking')}}
+      </span>
     </Button>
 
     <Button type="success"
             v-if="newVersionAvailable"
             style="width:300px;"
-            @click="open('http://backlog.cloud/download')">New version available
+            @click="open('http://backlog.cloud/download')">
+      {{$t('modals.new_version')}}
     </Button>
   </div>
 </template>
@@ -55,7 +62,7 @@
               return;
             }
             if (`v${version}` === data.tag_name) {
-              this.$Message.info('You have the latest version of Backlog');
+              this.$Message.info(this.$i18n.$t('modals.you_have_latest_ver'));
             } else {
               this.newVersionAvailable = true;
             }
