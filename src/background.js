@@ -18,14 +18,17 @@ const windowSettings = windowRepository(path.join(app.getPath('userData'), 'wind
 let win;
 
 // Standard scheme must be registered before the app is ready
-protocol.registerStandardSchemes(['app'], {secure: true});
+protocol.registerSchemesAsPrivileged([{scheme: 'app', privileges: {secure: true}}]);
 
 
-function createWindow () {
+function createWindow() {
   windowSettings.updateWindowState({minWidth: 600});
   const windowConfig = windowSettings.getWindowState();
   windowConfig.icon = path.join(__static, 'icon.png');
   windowConfig.frame = false;
+  windowConfig.webPreferences = {
+    nodeIntegration: true,
+  };
 
   // Create the browser window.
   win = new BrowserWindow(windowConfig);
@@ -81,7 +84,7 @@ app.on('activate', () => {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', async () => {
+app.on('ready', async() => {
   if (isDevelopment && !process.env.IS_TEST) {
     // Install Vue Devtools
     try {
@@ -109,7 +112,7 @@ if (isDevelopment) {
 }
 
 
-function createMenuOnMac () {
+function createMenuOnMac() {
   return Menu.buildFromTemplate([
     {
       label: app.getName(),
@@ -126,8 +129,8 @@ function createMenuOnMac () {
         {role: 'quit'},
         {role: 'hide'},
         {role: 'hideothers'},
-        {role: 'unhide'}
-      ]
-    }
+        {role: 'unhide'},
+      ],
+    },
   ]);
 }
