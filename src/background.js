@@ -37,7 +37,7 @@ function createWindow() {
   if (process.platform === 'darwin') {
     Menu.setApplicationMenu(createMenuOnMac());
   } else {
-    win.setMenu(null);
+    win.removeMenu();
   }
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {
