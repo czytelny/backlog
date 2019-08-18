@@ -21,7 +21,7 @@
     "email_address": "Email address",
     "error_occurred": "An error occurred",
     "invalid_username_password": "Invalid username or password",
-    "log": "Logs",
+    "logs": "Logs",
     "or_create_account": "... or create an account",
     "password": "Password",
     "reconnect": "Re-connect!",

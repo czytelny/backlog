@@ -44,11 +44,10 @@
     created() {
       this.$store.dispatch('setSystem', window.navigator.platform.toLowerCase());
       this.$store.dispatch('fetchSettings');
-      console.log(this.$store.state.settings.dbLocation);
 
       // this.versionCheck()
       this.$store.dispatch('fetchBoards');
-      if (this.$store.state.settings.token) {
+      if (this.$store.state.settings.token && this.$store.state.settings.username) {
         this.initialSyncBoards();
         setTimeout(this.patchSyncBoards, 1000 * 30);
       }

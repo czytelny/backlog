@@ -52,10 +52,12 @@ export default {
       this.$store.dispatch('setIsSyncing', true);
       syncRepository.patchSync(username, token, lastSync)
         .then(({data}) => {
-          this.$Message.success(this.$t('cloud.sync_success'));
-          this.$store.dispatch('syncBoardsDone', data.boards);
-          this.$store.dispatch('clearSyncError');
-          this.$store.dispatch('updateLastSync', data.lastSyncDate);
+          if (data) {
+            this.$Message.success(this.$t('cloud.sync_success'));
+            this.$store.dispatch('syncBoardsDone', data.boards);
+            this.$store.dispatch('clearSyncError');
+            this.$store.dispatch('updateLastSync', data.lastSyncDate);
+          }
         })
         .catch((err) => {
           this.$Message.error(this.$t('cloud.sync_error'));

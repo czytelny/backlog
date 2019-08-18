@@ -68,12 +68,17 @@ export default {
   },
   patchSync(username, token, lastSync) {
     if (!username || !token) {
-      return;
+      return Promise.reject();
     }
     const queue = db.get('syncQueue').value();
 
     if (!queue || queue.length === 0) {
-      return;
+      return axios({
+        method: 'get',
+        url: cloudSettings.boardsUrl(username),
+        data: {lastSync},
+        headers: {'Authorization': `JWT ${token}`},
+      });
     }
 
     return axios({
