@@ -20,20 +20,20 @@
 </template>
 
 <script>
-  import BoardsMenu from "./menu/Menu";
-  import NewBoardModal from "./modals/NewBoardModal";
-  import RenameBoardModal from "./modals/RenameBoardModal";
-  import SettingsModal from "./modals/settings/SettingsModal";
-  import FindItemModal from "./modals/FindItemModal";
-  import KeyMapModal from "./modals/keyBindings/KeyMapModal";
-  import DuplicateBoardModal from "./modals/DuplicateBoardModal";
-  import CloudModal from "./modals/CloudModal";
-  import cloudMixin from "./../cloudMixin";
-  import LanguageModal from "./modals/LanguageModal";
+  import BoardsMenu from './menu/Menu';
+  import NewBoardModal from './modals/NewBoardModal';
+  import RenameBoardModal from './modals/RenameBoardModal';
+  import SettingsModal from './modals/settings/SettingsModal';
+  import FindItemModal from './modals/FindItemModal';
+  import KeyMapModal from './modals/keyBindings/KeyMapModal';
+  import DuplicateBoardModal from './modals/DuplicateBoardModal';
+  import CloudModal from './modals/CloudModal';
+  import cloudMixin from './../cloudMixin';
+  import LanguageModal from './modals/LanguageModal';
 
 
   export default {
-    name: "MainPage",
+    name: 'MainPage',
     mixins: [cloudMixin],
     components: {
       LanguageModal,
@@ -42,23 +42,24 @@
       FindItemModal, SettingsModal, RenameBoardModal, NewBoardModal, BoardsMenu, KeyMapModal,
     },
     created() {
-      this.$store.dispatch("setSystem", window.navigator.platform.toLowerCase());
-      this.$store.dispatch("fetchSettings");
+      this.$store.dispatch('setSystem', window.navigator.platform.toLowerCase());
+      this.$store.dispatch('fetchSettings');
       console.log(this.$store.state.settings.dbLocation);
 
       // this.versionCheck()
-      this.$store.dispatch("fetchBoards");
+      this.$store.dispatch('fetchBoards');
       if (this.$store.state.settings.token) {
         this.initialSyncBoards();
+        setTimeout(this.patchSyncBoards, 1000 * 30);
       }
       if (!this.$store.state.settings.language) {
-        this.$store.dispatch("showLanguageModal");
+        this.$store.dispatch('showLanguageModal');
       } else {
         this.$i18n.locale = this.$store.state.settings.language;
       }
-      this.$store.dispatch("fetchActiveBoard");
+      this.$store.dispatch('fetchActiveBoard');
       this.$router.push({path: `/board/${this.activeBoardId}`});
-      this.$nextTick().then(() => this.$bus.$emit("appInit", this.selectedTab));
+      this.$nextTick().then(() => this.$bus.$emit('appInit', this.selectedTab));
     },
     computed: {
       activeBoardId() {

@@ -140,7 +140,7 @@ const actions = {
     commit("SWITCH_SHOW_PROGRESS", val);
   },
   syncBoardsDone({dispatch}, boards) {
-    boardsRepository.saveBoardsArray(boards);
+    boardsRepository.saveBoardsArray(boards, true);
     dispatch("fetchBoards");
     dispatch("fetchRawBoards");
   },
