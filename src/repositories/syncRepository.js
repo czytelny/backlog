@@ -47,8 +47,8 @@ export default {
   initialSync(username, rawBoards, token, lastSync) {
     return axios({
       method: 'post',
-      url: cloudSettings.boardsUrl(username),
-      data: {boards: rawBoards, lastSync},
+      url: cloudSettings.boardsUrl(username, lastSync),
+      data: {boards: rawBoards},
       headers: {'Authorization': `JWT ${token}`},
     });
   },
@@ -75,16 +75,15 @@ export default {
     if (!queue || queue.length === 0) {
       return axios({
         method: 'get',
-        url: cloudSettings.boardsUrl(username),
-        data: {lastSync},
+        url: cloudSettings.boardsUrl(username, lastSync),
         headers: {'Authorization': `JWT ${token}`},
       });
     }
 
     return axios({
       method: 'post',
-      url: cloudSettings.boardPatchUrl(username),
-      data: {queue, lastSync},
+      url: cloudSettings.boardPatchUrl(username, lastSync),
+      data: {queue},
       headers: {'Authorization': `JWT ${token}`},
     });
   },
