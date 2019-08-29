@@ -16,7 +16,7 @@
 
 New 2.x version introduces a lot of new features including new UI, configurable keybindings, search item feature, emoji, and a lot more! Check it out !
 <p align="center">
-    <img src="https://github.com/czytelny/backlog/raw/master/screenshot_beta_4.png" width="800px">
+    <img src="https://github.com/czytelny/backlog/raw/master/screenshot_beta_5.png" width="800px">
 </p>
 
 
