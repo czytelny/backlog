@@ -1,4 +1,4 @@
-import settingsRepository from "./../../repositories/settingsRepository";
+import settingsRepository from './../../repositories/settingsRepository';
 
 const state = {
   wasImported: true,
@@ -6,28 +6,32 @@ const state = {
   prependNewItems: true,
   stickBoardsOnTop: false,
   markdownMode: true,
-  dbLocation: "",
+  dbLocation: '',
   darkTheme: false,
   showUpdates: true,
   keyBindings: settingsRepository.keyBindings,
-  token: "",
-  username: "",
-  language: "",
+  token: '',
+  username: '',
+  language: '',
   languages: [
     {
-      code: "ptBR",
-      label: "Brazilian Portuguese",
+      code: 'ptBR',
+      label: 'Brazilian Portuguese',
     },
     {
-      code: "zh",
-      label: "中文",
+      code: 'zh',
+      label: '中文',
     },
     {
-      code: "en",
-      label: "English",
+      code: 'en',
+      label: 'English',
     }, {
-      code: "pl",
-      label: "Polish",
+      code: 'hr',
+      label: 'Croatian',
+    },
+    {
+      code: 'pl',
+      label: 'Polish',
     },
   ],
 };
@@ -57,25 +61,25 @@ const mutations = {
 const actions = {
   fetchSettings({commit}) {
     const settings = settingsRepository.getAppSettings();
-    commit("SET_CLOUD_TOKEN", settings.token);
-    commit("SET_CLOUD_USER", settings.username);
-    commit("SET_CLOUD_LAST_SYNC", settings.lastSync);
-    commit("SET_SETTINGS", settings);
+    commit('SET_CLOUD_TOKEN', settings.token);
+    commit('SET_CLOUD_USER', settings.username);
+    commit('SET_CLOUD_LAST_SYNC', settings.lastSync);
+    commit('SET_SETTINGS', settings);
   },
   setDbLocation({commit}, dbLocation) {
-    commit("SET_DB_LOCATION", dbLocation);
+    commit('SET_DB_LOCATION', dbLocation);
     settingsRepository.updateAppSettings({dbLocation});
   },
   setDarkTheme({commit}, darkTheme) {
-    commit("SET_DARK_THEME", darkTheme);
+    commit('SET_DARK_THEME', darkTheme);
     settingsRepository.updateAppSettings({darkTheme});
   },
   setItemCreationDate({commit}, itemCreationDate) {
-    commit("SET_ITEM_CREATION_DATE", itemCreationDate);
+    commit('SET_ITEM_CREATION_DATE', itemCreationDate);
     settingsRepository.updateAppSettings({itemCreationDate});
   },
   setShowUpdates({commit}, showUpdates) {
-    commit("SET_SHOW_UPDATES", showUpdates);
+    commit('SET_SHOW_UPDATES', showUpdates);
     settingsRepository.updateAppSettings({showUpdates});
   },
   setupKeyBindings() {
@@ -92,7 +96,7 @@ const actions = {
   },
   changeLanguage({commit}, code) {
     settingsRepository.updateAppSettings({language: code});
-    commit("SET_LANGUAGE", code);
+    commit('SET_LANGUAGE', code);
   },
   resetKeyBindings() {
     settingsRepository.setupKeyBindings();

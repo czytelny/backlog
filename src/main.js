@@ -8,6 +8,7 @@ import en from './i18n/en';
 import zh from './i18n/zh';
 import pl from './i18n/pl';
 import ptBR from './i18n/pt-BR';
+import hr from './i18n/hr';
 import log from 'electron-log';
 import {
   Button,
@@ -31,6 +32,7 @@ const messages = {
   zh: zh,
   pl: pl,
   ptBR: ptBR,
+  hr: hr,
 };
 
 Vue.use(VueI18n);
