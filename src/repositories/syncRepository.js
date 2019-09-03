@@ -14,9 +14,11 @@ db.defaults({
   syncQueue: [],
 }).write();
 
-
 export default {
   isSync() {
+    if (!db.get('appSettings.token').value()) {
+      return false;
+    }
     return !!db.get('appSettings.token').value().length && !!db.get('appSettings.username').value();
   },
   addAllToSyncQueue() {
