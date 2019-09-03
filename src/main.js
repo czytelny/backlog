@@ -9,7 +9,6 @@ import zh from './i18n/zh';
 import pl from './i18n/pl';
 import ptBR from './i18n/pt-BR';
 import hr from './i18n/hr';
-import log from 'electron-log';
 import {
   Button,
   Checkbox,
@@ -26,7 +25,6 @@ import {
 import BoardContent from './components/board/BoardContent.vue';
 import VueTextareaAutosize from 'vue-textarea-autosize';
 
-log.catchErrors();
 const messages = {
   en: en,
   zh: zh,
