@@ -8,6 +8,7 @@ import en from './i18n/en';
 import zh from './i18n/zh';
 import pl from './i18n/pl';
 import ptBR from './i18n/pt-BR';
+import log from 'electron-log';
 import {
   Button,
   Checkbox,
@@ -24,6 +25,7 @@ import {
 import BoardContent from './components/board/BoardContent.vue';
 import VueTextareaAutosize from 'vue-textarea-autosize';
 
+log.catchErrors();
 const messages = {
   en: en,
   zh: zh,
@@ -47,7 +49,7 @@ const EventBus = new Vue();
 
 Object.defineProperties(Vue.prototype, {
   $bus: {
-    get: function() {
+    get: function () {
       return EventBus;
     },
   },
@@ -69,7 +71,7 @@ Vue.prototype.$Message = Message;
 Vue.prototype.$Modal = Modal;
 
 Vue.directive('focus', {
-  componentUpdated: function(el) {
+  componentUpdated: function (el) {
     el.getElementsByTagName('input')[0].focus();
   },
 });
