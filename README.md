@@ -8,7 +8,7 @@
 <img src="https://github.com/czytelny/backlog/raw/master/logo.png" width="100px" height="100px">
 </p>
 
-# 2.0.0-BETA-5 release
+# 2.0.0-BETA-5.1 release
 [Preview of 2.0.0 version](http://www.backlog.cloud/beta/)
 - [Windows version](https://github.com/czytelny/backlog/releases/download/v2.0.0-Beta-5.1/Backlog-win32-x64-Beta-5_1.zip)
 - [MacOs version](https://github.com/czytelny/backlog/releases/download/v2.0.0-Beta-5.1/Backlog-2.0.0-Beta-5.1-mac.zip)
