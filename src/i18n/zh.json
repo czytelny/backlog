@@ -37,7 +37,7 @@
     "ok": "完成"
   },
   "item": {
-    "created": "新建",
+    "created": "创建于",
     "days_ago": "天前",
     "delete": "移除",
     "enter_something": "写一些东西吧······",
@@ -74,7 +74,7 @@
     "board_renamed": "页面重命名",
     "boards": "页面",
     "bring_focus_to_add_item": "快速切换到“添加新项目”处",
-    "bring_focus_to_filter_items": "快速切换到“过滤项目”处",
+    "bring_focus_to_filter_items": "快速切换到“过滤查找工具”处",
     "change_app_lang": "切换语言",
     "check_updates_now": "立即检查更新",
     "check_updates_on_startup": "启动时检查更新",
