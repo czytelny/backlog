@@ -47,6 +47,7 @@ const keyBindings = {
 db.defaults({
   appSettings: {
     "itemCreationDate": true,
+    "minimizeToTray": false,
     "keyBindings": keyBindings,
     "prependNewItems": true,
     "showUpdates": true,

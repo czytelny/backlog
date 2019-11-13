@@ -115,6 +115,7 @@
     "shortcut": "快捷方式",
     "shortcut_modified": "修改快捷方式",
     "show_creation_date_for_each_item": "显示每个项目的创建日期",
+    "minimize_to_tray": "最小化到托盘而不是任务栏",
     "show_keymap_window": "显示键盘图窗口",
     "switch_to_next_board": "切换到下一个页面",
     "switch_to_prev_board": "切换到上一块页面",

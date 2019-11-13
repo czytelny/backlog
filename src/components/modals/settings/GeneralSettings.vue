@@ -5,6 +5,11 @@
         {{$t('modals.show_creation_date_for_each_item')}}
       </Checkbox>
     </div>
+    <div class="row">
+      <Checkbox v-model="minimizeToTray">
+        {{$t('modals.minimize_to_tray')}}
+      </Checkbox>
+    </div>
   </div>
 </template>
 
@@ -28,6 +33,15 @@
         },
         set (val) {
           this.$store.dispatch('setItemCreationDate', val);
+          this.showSuccessNotification();
+        }
+      },
+      minimizeToTray: {
+        get () {
+          return this.$store.state.settings.minimizeToTray;
+        },
+        set (val) {
+          this.$store.dispatch('setMinimizeToTray', val);
           this.showSuccessNotification();
         }
       }

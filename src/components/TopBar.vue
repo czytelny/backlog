@@ -27,10 +27,18 @@
     },
     methods: {
       closeApp () {
-        remote.app.quit();
+        if (this.$store.state.settings.minimizeToTray) {
+          remote.BrowserWindow.getFocusedWindow().hide();
+        } else {
+          remote.app.quit();
+        }
       },
       minimize () {
-        remote.BrowserWindow.getFocusedWindow().minimize();
+        if (this.$store.state.settings.minimizeToTray) {
+          remote.BrowserWindow.getFocusedWindow().hide();
+        } else {
+          remote.BrowserWindow.getFocusedWindow().minimize();
+        }
       }
     }
   };
