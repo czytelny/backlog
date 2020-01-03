@@ -98,6 +98,10 @@
               vm.$Message.success(this.$t('modals.file_saved_success'));
             })
             .catch((err) => {
+              if(fileName == ''){
+                return;
+              }
+              
               vm.$Message.error({content: err.message, duration: 0, closable: true});
             });
         });
