@@ -116,7 +116,7 @@
         }, function(filePath) {
           boardsRepository.importDbFromJSON(filePath[0])
             .then(() => {
-              vm.$Message.success(this.$t('modals.file_imported_success'));
+              vm.$Message.success(vm.$t('modals.file_imported_success'));
               vm.$store.dispatch("fetchBoards");
             })
             .catch((err) => {
