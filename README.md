@@ -8,6 +8,20 @@
 <img src="https://github.com/czytelny/backlog/raw/master/logo.png" width="100px" height="100px">
 </p>
 
+# 2.0.0-BETA-5.1 release
+[Preview of 2.0.0 version](http://www.backlog.cloud/beta/)
+- [Windows version](https://github.com/czytelny/backlog/releases/download/v2.0.0-Beta-5.1/Backlog-win32-x64-Beta-5_1.zip)
+- [MacOs version](https://github.com/czytelny/backlog/releases/download/v2.0.0-Beta-5.1/Backlog-2.0.0-Beta-5.1-mac.zip)
+- [Linux version](https://github.com/czytelny/backlog/releases/download/v2.0.0-Beta-5.1/Backlog-2.0.0-Beta-5.1-linux.tar.gz)
+
+
+New 2.x version introduces a lot of new features including new UI, configurable keybindings, search item feature, emoji, and a lot more! Check it out !
+<p align="center">
+    <img src="https://github.com/czytelny/backlog/raw/master/screenshot_beta_5.png" width="800px">
+</p>
+
+
+
 # Official website
 [www.backlog.cloud](http://www.backlog.cloud)
 
@@ -51,7 +65,7 @@ When new version is available just download it, unzip and enjoy. No additional a
 - backup to file feature
 - new top bar unified acroos OS
 - modals can be closed by pressing ESC or click outside modal area
-- scroolbar ui improved
+- scrollbar ui improved
 - number of keyboard shortcuts added
 - check for updates on app startup
 - other minor ui improvements...
@@ -83,18 +97,21 @@ You can build it yourself instead of downloading executable:
 # install dependencies
 npm install
 
-# serve with hot reload at localhost:9080
-npm run dev
+# Compiles and hot-reloads for development
+npm run serve
 
-# build electron application for production
+# Compiles and minifies for production
 npm run build
 
+# Run your tests
+npm run test
 
-# lint all JS/Vue component files in `src/`
+# Lints and fixes files
 npm run lint
 
+# Run your unit tests
+npm run test:unit
 ```
 
----
-
-This project was generated with [electron-vue](https://github.com/SimulatedGREG/electron-vue)@[ef811ba](https://github.com/SimulatedGREG/electron-vue/tree/ef811ba974d696ee965da747315f20a034ebc590) using [vue-cli](https://github.com/vuejs/vue-cli). Documentation about the original structure can be found [here](https://simulatedgreg.gitbooks.io/electron-vue/content/index.html).
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
