@@ -3,6 +3,7 @@ import settingsRepository from './../../repositories/settingsRepository';
 const state = {
   wasImported: true,
   itemCreationDate: true,
+  minimizeToTray: false,
   prependNewItems: true,
   stickBoardsOnTop: false,
   markdownMode: true,
@@ -50,6 +51,9 @@ const mutations = {
   SET_ITEM_CREATION_DATE(state, val) {
     state.itemCreationDate = val;
   },
+  SET_MINIMIZE_TO_TRAY(state, val) {
+    state.minimizeToTray = val;
+  },
   SET_SHOW_UPDATES(state, val) {
     state.showUpdates = val;
   },
@@ -77,6 +81,10 @@ const actions = {
   setItemCreationDate({commit}, itemCreationDate) {
     commit('SET_ITEM_CREATION_DATE', itemCreationDate);
     settingsRepository.updateAppSettings({itemCreationDate});
+  },
+  setMinimizeToTray({commit}, minimizeToTray) {
+    commit('SET_MINIMIZE_TO_TRAY', minimizeToTray);
+    settingsRepository.updateAppSettings({minimizeToTray});
   },
   setShowUpdates({commit}, showUpdates) {
     commit('SET_SHOW_UPDATES', showUpdates);

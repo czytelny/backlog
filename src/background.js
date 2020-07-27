@@ -1,8 +1,8 @@
 'use strict';
 /* global __static */
 
-import {app, BrowserWindow, Menu, protocol} from 'electron';
-import {createProtocol, installVueDevtools} from 'vue-cli-plugin-electron-builder/lib';
+import { app, BrowserWindow, Tray, Menu, protocol } from 'electron';
+import { createProtocol, installVueDevtools } from 'vue-cli-plugin-electron-builder/lib';
 import windowRepository from './windowRepository';
 
 const path = require('path');
@@ -18,11 +18,11 @@ const windowSettings = windowRepository(path.join(app.getPath('userData'), 'wind
 let win;
 
 // Standard scheme must be registered before the app is ready
-protocol.registerSchemesAsPrivileged([{scheme: 'app', privileges: {secure: true}}]);
+protocol.registerSchemesAsPrivileged([{ scheme: 'app', privileges: { secure: true }}]);
 
 
 function createWindow() {
-  windowSettings.updateWindowState({minWidth: 600});
+  windowSettings.updateWindowState({ minWidth: 600 });
   const windowConfig = windowSettings.getWindowState();
   windowConfig.icon = path.join(__static, 'icon.png');
   windowConfig.frame = false;
@@ -33,6 +33,38 @@ function createWindow() {
   // Create the browser window.
   win = new BrowserWindow(windowConfig);
   win.userDataPath = path.join(app.getPath('userData'), 'backlog.json');
+
+  let isQuiting;
+
+  app.on('before-quit', function () {
+    isQuiting = true;
+  });
+
+  var appIcon = new Tray(path.join(__static, 'icon.png'))
+
+  var contextMenu = Menu.buildFromTemplate([
+    {
+      label: 'Show App', click: function () {
+        win.show()
+      }
+    },
+    {
+      label: 'Quit', click: function () {
+        isQuiting = true
+        app.quit()
+      }
+    }
+  ])
+
+  appIcon.setContextMenu(contextMenu)
+  appIcon.setToolTip('Backlog')
+  appIcon.on('double-click', () => {
+    win.show();
+  })
+
+  win.on('show', function () {
+    appIcon.setHighlightMode('always')
+  })
 
   if (process.platform === 'darwin') {
     Menu.setApplicationMenu(createMenuOnMac());
@@ -61,7 +93,14 @@ function createWindow() {
 
   win.on('resize', () => windowSettings.updateWindowState(win.getBounds()));
   win.on('move', () => windowSettings.updateWindowState(win.getBounds()));
-  win.on('close', () => windowSettings.updateWindowState(win.getBounds()));
+  win.on('close', () => {
+    windowSettings.updateWindowState(win.getBounds());
+    if (!isQuiting) {
+      event.preventDefault();
+      window.hide();
+      event.returnValue = false;
+    }
+  });
 }
 
 // Quit when all windows are closed.
@@ -84,7 +123,7 @@ app.on('activate', () => {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', async() => {
+app.on('ready', async () => {
   if (isDevelopment && !process.env.IS_TEST) {
     // Install Vue Devtools
     try {
@@ -111,25 +150,24 @@ if (isDevelopment) {
   }
 }
 
-
 function createMenuOnMac() {
   return Menu.buildFromTemplate([
     {
       label: app.getName(),
       submenu: [
-        {role: 'undo'},
-        {role: 'redo'},
-        {type: 'separator'},
-        {role: 'cut'},
-        {role: 'copy'},
-        {role: 'paste'},
-        {role: 'pasteandmatchstyle'},
-        {role: 'delete'},
-        {role: 'selectall'},
-        {role: 'quit'},
-        {role: 'hide'},
-        {role: 'hideothers'},
-        {role: 'unhide'},
+        { role: 'undo' },
+        { role: 'redo' },
+        { type: 'separator' },
+        { role: 'cut' },
+        { role: 'copy' },
+        { role: 'paste' },
+        { role: 'pasteandmatchstyle' },
+        { role: 'delete' },
+        { role: 'selectall' },
+        { role: 'quit' },
+        { role: 'hide' },
+        { role: 'hideothers' },
+        { role: 'unhide' },
       ],
     },
   ]);

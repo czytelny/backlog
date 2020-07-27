@@ -115,6 +115,7 @@
     "shortcut": "Shortcut",
     "shortcut_modified": "Shortcut modified",
     "show_creation_date_for_each_item": "Show creation date for each item",
+    "minimize_to_tray": "Minimize to Tray instead of Taskbar",
     "show_keymap_window": "Show keymap window",
     "switch_to_next_board": "Switch to the next board",
     "switch_to_prev_board": "Switch to the previous board",
