@@ -4,7 +4,6 @@
 import { app, BrowserWindow, Tray, Menu, protocol } from 'electron';
 import { createProtocol, installVueDevtools } from 'vue-cli-plugin-electron-builder/lib';
 import windowRepository from './windowRepository';
-import StateBlock from 'markdown-it/lib/rules_block/state_block';
 
 const path = require('path');
 
@@ -19,7 +18,7 @@ const windowSettings = windowRepository(path.join(app.getPath('userData'), 'wind
 let win;
 
 // Standard scheme must be registered before the app is ready
-protocol.registerSchemesAsPrivileged([{ scheme: 'app', privileges: { secure: true } }]);
+protocol.registerSchemesAsPrivileged([{ scheme: 'app', privileges: { secure: true }}]);
 
 
 function createWindow() {
