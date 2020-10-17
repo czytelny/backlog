@@ -42,7 +42,9 @@
     "delete": "移除",
     "enter_something": "写一些东西吧······",
     "move_to_bottom": "移至底层",
-    "move_to_top": "移至顶层"
+    "move_to_top": "移至顶层",
+    "mark_important": "标记为重要",
+    "mark_unimportant": "标记为不重要"
   },
   "menu": {
     "add_new_board": "新建一个页面",

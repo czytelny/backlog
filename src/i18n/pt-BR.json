@@ -42,7 +42,9 @@
     "delete": "Excluir",
     "enter_something": "Digite algo...",
     "move_to_bottom": "Mover para baixo",
-    "move_to_top": "Mover para o topo"
+    "move_to_top": "Mover para o topo",
+    "mark_important": "marca importante",
+    "mark_unimportant": "marca sem importância"
   },
   "menu": {
     "add_new_board": "Adicionar novo board ",

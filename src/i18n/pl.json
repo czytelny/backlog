@@ -42,7 +42,9 @@
     "delete": "Usuń",
     "enter_something": "Wpisz coś...",
     "move_to_bottom": "Przesuń na dół",
-    "move_to_top": "Przesuń na górę"
+    "move_to_top": "Przesuń na górę",
+    "mark_important": "zaznacz ważne",
+    "mark_unimportant": "oznacz nieważne"
   },
   "menu": {
     "add_new_board": "Dodaj Nową Tablicę",

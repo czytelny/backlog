@@ -42,7 +42,9 @@
     "delete": "Delete",
     "enter_something": "Enter something...",
     "move_to_bottom": "Move to bottom",
-    "move_to_top": "Move to top"
+    "move_to_top": "Move to top",
+    "mark_important": "Mark important",
+    "mark_unimportant": "Mark unimportant"
   },
   "menu": {
     "add_new_board": "Add New Board ",

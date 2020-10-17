@@ -42,7 +42,9 @@
     "delete": "Obriši",
     "enter_something": "Unesi nešto...",
     "move_to_bottom": "Pomakni na dno",
-    "move_to_top": "Pomakni na vrh"
+    "move_to_top": "Pomakni na vrh",
+    "mark_important": "označi kot pomembno",
+    "mark_unimportant": "označi kot nepomembno"
   },
   "menu": {
     "add_new_board": "Dodaj novu ploču ",

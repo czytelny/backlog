@@ -68,6 +68,9 @@ const actions = {
   changeIsDone(context, {boardId, itemId, newVal}) {
     itemsRepository.switchIsDone(boardId, itemId, newVal);
   },
+  changeIsImportant(context, {boardId, itemId, newVal}) {
+    itemsRepository.switchIsImportant(boardId, itemId, newVal);
+  },
   changeItemVal(context, {boardId, itemId, newVal}) {
     itemsRepository.changeItemValue(boardId, itemId, newVal);
   },
