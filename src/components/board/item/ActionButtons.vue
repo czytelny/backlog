@@ -11,11 +11,11 @@
         <Icon type="ios-arrow-dropdown"/>
           {{$t("item.move_to_bottom")}}
       </DropdownItem>
-      <DropdownItem  name="markImportant">
+      <DropdownItem v-if="!isImportant" name="markImportant">
        <Icon type="ios-add" />
           {{$t("item.mark_important")}}
       </DropdownItem>
-      <DropdownItem   name="markUnimportant">
+      <DropdownItem v-if="isImportant" name="markUnimportant">
        <Icon type="ios-close" />
           {{$t("item.mark_unimportant")}}
       </DropdownItem>

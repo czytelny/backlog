@@ -5,7 +5,7 @@ import {app, BrowserWindow, Menu, protocol} from 'electron';
 import {createProtocol, installVueDevtools} from 'vue-cli-plugin-electron-builder/lib';
 import windowRepository from './windowRepository';
 import installExtension from 'electron-devtools-installer';
-import devtools from '@vue/devtools'
+
 
 
 
@@ -102,7 +102,6 @@ app.on('ready', () => {
 
 // Exit cleanly on request from parent process in development mode.
 if (isDevelopment) {
-  devtools.connect(/* host, port */)
   if (process.platform === 'win32') {
     process.on('message', data => {
       if (data === 'graceful-exit') {

@@ -1,5 +1,5 @@
 <template>
-  <div :class="{'doneItem': isDone, 'isEditing': isEditing,}"
+  <div :class="{'doneItem': isDone, 'isEditing': isEditing, 'important': isImportant, }"
        class="item list-complete-item"
        :data-id="itemId"
        :data-boardId="boardId"
@@ -80,6 +80,7 @@
                      @moveToBottom="moveItemToBottom"
                      @changeImportant="changeIsImportant"
                      :boardId="boardId"
+                     :isImportant="!!isImportant"
       >
       </ActionButtons>
 
@@ -425,6 +426,11 @@
 
   .item >>> .link:hover {
     color: #338a62;
+  }
+
+  .item.important {
+    background: red;
+    color: #f0f0f0;
   }
 
 </style>

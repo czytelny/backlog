@@ -56,6 +56,15 @@
            class="action-icon"
            @click="showSettingsModal"/>
     </Tooltip>
+
+    <Tooltip content="lock"
+             placement="bottom"
+             :transfer="true"
+             class="tooltip-height">
+      <img src="./../../assets/icon/lock.svg"
+           class="action-icon lock"
+           @click="lock"/>
+    </Tooltip>
   </div>
 </template>
 
@@ -94,6 +103,9 @@
       }
     },
     methods: {
+      lock() {
+        this.$store.commit("SET_AUTHENTICATED", false);
+      },
       showKeymap() {
         this.$store.dispatch("showKeymapModal");
       },
