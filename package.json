@@ -24,7 +24,7 @@
   "dependencies": {
     "animate.css": "^3.7.0",
     "autolink-js": "^1.0.2",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "chai-as-promised": "^7.1.1",
     "dayjs": "1.8.15",
     "electron-context-menu": "0.14.0",
