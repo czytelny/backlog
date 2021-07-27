@@ -1,6 +1,7 @@
 import settingsRepository from './../../repositories/settingsRepository';
 
 const state = {
+  authenticated: false,
   wasImported: true,
   itemCreationDate: true,
   prependNewItems: true,
@@ -37,6 +38,9 @@ const state = {
 };
 
 const mutations = {
+  SET_AUTHENTICATED(state, authenticated) {
+    state.authenticated = authenticated
+  },
   SET_SETTINGS(state, settings) {
     state.keyBindings = {...state.keyBindings, ...settings.keyBindings};
     Object.assign(state, settings);

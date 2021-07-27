@@ -56,6 +56,27 @@ export default {
 
     return res;
   },
+  switchIsImportant(boardId, itemId, value) {
+    const board = db
+      .get("boards")
+      .find({id: boardId});
+
+    board.assign({"updated": new Date()}).write();
+    const oldBoardVal = board.cloneDeep().value();
+
+    const res = board
+      .get("items")
+      .find({id: itemId})
+      .assign({
+        isImportant: value,
+        updated: new Date()
+      })
+      .write();
+    const newBoardVal = board.cloneDeep().value();
+    syncRepository.addToSyncQueue(oldBoardVal, newBoardVal);
+
+    return res;
+  },
   switchPrependNewItem(boardId, value) {
     const board = db
       .get("boards")

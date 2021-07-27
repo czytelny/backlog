@@ -1,5 +1,5 @@
 <template>
-  <div :class="{'doneItem': isDone, 'isEditing': isEditing}"
+  <div :class="{'doneItem': isDone, 'isEditing': isEditing, 'important': isImportant, }"
        class="item list-complete-item"
        :data-id="itemId"
        :data-boardId="boardId"
@@ -78,7 +78,9 @@
       <ActionButtons @remove="removeItem"
                      @moveToTop="moveItemToTop"
                      @moveToBottom="moveItemToBottom"
+                     @changeImportant="changeIsImportant"
                      :boardId="boardId"
+                     :isImportant="!!isImportant"
       >
       </ActionButtons>
 
@@ -104,7 +106,7 @@
     name: 'board-item',
     components: {BoardItemCalendar, ActionButtons, EmojiButton, EmojiPicker},
     mixins: [keyShortcutMixin],
-    props: ['boardId', 'itemId', 'isDone', 'text', 'created'],
+    props: ['boardId', 'itemId', 'isDone', 'text', 'created', 'isImportant'],
     data () {
       return {
         isEditing: false,
@@ -198,6 +200,16 @@
         this.$store.dispatch('fetchBoardItems', this.boardId);
         this.$bus.$emit('focusOnAddItem');
         this.$Message.success(this.$t('board.item_removed'));
+      },
+      changeIsImportant (newVal) {
+        this.$store.dispatch('changeIsImportant', {
+          boardId: this.boardId,
+          itemId: this.itemId,
+          newVal
+        });
+        this.$store.dispatch('fetchBoardItems', this.boardId);
+        this.$store.dispatch('fetchBoards');
+        this.$bus.$emit('focusOnAddItem');
       },
       moveItemToTop () {
         this.$store.dispatch('moveItemToTop', {
@@ -414,6 +426,11 @@
 
   .item >>> .link:hover {
     color: #338a62;
+  }
+
+  .item.important {
+    background: red;
+    color: #f0f0f0;
   }
 
 </style>

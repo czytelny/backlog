@@ -4,12 +4,17 @@
 import {app, BrowserWindow, Menu, protocol} from 'electron';
 import {createProtocol, installVueDevtools} from 'vue-cli-plugin-electron-builder/lib';
 import windowRepository from './windowRepository';
+import installExtension from 'electron-devtools-installer';
+
+
+
 
 const path = require('path');
 
+
 require('electron-context-menu')();
 
-const isDevelopment = process.env.NODE_ENV !== 'production';
+const isDevelopment = process.env.NODE_ENV !== 'development';
 
 const windowSettings = windowRepository(path.join(app.getPath('userData'), 'window.json'));
 
@@ -33,6 +38,8 @@ function createWindow() {
   // Create the browser window.
   win = new BrowserWindow(windowConfig);
   win.userDataPath = path.join(app.getPath('userData'), 'backlog.json');
+
+  
 
   if (process.platform === 'darwin') {
     Menu.setApplicationMenu(createMenuOnMac());
@@ -81,19 +88,16 @@ app.on('activate', () => {
   }
 });
 
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', async() => {
-  if (isDevelopment && !process.env.IS_TEST) {
-    // Install Vue Devtools
-    try {
-      await installVueDevtools();
-    } catch (e) {
-      console.error('Vue Devtools failed to install:', e.toString());
-    }
-  }
+app.on('ready', () => {
+  installExtension('nhdogjmejiglipccpnnnanhbledajbpd')
+        .then((name) => console.log(`Added Extension:  ${name}`))
+        .catch((err) => console.log('An error occurred: ', err));
   createWindow();
+  
 });
 
 // Exit cleanly on request from parent process in development mode.

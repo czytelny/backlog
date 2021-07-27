@@ -39,6 +39,7 @@
                       :key="item.id"
                       :itemId="item.id"
                       :isDone="item.isDone"
+                      :isImportant="item.isImportant"
                       :text="item.text"
                       :created="item.created"
                       :ref="item.id"

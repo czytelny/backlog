@@ -1,8 +1,7 @@
 <template>
-  <span class="icon-more">
+  <span class="icon-more" >
     <Dropdown @on-click="handleClick" :transfer="true">
     <Icon type="ios-more-outline" size="24"/>
-
     <DropdownMenu slot="list" class="dropdown-menu">
       <DropdownItem name="moveToTop">
        <Icon type="ios-arrow-dropup"/>
@@ -11,6 +10,14 @@
       <DropdownItem name="moveToBottom">
         <Icon type="ios-arrow-dropdown"/>
           {{$t("item.move_to_bottom")}}
+      </DropdownItem>
+      <DropdownItem v-if="!isImportant" name="markImportant">
+       <Icon type="ios-add" />
+          {{$t("item.mark_important")}}
+      </DropdownItem>
+      <DropdownItem v-if="isImportant" name="markUnimportant">
+       <Icon type="ios-close" />
+          {{$t("item.mark_unimportant")}}
       </DropdownItem>
       <DropdownItem class="delete-btn" name="remove">
         <Icon type="ios-trash-outline"/>
@@ -24,6 +31,12 @@
 <script>
   export default {
     name: "ActionButtons",
+    props: ['isImportant'],
+    data(){
+      return{
+        localisImportant: this.isImportant
+      }
+    },
     methods: {
       handleClick(val) {
         switch (val) {
@@ -36,7 +49,21 @@
           case "moveToBottom":
             this.moveToBottom();
             break;
+          case "markUnimportant":
+            this.Important = true;
+            this.changeToFalse();
+            break;
+          case "markImportant":
+            this.Important = false;
+            this.changeToTure();
+            break;
         }
+      },
+      changeToTure(){
+        this.$emit("changeImportant", true)
+      },
+      changeToFalse(){
+        this.$emit("changeImportant", false)
       },
       remove() {
         this.$emit("remove");
@@ -46,9 +73,10 @@
       },
       moveToBottom() {
         this.$emit("moveToBottom");
-      }
-    }
+      },
+    },
   };
+
 </script>
 
 <style>

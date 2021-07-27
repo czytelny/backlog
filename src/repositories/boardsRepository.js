@@ -28,6 +28,7 @@ export default {
       .find({id: boardId});
     const newItem = {
       id: shortid.generate(),
+      isImportant: false,
       isDone: false,
       created: new Date(),
       updated: new Date(),
@@ -44,16 +45,16 @@ export default {
     syncRepository.addToSyncQueue(oldBoardVal, newBoardVal);
     return newItem;
   },
-  addItemToEnd(boardId, text, created, isDone) {
+  addItemToEnd(boardId, text, created, isDone, isImportant) {
     const board = db
       .get("boards")
       .find({id: boardId});
     board.assign({"updated": new Date()}).write();
-
     const oldBoardVal = board.cloneDeep().value();
     const writeAction = board
       .get("items")
       .insert({
+        isImportant: isImportant || false,
         isDone: isDone || false,
         created: created || new Date(),
         updated: new Date(),
@@ -228,7 +229,7 @@ export default {
         db.boards.forEach((board) => {
           const newBoardObj = service.addNewBoard(board.label, {prependNewItems: board.prependNewItem});
           board.items.forEach((item) => {
-            service.addItemToEnd(newBoardObj.id, item.text, item.created, item.isDone);
+            service.addItemToEnd(newBoardObj.id, item.text, item.created, item.isDone, item.isImportant);
           });
         });
         resolve();
