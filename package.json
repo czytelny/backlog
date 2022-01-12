@@ -33,7 +33,7 @@
     "jsondiffpatch": "^0.3.11",
     "lodash-id": "^0.14.0",
     "lowdb": "^1.0.0",
-    "markdown-it": "^8.4.2",
+    "markdown-it": "^12.3.2",
     "shortid": "^2.2.14",
     "sillyname": "^0.1.0",
     "simplebar-vue": "^0.1.6",
